@@ -12,17 +12,8 @@ import java.util.ArrayList;
  * @author thinh
  */
 public class Manage extends User implements IBorrowDocument{
-    private String password;
     private ArrayList<User> users;
     private ArrayList<Document> documents;
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public ArrayList<User> getArrayUsers() {
         return users;

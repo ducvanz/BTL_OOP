@@ -25,10 +25,17 @@ public class User extends Document{
     private boolean loanTerm;
     private int numberBorrowed;
     private ArrayList<Document> borrowedDocument;
+    private String passWord;
 
     public User() {
     }
 
+    public User(String userID, String userName, String passWord){
+        this.userID = userID;
+        this.userName = userName;
+        this.passWord = passWord;
+    }
+    
     public User(String userID, String userName, String email, String phone, String birthday, String address, boolean loanTerm, int numberBorrowed) {
         this.userID = userID;
         this.userName = userName;
@@ -38,6 +45,14 @@ public class User extends Document{
         this.address = address;
         this.loanTerm = loanTerm;
         this.numberBorrowed = numberBorrowed;
+    }
+    
+    public String getPassWord() {
+        return passWord;
+    }
+    
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
     }
     
     public String getUserID() {
@@ -130,6 +145,32 @@ public class User extends Document{
 
     public void returnDocument(Document doc) {
         // Trả tài liệu
+    }
+    
+    public int checkAccout(String accout, String passWord, int pp, Connection con) {
+        if (pp == 1) {
+            // check tai khoan nguoi dung
+            
+            String selectSQL = "1?"; // code search mysql
+            try (PreparedStatement pstmt = con.prepareStatement(selectSQL)) {
+                //
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            // check tai khoan quan ly
+            
+            String selectSQL = "1?"; // code search mysql
+            try (PreparedStatement pstmt = con.prepareStatement(selectSQL)) {
+                //
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        // mat khau sai
+        return 0;
     }
      
 }
