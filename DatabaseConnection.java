@@ -19,37 +19,43 @@ import java.util.ArrayList;
 public class DatabaseConnection {
 
     // Kết nối với MySQL
-    private static final String URL = "jdbc:mysql://localhost:3306/dboop"; // Thay "library" bằng tên database của bạn
+    private static final String URL = "jdbc:mysql://localhost:3306/library"; // Thay "library" bằng tên database của bạn
     private static final String USER = "root"; // Tên người dùng MySQL của bạn
-    private static final String PASSWORD = "192005"; // Mật khẩu của bạn
+    private static final String PASSWORD = "maiducvan112@##"; // Mật khẩu của bạn
+    private static int count = 0;
     
-    public static void connectDatabase() {
+    public void connectDatabase() {
         getConnection();
         createTables();
-        insertAllTable();
+        if (count == 0) {
+            insertAllTable();
+            count ++;
+        }
     }
     
-    public static void main(String args[]) {
-        connectDatabase();
-    }
-    public static Connection getConnection() {
+    public  Connection getConnection() {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("Kết nối thành công!");
+            //System.out.println("Kết nối thành công!");
         } catch (SQLException e) {
-            System.out.println("Kết nối thất bại!");
+            //System.out.println("Kết nối thất bại!");
             e.printStackTrace();
         }
         return connection;
     }
 
     // Tạo các bảng trong cơ sở dữ liệu
-    public static void createTables() {
+    public void createTables() {
         Connection connection = getConnection();
         try {
             Statement statement = connection.createStatement();
 
+            // xoa schema neu da ton tai
+//            String create = "DROP SCHEMA IF EXISTS library; "
+//                    + "CREATE SCHEMA library;";
+//            statement.execute(create);
+            
             // Bảng User
             String createUserTable = "CREATE TABLE IF NOT EXISTS User (" +
                     "userID INT PRIMARY KEY AUTO_INCREMENT," +
@@ -60,6 +66,7 @@ public class DatabaseConnection {
                     "address VARCHAR(255)," +
                     "loanTerm BOOLEAN," +
                     "numberBorrowed INT," +
+                    "userAccount VARCHAR(100), " +
                     "password VARCHAR(100)" +
                     ");";
             statement.execute(createUserTable);
@@ -103,14 +110,14 @@ public class DatabaseConnection {
                     ");";
             statement.execute(createNewspaperTable);
 
-            System.out.println("Tạo bảng thành công!");
+            //System.out.println("Tạo bảng thành công!");
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     
-    public static ArrayList<User> getUsers() {
+    public ArrayList<User> getUsers() {
         ArrayList<User> users = new ArrayList<>();
         Connection connection = getConnection();
         String sql = "SELECT userID, userName, email, phone, birthday, address, loanTerm, numberBorrowed FROM User";
@@ -137,7 +144,7 @@ public class DatabaseConnection {
     }
 
 
-    public static ArrayList<Book> getBooks() {
+    public ArrayList<Book> getBooks() {
         ArrayList<Book> books = new ArrayList<>();
         Connection connection = getConnection();
         String sql = "SELECT b.ISBN, d.documentID, d.title, d.author, d.publisher, d.yearPublished, d.quantity, d.category, d.language " +
@@ -167,7 +174,7 @@ public class DatabaseConnection {
         return books;
     }
     
-    public static ArrayList<Thesis> getThesis() {
+    public ArrayList<Thesis> getThesis() {
         ArrayList<Thesis> theses = new ArrayList<>();
         Connection connection = getConnection();
         String sql = "SELECT t.degree, t.university, d.documentID, d.title, d.author, d.publisher, d.yearPublished, d.quantity, d.category, d.language " +
@@ -198,7 +205,7 @@ public class DatabaseConnection {
         return theses;
     }
 
-    public static ArrayList<Newspaper> getNewspaper() {
+    public ArrayList<Newspaper> getNewspaper() {
         ArrayList<Newspaper> newspapers = new ArrayList<>();
         Connection connection = getConnection();
         String sql = "SELECT n.date, n.ISBN, d.documentID, d.title, d.author, d.publisher, d.yearPublished, d.quantity, d.category, d.language " +
@@ -232,23 +239,25 @@ public class DatabaseConnection {
 
 
     // Chèn dữ liệu vào bảng User
-    public static void insertUser(String name, String email, String phone, String birthday, String address, boolean loanTerm, int numberBorrowed, String password) {
+    public void insertUser(String userID, String name, String email, String phone, String birthday, String address, boolean loanTerm, int numberBorrowed,String userAccount, String password) {
         Connection connection = getConnection();
-        String sql = "INSERT INTO User (name, email, phone, birthday, address, loanTerm, numberBorrowed, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO User (userID, name, email, phone, birthday, address, loanTerm, numberBorrowed, userAccount, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, name);
-            statement.setString(2, email);
-            statement.setString(3, phone);
-            statement.setString(4, birthday);
-            statement.setString(5, address);
-            statement.setBoolean(6, loanTerm);
-            statement.setInt(7, numberBorrowed);
-            statement.setString(8, password);
+            statement.setString(1, userID);
+            statement.setString(2, name);
+            statement.setString(3, email);
+            statement.setString(4, phone);
+            statement.setString(5, birthday);
+            statement.setString(6, address);
+            statement.setBoolean(7, loanTerm);
+            statement.setInt(8, numberBorrowed);
+            statement.setString(9, userAccount);
+            statement.setString(10, password);
 
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
-                System.out.println("Thêm người dùng thành công!");
+                //System.out.println("Thêm người dùng thành công!");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -256,7 +265,7 @@ public class DatabaseConnection {
     }
     
      // Hàm ghi thông tin vào bảng Document
-    public static void insertDocument(String title, String author, String publisher, int yearPublished, int quantity, String category, String language) {
+    public void insertDocument(String title, String author, String publisher, int yearPublished, int quantity, String category, String language) {
         Connection connection = getConnection();
         String sql = "INSERT INTO Document (title, author, publisher, yearPublished, quantity, category, language) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -278,7 +287,7 @@ public class DatabaseConnection {
     }
 
     // Hàm ghi thông tin vào bảng Book
-    public static void insertBook(int documentID, String ISBN) {
+    public void insertBook(int documentID, String ISBN) {
         Connection connection = getConnection();
         String sql = "INSERT INTO Book (documentID, ISBN) VALUES (?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -296,7 +305,7 @@ public class DatabaseConnection {
     
 
     // Hàm ghi thông tin vào bảng Thesis
-    public static void insertThesis(int documentID, String degree, String university) {
+    public void insertThesis(int documentID, String degree, String university) {
         Connection connection = getConnection();
         String sql = "INSERT INTO Thesis (documentID, degree, university) VALUES (?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -314,7 +323,7 @@ public class DatabaseConnection {
     }
 
     // Hàm ghi thông tin vào bảng Newspaper
-    public static void insertNewspaper(int documentID, String date, String ISBN) {
+    public void insertNewspaper(int documentID, String date, String ISBN) {
         Connection connection = getConnection();
         String sql = "INSERT INTO Newspaper (documentID, date, ISBN) VALUES (?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -330,17 +339,17 @@ public class DatabaseConnection {
             e.printStackTrace();
         }
     }
-     public static void insertAllTable(){
-        insertUser("Nguyen Van A", "nva@gmail.com", "0987654321", "1990-01-15", "Ha Noi", true, 3, "password1");
-        insertUser("Tran Thi B", "ttb@gmail.com", "0912345678", "1992-05-20", "Da Nang", false, 1, "password2");
-        insertUser("Le Van C", "lvc@gmail.com", "0909876543", "1995-09-10", "Ho Chi Minh", true, 4, "password3");
-        insertUser("Pham Thi D", "ptd@gmail.com", "0932456789", "1998-03-25", "Can Tho", true, 2, "password4");
-        insertUser("Nguyen Thi E", "nte@gmail.com", "0981234567", "2000-12-01", "Hue", false, 0, "password5");
-        insertUser("Hoang Van F", "hvf@gmail.com", "0973456789", "1988-07-17", "Ha Noi", true, 5, "password6");
-        insertUser("Bui Thi G", "btg@gmail.com", "0921456789", "1991-04-08", "Hai Phong", false, 2, "password7");
-        insertUser("Vo Van H", "vvh@gmail.com", "0918765432", "1985-11-23", "Da Nang", true, 6, "password8");
-        insertUser("Do Thi I", "dti@gmail.com", "0938765432", "1983-08-14", "Ho Chi Minh", false, 3, "password9");
-        insertUser("Ly Van J", "lvj@gmail.com", "0906785432", "1997-06-29", "Ha Noi", true, 1, "password10");
+     public void insertAllTable(){
+        insertUser("23020000", "Nguyen Van A", "nva@gmail.com", "0987654321", "1990-01-15", "Ha Noi", true, 3,"Account1", "password1");
+        insertUser("23020001", "Tran Thi B", "ttb@gmail.com", "0912345678", "1992-05-20", "Da Nang", false, 1,"Account2", "password2");
+        insertUser("23020002", "Le Van C", "lvc@gmail.com", "0909876543", "1995-09-10", "Ho Chi Minh", true, 4,"Account3", "password3");
+        insertUser("23020003", "Pham Thi D", "ptd@gmail.com", "0932456789", "1998-03-25", "Can Tho", true, 2,"Account4", "password4");
+        insertUser("23020004", "Nguyen Thi E", "nte@gmail.com", "0981234567", "2000-12-01", "Hue", false, 0,"Account5", "password5");
+        insertUser("23020005", "Hoang Van F", "hvf@gmail.com", "0973456789", "1988-07-17", "Ha Noi", true, 5,"Account6", "password6");
+        insertUser("23020006", "Bui Thi G", "btg@gmail.com", "0921456789", "1991-04-08", "Hai Phong", false, 2,"Account7", "password7");
+        insertUser("23020007", "Vo Van H", "vvh@gmail.com", "0918765432", "1985-11-23", "Da Nang", true, 6,"Account8", "password8");
+        insertUser("23020008", "Do Thi I", "dti@gmail.com", "0938765432", "1983-08-14", "Ho Chi Minh", false, 3,"Account9", "password9");
+        insertUser("23020009", "Ly Van J", "lvj@gmail.com", "0906785432", "1997-06-29", "Ha Noi", true, 1,"Account10", "password10");
 
         insertDocument("Don Quixote", "Miguel de Cervantes", "Francisco de Robles", 1605, 10, "Novel", "Spanish");
         insertDocument("Chi Pheo", "Nam Cao", "Tao Dan", 1941, 15, "Novel", "Vietnamese");

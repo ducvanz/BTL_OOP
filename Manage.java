@@ -6,7 +6,13 @@ package BTL_OOP;
 
 import BTL_OOP.Document;
 import java.util.ArrayList;
-
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 /**
  *
  * @author thinh
@@ -14,7 +20,7 @@ import java.util.ArrayList;
 public class Manage extends User implements IBorrowDocument{
     private ArrayList<User> users;
     private ArrayList<Document> documents;
-
+    
     public ArrayList<User> getArrayUsers() {
         return users;
     }
@@ -33,6 +39,20 @@ public class Manage extends User implements IBorrowDocument{
 
     @Override
     public void addUser(User user) {
+        DatabaseConnection db = new DatabaseConnection();
+        Connection con = db.getConnection();
+        String sql = "INSERT INTO User (userID, name, userAccount, password) VALUES (?, ?, ?, ?)";
+        try {
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setString(1, user.getUserID());
+            statement.setString(2, user.getUserName());
+            statement.setString(3, user.getUserAccount());
+            statement.setString(4, user.getPassWord());
+
+            statement.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
