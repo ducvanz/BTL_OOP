@@ -16,7 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class User extends Document{
+public class User {
     private String userID;
     private String userName;
     private String email;
@@ -27,7 +27,7 @@ public class User extends Document{
     private int numberBorrowed;
     private ArrayList<Document> borrowedDocument;
     private String userAccount;
-    private String passWord;
+    private String password;
 
     public User() {
     }
@@ -36,10 +36,10 @@ public class User extends Document{
         this.userID = userID;
         this.userName = userName;
         this.userAccount = userAccout;
-        this.passWord = passWord;
+        this.password = passWord;
     }
 
-    public User(String userID, String userName, String email, String phone, String birthday, String address, boolean loanTerm, int numberBorrowed) {
+    public User(String userID, String userName, String email, String phone, String birthday, String address, boolean loanTerm, int numberBorrowed, String userAccount, String password) {
         this.userID = userID;
         this.userName = userName;
         this.email = email;
@@ -48,6 +48,8 @@ public class User extends Document{
         this.address = address;
         this.loanTerm = loanTerm;
         this.numberBorrowed = numberBorrowed;
+        this.userAccount = userAccount;
+        this.password = password;
     }
 
     public String getUserAccount() {
@@ -58,12 +60,12 @@ public class User extends Document{
         this.userAccount = userAccout;
     }
 
-    public String getPassWord() {
-        return passWord;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
+    public void setPassword(String passWord) {
+        this.password = passWord;
     }
 
     public String getUserID() {
@@ -130,21 +132,35 @@ public class User extends Document{
         this.numberBorrowed = numberBorrowed;
     }
 
-
-    public void printInfor() {
-        // Hiển thị thông tin tài liệu
-        System.out.println ("User Information:");
-        System.out.println ("ID:" + userID);
-        System.out.println ("Name:" + userName);
-        System.out.println ("Email:" + email);
-        System.out.println ("Phone:" + phone);
-        System.out.println ("Birthday:" + birthday);
-        System.out.println ("Address:" + address);
-        System.out.println ("Loan term:" + (loanTerm? "Active": "Inactive"));
-        System.out.println ("Number of Borrowed Documents:" + numberBorrowed);
-
-    }
-
+//    // lấy tài khoản người dùng
+//    public User getInfoFromAccount(User user, Connection con) {
+//        String selectSQL = "SELECT userID, name, email, phone, birthday, address, loanTerm, numberBorrowed FROM user WHERE userAccount = ?";  // Đảm bảo tên cột đúng
+//            try (PreparedStatement statement = con.prepareStatement(selectSQL)) {
+//            // Truyền giá trị cho tham số "?"
+//            statement.setString(1, user.getUserAccount());  // userAccount là biến chứa tên tài khoản người dùng
+//    
+//            // Thực thi câu lệnh truy vấn
+//            try (ResultSet res = statement.executeQuery()) {
+//                if (res.next()) {
+//                    // Lấy password từ kết qua
+//                    user.setUserID(res.getString("userID"));
+//                    user.setUserName(res.getString("name"));
+//                    user.setEmail("email");
+//                    user.setPhone(res.getString("phone"));
+//                    user.setBirthday(res.getString("birthday"));
+//                    user.setAddress(res.getString("address"));
+//                    user.setLoanTerm(res.getBoolean("loanTerm"));
+//                    user.setNumberBorrowed(res.getInt("numberBorrowed"));
+//                    
+//                }
+//                return user;
+//            }
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//            }
+//        return user;
+//    }
+    
     public Document findDocument(String title) {
         // Tìm tài liệu theo tiêu đề
         return null;
@@ -173,7 +189,7 @@ public class User extends Document{
         if (pp == 1) {
             // check tai khoan nguoi dung
 
-            String selectSQL = "SELECT password FROM user WHERE userAccount = ?";  // Đảm bảo tên cột đúng
+            String selectSQL = "SELECT password FROM User WHERE userAccount = ?";  // Đảm bảo tên cột đúng
             try (PreparedStatement statement = con.prepareStatement(selectSQL)) {
             // Truyền giá trị cho tham số "?"
             statement.setString(1, account);  // userAccount là biến chứa tên tài khoản người dùng
@@ -210,7 +226,7 @@ public class User extends Document{
     }
 
     public String checkName(String name) {
-    if (name.length() > 50) {
+    if (name.length() > 30) {
         return "Name too long!";
     }
 
@@ -225,7 +241,7 @@ public class User extends Document{
     }
     
     public boolean checkID(String s, Connection con) {        
-        String select = "SELECT 1 FROM user WHERE userID = ?";
+        String select = "SELECT 1 FROM User WHERE userID = ?";
         try(PreparedStatement pstm = con.prepareStatement(select)) {
             
             pstm.setString(1, s);
@@ -257,7 +273,7 @@ public class User extends Document{
     }
     
     public boolean checkAccount(String account, Connection con) {
-        String select = "SELECT 1 FROM user WHERE userAccount = ?";
+        String select = "SELECT 1 FROM User WHERE userAccount = ?";
         try(PreparedStatement pstm = con.prepareStatement(select)) {
             
             pstm.setString(1, account);
