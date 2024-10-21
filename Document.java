@@ -56,6 +56,39 @@ public abstract class Document {
     public String getLanguage() {
         return language;
     }
+
+    public void setDocumentID(String documentID) {
+        this.documentID = documentID;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public void setYearPublished(int yearPublished) {
+        this.yearPublished = yearPublished;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+    
     
 
     public void printInfor() {

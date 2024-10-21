@@ -4,6 +4,9 @@
  */
 package BTL_OOP;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
 
 /**
  *
@@ -31,8 +34,9 @@ public class Newspaper extends Document{
         return date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDate(Date date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Định dạng năm-tháng-ngày
+        this.date = dateFormat.format(date); 
     }
 
     public String getISBN() {

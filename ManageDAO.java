@@ -17,12 +17,13 @@ import java.util.ArrayList;
  * @author thinh
  */
 public class ManageDAO implements IManageDAO{
-    DatabaseConnection dbConnection = new DatabaseConnection();
-    private Connection connection = dbConnection.getConnection();
+    private final Connection connection;
 
-    // Constructor nhận vào đối tượng kết nối cơ sở dữ liệu
     public ManageDAO() {
+        DatabaseConnection dbConnection = new DatabaseConnection();
+        connection = dbConnection.getConnection();
     }
+
 
     @Override
     public void addUser(User user) {
@@ -45,14 +46,32 @@ public class ManageDAO implements IManageDAO{
     }
 
     @Override
-    public User getUserByID(String userID) {
+    public int getUserIDByUserAccount(String userAccount) {
+        String sql = "SELECT userID FROM User WHERE userAccount = ?";
+        int userID = -1; // Nếu không tìm thấy user, trả về -1
+        
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, userAccount);
+            ResultSet rs = pstmt.executeQuery();
+            
+            if (rs.next()) {
+                userID = rs.getInt("userID");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userID;
+    }
+    
+    @Override
+    public User getUserByID(int userID) {
         String sql = "SELECT * FROM User WHERE userID = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setString(1, userID);
+            pstmt.setInt(1, userID);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 return new User(
-                    rs.getString("userID"),
+                    rs.getInt("userID"),
                     rs.getString("name"),
                     rs.getString("email"),
                     rs.getString("phone"),
@@ -69,6 +88,7 @@ public class ManageDAO implements IManageDAO{
         }
         return null;
     }
+
 
     @Override
     public void updateUser(User user) {
@@ -91,15 +111,16 @@ public class ManageDAO implements IManageDAO{
     }
 
     @Override
-    public void deleteUser(String userID) {
+    public void deleteUser(int userID) {
         String sql = "DELETE FROM User WHERE userID = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setString(1, userID);
+            pstmt.setInt(1, userID);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 
     @Override
     public ArrayList<User> getAllUsers() {
@@ -109,7 +130,7 @@ public class ManageDAO implements IManageDAO{
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 users.add(new User(
-                    rs.getString("userID"),
+                    rs.getInt("userID"),
                     rs.getString("name"),
                     rs.getString("email"),
                     rs.getString("phone"),
@@ -127,23 +148,26 @@ public class ManageDAO implements IManageDAO{
         return users;
     }
 
+
     @Override
     public void removeUser(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
 
     @Override
     public void addDocument(Document doc) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+
     @Override
-    public void removeDocument(Document doc) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void removeDocument(int documentID) {
     }
+
 
     @Override
     public void updateDocument(Document doc) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+
+
 }

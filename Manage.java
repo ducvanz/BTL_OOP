@@ -44,11 +44,19 @@ public class Manage extends User {
         
     }
     
-    public User getUserById(String userID) {
+    public User getUserByID(int userID) {
         ManageDAO manageDAO = new ManageDAO();
         return manageDAO.getUserByID(userID);
     }
-
+    
+    public int getUserIDByUserAccount(String userAccount) {
+        ManageDAO manageDAO = new ManageDAO();
+        return manageDAO.getUserIDByUserAccount(userAccount);
+    }
+        
+    public ArrayList<User> getAllUsers() {
+        return null;
+    }
     public void removeUser(User user) {
     }
 
@@ -66,17 +74,6 @@ public class Manage extends User {
 
 
     public void updateDocument(Document doc) {
-    }
-
-
-    public void deleteUser(String userID) {
-
-    }
-
-
-
-    public ArrayList<User> getAllUsers() {
-        return null;
     }
 
 }

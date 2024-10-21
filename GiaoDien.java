@@ -567,7 +567,7 @@ public class GiaoDien extends javax.swing.JFrame {
 
     // set "wait" - login
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-     
+
         loginButton.setText("Please Waitting");
 
         String accountUser = accountInLoginTextField.getText();
@@ -592,8 +592,6 @@ public class GiaoDien extends javax.swing.JFrame {
         }
         
         user.setUserAccount(accountUser);
-        Random random = new Random();
-        user.setUserID(String.valueOf(0 + random.nextInt(999999)));
         
         // kiem tra tai khoan
         if (check == 0) {
@@ -603,11 +601,12 @@ public class GiaoDien extends javax.swing.JFrame {
         } else if (check == 1) {
             CardLayout cl = (CardLayout) getContentPane().getLayout(); // Lấy CardLayout
             cl.show(getContentPane(), "card3");
-            
-            user = manage.getUserById(user.getUserID());
+            int userID = manage.getUserIDByUserAccount(accountUser);
+            user = manage.getUserByID(userID);
             jLabel19.setText(user.getUserName());
         } else {
             // mở giao diện quản lý
+           
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 
@@ -765,4 +764,5 @@ public class GiaoDien extends javax.swing.JFrame {
     private javax.swing.JPanel windowLoginPanel;
     private javax.swing.JPanel windowSigupPane;
     // End of variables declaration//GEN-END:variables
+
 }

@@ -14,11 +14,12 @@ public interface IManageDAO {
     void addUser(User user);
     void removeUser(User user);
     void updateUser(User user);
-    void deleteUser(String userID);
-    User getUserByID(String userID);
+    void deleteUser(int userID);
+    User getUserByID(int userID);
     ArrayList<User> getAllUsers();
+    int getUserIDByUserAccount(String userAccount);
     
     void addDocument(Document doc);
-    void removeDocument(Document doc);
+    void removeDocument(int documentID);
     void updateDocument(Document doc);
 }

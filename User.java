@@ -17,7 +17,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class User {
-    private String userID;
+    private int userID;
     private String userName;
     private String email;
     private String phone;
@@ -32,14 +32,14 @@ public class User {
     public User() {
     }
 
-    public User(String userID, String userName,String userAccout, String passWord){
-        this.userID = userID;
+    public User(String msv, String userName,String userAccout, String passWord){
+        this.userID = Integer.parseInt(msv);
         this.userName = userName;
         this.userAccount = userAccout;
         this.password = passWord;
     }
 
-    public User(String userID, String userName, String email, String phone, String birthday, String address, boolean loanTerm, int numberBorrowed, String userAccount, String password) {
+    public User(int userID, String userName, String email, String phone, String birthday, String address, boolean loanTerm, int numberBorrowed, String userAccount, String password) {
         this.userID = userID;
         this.userName = userName;
         this.email = email;
@@ -68,11 +68,11 @@ public class User {
         this.password = passWord;
     }
 
-    public String getUserID() {
+    public int getUserID() {
         return userID;
     }
 
-    public void setUserID(String userID) {
+    public void setUserID(int userID) {
         this.userID = userID;
     }
 
