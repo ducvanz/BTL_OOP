@@ -22,4 +22,5 @@ public interface IManageDAO {
     void addDocument(Document doc);
     void removeDocument(int documentID);
     void updateDocument(Document doc);
+    ArrayList<Document> getAllDocuments();
 }

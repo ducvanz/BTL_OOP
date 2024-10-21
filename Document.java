@@ -91,7 +91,7 @@ public abstract class Document {
     
     
 
-    public void printInfor() {
+    public void displayDocumentInfor() {
         System.out.println("Book Information:");
         System.out.println("Document ID: " + documentID);
         System.out.println("Title: " + title);

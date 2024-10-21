@@ -4,7 +4,6 @@
  */
 package BTL_OOP;
 
-import BTL_OOP.Document;
 
 /**
  *
@@ -34,9 +33,10 @@ public class Book extends Document {
     }
 
     @Override
-    public void printInfor() {
-        super.printInfor();
-        System.out.println("ISBN: " + ISBN);
+    public void displayDocumentInfor() {
+        super.displayDocumentInfor(); 
+        
     }
+
     
 }

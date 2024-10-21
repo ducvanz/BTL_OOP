@@ -585,10 +585,10 @@ public class GiaoDien extends javax.swing.JFrame {
         Manage manage = new Manage();
         if (manageRadioButton.isSelected()) {
             // check mk manage
-            check = user.accountLogin(accountUser, pass, 2, con);
+            check = AuthenticationService.accountLogin(accountUser, pass, 2, con);
         } else {
             // check mk user
-            check = user.accountLogin(accountUser, pass, 1, con);
+            check = AuthenticationService.accountLogin(accountUser, pass, 1, con);
         }
         
         user.setUserAccount(accountUser);
@@ -639,21 +639,21 @@ public class GiaoDien extends javax.swing.JFrame {
         String pass = new String(arr);
         User user = new User(msv, name, accout, pass);
         
-        if (user.checkID(msv, con)) {
+        if (AuthenticationService.checkID(msv, con)) {
             check ++;
         } else {
             msvTextField.setText("Nhập sai");
             resetOfSignUp();
         }
         
-        if (user.checkName(name).equals("true")) {
+        if (AuthenticationService.checkName(name).equals("true")) {
             check ++;
         } else {
-            nameTextField.setText(user.checkName(name));
+            nameTextField.setText(AuthenticationService.checkName(name));
             resetOfSignUp();
         }
         
-        if (!user.checkAccount(accout, con)) {
+        if (!AuthenticationService.checkAccount(accout, con)) {
             check++;
         } else {
             userAccountTextField.setText("Tai khoan da ton tai!");

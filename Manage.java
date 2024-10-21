@@ -4,15 +4,6 @@
  */
 package BTL_OOP;
 
-import BTL_OOP.Document;
-import java.util.ArrayList;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 /**
  *
@@ -20,60 +11,70 @@ import java.util.ArrayList;
  */
 public class Manage extends User {
     private ArrayList<User> users;
-    private ArrayList<Document> documents;   
+    private ArrayList<Document> documents; 
+    ManageDAO manageDAO = new ManageDAO();
+    DocumentDAO documentDAO = new DocumentDAO();
     
     public ArrayList<User> getArrayUsers() {
         return users;
     }
 
-    public void setArrayUsers(ArrayList<User> users) {
-        this.users = users;
+    public void setArrayUsers() {
+        users = manageDAO.getAllUsers();
     }
 
     public ArrayList<Document> getArrayDocuments() {
         return documents;
     }
 
-    public void setArrayDocuments(ArrayList<Document> documents) {
-        this.documents = documents;
+    public void setArrayDocuments() {
+        documents = documentDAO.getAllDocuments();
     }
 
-    public void addUser(User user) {      
-        ManageDAO manageDAO = new ManageDAO() {};
-        manageDAO.addUser(user);
-        
+    public void addUser(User user){
+        manageDAO.addUser(user);       
     }
     
     public User getUserByID(int userID) {
-        ManageDAO manageDAO = new ManageDAO();
         return manageDAO.getUserByID(userID);
     }
     
     public int getUserIDByUserAccount(String userAccount) {
-        ManageDAO manageDAO = new ManageDAO();
         return manageDAO.getUserIDByUserAccount(userAccount);
     }
         
     public ArrayList<User> getAllUsers() {
-        return null;
+        
+        return manageDAO.getAllUsers();
     }
     public void removeUser(User user) {
+        manageDAO.removeUser(user);
     }
 
 
     public void updateUser(User user) {
+        manageDAO.updateUser(user);
     }
 
 
     public void addDocument(Document doc) {
+        documentDAO.addDocument(doc);
     }
 
 
-    public void removeDocument(Document doc) {
+    public void removeDocument(int documentID) {
+        documentDAO.removeDocument(documentID);
     }
 
 
     public void updateDocument(Document doc) {
+        documentDAO.updateDocument(doc);
     }
+
+    public ArrayList<Document> getAllDocuments() { 
+        return documentDAO.getAllDocuments();
+    }
+    
+
 
 }

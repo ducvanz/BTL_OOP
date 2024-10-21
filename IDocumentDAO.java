@@ -7,13 +7,14 @@ package BTL_OOP;
 import java.util.ArrayList;
 
 /**
- *
+ *    Document getDocumentByID(int documentID); 
+
  * @author thinh
  */
 public interface IDocumentDAO {
-    void addDocument(Document doc);           // Thêm tài liệu
-    void removeDocument(int documentID);      // Xóa tài liệu theo ID
-    void updateDocument(Document doc);        // Cập nhật tài liệu
-    Document getDocumentByID(int documentID); // Lấy tài liệu theo ID
+    void addDocument(Document doc);           
+    void removeDocument(int documentID);      
+    void updateDocument(Document doc);        
+    Document getDocumentByID(int documentID); 
     ArrayList<Document> getAllDocuments();
 }

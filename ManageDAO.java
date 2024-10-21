@@ -18,6 +18,7 @@ import java.util.ArrayList;
  */
 public class ManageDAO implements IManageDAO{
     private final Connection connection;
+    private DocumentDAO documentDAO = new DocumentDAO();
 
     public ManageDAO() {
         DatabaseConnection dbConnection = new DatabaseConnection();
@@ -151,23 +152,20 @@ public class ManageDAO implements IManageDAO{
 
     @Override
     public void removeUser(User user) {
+        String query = "DELETE FROM User WHERE userID = ?"; // Câu lệnh SQL để xóa người dùng
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, user.getUserID()); // Thiết lập giá trị userID cho câu lệnh
+            int rowsAffected = statement.executeUpdate(); // Thực thi câu lệnh
+
+            if (rowsAffected > 0) {
+                System.out.println("User removed successfully."); 
+            } else {
+                System.out.println("User not found."); 
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Xử lý ngoại lệ
+        }
     }
-
-
-    @Override
-    public void addDocument(Document doc) {
-    }
-
-
-    @Override
-    public void removeDocument(int documentID) {
-    }
-
-
-    @Override
-    public void updateDocument(Document doc) {
-    }
-
-
 
 }

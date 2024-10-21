@@ -46,13 +46,11 @@ public class Newspaper extends Document{
     public void setISBN(String ISBN) {
         this.ISBN = ISBN;
     }
-    
-    
 
     @Override
-    public void printInfor() {
-        super.printInfor();
-        System.out.println("Date: " + date);
-        System.out.println("ISBN: " + ISBN);
+    public void displayDocumentInfor() {
+        super.displayDocumentInfor();
     }
+    
+   
 }

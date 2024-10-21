@@ -1,14 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package BTL_OOP;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -121,15 +124,125 @@ public class DocumentDAO implements IDocumentDAO {
     
     @Override
     public void addDocument(Document doc) {
-        
-    }
+        String insertDocumentQuery = "INSERT INTO Document (title, author, publisher, yearPublished, quantity, category, language) " +
+                                     "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-    @Override
-    public void removeDocument(int documentID) {
+        String insertBookQuery = "INSERT INTO Book (documentID, ISBN) VALUES (?, ?)";
+        String insertThesisQuery = "INSERT INTO Thesis (documentID, degree, university) VALUES (?, ?, ?)";
+        String insertNewspaperQuery = "INSERT INTO Newspaper (documentID, date, ISBN) VALUES (?, ?, ?)";
+
+        try (PreparedStatement documentStmt = connection.prepareStatement(insertDocumentQuery, Statement.RETURN_GENERATED_KEYS)) {
+            
+            // Thêm vào bảng Document
+            documentStmt.setString(1, doc.getTitle());
+            documentStmt.setString(2, doc.getAuthor());
+            documentStmt.setString(3, doc.getPublisher());
+            documentStmt.setInt(4, doc.getYearPublished());
+            documentStmt.setInt(5, doc.getQuantity());
+            documentStmt.setString(6, doc.getCategory());
+            documentStmt.setString(7, doc.getLanguage());
+
+            documentStmt.executeUpdate();
+
+            // Lấy documentID vừa được tạo
+            ResultSet generatedKeys = documentStmt.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                int documentID = generatedKeys.getInt(1);
+
+                // Thêm vào bảng con dựa trên loại tài liệu
+                if (doc instanceof Book) {
+                    Book book = (Book) doc;
+                    try (PreparedStatement bookStmt = connection.prepareStatement(insertBookQuery)) {
+                        bookStmt.setInt(1, documentID);
+                        bookStmt.setString(2, book.getISBN());
+                        bookStmt.executeUpdate();
+                    }
+                } else if (doc instanceof Thesis) {
+                    Thesis thesis = (Thesis) doc;
+                    try (PreparedStatement thesisStmt = connection.prepareStatement(insertThesisQuery)) {
+                        thesisStmt.setInt(1, documentID);
+                        thesisStmt.setString(2, thesis.getDegree());
+                        thesisStmt.setString(3, thesis.getUniversity());
+                        thesisStmt.executeUpdate();
+                    }
+                } else if (doc instanceof Newspaper) {
+                    Newspaper newspaper = (Newspaper) doc;
+                    try (PreparedStatement newspaperStmt = connection.prepareStatement(insertNewspaperQuery)) {
+                        newspaperStmt.setInt(1, documentID);
+                        
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
+                        newspaperStmt.setDate(2, (Date) dateFormat.parse(newspaper.getDate()));
+                        newspaperStmt.setString(3, newspaper.getISBN());
+                        newspaperStmt.executeUpdate();
+                    } catch (ParseException ex) {
+                        Logger.getLogger(DocumentDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DocumentDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
     public void updateDocument(Document doc) {
+        String updateDocumentQuery = "UPDATE Document SET title = ?, author = ?, publisher = ?, " +
+                                     "yearPublished = ?, quantity = ?, category = ?, language = ? " +
+                                     "WHERE documentID = ?";
+
+        String updateBookQuery = "UPDATE Book SET ISBN = ? WHERE documentID = ?";
+        String updateThesisQuery = "UPDATE Thesis SET degree = ?, university = ? WHERE documentID = ?";
+        String updateNewspaperQuery = "UPDATE Newspaper SET date = ?, ISBN = ? WHERE documentID = ?";
+
+        try (PreparedStatement documentStmt = connection.prepareStatement(updateDocumentQuery)) {
+            // Cập nhật thông tin bảng Document
+            documentStmt.setString(1, doc.getTitle());
+            documentStmt.setString(2, doc.getAuthor());
+            documentStmt.setString(3, doc.getPublisher());
+            documentStmt.setInt(4, doc.getYearPublished());
+            documentStmt.setInt(5, doc.getQuantity());
+            documentStmt.setString(6, doc.getCategory());
+            documentStmt.setString(7, doc.getLanguage());
+            documentStmt.setInt(8, Integer.parseInt(doc.getDocumentID())); // Sử dụng documentID để cập nhật
+            documentStmt.executeUpdate();
+
+            // Cập nhật bảng con dựa trên loại tài liệu
+            if (doc instanceof Book) {
+                Book book = (Book) doc;
+                try (PreparedStatement bookStmt = connection.prepareStatement(updateBookQuery)) {
+                    bookStmt.setString(1, book.getISBN());
+                    bookStmt.setInt(2, Integer.parseInt(book.getDocumentID())); // Sử dụng documentID
+                    bookStmt.executeUpdate();
+                }
+            } else if (doc instanceof Thesis) {
+                Thesis thesis = (Thesis) doc;
+                try (PreparedStatement thesisStmt = connection.prepareStatement(updateThesisQuery)) {
+                    thesisStmt.setString(1, thesis.getDegree());
+                    thesisStmt.setString(2, thesis.getUniversity());
+                    thesisStmt.setInt(3, Integer.parseInt(thesis.getDocumentID())); // Sử dụng documentID
+                    thesisStmt.executeUpdate();
+                }
+            } else if (doc instanceof Newspaper) {
+                Newspaper newspaper = (Newspaper) doc;
+                try (PreparedStatement newspaperStmt = connection.prepareStatement(updateNewspaperQuery)) {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
+                    newspaperStmt.setDate(1, (Date) dateFormat.parse(newspaper.getDate()));
+                    newspaperStmt.setString(2, newspaper.getISBN());
+                    newspaperStmt.setInt(3, Integer.parseInt(newspaper.getDocumentID())); // Sử dụng documentID
+                    newspaperStmt.executeUpdate();
+                } catch (ParseException ex) {
+                    Logger.getLogger(DocumentDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DocumentDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+
+    @Override
+    public void removeDocument(int documentID) {
+        
     }
 
     

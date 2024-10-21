@@ -4,8 +4,6 @@
  */
 package BTL_OOP;
 
-import BTL_OOP.Document;
-
 /**
  *
  * @author thinh
@@ -44,12 +42,10 @@ public class Thesis extends Document{
         this.university = university;
     }
 
-    
     @Override
-    public void printInfor() {
-        super.printInfor();
-        System.out.println("Degree: " + degree);
-        System.out.println("University: " + university);
-        
+    public void displayDocumentInfor() {
+        super.displayDocumentInfor();
     }
+
+    
 }
