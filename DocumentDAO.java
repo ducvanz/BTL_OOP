@@ -27,98 +27,13 @@ public class DocumentDAO implements IDocumentDAO {
  
     @Override
     public Document getDocumentByID(int documentID) {
-        Document document = null; // Khởi tạo tài liệu
-
-        // Truy vấn để kiểm tra nếu tài liệu là một Book
-        String bookQuery = "SELECT d.documentID, d.title, d.author, d.publisher, d.yearPublished, " +
-                           "d.quantity, d.category, d.language, b.ISBN " +
-                           "FROM Document d LEFT JOIN Book b ON d.documentID = b.documentID " +
-                           "WHERE d.documentID = ?";
-
-        // Truy vấn để kiểm tra nếu tài liệu là một Thesis
-        String thesisQuery = "SELECT d.documentID, d.title, d.author, d.publisher, d.yearPublished, " +
-                             "d.quantity, d.category, d.language, t.degree, t.university " +
-                             "FROM Document d LEFT JOIN Thesis t ON d.documentID = t.documentID " +
-                             "WHERE d.documentID = ?";
-
-        // Truy vấn để kiểm tra nếu tài liệu là một Newspaper
-        String newspaperQuery = "SELECT d.documentID, d.title, d.author, d.publisher, d.yearPublished, " +
-                                "d.quantity, d.category, d.language, n.date, n.ISBN" +
-                                "FROM Document d LEFT JOIN Newspaper n ON d.documentID = n.documentID " +
-                                "WHERE d.documentID = ?";
-
-        try (PreparedStatement statement = connection.prepareStatement(bookQuery)) {
-            statement.setInt(1, documentID);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    // Nếu tìm thấy tài liệu là Book
-                    Book book = new Book();
-                    book.setDocumentID(String.format("%06d", resultSet.getInt("documentID")));
-                    book.setTitle(resultSet.getString("title"));
-                    book.setAuthor(resultSet.getString("author"));
-                    book.setPublisher(resultSet.getString("publisher"));
-                    book.setYearPublished(resultSet.getInt("yearPublished"));
-                    book.setQuantity(resultSet.getInt("quantity"));
-                    book.setCategory(resultSet.getString("category"));
-                    book.setLanguage(resultSet.getString("language"));
-                    book.setISBN(resultSet.getString("ISBN"));
-                    document = book; // Gán document là book
-                    return document; // Trả về ngay nếu là Book
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // Xử lý lỗi
+        ArrayList<Document> allDocuments = getAllDocuments();
+        for (Document doc : allDocuments) {
+        if (Integer.parseInt(doc.getDocumentID()) == documentID) {
+            return doc; // Trả về tài liệu nếu tìm thấy
         }
-
-        try (PreparedStatement statement = connection.prepareStatement(thesisQuery)) {
-            statement.setInt(1, documentID);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    // Nếu tìm thấy tài liệu là Thesis
-                    Thesis thesis = new Thesis();
-                    thesis.setDocumentID(String.format("%06d", resultSet.getInt("documentID")));
-                    thesis.setTitle(resultSet.getString("title"));
-                    thesis.setAuthor(resultSet.getString("author"));
-                    thesis.setPublisher(resultSet.getString("publisher"));
-                    thesis.setYearPublished(resultSet.getInt("yearPublished"));
-                    thesis.setQuantity(resultSet.getInt("quantity"));
-                    thesis.setCategory(resultSet.getString("category"));
-                    thesis.setLanguage(resultSet.getString("language"));
-                    thesis.setDegree(resultSet.getString("degree"));
-                    thesis.setUniversity(resultSet.getString("university"));
-                    document = thesis; // Gán document là thesis
-                    return document; // Trả về ngay nếu là Thesis
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // Xử lý lỗi
-        }
-
-        try (PreparedStatement statement = connection.prepareStatement(newspaperQuery)) {
-            statement.setInt(1, documentID);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    // Nếu tìm thấy tài liệu là Newspaper
-                    Newspaper newspaper = new Newspaper();
-                    newspaper.setDocumentID(String.format("%06d", resultSet.getInt("documentID")));
-                    newspaper.setTitle(resultSet.getString("title"));
-                    newspaper.setAuthor(resultSet.getString("author"));
-                    newspaper.setPublisher(resultSet.getString("publisher"));
-                    newspaper.setYearPublished(resultSet.getInt("yearPublished"));
-                    newspaper.setQuantity(resultSet.getInt("quantity"));
-                    newspaper.setCategory(resultSet.getString("category"));
-                    newspaper.setLanguage(resultSet.getString("language"));
-                    newspaper.setDate(resultSet.getDate("date"));
-                    newspaper.setISBN(resultSet.getString("ISBN"));
-                    document = newspaper; // Gán document là newspaper
-                    return document; // Trả về ngay nếu là Newspaper
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // Xử lý lỗi
-        }
-
-        return document; // Trả về null nếu không tìm thấy
+    }
+        return null;
     }
 
     
@@ -242,13 +157,116 @@ public class DocumentDAO implements IDocumentDAO {
 
     @Override
     public void removeDocument(int documentID) {
-        
+        String deleteDocumentQuery = "DELETE FROM Document WHERE documentID = ?";
+        String deleteBookQuery = "DELETE FROM Book WHERE documentID = ?";
+        String deleteThesisQuery = "DELETE FROM Thesis WHERE documentID = ?";
+        String deleteNewspaperQuery = "DELETE FROM Newspaper WHERE documentID = ?";
+
+        try {
+            // Xóa bảng con trước, sau đó mới xóa bảng Document
+            try (PreparedStatement bookStmt = connection.prepareStatement(deleteBookQuery)) {
+                bookStmt.setInt(1, documentID);
+                bookStmt.executeUpdate();
+            }
+
+            try (PreparedStatement thesisStmt = connection.prepareStatement(deleteThesisQuery)) {
+                thesisStmt.setInt(1, documentID);
+                thesisStmt.executeUpdate();
+            }
+
+            try (PreparedStatement newspaperStmt = connection.prepareStatement(deleteNewspaperQuery)) {
+                newspaperStmt.setInt(1, documentID);
+                newspaperStmt.executeUpdate();
+            }
+
+            // Cuối cùng xóa tài liệu trong bảng Document
+            try (PreparedStatement documentStmt = connection.prepareStatement(deleteDocumentQuery)) {
+                documentStmt.setInt(1, documentID);
+                documentStmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     
     @Override
     public ArrayList<Document> getAllDocuments() { 
-        return null;
+        
+        ArrayList<Document> documents = new ArrayList<>(); 
+        String query = "SELECT d.documentID, d.title, d.author, d.publisher, d.yearPublished, d.quantity, d.category, d.language, " +
+                       "b.ISBN, t.degree, t.university, n.date, n.ISBN " +
+                       "FROM Document d " +
+                       "LEFT JOIN Book b ON d.documentID = b.documentID " +
+                       "LEFT JOIN Thesis t ON d.documentID = t.documentID " +
+                       "LEFT JOIN Newspaper n ON d.documentID = n.documentID";
+
+        try (PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                int documentID = resultSet.getInt("documentID");
+                String title = resultSet.getString("title");
+                String author = resultSet.getString("author");
+                String publisher = resultSet.getString("publisher");
+                int yearPublished = resultSet.getInt("yearPublished");
+                int quantity = resultSet.getInt("quantity");
+                String category = resultSet.getString("category");
+                String language = resultSet.getString("language");
+
+                // Kiểm tra loại tài liệu và tạo đối tượng tương ứng
+                if (resultSet.getString("ISBN") != null) {
+                    // Tài liệu là Book
+                    Book book = new Book();
+                    book.setDocumentID(String.format("%06d", documentID));
+                    book.setTitle(title);
+                    book.setAuthor(author);
+                    book.setPublisher(publisher);
+                    book.setYearPublished(yearPublished);
+                    book.setQuantity(quantity);
+                    book.setCategory(category);
+                    book.setLanguage(language);
+                    book.setISBN(resultSet.getString("ISBN"));
+                    documents.add(book); // Thêm vào danh sách tài liệu
+                } else if (resultSet.getString("thesisID") != null) {
+                    // Tài liệu là Thesis
+                    Thesis thesis = new Thesis();
+                    thesis.setDocumentID(String.format("%06d", documentID));
+                    thesis.setTitle(title);
+                    thesis.setAuthor(author);
+                    thesis.setPublisher(publisher);
+                    thesis.setYearPublished(yearPublished);
+                    thesis.setQuantity(quantity);
+                    thesis.setCategory(category);
+                    thesis.setLanguage(language);
+                    thesis.setDegree(resultSet.getString("degree"));
+                    thesis.setUniversity(resultSet.getString("university"));
+                    documents.add(thesis); // Thêm vào danh sách tài liệu
+                } else if (resultSet.getString("newspaperID") != null) {
+                    // Tài liệu là Newspaper
+                    Newspaper newspaper = new Newspaper();
+                    newspaper.setDocumentID(String.format("%06d", documentID));
+                    newspaper.setTitle(title);
+                    newspaper.setAuthor(author);
+                    newspaper.setPublisher(publisher);
+                    newspaper.setYearPublished(yearPublished);
+                    newspaper.setQuantity(quantity);
+                    newspaper.setCategory(category);
+                    newspaper.setLanguage(language);
+                    
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    newspaper.setDate((Date) dateFormat.parse(resultSet.getString("date")));
+                    newspaper.setISBN(resultSet.getString("ISBN"));
+                    documents.add(newspaper); // Thêm vào danh sách tài liệu
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Xử lý ngoại lệ
+        } catch (ParseException ex) {
+            Logger.getLogger(DocumentDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return documents; // Trả về danh sách tài liệu 
     }
     
     

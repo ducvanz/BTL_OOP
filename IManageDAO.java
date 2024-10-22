@@ -19,8 +19,4 @@ public interface IManageDAO {
     ArrayList<User> getAllUsers();
     int getUserIDByUserAccount(String userAccount);
     
-    void addDocument(Document doc);
-    void removeDocument(int documentID);
-    void updateDocument(Document doc);
-    ArrayList<Document> getAllDocuments();
 }

@@ -44,7 +44,6 @@ public class Manage extends User {
     }
         
     public ArrayList<User> getAllUsers() {
-        
         return manageDAO.getAllUsers();
     }
     public void removeUser(User user) {
@@ -75,6 +74,4 @@ public class Manage extends User {
         return documentDAO.getAllDocuments();
     }
     
-
-
 }
