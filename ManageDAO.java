@@ -16,7 +16,7 @@ import java.util.ArrayList;
  *
  * @author thinh
  */
-public class ManageDAO implements IManageDAO{
+public class ManageDAO {
     private final Connection connection;
     private DocumentDAO documentDAO = new DocumentDAO();
 
@@ -26,7 +26,6 @@ public class ManageDAO implements IManageDAO{
     }
 
 
-    @Override
     public void addUser(User user) {
         String sql = "INSERT INTO User (name, email, phone, birthday, address, loanTerm, numberBorrowed, userAccount, password, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -46,7 +45,6 @@ public class ManageDAO implements IManageDAO{
         }
     }
 
-    @Override
     public int getUserIDByUserAccount(String userAccount) {
         String sql = "SELECT userID FROM User WHERE userAccount = ?";
         int userID = -1; // Nếu không tìm thấy user, trả về -1
@@ -64,7 +62,6 @@ public class ManageDAO implements IManageDAO{
         return userID;
     }
     
-    @Override
     public User getUserByID(int userID) {
         String sql = "SELECT * FROM User WHERE userID = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -91,7 +88,6 @@ public class ManageDAO implements IManageDAO{
     }
 
 
-    @Override
     public void updateUser(User user) {
         String sql = "UPDATE User SET name = ?, email = ?, phone = ?, birthday = ?, address = ?, loanTerm = ?, numberBorrowed = ?, userAccount = ?, password = ? WHERE userID = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -111,7 +107,6 @@ public class ManageDAO implements IManageDAO{
         }
     }
 
-    @Override
     public void deleteUser(int userID) {
         String sql = "DELETE FROM User WHERE userID = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -123,7 +118,6 @@ public class ManageDAO implements IManageDAO{
     }
 
 
-    @Override
     public ArrayList<User> getAllUsers() {
         ArrayList<User> users = new ArrayList<>();
         String sql = "SELECT * FROM User";
@@ -150,7 +144,6 @@ public class ManageDAO implements IManageDAO{
     }
 
 
-    @Override
     public void removeUser(User user) {
         String query = "DELETE FROM User WHERE userID = ?"; // Câu lệnh SQL để xóa người dùng
 

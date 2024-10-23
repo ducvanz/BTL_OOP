@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author thinh
  */
-public class DocumentDAO implements IDocumentDAO {
+public class DocumentDAO {
     private final Connection connection;
 
     public DocumentDAO() {
@@ -25,7 +25,6 @@ public class DocumentDAO implements IDocumentDAO {
         connection = dbConnection.getConnection();
     }
  
-    @Override
     public Document getDocumentByID(int documentID) {
         ArrayList<Document> allDocuments = getAllDocuments();
         for (Document doc : allDocuments) {
@@ -36,8 +35,6 @@ public class DocumentDAO implements IDocumentDAO {
         return null;
     }
 
-    
-    @Override
     public void addDocument(Document doc) {
         String insertDocumentQuery = "INSERT INTO Document (title, author, publisher, yearPublished, quantity, category, language) " +
                                      "VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -99,7 +96,6 @@ public class DocumentDAO implements IDocumentDAO {
         }
     }
 
-    @Override
     public void updateDocument(Document doc) {
         String updateDocumentQuery = "UPDATE Document SET title = ?, author = ?, publisher = ?, " +
                                      "yearPublished = ?, quantity = ?, category = ?, language = ? " +
@@ -155,7 +151,6 @@ public class DocumentDAO implements IDocumentDAO {
     }
 
 
-    @Override
     public void removeDocument(int documentID) {
         String deleteDocumentQuery = "DELETE FROM Document WHERE documentID = ?";
         String deleteBookQuery = "DELETE FROM Book WHERE documentID = ?";
@@ -189,8 +184,6 @@ public class DocumentDAO implements IDocumentDAO {
         }
     }
 
-    
-    @Override
     public ArrayList<Document> getAllDocuments() { 
         
         ArrayList<Document> documents = new ArrayList<>(); 

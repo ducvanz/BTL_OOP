@@ -34,7 +34,6 @@ public class GiaoDien extends javax.swing.JFrame {
     public void setDB() {
         DatabaseConnection db = new DatabaseConnection();
         con = db.getConnection();
-        db.connectDatabase();
     }
     
     public void enterLogin() {

@@ -133,17 +133,32 @@ public class User {
     }
 
     
-    public Document findDocument(String title) {
+    public List<Document> findDocument(String title) {
         // Tìm tài liệu theo tiêu đề
-        return null;
+        DocumentDAO documentDAO = new DocumentDAO();
+        List<Document> arrDocument = documentDAO.getAllDocuments(); // Lấy tất cả tài liệu
+        List<Document> resultDocuments = new ArrayList<>();
+        
+        for (Document document : arrDocument) {
+            if (document.getTitle() != null && document.getTitle().contains(title)) {
+                resultDocuments.add(document); 
+            }
+        }
+
+        return resultDocuments;
     }
+
 
     public void borrowDocument(Document doc) {
         // Mượn tài liệu
+        borrowedDocument.add(doc);
+        numberBorrowed += 1;
     }
 
     public void returnDocument(Document doc) {
         // Trả tài liệu
+        borrowedDocument.remove(doc);
+        numberBorrowed -= 1;
     }
 
     public void displayUserInfo(User user){

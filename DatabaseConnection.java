@@ -19,14 +19,13 @@ import java.util.ArrayList;
 public class DatabaseConnection {
 
     // Kết nối với MySQL
-    private static final String URL = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12739033"; 
-    private static final String USER = "sql12739033"; 
-    private static final String PASSWORD = "IrDju4s9qc"; 
-    
-    public void connectDatabase() {
-        getConnection();
-    }
-    
+//    private static final String URL = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12739033"; 
+//    private static final String USER = "sql12739033"; 
+//    private static final String PASSWORD = "IrDju4s9qc"; 
+    private static final String URL = "jdbc:mysql://localhost:3306/library19"; 
+    private static final String USER = "root"; 
+    private static final String PASSWORD = "";
+
     public  Connection getConnection() {
         Connection connection = null;
         try {
