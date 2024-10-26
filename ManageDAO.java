@@ -161,4 +161,79 @@ public class ManageDAO {
         }
     }
 
+    public void updateBirthday(User user, String birthday) {
+        String query = "use library; sET SQL_safe_updates = 0; update user " +
+        "set birthday = ? where userAccount = ?;" +
+        "sET SQL_safe_updates = 1;";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, birthday); // Thiết lập giá trị userID cho câu lệnh
+            statement.setString(2, user.getUserAccount());
+            int rowsAffected = statement.executeUpdate(); // Thực thi câu lệnh
+
+            if (rowsAffected > 0) {
+                System.out.println("User removed successfully."); 
+            } else {
+                System.out.println("User not found."); 
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Xử lý ngoại lệ
+        }
+    }
+    
+    public void updateEmail(User user, String email) {
+        String query = "use library; sET SQL_safe_updates = 0; update user " +
+        "set email = ? where userAccount = ?;" +
+        "sET SQL_safe_updates = 1;";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, email); // Thiết lập giá trị userID cho câu lệnh
+            statement.setString(2, user.getUserAccount());
+            int rowsAffected = statement.executeUpdate(); // Thực thi câu lệnh
+
+            if (rowsAffected > 0) {
+                System.out.println("User removed successfully."); 
+            } else {
+                System.out.println("User not found."); 
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Xử lý ngoại lệ
+        }
+    }
+    
+    public void updatePhone(User user, String phone) {
+        String query = "use library; sET SQL_safe_updates = 0; update user " +
+        "set phone = ? where userAccount = ?;" +
+        "sET SQL_safe_updates = 1;";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, phone); // Thiết lập giá trị userID cho câu lệnh
+            statement.setString(2, user.getUserAccount());
+            int rowsAffected = statement.executeUpdate(); // Thực thi câu lệnh
+
+            if (rowsAffected > 0) {
+                System.out.println("User removed successfully."); 
+            } else {
+                System.out.println("User not found."); 
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Xử lý ngoại lệ
+        }
+    }
+    
+    public void updateAddress(User user, String address) {
+        String query = "use library; sET SQL_safe_updates = 0; update user " +
+        "set address = ? where userAccount = ?;" +
+        "sET SQL_safe_updates = 1;";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, address); // Thiết lập giá trị userID cho câu lệnh
+            statement.setString(2, user.getUserAccount());
+            int rowsAffected = statement.executeUpdate(); // Thực thi câu lệnh
+
+            if (rowsAffected > 0) {
+                System.out.println("User removed successfully."); 
+            } else {
+                System.out.println("User not found."); 
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Xử lý ngoại lệ
+        }
+    }
 }

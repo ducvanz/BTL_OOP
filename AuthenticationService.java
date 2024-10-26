@@ -35,7 +35,8 @@ public class AuthenticationService {
                     if (res.next()) {
                         // Lấy password từ kết quả
                         String pass = res.getString("password");
-                        if (pass.equals(password)) {
+                        String role = res.getString("role");
+                        if (pass.equals(password) && role.equals("user")) {
                             return 1;
                         }
                     }
@@ -47,16 +48,28 @@ public class AuthenticationService {
             return 0;
         }
         else {
-            // check tai khoan quan ly
-            String selectSQL = "1?"; // code search mysql
-            try (PreparedStatement pstmt = con.prepareStatement(selectSQL)) {
-                //
+            String selectSQL = "SELECT password, role FROM User WHERE userAccount = ?";
+            try (PreparedStatement statement = con.prepareStatement(selectSQL)) {
+                // Truyền giá trị cho tham số "?"
+                statement.setString(1, account);  // userAccount là biến chứa tên tài khoản người dùng
+
+                // Thực thi câu lệnh truy vấn
+                try (ResultSet res = statement.executeQuery()) {
+                    if (res.next()) {
+                        // Lấy password từ kết quả
+                        String pass = res.getString("password");
+                        String role = res.getString("role");
+                        if (pass.equals(password) && role.equals("manage")) {
+                            return 2;
+                        }
+                    }
+                    return 0;
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+            return 0;
         }
-        // mat khau sai
-        return 0;
     }
 
     public static String checkName(String name) {
