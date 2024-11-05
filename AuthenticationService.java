@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package BTL_OOP;
+package OOPAPlus;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -25,7 +25,7 @@ public class AuthenticationService {
         if (pp == 1) {
             // check tai khoan nguoi dung
 
-            String selectSQL = "SELECT password FROM User WHERE userAccount = ?";
+            String selectSQL = "SELECT password, role FROM User WHERE userAccount = ?";
             try (PreparedStatement statement = con.prepareStatement(selectSQL)) {
                 // Truyền giá trị cho tham số "?"
                 statement.setString(1, account);  // userAccount là biến chứa tên tài khoản người dùng

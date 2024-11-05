@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package BTL_OOP;
+package OOPAPlus;
 
 /**
  *
@@ -24,7 +24,7 @@ public class DatabaseConnection {
 //    private static final String PASSWORD = "IrDju4s9qc"; 
     private static final String URL = "jdbc:mysql://localhost:3306/library"; 
     private static final String USER = "root"; 
-    private static final String PASSWORD = "maiducvan112@##";
+    private static final String PASSWORD = "";
 
     public  Connection getConnection() {
         Connection connection = null;

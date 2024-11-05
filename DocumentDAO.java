@@ -1,5 +1,5 @@
 
-package BTL_OOP;
+package OOPAPlus;
 
 import java.sql.Connection;
 import java.sql.Date;

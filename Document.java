@@ -1,5 +1,5 @@
 
-package BTL_OOP;
+package OOPAPlus;
 
 public abstract class Document {
     protected String documentID;
