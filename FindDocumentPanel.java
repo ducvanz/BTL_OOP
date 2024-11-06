@@ -74,10 +74,6 @@ public class FindDocumentPanel extends JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
         jSeparator1 = new javax.swing.JSeparator();
         avata = new javax.swing.JLabel();
         backButton = new javax.swing.JButton();
@@ -96,26 +92,6 @@ public class FindDocumentPanel extends JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         titleJList = new javax.swing.JList<>();
         jSeparator2 = new javax.swing.JSeparator();
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable1);
-
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane3.setViewportView(jList2);
 
         setBackground(new java.awt.Color(102, 255, 255));
         setPreferredSize(new java.awt.Dimension(800, 650));
@@ -365,13 +341,9 @@ public class FindDocumentPanel extends JPanel {
     private javax.swing.JComboBox<String> categoryComboBox;
     private javax.swing.JLabel categoryJLabel;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jList2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JComboBox<String> languageComboBox;
     private javax.swing.JLabel languageJLabel;
     private javax.swing.JLabel titleJLabel;
