@@ -1,5 +1,5 @@
 
-package OOPAPlus;
+package BTL_OOP;
 
 public abstract class Document {
     protected String documentID;
@@ -102,5 +102,9 @@ public abstract class Document {
         System.out.println("Category: " + category);
         System.out.println("Language: " + language);
     }
-    
+
+    @Override
+    public String toString() {
+        return  title + " - " + author;
+    }
 }

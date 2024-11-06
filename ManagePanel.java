@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package OOPAPlus;
+package BTL_OOP;
 
 import java.awt.CardLayout;
 import java.sql.Connection;
@@ -15,15 +15,15 @@ import javax.swing.JPanel;
  */
 public class ManagePanel extends javax.swing.JPanel {
     private Connection con;
-    JFrame frame;
-    JPanel mainPanel;
+    private JFrame mainFframe;
+    private JPanel mainPanel;
     /**
      * Creates new form managePanel
      */
-    public ManagePanel(Connection con, JFrame frame, JPanel mainPane) {
+    public ManagePanel(Connection con, JFrame mainFframe, JPanel mainPanel) {
         initComponents();
         this.con = con;
-        this.frame = frame;
+        this.mainFframe = mainFframe;
         this.mainPanel = mainPanel;
     }
     /*
@@ -35,7 +35,6 @@ public class ManagePanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         managePane = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -71,7 +70,6 @@ public class ManagePanel extends javax.swing.JPanel {
         jPanel10 = new javax.swing.JPanel();
 
         setMinimumSize(new java.awt.Dimension(800, 650));
-        setLayout(new java.awt.GridBagLayout());
 
         managePane.setBackground(new java.awt.Color(244, 244, 244));
 
@@ -407,11 +405,16 @@ public class ManagePanel extends javax.swing.JPanel {
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        add(managePane, gridBagConstraints);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(managePane, javax.swing.GroupLayout.PREFERRED_SIZE, 824, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(managePane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked

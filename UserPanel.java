@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package OOPAPlus;
+package BTL_OOP;
 
 import java.awt.CardLayout;
 import java.sql.Connection;
@@ -18,8 +18,8 @@ public class UserPanel extends JPanel {
 
 
     private Connection con;
-    JFrame mainFrame;
-    JPanel mainPanel;
+    private JFrame mainFrame;
+    private JPanel mainPanel;
     /**
      * Creates new form userPanel
      */
