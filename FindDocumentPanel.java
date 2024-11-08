@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package OOPAPlus;
+package BTL_OOP;
 
 import java.awt.CardLayout;
 import java.sql.Connection;
@@ -26,7 +26,7 @@ public class FindDocumentPanel extends JPanel {
     /**
      * Creates new form managePanel
      */
-    public FindDocumentPanel(Connection con, JFrame frame, JPanel mainPane) {
+    public FindDocumentPanel(Connection con, JFrame frame, JPanel mainPanel) {
         initComponents();
         this.con = con;
         this.frame = frame;
@@ -73,7 +73,7 @@ public class FindDocumentPanel extends JPanel {
         jSeparator1.setBackground(new java.awt.Color(255, 0, 51));
         jSeparator1.setForeground(new java.awt.Color(255, 0, 51));
 
-        avata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/Remove-bg.ai_1729220335126.png"))); // NOI18N
+        avata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/image/Remove-bg.ai_1729220335126.png"))); // NOI18N
 
         backButton.setText("Back");
         backButton.addActionListener(new java.awt.event.ActionListener() {
@@ -240,6 +240,8 @@ public class FindDocumentPanel extends JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(314, Short.MAX_VALUE))
         );
+
+        avata.getAccessibleContext().setAccessibleName("");
 
         getAccessibleContext().setAccessibleName("findDocumentPanel");
     }// </editor-fold>//GEN-END:initComponents

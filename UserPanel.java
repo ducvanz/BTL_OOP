@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package OOPAPlus;
+package BTL_OOP;
 
 import java.awt.CardLayout;
 import java.sql.Connection;
@@ -123,7 +123,6 @@ public class UserPanel extends JPanel {
         avata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/Remove-bg.ai_1729220335126.png"))); // NOI18N
         avata.setCursor(new java.awt.Cursor(java.awt.Cursor.SW_RESIZE_CURSOR));
         avata.setDebugGraphicsOptions(javax.swing.DebugGraphics.FLASH_OPTION);
-        avata.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/Screenshot_63.png"))); // NOI18N
         avata.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         avata.setIconTextGap(0);
         avata.setMaximumSize(new java.awt.Dimension(19, 196));
@@ -184,7 +183,7 @@ public class UserPanel extends JPanel {
                     .addGroup(UserPanel_Layout.createSequentialGroup()
                         .addGap(100, 100, 100)
                         .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 51, Short.MAX_VALUE))
+                .addGap(0, 95, Short.MAX_VALUE))
         );
         UserPanel_Layout.setVerticalGroup(
             UserPanel_Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package OOPAPlus;
+package BTL_OOP;
 
 import java.awt.CardLayout;
 import java.sql.Connection;
@@ -27,7 +27,7 @@ public class Main extends JFrame {
     public void init(){
         setDB();
         setTitle("A+ OOP nè!");
-        setSize(900, 650);
+        setSize(800, 650);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         
@@ -41,12 +41,14 @@ public class Main extends JFrame {
         UserPanel userPanel = new UserPanel(con, frame, mainPanel);
         ManagePanel managePanel = new ManagePanel(con, frame, mainPanel);
         FindDocumentPanel findDocumentPanel = new FindDocumentPanel(con, frame, mainPanel);
+        FindBookManage FindBookManage = new FindBookManage(con, frame, mainPanel);
         
         mainPanel.add(signupPanel, "signupPanel");
         mainPanel.add(loginPanel, "loginPanel");
         mainPanel.add(userPanel, "userPanel");
         mainPanel.add(managePanel, "managePanel");
         mainPanel.add(findDocumentPanel, "findDocumentPanel");
+        mainPanel.add(FindBookManage, "findBookManage");
         
         // Thêm mainPanel vào JDialog
         add(mainPanel);

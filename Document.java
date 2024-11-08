@@ -1,5 +1,5 @@
 
-package OOPAPlus;
+package BTL_OOP;
 
 public abstract class Document {
     protected String documentID;
@@ -22,6 +22,12 @@ public abstract class Document {
         this.language = language;
     }
 
+    public Document(String title, String author, String publisher, int yearPublished) {
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
+        this.yearPublished = yearPublished;
+    }
     public Document(){
     }
     
