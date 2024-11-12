@@ -13,6 +13,7 @@ public class API {
 
     public API() {
     }
+    
 
     public static String searchDocument(String title, String author, String ISBN, String category, String language) {
         try {
@@ -69,6 +70,52 @@ public class API {
         }
         return null;
     }
+    private static String parseDocumentGetImage(String jsonResponse) {
+        if (jsonResponse == null || jsonResponse.isEmpty()) {
+            System.out.println("Phản hồi JSON rỗng hoặc null, không thể phân tích.");
+            return null;
+        }
+
+        try {
+            JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
+
+            if (jsonObject.has("items") && jsonObject.get("items").isJsonArray()) {
+                JsonArray items = jsonObject.getAsJsonArray("items");
+                for (int i = 0; i < Math.min(1, items.size()); i++) {
+                    JsonObject item = items.get(i).getAsJsonObject();
+                    JsonObject volumeInfo = item.has("volumeInfo") && item.get("volumeInfo").isJsonObject() ?
+                            item.getAsJsonObject("volumeInfo") : new JsonObject();
+                    System.out.println(volumeInfo);
+                    // Lấy link ảnh thumbnail
+                    String imageUrl = "N/A";
+                    if (volumeInfo.has("imageLinks") && volumeInfo.get("imageLinks").isJsonObject()) {
+                        JsonObject imageLinks = volumeInfo.getAsJsonObject("imageLinks");
+                        if (imageLinks.has("thumbnail")) {
+                            imageUrl = imageLinks.get("thumbnail").getAsString();
+                        }
+                    }
+                    return imageUrl;
+
+                }
+            } else {
+                System.out.println("Không có mục nào trong phản hồi JSON.");
+                return null;
+            }
+        }catch (JsonSyntaxException e) {
+            System.out.println("Lỗi khi phân tích JSON: " + e.getMessage());
+        }
+        return null;
+    }
+    public static String getImage(){
+        String jsonResponse = searchDocument("c++","","","","");
+        if (jsonResponse == null) {
+            System.out.println("Không thể lấy dữ liệu từ API.");
+        }
+        return parseDocumentGetImage(jsonResponse);
+    }
+
+
+
 
     private static ArrayList<Document> parseDocument(String jsonResponse) {
         ArrayList<Document> result = new ArrayList<>();
@@ -135,6 +182,7 @@ public class API {
 
                     Book book = new Book(ISBN, "1", title, author, publisher, yearPublished, 1, category, language);
                     result.add(book);
+
                 }
             } else {
                 

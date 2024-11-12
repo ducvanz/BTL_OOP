@@ -5,7 +5,8 @@
 package BTL_OOP;
 
 import java.awt.CardLayout;
-import java.awt.Dimension;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.Connection;
 import java.util.ArrayList;
 import javax.swing.*;
@@ -17,7 +18,7 @@ import javax.swing.*;
 public class FindDocumentPanel extends JPanel {
 
     private Connection con;
-    private JFrame mainFframe;
+    private JFrame mainFrame;
     private JPanel mainPanel;
     DefaultListModel<String> listModel = new DefaultListModel<>();
     String title = "";
@@ -30,12 +31,15 @@ public class FindDocumentPanel extends JPanel {
      * Creates new form managePanel
      */
     public FindDocumentPanel(Connection con, JFrame mainFframe, JPanel mainPanel) {
+
         initComponents();
         this.con = con;
-        this.mainFframe = mainFframe;
+        this.mainFrame = mainFframe;
         this.mainPanel = mainPanel;
-        titleJList.setVisible(false);
+        resultFindDocumentJList.setVisible(false);
         jScrollPane1.setVisible(false);
+        hienthiImage();
+        
     }
 
 
@@ -48,20 +52,37 @@ public class FindDocumentPanel extends JPanel {
             }
             if(arrDocument!=null && (!titleJTextField.getText().trim().isEmpty() || !authorJTextField.getText().trim().isEmpty()
                     || !ISBNJTextField.getText().trim().isEmpty())){
-                titleJList.setModel(listModel);
-                titleJList.setVisibleRowCount(Math.min(listModel.size(), 5));
-                titleJList.setFixedCellHeight(30);
+                resultFindDocumentJList.setModel(listModel);
+                resultFindDocumentJList.setVisibleRowCount(Math.min(listModel.size(), 5));
+                resultFindDocumentJList.setFixedCellHeight(30);
                 jScrollPane1.setVisible(true);
-                titleJList.setVisible(true);
-                jScrollPane1.setViewportView(titleJList);
+                resultFindDocumentJList.setVisible(true);
+                jScrollPane1.setViewportView(resultFindDocumentJList);
             } else {
                 jScrollPane1.setVisible(false);
-                titleJList.setVisible(false);
+                resultFindDocumentJList.setVisible(false);
             }
         } else {
             listModel.clear();
             jScrollPane1.setVisible(false);
-            titleJList.setVisible(false);   
+            resultFindDocumentJList.setVisible(false);   
+        }
+    }
+    public void hienthiImage() {
+        String imageUrl = API.getImage();
+        if(imageUrl.equals("N/A")) return;
+        try {
+            if (imageUrl != null) {
+                // Tải ảnh từ URL
+                ImageIcon imageIcon = new ImageIcon(new URL(imageUrl));
+                imageJLabel.setIcon(imageIcon);
+            } else {
+                JLabel errorLabel = new JLabel("Không tìm thấy ảnh.");
+            }
+        } catch (MalformedURLException e) {
+            System.out.println("URL không hợp lệ: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Lỗi khi tải ảnh từ URL: " + e.getMessage());
         }
     }
 
@@ -90,8 +111,9 @@ public class FindDocumentPanel extends JPanel {
         categoryJLabel = new javax.swing.JLabel();
         categoryComboBox = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        titleJList = new javax.swing.JList<>();
+        resultFindDocumentJList = new javax.swing.JList<>();
         jSeparator2 = new javax.swing.JSeparator();
+        imageJLabel = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(102, 255, 255));
         setPreferredSize(new java.awt.Dimension(800, 650));
@@ -101,7 +123,7 @@ public class FindDocumentPanel extends JPanel {
         jSeparator1.setBackground(new java.awt.Color(255, 0, 51));
         jSeparator1.setForeground(new java.awt.Color(255, 0, 51));
 
-        avata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/Remove-bg.ai_1729220335126.png"))); // NOI18N
+        avata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/image/Remove-bg.ai_1729220335126.png"))); // NOI18N
 
         backButton.setText("Back");
         backButton.addActionListener(new java.awt.event.ActionListener() {
@@ -174,7 +196,12 @@ public class FindDocumentPanel extends JPanel {
             }
         });
 
-        titleJList.setModel(titleJList.getModel());
+        resultFindDocumentJList.setModel(resultFindDocumentJList.getModel());
+        resultFindDocumentJList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                resultFindDocumentJListMouseClicked(evt);
+            }
+        });
 
         jSeparator2.setBackground(new java.awt.Color(255, 0, 51));
         jSeparator2.setForeground(new java.awt.Color(255, 0, 51));
@@ -197,34 +224,43 @@ public class FindDocumentPanel extends JPanel {
                         .addComponent(backButton)
                         .addGap(46, 46, 46))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(ISBNJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(ISBNJTextField))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(authorJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(authorJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(ISBNJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(ISBNJTextField))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(authorJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(authorJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(titleJLabel)
                                     .addComponent(categoryJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(categoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(27, 27, 27)
                                         .addComponent(languageJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(languageComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(titleJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
-                            .addComponent(titleJList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(8, 8, 8)
+                                        .addComponent(titleJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addComponent(jSeparator2)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(resultFindDocumentJList, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addComponent(imageJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(130, 644, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,19 +303,22 @@ public class FindDocumentPanel extends JPanel {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
-                .addComponent(titleJList)
-                .addContainerGap(359, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(resultFindDocumentJList, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(imageJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(203, Short.MAX_VALUE))
         );
 
-        titleJList.getAccessibleContext().setAccessibleName("");
+        resultFindDocumentJList.getAccessibleContext().setAccessibleName("");
 
         getAccessibleContext().setAccessibleName("findDocumentPanel1");
+
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
-        cl.show(mainPanel, "userPanel");
+        cl.show(mainPanel, "managePanel");
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void authorJTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_authorJTextFieldKeyTyped
@@ -321,6 +360,23 @@ public class FindDocumentPanel extends JPanel {
         }
     }//GEN-LAST:event_ISBNJTextFieldFocusLost
 
+    private void resultFindDocumentJListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultFindDocumentJListMouseClicked
+        if (evt.getClickCount() == 2) {
+        // Lấy chỉ số của dòng được nhấp đúp
+        int index = resultFindDocumentJList.locationToIndex(evt.getPoint());
+
+        // Kiểm tra nếu chỉ số hợp lệ
+        if (index != -1) {
+            Object item = resultFindDocumentJList.getModel().getElementAt(index);
+            if(item instanceof Document){
+                // chuyen den panel hien thi voi tham so document
+                
+            }
+        }
+    }
+        
+    }//GEN-LAST:event_resultFindDocumentJListMouseClicked
+
     private void titleJTextFieldKeyReleased(java.awt.event.KeyEvent evt) {
         title = titleJTextField.getText().trim();
         hienthi2(title, author, ISBN, category, language);
@@ -340,14 +396,15 @@ public class FindDocumentPanel extends JPanel {
     private javax.swing.JButton backButton;
     private javax.swing.JComboBox<String> categoryComboBox;
     private javax.swing.JLabel categoryJLabel;
+    private javax.swing.JLabel imageJLabel;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JComboBox<String> languageComboBox;
     private javax.swing.JLabel languageJLabel;
+    private javax.swing.JList<String> resultFindDocumentJList;
     private javax.swing.JLabel titleJLabel;
-    private javax.swing.JList<String> titleJList;
     private javax.swing.JTextField titleJTextField;
     private static javax.swing.JLabel username;
     // End of variables declaration//GEN-END:variables
