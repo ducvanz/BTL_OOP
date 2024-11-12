@@ -254,14 +254,14 @@ public class SignupPanel extends JPanel {
         sigupPaneCard.setLayout(sigupPaneCardLayout);
         sigupPaneCardLayout.setHorizontalGroup(
             sigupPaneCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(sigupPaneCardLayout.createSequentialGroup()
-                .addGap(192, 192, 192)
-                .addComponent(libraryNameLabel)
-                .addGap(191, 191, 191))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sigupPaneCardLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(107, 107, 107)
                 .addComponent(windowSigupPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(145, 145, 145))
+            .addGroup(sigupPaneCardLayout.createSequentialGroup()
+                .addGap(135, 135, 135)
+                .addComponent(libraryNameLabel)
+                .addContainerGap())
         );
         sigupPaneCardLayout.setVerticalGroup(
             sigupPaneCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

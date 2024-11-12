@@ -18,8 +18,11 @@ import javax.swing.JTextField;
  */
 public class LoginPanel extends JPanel {
     private Connection con;
-    private JFrame mainFrame;
-    private JPanel mainPanel;
+
+    JFrame mainFrame;
+    JPanel mainPanel;
+    public static User userOverAll; 
+
     /**
      * Creates new form loginPanel
      */
@@ -28,6 +31,9 @@ public class LoginPanel extends JPanel {
         this.con = con;
         this.mainFrame = mainFrame;
         this.mainPanel = mainPanel;
+        if (userOverAll == null) {
+            userOverAll = new User();
+        }
     }
 
     /**
@@ -238,7 +244,6 @@ public class LoginPanel extends JPanel {
          * 2: manage
          */
         int check = 0;
-        User user = new User();
         Manage manage = new Manage();
         if (manageRadioButton.isSelected()) {
             // check mk manage
@@ -248,8 +253,7 @@ public class LoginPanel extends JPanel {
             check = AuthenticationService.accountLogin(accountUser, pass, 1, con);
         }
         
-        user.setUserAccount(accountUser);
-        
+        userOverAll.setUserAccount(accountUser);
         // kiem tra tai khoan
         if (check == 0) {
             thongbaodangnhapsai.setText("Tài khoản hoặc mật khẩu chưa chính xác");
@@ -258,27 +262,34 @@ public class LoginPanel extends JPanel {
         } else if (check == 1) {
             
             int userID = manage.getUserIDByUserAccount(accountUser);
-            user = manage.getUserByID(userID);
-            UserPanel.setUsername(user.getUserName());
+            LoginPanel.userOverAll = manage.getUserByID(userID);
+            UserPanel.setUsername(userOverAll.getUserName());
             CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
             cl.show(mainPanel, "userPanel");
             
         } else {
-            CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
-            cl.show(mainPanel, "managePanel");
             // quan ly
             int userID = manage.getUserIDByUserAccount(accountUser);
-            user = manage.getUserByID(userID);
-            
-            ManagePanel.setUsername(user.getUserName());
-            
+//<<<<<<< HEAD
+//            user = manage.getUserByID(userID);
+//            
+//            ManagePanel.setUsername(user.getUserName());
+//            
+//=======
+            LoginPanel.userOverAll = manage.getUserByID(userID);
+            ManagePanel.setUsername(userOverAll.getUserName());
+            FindBookManage.setDefaultInfo();
+            CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
+            cl.show(mainPanel, "managePanel");
+
         }
-        
         // set pane login
-        
         loginButton.setText("ĐĂNG NHẬP");
         accountInLoginTextField.setText("");
         passwordInLoginPasswordField.setText("");
+        
+        // set user in find book manage
+        
 
     }//GEN-LAST:event_loginButtonActionPerformed
 

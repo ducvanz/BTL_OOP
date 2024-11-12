@@ -31,6 +31,7 @@ public class FindDocumentPanel extends JPanel {
      * Creates new form managePanel
      */
     public FindDocumentPanel(Connection con, JFrame mainFframe, JPanel mainPanel) {
+
         initComponents();
         this.con = con;
         this.mainFrame = mainFframe;
@@ -146,7 +147,7 @@ public class FindDocumentPanel extends JPanel {
         jSeparator1.setBackground(new java.awt.Color(255, 0, 51));
         jSeparator1.setForeground(new java.awt.Color(255, 0, 51));
 
-        avata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/Remove-bg.ai_1729220335126.png"))); // NOI18N
+        avata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/image/Remove-bg.ai_1729220335126.png"))); // NOI18N
 
         backButton.setText("Back");
         backButton.addActionListener(new java.awt.event.ActionListener() {
@@ -336,6 +337,7 @@ public class FindDocumentPanel extends JPanel {
         resultFindDocumentJList.getAccessibleContext().setAccessibleName("");
 
         getAccessibleContext().setAccessibleName("findDocumentPanel1");
+
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed

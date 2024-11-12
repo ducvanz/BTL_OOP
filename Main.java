@@ -6,6 +6,7 @@ package BTL_OOP;
 
 import java.awt.CardLayout;
 import java.sql.Connection;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -19,7 +20,7 @@ public class Main extends JFrame {
     private Connection con;
     private CardLayout cardLayout;
     private JPanel mainPanel;
-    JFrame mainFframe = new JFrame();
+    JFrame frame = new JFrame();
 
     public Main() {
         init();
@@ -27,30 +28,38 @@ public class Main extends JFrame {
 
     public void init() {
         setDB();
-        mainFframe.setTitle("A+ OOP nè!");
-        mainFframe.setSize(900, 650);
-        mainFframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        mainFframe.setLocationRelativeTo(null);
-
+        setTitle("A+ OOP nè!");
+        setSize(800, 650);
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
+        
         // Khởi tạo CardLayout và mainPanel
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
-        // Tạo và thêm SignupPanel vào mainPanel
-        SignupPanel signupPanel = new SignupPanel(con, mainFframe, mainPanel);
-        LoginPanel loginPanel = new LoginPanel(con, mainFframe, mainPanel);
-        UserPanel userPanel = new UserPanel(con, mainFframe, mainPanel);
-        ManagePanel managePanel = new ManagePanel(con, mainFframe, mainPanel);
-        FindDocumentPanel findDocumentPanel = new FindDocumentPanel(con, mainFframe, mainPanel);
+
+        SignupPanel signupPanel = new SignupPanel(con, frame, mainPanel);
+        LoginPanel loginPanel = new LoginPanel(con, frame, mainPanel);
+        UserPanel userPanel = new UserPanel(con, frame, mainPanel);
+        ManagePanel managePanel = new ManagePanel(con, frame, mainPanel);
+        FindDocumentPanel findDocumentPanel = new FindDocumentPanel(con, frame, mainPanel);
+        FindBookManage FindBookManage = new FindBookManage(con, frame, mainPanel);
 
         mainPanel.add(signupPanel, "signupPanel");
         mainPanel.add(loginPanel, "loginPanel");
         mainPanel.add(userPanel, "userPanel");
         mainPanel.add(managePanel, "managePanel");
         mainPanel.add(findDocumentPanel, "findDocumentPanel");
-
-        mainFframe.add(mainPanel);
-        mainFframe.pack();
+//<<<<<<< HEAD
+//
+//        mainFframe.add(mainPanel);
+//        mainFframe.pack();
+//=======
+        mainPanel.add(FindBookManage, "findBookManage");
+        
+        // Thêm mainPanel vào JDialog
+        add(mainPanel);
+        
         // Hiển thị SignupPanel khi khởi động
         cardLayout.show(mainPanel, "signupPanel");
         
@@ -58,7 +67,7 @@ public class Main extends JFrame {
         //cardLayout.show(mainPanel, "findDocumentPanel");
         
 
-        mainFframe.setVisible(true);
+        setVisible(true);
     }
 
     public void setDB() {

@@ -1,3 +1,4 @@
+
 package BTL_OOP;
 
 /**
@@ -29,6 +30,8 @@ public class User {
     private String password;
 
     public User() {
+        this.userName = "User";
+        this.userID = 0;
     }
 
     public User(String msv, String userName,String userAccout, String passWord){
