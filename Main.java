@@ -55,7 +55,8 @@ public class Main extends JFrame {
         cardLayout.show(mainPanel, "signupPanel");
         
         
-//        cardLayout.show(mainPanel, "findDocumentPanel");
+        //cardLayout.show(mainPanel, "findDocumentPanel");
+        
 
         mainFframe.setVisible(true);
     }

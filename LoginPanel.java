@@ -56,7 +56,7 @@ public class LoginPanel extends JPanel {
         loginButton = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(800, 650));
-        setLayout(new java.awt.GridLayout());
+        setLayout(new java.awt.GridLayout(1, 0));
 
         loginPane.setBackground(new java.awt.Color(255, 255, 255));
         loginPane.setMaximumSize(new java.awt.Dimension(400, 350));
@@ -199,7 +199,7 @@ public class LoginPanel extends JPanel {
                 .addGroup(loginPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(librarynameInLoginLabel)
                     .addComponent(windowLoginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(165, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         loginPaneLayout.setVerticalGroup(
             loginPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,7 +208,7 @@ public class LoginPanel extends JPanel {
                 .addComponent(librarynameInLoginLabel)
                 .addGap(32, 32, 32)
                 .addComponent(windowLoginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(101, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         add(loginPane);
@@ -269,7 +269,9 @@ public class LoginPanel extends JPanel {
             // quan ly
             int userID = manage.getUserIDByUserAccount(accountUser);
             user = manage.getUserByID(userID);
+            
             ManagePanel.setUsername(user.getUserName());
+            
         }
         
         // set pane login
