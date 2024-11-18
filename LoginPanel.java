@@ -266,33 +266,33 @@ public class LoginPanel extends JPanel {
             UserPanel.setUsername(userOverAll.getUserName());
             CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
             cl.show(mainPanel, "userPanel");
+            updateAccount();
             
         } else {
             // quan ly
             int userID = manage.getUserIDByUserAccount(accountUser);
-//<<<<<<< HEAD
-//            user = manage.getUserByID(userID);
-//            
-//            ManagePanel.setUsername(user.getUserName());
-//            
-//=======
             LoginPanel.userOverAll = manage.getUserByID(userID);
             ManagePanel.setUsername(userOverAll.getUserName());
             FindBookManage.setDefaultInfo();
             CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
             cl.show(mainPanel, "managePanel");
+            updateAccount();
 
         }
         // set pane login
         loginButton.setText("ĐĂNG NHẬP");
         accountInLoginTextField.setText("");
         passwordInLoginPasswordField.setText("");
-        
         // set user in find book manage
         
 
     }//GEN-LAST:event_loginButtonActionPerformed
 
+    public void updateAccount() {
+        EditBook.user = userOverAll;
+        FindBookManage.user = userOverAll;
+    }
+    
     public static JTextField getAccountInLoginTextField() {
         return accountInLoginTextField;
     }

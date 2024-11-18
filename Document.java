@@ -10,6 +10,7 @@ public abstract class Document {
     protected int quantity;
     protected String category;
     protected String language;
+    protected String imageLink;
 
     public Document(String documentID, String title, String author, String publisher, int yearPublished, int quantity, String category, String language) {
         this.documentID = documentID;
@@ -93,6 +94,14 @@ public abstract class Document {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+    
+    public void setImagelink(String imageLink) {
+        this.imageLink = imageLink;
+    }
+    
+    public String getImageLink() {
+        return this.imageLink;
     }
     
     

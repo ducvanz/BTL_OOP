@@ -6,13 +6,16 @@ import com.google.gson.JsonParser;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GoogleBooksAPI {
     private static final String API_KEY = "AIzaSyDOv7ofcaQnYInvp-IfsydvRqIVgArjGXg"; 
     private static final String API_BASE_URL = "https://www.googleapis.com/books/v1/volumes";
 
     // return ten, tac gia, nxb, nam xb
-    public static String searchBook(String isbn, String title, String author, String publish, String publishDate) {
+    public static List<Book> searchBook(String isbn, String title, String author, String publish, String publishDate) {
+        List<Book> list = new ArrayList<>();
         StringBuilder query = new StringBuilder();
 
         // Xử lý các tham số tìm kiếm
@@ -32,14 +35,10 @@ public class GoogleBooksAPI {
             query.append("publishedDate:").append(publishDate.replace(" ", "+")).append("+");
         }
 
-        // Nếu chuỗi tìm kiếm không có gì, trả về yêu cầu cung cấp ít nhất một tiêu chí
         if (query.length() > 0 && query.charAt(query.length() - 1) == '+') {
             query.setLength(query.length() - 1); // Xóa dấu "+" cuối cùng
         }
 
-        StringBuilder result = new StringBuilder();
-
-        // Kiểm tra nếu có query và thực hiện gọi API
         if (query.length() > 0) {
             String urlString = API_BASE_URL + "?q=" + query.toString() + "&key=" + API_KEY;
             try {
@@ -82,22 +81,17 @@ public class GoogleBooksAPI {
                             publishedDate = "null";
                         }
 
-                        // Kết quả
-                        result.append(String.format("%s-%s-%s-%s-%s-%s-%s%n",
-                                bookIsbn, bookTitle, bookAuthors, publisher, publishedDate, categories, language));
+                        Book book = new Book(bookIsbn, "null", bookTitle, bookAuthors, publisher, 
+                                Integer.parseInt(publishedDate), 0, categories, language);
+                        list.add(book);
                     }
-                } else {
-                    result.append("No book found with the specified criteria.");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                return "An error occurred while retrieving book data.";
+                return null;
             }
-        } else {
-            return "Please provide at least one search criterion.";
-        }
-
-        return result.toString();
+        } 
+        return list;
     }
 
 //    public static void main(String[] args) {

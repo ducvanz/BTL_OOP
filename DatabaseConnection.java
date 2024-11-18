@@ -24,7 +24,8 @@ public class DatabaseConnection {
 //    private static final String PASSWORD = "IrDju4s9qc"; 
     private static final String URL = "jdbc:mysql://localhost:3306/library"; 
     private static final String USER = "root"; 
-    private static final String PASSWORD = "";
+    private static final String PASSWORD = "maiducvan112@##";
+    public static Connection con;
 
     public  Connection getConnection() {
         Connection connection = null;
@@ -34,6 +35,7 @@ public class DatabaseConnection {
             System.out.println("Kết nối csdl thất bại!");
             e.printStackTrace();
         }
+        con = connection;
         return connection;
     }
 

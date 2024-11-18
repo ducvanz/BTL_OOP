@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.List;
 
 public class API {
     private static final String API_KEY = "AIzaSyB5dvT2OSJZxqpMKgS7gEw-5GN_uKpQAPs";
@@ -70,6 +71,8 @@ public class API {
         }
         return null;
     }
+    
+    
     private static String parseDocumentGetImage(String jsonResponse) {
         if (jsonResponse == null || jsonResponse.isEmpty()) {
             System.out.println("Phản hồi JSON rỗng hoặc null, không thể phân tích.");
@@ -203,4 +206,5 @@ public class API {
         }
         return parseDocument(jsonResponse);
     }
+    
 }

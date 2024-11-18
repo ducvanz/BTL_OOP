@@ -44,12 +44,14 @@ public class Main extends JFrame {
         ManagePanel managePanel = new ManagePanel(con, frame, mainPanel);
         FindDocumentPanel findDocumentPanel = new FindDocumentPanel(con, frame, mainPanel);
         FindBookManage FindBookManage = new FindBookManage(con, frame, mainPanel);
+        EditBook editBook = new EditBook(con, frame, mainPanel);
 
         mainPanel.add(signupPanel, "signupPanel");
         mainPanel.add(loginPanel, "loginPanel");
         mainPanel.add(userPanel, "userPanel");
         mainPanel.add(managePanel, "managePanel");
         mainPanel.add(findDocumentPanel, "findDocumentPanel");
+        mainPanel.add(editBook, "editBook");
 //<<<<<<< HEAD
 //
 //        mainFframe.add(mainPanel);
