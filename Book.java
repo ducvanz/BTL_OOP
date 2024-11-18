@@ -12,12 +12,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.*;
 
+/**
+ *
+ * @author thinh
+ */
 public class Book extends Document {
     private String ISBN;
 
-    
-    public Book(String ISBN, String documentID, String title, String author, String publisher, int yearPublished, int quantity, String category, String language) {
-        super(documentID, title, author, publisher, yearPublished, quantity, category, language);
+    public Book(String title, String author, String publisher, String publishedDate, int quantity,
+                     String category, String language, String description, String imageLink, String ISBN) {
+        super(title, author, publisher, publishedDate, quantity, category, language, description, imageLink);
         this.ISBN = ISBN;
     }
 
@@ -28,6 +32,7 @@ public class Book extends Document {
     public Book() {
     }
 
+
     public String getISBN() {
         return ISBN;
     }
@@ -37,10 +42,22 @@ public class Book extends Document {
     }
 
     @Override
-    public void displayDocumentInfor() {
-        super.displayDocumentInfor(); 
-        System.out.println("ISBN " + ISBN);
-        
+    public void getInfo() {
+        System.out.println("Title: " + getTitle());
+        System.out.println("Author: " + getAuthor());
+        System.out.println("Publisher: " + getPublisher());
+        System.out.println("Published Date: " + getPublishedDate());
+        System.out.println("Quantity: " + getQuantity());
+        System.out.println("Category: " + getCategory());
+        System.out.println("Language: " + getLanguage());
+        System.out.println("Description: " + getDescription());
+        System.out.println("Image Link: " + getImageLink());
+        System.out.println("ISBN: " + getISBN());
+    }
+    
+    @Override
+    public String toString(){
+        return (this.getTitle() + " - " + this.getAuthor());
     }
     
     /**
@@ -121,7 +138,7 @@ public class Book extends Document {
                 book.setAuthor(rs.getString("author"));
                 book.setISBN(rs.getString("isbn"));
                 book.setPublisher(rs.getString("publisher"));
-                book.setYearPublished(Integer.parseInt(rs.getString("yearPublished")));
+                book.setPublishedDate(rs.getString("yearPublished"));
                 book.setCategory(rs.getString("category"));
                 book.setLanguage(rs.getString("language"));
                 books.add(book);
@@ -140,7 +157,6 @@ public class Book extends Document {
     public void addBook(Connection con, Book book) {
         
     }
-
 
     
 }

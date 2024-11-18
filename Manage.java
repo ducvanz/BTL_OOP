@@ -35,8 +35,8 @@ public class Manage extends User {
         return manageDAO.getUserByID(userID);
     }
     
-    public int getUserIDByUserAccount(String userAccount) {
-        return manageDAO.getUserIDByUserAccount(userAccount);
+    public int getUserIDByUsername(String username) {
+        return manageDAO.getUserIDByUsername(username);
     }
         
     public ArrayList<User> getAllUsers() {
@@ -52,8 +52,8 @@ public class Manage extends User {
     }
 
 
-    public void addDocument(Document doc) {
-        documentDAO.addDocument(doc);
+    public void addDocument(Document doc, String imageUrl) {
+        documentDAO.addDocument(doc, imageUrl);
     }
 
 

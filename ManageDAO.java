@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package BTL_OOP;
 
 import java.sql.Connection;
@@ -12,31 +8,25 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-/**
- *
- * @author thinh
- */
 public class ManageDAO {
     private final Connection connection;
-    private DocumentDAO documentDAO = new DocumentDAO();
 
     public ManageDAO() {
         DatabaseConnection dbConnection = new DatabaseConnection();
         connection = dbConnection.getConnection();
     }
 
-
-    public void addUser(User user) {
-        String sql = "INSERT INTO User (name, email, phone, birthday, address, loanTerm, numberBorrowed, userAccount, password, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public void addUser (User user) {
+        String sql = "INSERT INTO User (name, email, phone, birthday, address, loanTerm, numberBorrowed, username, password, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setString(1, user.getUserName());
+            pstmt.setString(1, user.getName());
             pstmt.setString(2, user.getEmail());
             pstmt.setString(3, user.getPhone());
-            pstmt.setString(4, user.getBirthday()); 
+            pstmt.setString(4, user.getBirthday());
             pstmt.setString(5, user.getAddress());
-            pstmt.setBoolean(6, user.isLoanTerm()); 
+            pstmt.setBoolean(6, user.isLoanTerm());
             pstmt.setInt(7, user.getNumberBorrowed());
-            pstmt.setString(8, user.getUserAccount());
+            pstmt.setString(8, user.getUsername());
             pstmt.setString(9, user.getPassword());
             pstmt.setString(10, "user");
             pstmt.executeUpdate();
@@ -45,14 +35,14 @@ public class ManageDAO {
         }
     }
 
-    public int getUserIDByUserAccount(String userAccount) {
-        String sql = "SELECT userID FROM User WHERE userAccount = ?";
+    public int getUserIDByUsername(String username) {
+        String sql = "SELECT userID FROM User WHERE username = ?";
         int userID = -1; // Nếu không tìm thấy user, trả về -1
-        
+
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setString(1, userAccount);
+            pstmt.setString(1, username);
             ResultSet rs = pstmt.executeQuery();
-            
+
             if (rs.next()) {
                 userID = rs.getInt("userID");
             }
@@ -61,7 +51,7 @@ public class ManageDAO {
         }
         return userID;
     }
-    
+
     public User getUserByID(int userID) {
         String sql = "SELECT * FROM User WHERE userID = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -69,16 +59,16 @@ public class ManageDAO {
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 return new User(
-                    rs.getInt("userID"),
-                    rs.getString("name"),
-                    rs.getString("email"),
-                    rs.getString("phone"),
-                    rs.getString("birthday"), // Chuyển đổi từ Date sang LocalDate
-                    rs.getString("address"),
-                    rs.getBoolean("loanTerm"),
-                    rs.getInt("numberBorrowed"),
-                    rs.getString("userAccount"),
-                    rs.getString("password")
+                        rs.getInt("userID"),
+                        rs.getString("name"),
+                        rs.getString("email"),
+                        rs.getString("phone"),
+                        rs.getString("birthday"),
+                        rs.getString("address"),
+                        rs.getBoolean("loanTerm"),
+                        rs.getInt("numberBorrowed"),
+                        rs.getString("username"),
+                        rs.getString("password")
                 );
             }
         } catch (SQLException e) {
@@ -87,27 +77,27 @@ public class ManageDAO {
         return null;
     }
 
-
-    public void updateUser(User user) {
-        String sql = "UPDATE User SET name = ?, email = ?, phone = ?, birthday = ?, address = ?, loanTerm = ?, numberBorrowed = ?, userAccount = ?, password = ? WHERE userID = ?";
+    public void updateUser (User user) {
+        String sql = "UPDATE User SET name = ?, email = ?, phone = ?, birthday = ?, address = ?, loanTerm = ?, numberBorrowed = ?, username = ?, password = ? WHERE userID = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setString(1, user.getUserName());
+            pstmt.setString(1, user.getName());
             pstmt.setString(2, user.getEmail());
             pstmt.setString(3, user.getPhone());
-            pstmt.setDate(4, Date.valueOf(user.getBirthday())); // Chuyển đổi từ LocalDate sang Date
+            pstmt.setString(4, user.getBirthday()); // Giả sử birthday là String
             pstmt.setString(5, user.getAddress());
-            pstmt.setBoolean(6, user.isLoanTerm()); // Giả định loanTerm là một byte
+            pstmt.setBoolean(6, user.isLoanTerm());
             pstmt.setInt(7, user.getNumberBorrowed());
-            pstmt.setString(8, user.getUserAccount());
+            pstmt.setString(8, user.getUsername());
             pstmt.setString(9, user.getPassword());
-            pstmt.setString(10, "user");
+            pstmt.setInt(10, user.getID()); // Sử dụng userID để cập nhật
             pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void deleteUser(int userID) {
+    public void removeUser (User user) {
+        int userID = user.getID();
         String sql = "DELETE FROM User WHERE userID = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setInt(1, userID);
@@ -117,7 +107,6 @@ public class ManageDAO {
         }
     }
 
-
     public ArrayList<User> getAllUsers() {
         ArrayList<User> users = new ArrayList<>();
         String sql = "SELECT * FROM User";
@@ -125,16 +114,16 @@ public class ManageDAO {
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 users.add(new User(
-                    rs.getInt("userID"),
-                    rs.getString("name"),
-                    rs.getString("email"),
-                    rs.getString("phone"),
-                    rs.getString("birthday"),
-                    rs.getString("address"),
-                    rs.getBoolean("loanTerm"),
-                    rs.getInt("numberBorrowed"),
-                    rs.getString("userAccount"),
-                    rs.getString("password")
+                        rs.getInt("userID"),
+                        rs.getString("name"),
+                        rs.getString("email"),
+                        rs.getString("phone"),
+                        rs.getString("birthday"),
+                        rs.getString("address"),
+                        rs.getBoolean("loanTerm"),
+                        rs.getInt("numberBorrowed"),
+                        rs.getString("username"),
+                        rs.getString("password")
                 ));
             }
         } catch (SQLException e) {
@@ -143,97 +132,19 @@ public class ManageDAO {
         return users;
     }
 
-
-    public void removeUser(User user) {
-        String query = "DELETE FROM User WHERE userID = ?"; // Câu lệnh SQL để xóa người dùng
-
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, user.getUserID()); // Thiết lập giá trị userID cho câu lệnh
-            int rowsAffected = statement.executeUpdate(); // Thực thi câu lệnh
-
+    public void updateField(User user, String fieldName, String newValue) {
+        String sql = "UPDATE User SET " + fieldName + " = ? WHERE username = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            pstmt.setString(1, newValue);
+            pstmt.setString(2, user.getUsername());
+            int rowsAffected = pstmt.executeUpdate();
             if (rowsAffected > 0) {
-                System.out.println("User removed successfully."); 
+                System.out.println("User 's " + fieldName + " updated successfully.");
             } else {
-                System.out.println("User not found."); 
+                System.out.println("User  not found.");
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Xử lý ngoại lệ
-        }
-    }
-
-    public void updateBirthday(User user, String birthday) {
-        String query = "use library; sET SQL_safe_updates = 0; update user " +
-        "set birthday = ? where userAccount = ?;" +
-        "sET SQL_safe_updates = 1;";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, birthday); // Thiết lập giá trị userID cho câu lệnh
-            statement.setString(2, user.getUserAccount());
-            int rowsAffected = statement.executeUpdate(); // Thực thi câu lệnh
-
-            if (rowsAffected > 0) {
-                System.out.println("User removed successfully."); 
-            } else {
-                System.out.println("User not found."); 
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // Xử lý ngoại lệ
-        }
-    }
-    
-    public void updateEmail(User user, String email) {
-        String query = "use library; sET SQL_safe_updates = 0; update user " +
-        "set email = ? where userAccount = ?;" +
-        "sET SQL_safe_updates = 1;";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, email); // Thiết lập giá trị userID cho câu lệnh
-            statement.setString(2, user.getUserAccount());
-            int rowsAffected = statement.executeUpdate(); // Thực thi câu lệnh
-
-            if (rowsAffected > 0) {
-                System.out.println("User removed successfully."); 
-            } else {
-                System.out.println("User not found."); 
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // Xử lý ngoại lệ
-        }
-    }
-    
-    public void updatePhone(User user, String phone) {
-        String query = "use library; sET SQL_safe_updates = 0; update user " +
-        "set phone = ? where userAccount = ?;" +
-        "sET SQL_safe_updates = 1;";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, phone); // Thiết lập giá trị userID cho câu lệnh
-            statement.setString(2, user.getUserAccount());
-            int rowsAffected = statement.executeUpdate(); // Thực thi câu lệnh
-
-            if (rowsAffected > 0) {
-                System.out.println("User removed successfully."); 
-            } else {
-                System.out.println("User not found."); 
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // Xử lý ngoại lệ
-        }
-    }
-    
-    public void updateAddress(User user, String address) {
-        String query = "use library; sET SQL_safe_updates = 0; update user " +
-        "set address = ? where userAccount = ?;" +
-        "sET SQL_safe_updates = 1;";
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, address); // Thiết lập giá trị userID cho câu lệnh
-            statement.setString(2, user.getUserAccount());
-            int rowsAffected = statement.executeUpdate(); // Thực thi câu lệnh
-
-            if (rowsAffected > 0) {
-                System.out.println("User removed successfully."); 
-            } else {
-                System.out.println("User not found."); 
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(); // Xử lý ngoại lệ
+            e.printStackTrace();
         }
     }
 }

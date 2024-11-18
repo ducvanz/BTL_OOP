@@ -1,13 +1,17 @@
 package BTL_OOP;
 
 import com.google.gson.*;
+import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 public class API {
     private static final String API_KEY = "AIzaSyB5dvT2OSJZxqpMKgS7gEw-5GN_uKpQAPs";
@@ -15,7 +19,7 @@ public class API {
     public API() {
     }
     
-
+    // tìm sách từ API
     public static String searchDocument(String title, String author, String ISBN, String category, String language) {
         try {
             StringBuilder queryBuilder = new StringBuilder("q=");
@@ -98,7 +102,6 @@ public class API {
                         }
                     }
                     return imageUrl;
-
                 }
             } else {
                 System.out.println("Không có mục nào trong phản hồi JSON.");
@@ -109,8 +112,9 @@ public class API {
         }
         return null;
     }
-    public static String getImage(){
-        String jsonResponse = searchDocument("c++","","","","");
+    // lấy url của image tưf API
+    public static String getImageUrl(String title, String author, String ISBN, String category, String language){
+        String jsonResponse = searchDocument(title, author, ISBN, category, language);
         if (jsonResponse == null) {
             System.out.println("Không thể lấy dữ liệu từ API.");
         }
@@ -129,7 +133,7 @@ public class API {
 
         try {
             JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
-
+//            System.out.println(jsonObject);
             if (jsonObject.has("items") && jsonObject.get("items").isJsonArray()) {
                 JsonArray items = jsonObject.getAsJsonArray("items");
                 for (int i = 0; i < Math.min(10, items.size()); i++) {
@@ -151,12 +155,12 @@ public class API {
                     String publisher = volumeInfo.has("publisher") && !volumeInfo.get("publisher").isJsonNull() ?
                             volumeInfo.get("publisher").getAsString() : "N/A";
 
-                    int yearPublished = 0;
+                    String publishedDate = "";
                     if (volumeInfo.has("publishedDate")) {
                         try {
-                            yearPublished = Integer.parseInt(volumeInfo.get("publishedDate").getAsString().substring(0, 4));
+                            publishedDate = volumeInfo.get("publishedDate").getAsString();
                         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                            yearPublished = 0;
+                            publishedDate = "N/A"; // Gán giá trị mặc định nếu định dạng không chính xác
                         }
                     }
 
@@ -179,11 +183,25 @@ public class API {
                             }
                         }
                     }
+                    
+                    String description ="N/A";
+                    if (volumeInfo.has("description")) {
+                        description = volumeInfo.get("description").getAsString();
+                    }
+                    
 
+                    String imageLink = "N/A";
+                    if (volumeInfo.has("imageLinks") && volumeInfo.get("imageLinks").isJsonObject()) {
+                        JsonObject imageLinks = volumeInfo.getAsJsonObject("imageLinks");
+                        if (imageLinks.has("thumbnail")) {
+                            imageLink = imageLinks.get("thumbnail").getAsString();
+                        }
+                    }
+                    
                     String language = volumeInfo.has("language") && !volumeInfo.get("language").isJsonNull() ?
                             volumeInfo.get("language").getAsString() : "N/A";
 
-                    Book book = new Book(ISBN, "1", title, author, publisher, yearPublished, 1, category, language);
+                    Book book = new Book( title, author, publisher, publishedDate, 1, "Fiction", "English", description, imageLink, ISBN);
                     result.add(book);
 
                 }
@@ -198,6 +216,33 @@ public class API {
         return result;
     }
 
+    
+    public static void hienthiImage(Document doc, JLabel jlabel) {
+        //String imageUrl = API.setImage(doc.getTitle(), doc.getAuthor(), "", doc.getCategory(), doc.getLanguage());
+        String imageUrl = getImageUrl(doc.getTitle(),"","", "", "");
+        if(imageUrl.equals("N/A")) return;
+        try {
+            if (imageUrl != null) {
+                ImageIcon imageIcon = new ImageIcon(new URL(imageUrl));
+
+                int labelWidth = jlabel.getWidth();
+                int labelHeight = jlabel.getHeight();
+
+                // Thay đổi kích thước của hình ảnh để vừa với JLabel
+                Image image = imageIcon.getImage();
+                Image scaledImage = image.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+                jlabel.setIcon(new ImageIcon(scaledImage));
+
+            } else {
+                JLabel errorLabel = new JLabel("Không tìm thấy ảnh.");
+            }
+        } catch (MalformedURLException e) {
+            System.out.println("URL không hợp lệ: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Lỗi khi tải ảnh từ URL: " + e.getMessage());
+        }
+    }
+    
     public static ArrayList<Document> getArrayDocument(String title, String author, String ISBN, String category, String language) {
         String jsonResponse = searchDocument(title, author, ISBN, category, language);
         if (jsonResponse == null) {
@@ -205,6 +250,96 @@ public class API {
             return null;
         }
         return parseDocument(jsonResponse);
+    }
+    
+     private static final String API_KEYS = "AIzaSyDOv7ofcaQnYInvp-IfsydvRqIVgArjGXg"; 
+    private static final String API_BASE_URL = "https://www.googleapis.com/books/v1/volumes";
+
+    // return ten, tac gia, nxb, nam xb
+    public static List<Book> searchBook(String isbn, String title, String author, String publish, String publishDate) {
+        List<Book> list = new ArrayList<>();
+        StringBuilder query = new StringBuilder();
+
+        // Xử lý các tham số tìm kiếm
+        if (title != null && !title.isEmpty()) {
+            query.append("intitle:").append(title.replace(" ", "+")).append("+");
+        }
+        if (author != null && !author.isEmpty()) {
+            query.append("inauthor:").append(author.replace(" ", "+")).append("+");
+        }
+        if (isbn != null && !isbn.isEmpty()) {
+            query.append("isbn:").append(isbn).append("+");
+        }
+        if (publish != null && !publish.isEmpty()) {
+            query.append("publisher:").append(publish.replace(" ", "+")).append("+");
+        }
+        if (publishDate != null && !publishDate.isEmpty()) {
+            query.append("publishedDate:").append(publishDate.replace(" ", "+")).append("+");
+        }
+
+        if (query.length() > 0 && query.charAt(query.length() - 1) == '+') {
+            query.setLength(query.length() - 1); // Xóa dấu "+" cuối cùng
+        }
+
+        if (query.length() > 0) {
+            String urlString = API_BASE_URL + "?q=" + query.toString() + "&key=" + API_KEYS;
+            try {
+                URL url = new URL(urlString);
+                HttpURLConnection request = (HttpURLConnection) url.openConnection();
+                request.connect();
+
+                JsonObject json = JsonParser.parseReader(new InputStreamReader(request.getInputStream())).getAsJsonObject();
+                JsonArray items = json.getAsJsonArray("items");
+
+                if (items != null && items.size() > 0) {
+                    for (int i = 0; i < items.size(); i++) {
+                        JsonObject volumeInfo = items.get(i).getAsJsonObject().getAsJsonObject("volumeInfo");
+
+                        // Lấy ISBN nếu có
+                        String bookIsbn = isbn != null ? isbn : "";
+                        JsonArray industryIdentifiers = volumeInfo.getAsJsonArray("industryIdentifiers");
+                        if (industryIdentifiers != null) {
+                            for (int j = 0; j < industryIdentifiers.size(); j++) {
+                                JsonObject identifier = industryIdentifiers.get(j).getAsJsonObject();
+                                if (identifier.get("type").getAsString().equals("ISBN_13")) {
+                                    bookIsbn = identifier.get("identifier").getAsString();
+                                    break;
+                                }
+                            }
+                        }
+
+                        // Lấy thông tin sách
+                        String bookTitle = volumeInfo.has("title") ? volumeInfo.get("title").getAsString() : "null";
+                        String bookAuthors = volumeInfo.has("authors") ? volumeInfo.getAsJsonArray("authors").get(0).getAsString() : "null";
+                        String publisher = volumeInfo.has("publisher") ? volumeInfo.get("publisher").getAsString() : "null";
+                        String publishedDate = volumeInfo.has("publishedDate") ? volumeInfo.get("publishedDate").getAsString() : "null";
+                        String categories = volumeInfo.has("categories") ? volumeInfo.getAsJsonArray("categories").get(0).getAsString() : "null";
+                        String language = volumeInfo.has("language") ? volumeInfo.get("language").getAsString() : "null";
+
+                        String imageLink = "null";
+                        if (volumeInfo.has("imageLinks")) {
+                            JsonObject imageLinks = volumeInfo.getAsJsonObject("imageLinks");
+                            if (imageLinks.has("thumbnail")) {
+                                imageLink = imageLinks.get("thumbnail").getAsString();
+                            }
+                        }
+                        // Cắt chuỗi publishedDate lấy năm
+                        if (publishedDate != null && !publishedDate.isEmpty() && publishedDate.length() >= 4) {
+                        } else {
+                            publishedDate = "null";
+                        }
+
+                        Book book = new Book(bookTitle, bookAuthors, publisher, publishedDate, 0,
+                     categories, language, "", imageLink, bookIsbn);
+                        list.add(book);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        } 
+        return list;
     }
     
 }

@@ -2,6 +2,7 @@ package BTL_OOP;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.io.BufferedReader;
@@ -97,50 +98,72 @@ public class BookSearchService {
             // Duyệt qua từng cuốn sách trong mảng
             for (int i = 0; i < items.size(); i++) {
                 JsonObject item = items.get(i).getAsJsonObject();
-                JsonObject volumeInfo = item.has("volumeInfo") && item.get("volumeInfo").isJsonObject() ?
-                                        item.getAsJsonObject("volumeInfo") : new JsonObject();
-                System.out.println("Volume Info: " + volumeInfo.toString()); // In ra dữ liệu để kiểm tra
+                    JsonObject volumeInfo = item.has("volumeInfo") && item.get("volumeInfo").isJsonObject() ?
+                            item.getAsJsonObject("volumeInfo") : new JsonObject();
 
-                // Lấy thông tin về cuốn sách từ volumeInfo
-                String title = volumeInfo.has("title") ? volumeInfo.get("title").getAsString() : "Unknown Title";
+                    String title = volumeInfo.has("title") && !volumeInfo.get("title").isJsonNull() ?
+                            volumeInfo.get("title").getAsString() : "Unknown Title";
 
-                // Lấy tên tác giả nếu có
-                String author = "N/A";
-                if (volumeInfo.has("authors") && volumeInfo.get("authors").isJsonArray()) {
-                    JsonArray authorsArray = volumeInfo.getAsJsonArray("authors");
-                    if (authorsArray.size() > 0) {
-                        author = authorsArray.get(0).getAsString();
+                    String author = "N/A";
+                    if (volumeInfo.has("authors") && volumeInfo.get("authors").isJsonArray()) {
+                        JsonArray authorsArray = volumeInfo.getAsJsonArray("authors");
+                        if (authorsArray.size() > 0) {
+                            author = authorsArray.get(0).getAsString();
+                        }
                     }
-                }
 
-                // Lấy thông tin nhà xuất bản nếu có
-                String publisher = "N/A"; // Gán giá trị mặc định
-                if (volumeInfo.has("publisher") && !volumeInfo.get("publisher").isJsonNull()) {
-                    publisher = volumeInfo.get("publisher").getAsString();
-                }
+                    String publisher = volumeInfo.has("publisher") && !volumeInfo.get("publisher").isJsonNull() ?
+                            volumeInfo.get("publisher").getAsString() : "N/A";
 
-                // Lấy năm xuất bản nếu có
-                int yearPublished = 0;
-                if (volumeInfo.has("publishedDate")) {
-                    try {
-                        yearPublished = Integer.parseInt(volumeInfo.get("publishedDate").getAsString().substring(0, 4));
-                    } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                        yearPublished = 0; // Gán giá trị mặc định nếu định dạng không chính xác
+                    String publishedDate = "";
+                    if (volumeInfo.has("publishedDate")) {
+                        try {
+                            publishedDate = volumeInfo.get("publishedDate").getAsString();
+                        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+                            publishedDate = "N/A"; // Gán giá trị mặc định nếu định dạng không chính xác
+                        }
                     }
-                }
 
-                // Lấy ISBN nếu có
-                String ISBN = "N/A";
-                if (volumeInfo.has("industryIdentifiers") && volumeInfo.get("industryIdentifiers").isJsonArray()) {
-                    JsonArray identifiersArray = volumeInfo.getAsJsonArray("industryIdentifiers");
-                    if (identifiersArray.size() > 0 && identifiersArray.get(0).isJsonObject()) {
-                        ISBN = identifiersArray.get(0).getAsJsonObject().get("identifier").getAsString();
+                    String category = "N/A";
+                    if (volumeInfo.has("categories") && volumeInfo.get("categories").isJsonArray()) {
+                        JsonArray categoriesArray = volumeInfo.getAsJsonArray("categories");
+                        if (categoriesArray.size() > 0) {
+                            category = categoriesArray.get(0).getAsString();
+                        }
                     }
-                }
 
-                // Tạo đối tượng Book và hiển thị thông tin
-                Book book = new Book(ISBN, "1", title, author, publisher, yearPublished, 1, "Fiction", "English");
-                book.displayDocumentInfor(); // Hiển thị thông tin sách
+                    String ISBN = "N/A";
+                    if (volumeInfo.has("industryIdentifiers") && volumeInfo.get("industryIdentifiers").isJsonArray()) {
+                        JsonArray identifiersArray = volumeInfo.getAsJsonArray("industryIdentifiers");
+                        for (JsonElement identifier : identifiersArray) {
+                            JsonObject identifierObj = identifier.getAsJsonObject();
+                            if (identifierObj.has("type") && identifierObj.get("type").getAsString().equals("ISBN_13")) {
+                                ISBN = identifierObj.get("identifier").getAsString();
+                                break;
+                            }
+                        }
+                    }
+                    
+                    String description ="N/A";
+                    if (volumeInfo.has("description")) {
+                        description = volumeInfo.get("description").getAsString();
+                    }
+                    
+
+                    String imageLink = "N/A";
+                    if (volumeInfo.has("imageLinks") && volumeInfo.get("imageLinks").isJsonObject()) {
+                        JsonObject imageLinks = volumeInfo.getAsJsonObject("imageLinks");
+                        if (imageLinks.has("thumbnail")) {
+                            imageLink = imageLinks.get("thumbnail").getAsString();
+                        }
+                    }
+                    
+                    String language = volumeInfo.has("language") && !volumeInfo.get("language").isJsonNull() ?
+                            volumeInfo.get("language").getAsString() : "N/A";
+
+                    Book book = new Book( title, author, publisher, publishedDate, 1, "Fiction", "English", description, imageLink, ISBN);
+
+                    book.getInfo(); // Hiển thị thông tin sách
             }
         } else {
             System.out.println("No items found in the JSON response.");

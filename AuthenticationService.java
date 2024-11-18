@@ -25,7 +25,7 @@ public class AuthenticationService {
         if (pp == 1) {
             // check tai khoan nguoi dung
 
-            String selectSQL = "SELECT password, role FROM User WHERE userAccount = ?";
+            String selectSQL = "SELECT password, role FROM User WHERE username = ?";
             try (PreparedStatement statement = con.prepareStatement(selectSQL)) {
                 // Truyền giá trị cho tham số "?"
                 statement.setString(1, account);  // userAccount là biến chứa tên tài khoản người dùng
@@ -48,7 +48,7 @@ public class AuthenticationService {
             return 0;
         }
         else {
-            String selectSQL = "SELECT password, role FROM User WHERE userAccount = ?";
+            String selectSQL = "SELECT password, role FROM User WHERE username = ?";
             try (PreparedStatement statement = con.prepareStatement(selectSQL)) {
                 // Truyền giá trị cho tham số "?"
                 statement.setString(1, account);  // userAccount là biến chứa tên tài khoản người dùng
@@ -87,11 +87,11 @@ public class AuthenticationService {
         }
     }
     
-    public static boolean checkID(String s, Connection con) {        
+    public static boolean checkID (int ID, Connection con) {
         String select = "SELECT 1 FROM User WHERE userID = ?";
         try(PreparedStatement pstm = con.prepareStatement(select)) {
             
-            pstm.setString(1, s);
+            pstm.setInt(1, ID);
             // Thực thi câu lệnh truy vấn
             try (ResultSet res = pstm.executeQuery()) {
                 // Nếu có kết quả, nghĩa là tài khoản tồn tại
@@ -105,6 +105,7 @@ public class AuthenticationService {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        String s = Integer.toString(ID);
         if (s.length() != 8) return false;
         
         if (s.isEmpty()) {
@@ -120,7 +121,7 @@ public class AuthenticationService {
     }
     
     public static boolean checkAccount(String account, Connection con) {
-        String select = "SELECT 1 FROM User WHERE userAccount = ?";
+        String select = "SELECT 1 FROM User WHERE username = ?";
         try(PreparedStatement pstm = con.prepareStatement(select)) {
             
             pstm.setString(1, account);

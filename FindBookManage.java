@@ -132,7 +132,7 @@ public class FindBookManage extends javax.swing.JPanel {
     // thong tin mac dinh khi khoi tao
     public static void setDefaultInfo() {
         user = LoginPanel.userOverAll;
-        String name = user.getUserName();
+        String name = user.getName();
         jLabel2.setText(name);
     }
     
@@ -693,10 +693,10 @@ public class FindBookManage extends javax.swing.JPanel {
                 Abook.setISBN(jTextField4.getText());
                 Abook.setPublisher(jTextField1.getText());
                 try {
-                    int year = Integer.parseInt(jTextField5.getText());
-                    Abook.setYearPublished(year);
+                    String year = jTextField5.getText();
+                    Abook.setPublishedDate(year);
                 } catch (NumberFormatException e) {
-                    Abook.setYearPublished(0);
+                    Abook.setPublishedDate("0");
                 }
                 Abook.setCategory("");
                 Abook.setLanguage(jTextField3.getText());
@@ -708,7 +708,7 @@ public class FindBookManage extends javax.swing.JPanel {
                             "Tác giả: " + Abook.getAuthor() + "\n" +
                             "ISBN: " + Abook.getISBN() + "\n" +
                             "Nhà xuất bản: " + Abook.getPublisher() + "\n" +
-                            "Năm xuất bản: " + Abook.getYearPublished() + "\n" +
+                            "Năm xuất bản: " + Abook.getPublishedDate() + "\n" +
                             "Thể loại: " + Abook.getCategory() + "\n" +
                             "Ngôn ngữ: " + Abook.getLanguage();
                     int results = JOptionPane.showConfirmDialog(
@@ -721,7 +721,7 @@ public class FindBookManage extends javax.swing.JPanel {
                     if (results == JOptionPane.YES_OPTION) {
                         List<Book> list = Abook.searchBooks(con, Abook.getTitle(),
                                 Abook.getAuthor(), Abook.getISBN(), Abook.getPublisher(), 
-                                Integer.toString(Abook.yearPublished), Abook.getCategory(), Abook.getLanguage());
+                                Abook.getPublishedDate(), Abook.getCategory(), Abook.getLanguage());
                         
                         if (!list.isEmpty()) {
                             JOptionPane.showMessageDialog(null, "Thông tin tài liệu đã tồn lại trong cơ sở dữ liệu");
@@ -855,7 +855,7 @@ public class FindBookManage extends javax.swing.JPanel {
         String author = jTextField6.getText();
         String published = jTextField1.getText();
         String publishedDate = jTextField5.getText();
-        List<Book> book = GoogleBooksAPI.searchBook(isbn, title, author, published, publishedDate);
+        List<Book> book = API.searchBook(isbn, title, author, published, publishedDate);
 
         if (book == null || book.isEmpty()) {
             JOptionPane.showMessageDialog(null, "No books found!", "No Results", JOptionPane.INFORMATION_MESSAGE);
@@ -870,7 +870,7 @@ public class FindBookManage extends javax.swing.JPanel {
                 book.get(dem).getAuthor(),         // Tác giả
                 book.get(dem).getISBN(),           // ISBN
                 book.get(dem).getPublisher(),      // Nhà xuất bản
-                book.get(dem).getYearPublished(),  // Ngày xuất bản  
+                book.get(dem).getPublishedDate(),  // Ngày xuất bản  
                 book.get(dem).getLanguage(),       // Ngôn ngữ
                 book.get(dem).getCategory()        // Thể loại
             };
@@ -896,7 +896,7 @@ public class FindBookManage extends javax.swing.JPanel {
                 Abook.setAuthor(table.getValueAt(row, 2).toString() == null ? "null" : table.getValueAt(row, 2).toString());
                 Abook.setISBN(table.getValueAt(row, 3).toString() == null ? "null" : table.getValueAt(row, 3).toString());
                 Abook.setPublisher(table.getValueAt(row, 4).toString() == null ? "null" : table.getValueAt(row, 4).toString());
-                Abook.setYearPublished(Integer.parseInt(table.getValueAt(row, 5).toString()));
+                Abook.setPublishedDate(table.getValueAt(row, 5).toString());
                 Abook.setCategory(table.getValueAt(row, 6).toString() == null ? "null" : table.getValueAt(row, 6).toString());
                 Abook.setLanguage(table.getValueAt(row, 7).toString() == null ? "null" : table.getValueAt(row, 7).toString());
                 button.addActionListener(e -> {
@@ -905,7 +905,7 @@ public class FindBookManage extends javax.swing.JPanel {
                             "Tác giả: " + Abook.getAuthor() + "\n" +
                             "ISBN: " + Abook.getISBN() + "\n" +
                             "Nhà xuất bản: " + Abook.getPublisher() + "\n" +
-                            "Năm xuất bản: " + Abook.getYearPublished() + "\n" +
+                            "Năm xuất bản: " + Abook.getPublishedDate() + "\n" +
                             "Thể loại: " + Abook.getCategory() + "\n" +
                             "Ngôn ngữ: " + Abook.getLanguage();
                     int results = JOptionPane.showConfirmDialog(
@@ -918,7 +918,7 @@ public class FindBookManage extends javax.swing.JPanel {
                     if (results == JOptionPane.YES_OPTION) {
                         List<Book> list = Abook.searchBooks(con, Abook.getTitle(),
                                 Abook.getAuthor(), Abook.getISBN(), Abook.getPublisher(), 
-                                Integer.toString(Abook.yearPublished), Abook.getCategory(), Abook.getLanguage());
+                                Abook.getPublishedDate(), Abook.getCategory(), Abook.getLanguage());
                         
                         if (!list.isEmpty()) {
                             JOptionPane.showMessageDialog(null, "Thông tin tài liệu đã tồn lại trong cơ sở dữ liệu");

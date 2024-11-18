@@ -2,38 +2,60 @@
 package BTL_OOP;
 
 public abstract class Document {
-    protected String documentID;
+
+    protected String ID;
     protected String title;
     protected String author;
     protected String publisher;
-    protected int yearPublished;
+    protected String publishedDate; // Nên sử dụng kiểu DATE hoặc String cho ngày tháng
     protected int quantity;
     protected String category;
     protected String language;
+    protected String description;
     protected String imageLink;
+    protected byte[] image;
 
-    public Document(String documentID, String title, String author, String publisher, int yearPublished, int quantity, String category, String language) {
-        this.documentID = documentID;
+    // Constructor với các tham số
+    public Document(String title, String author, String publisher, String publishedDate, int quantity,
+                    String category, String language, String description, String imageLink) {
         this.title = title;
         this.author = author;
         this.publisher = publisher;
-        this.yearPublished = yearPublished;
+        this.publishedDate = publishedDate;
         this.quantity = quantity;
         this.category = category;
         this.language = language;
+        this.description = description;
+        this.imageLink = imageLink;
     }
-
-    public Document(String title, String author, String publisher, int yearPublished) {
+    
+    public Document(String title, String author, String publisher, String publishedDate, int quantity,
+                    String category, String language, String description, String imageLink, byte[] image) {
         this.title = title;
         this.author = author;
         this.publisher = publisher;
-        this.yearPublished = yearPublished;
+        this.publishedDate = publishedDate;
+        this.quantity = quantity;
+        this.category = category;
+        this.language = language;
+        this.description = description;
+        this.imageLink = imageLink;
+        this.image = image;
     }
     public Document(){
+        this.title = "";
+        this.author = "";
+        this.publisher = "";
+        this.publishedDate = ""; // Hoặc có thể đặt là một giá trị cụ thể
+        this.quantity = 0;
+        this.category = "";
+        this.language = "";
+        this.description = "";
+        this.imageLink = "";
     }
-    
-    public String getDocumentID() {
-        return documentID;
+
+    public String getID() {
+        return ID;
     }
 
     public String getTitle() {
@@ -48,16 +70,16 @@ public abstract class Document {
         return publisher;
     }
 
-    public int getYearPublished() {
-        return yearPublished;
+    public String getPublishedDate() {
+        return publishedDate;
     }
 
     public int getQuantity() {
         return quantity;
     }
 
-    public String getCategory() {
-        return category;
+    public void setID(String documentID) {
+        this.ID = documentID;
     }
 
     public String getLanguage() {
@@ -65,7 +87,7 @@ public abstract class Document {
     }
 
     public void setDocumentID(String documentID) {
-        this.documentID = documentID;
+        this.ID = documentID;
     }
 
     public void setTitle(String title) {
@@ -80,12 +102,16 @@ public abstract class Document {
         this.publisher = publisher;
     }
 
-    public void setYearPublished(int yearPublished) {
-        this.yearPublished = yearPublished;
+    public void setPublishedDate(String yearPublished) {
+        this.publishedDate = yearPublished;
     }
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getCategory() {
+        return category;
     }
 
     public void setCategory(String category) {
@@ -103,23 +129,27 @@ public abstract class Document {
     public String getImageLink() {
         return this.imageLink;
     }
-    
-    
 
-    public void displayDocumentInfor() {
-        System.out.println("Book Information:");
-        System.out.println("Document ID: " + documentID);
-        System.out.println("Title: " + title);
-        System.out.println("Author: " + author);
-        System.out.println("Publisher: " + publisher);
-        System.out.println("Year Published: " + yearPublished);
-        System.out.println("Quantity: " + quantity);
-        System.out.println("Category: " + category);
-        System.out.println("Language: " + language);
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public byte[] getImage(){
+        return image;
+    }
+    
+    public void setImage(byte[] image){
+        this.image = image;
     }
 
     @Override
     public String toString() {
         return  title + " - " + author;
     }
+    
+    public abstract void getInfo();
 }
