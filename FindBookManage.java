@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package BTL_OOP;
+package BTLOOP;
 
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -111,7 +111,7 @@ public class FindBookManage extends javax.swing.JPanel {
     // thong tin mac dinh khi khoi tao
     public static void setDefaultInfo() {
         user = LoginPanel.userOverAll;
-        String name = user.getUserName();
+        String name = user.getUsername();
         jLabel25.setText(name);
     }
     
@@ -216,8 +216,9 @@ public class FindBookManage extends javax.swing.JPanel {
         });
 
         jButton1.setForeground(new java.awt.Color(0, 51, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/logOut.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTLOOP/Screenshot_54.png"))); // NOI18N
         jButton1.setText("ĐĂNG XUẤT");
+        jButton1.setToolTipText("");
         jButton1.setAlignmentY(0.0F);
         jButton1.setMargin(new java.awt.Insets(5, 2, 3, 2));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -319,7 +320,7 @@ public class FindBookManage extends javax.swing.JPanel {
         jPanel4.setBackground(new java.awt.Color(153, 255, 255));
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/Remove-bg.ai_1729220335126.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTLOOP/Remove-bg.ai_1729220335126.png"))); // NOI18N
 
         jLabel25.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel25.setText("Account");
@@ -419,7 +420,7 @@ public class FindBookManage extends javax.swing.JPanel {
         jPanel3.setBackground(new java.awt.Color(224, 224, 224));
 
         jLabel8.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/image/avataBook.png"))); // NOI18N
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTLOOP/logOut.png"))); // NOI18N
 
         jButton2.setText("jButton2");
 
@@ -571,9 +572,11 @@ public class FindBookManage extends javax.swing.JPanel {
         String author = jTextField4.getText();
         String published = jTextField1.getText();
         String publishedDate = jTextField2.getText();
-        
+         // hàm lấy sachs từ API: API.getArrayDocument(title, author, isbn, author, author);
+         /*
         String result = GoogleBooksAPI.searchBook(isbn, title, author, published, publishedDate);
         setResultAPI(result);
+*/
     }//GEN-LAST:event_jButton3ActionPerformed
 
     public static void main(String[] args) {

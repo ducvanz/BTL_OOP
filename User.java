@@ -1,89 +1,82 @@
+package BTLOOP;
 
-package BTL_OOP;
-
-/**
- *
- * @author thinh
- */
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.sql.PreparedStatement;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 public class User {
-    private int userID;
-    private String userName;
+    private int ID;
+    private String name;
     private String email;
     private String phone;
     private String birthday;
     private String address;
     private boolean loanTerm;
     private int numberBorrowed;
-    private ArrayList<Document> borrowedDocument;
-    private String userAccount;
+    private ArrayList<Transaction> BorrowedList;
+    private ArrayList<Transaction> LoanList;
+    private String username;
     private String password;
 
+    // Constructor mặc định
     public User() {
-        this.userName = "User";
-        this.userID = 0;
+        this.name = "User ";
+        this.email = "";
+        this.phone = "";
+        this.birthday = "";
+        this.address = "";
+        this.loanTerm = true; // Mặc định cho phép mượn
+        this.numberBorrowed = 0;
+        this.BorrowedList = new ArrayList<>();
+        this.LoanList = new ArrayList<>();
+        this.username = "";
+        this.password = "";
     }
 
-    public User(String msv, String userName,String userAccout, String passWord){
-        this.userID = Integer.parseInt(msv);
-        this.userName = userName;
-        this.userAccount = userAccout;
-        this.password = passWord;
-    }
-
-    public User(int userID, String userName, String email, String phone, String birthday, String address, boolean loanTerm, int numberBorrowed, String userAccount, String password) {
-        this.userID = userID;
-        this.userName = userName;
+    // Constructor với các tham số
+    public User(int ID,String name, String email, String phone, String birthday, String address,
+                boolean loanTerm, int numberBorrowed, String username, String password) {
+        this.ID = ID;
+        this.name = name;
         this.email = email;
         this.phone = phone;
         this.birthday = birthday;
         this.address = address;
         this.loanTerm = loanTerm;
         this.numberBorrowed = numberBorrowed;
-        this.userAccount = userAccount;
+        this.BorrowedList = new ArrayList<>();
+        this.LoanList = new ArrayList<>();
+        this.username = username;
         this.password = password;
     }
-
-    public String getUserAccount() {
-        return userAccount;
+    
+    public User(int ID, String name, String username, String password) {
+        this.ID = ID;
+        this.name = name;
+        this.email = "";
+        this.phone = "";
+        this.birthday = "2005-09-01";
+        this.address = "";
+        this.loanTerm = true; // Mặc định cho phép mượn
+        this.numberBorrowed = 0;
+        this.BorrowedList = new ArrayList<>();
+        this.LoanList = new ArrayList<>();
+        this.password = password;
+        this.username = username;
+    }
+    
+    public int getID() {
+        return ID;
     }
 
-    public void setUserAccount(String userAccout) {
-        this.userAccount = userAccout;
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
-    public String getPassword() {
-        return password;
+    public String getName() {
+        return name;
     }
 
-    public void setPassword(String passWord) {
-        this.password = passWord;
-    }
-
-    public int getUserID() {
-        return userID;
-    }
-
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -119,7 +112,10 @@ public class User {
     }
 
     public boolean isLoanTerm() {
-        return loanTerm;
+        if (numberBorrowed < 10) {
+            return true;
+        }
+        return false;
     }
 
     public void setLoanTerm(boolean loanTerm) {
@@ -134,36 +130,72 @@ public class User {
         this.numberBorrowed = numberBorrowed;
     }
 
-    
-    public List<Document> findDocument(String title) {
-        // Tìm tài liệu theo tiêu đề
-        DocumentDAO documentDAO = new DocumentDAO();
-        List<Document> arrDocument = documentDAO.getAllDocuments(); // Lấy tất cả tài liệu
-        List<Document> resultDocuments = new ArrayList<>();
-        
-        for (Document document : arrDocument) {
-            if (document.getTitle() != null && document.getTitle().contains(title)) {
-                resultDocuments.add(document); 
-            }
+    public ArrayList<Transaction> getBorrowedList() {
+        return BorrowedList;
+    }
+
+    public void setBorrowedList(ArrayList<Transaction> borrowedList) {
+        BorrowedList = borrowedList;
+    }
+
+    public ArrayList<Transaction> getLoanList() {
+        return LoanList;
+    }
+
+    public void setLoanList(ArrayList<Transaction> loanList) {
+        LoanList = loanList;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+    // Phương thức mượn tài liệu
+    public void borrowDocument(Transaction transaction) {
+        if (loanTerm) {
+            TransactionDAO transactionDAO = new TransactionDAO();
+            LoanList.add(transaction);
+            transactionDAO.addTransaction(transaction);
+            numberBorrowed++;
+        } else {
+            System.out.println("User  is not allowed to borrow documents.");
         }
-
-        return resultDocuments;
     }
 
-
-    public void borrowDocument(Document doc) {
-        // Mượn tài liệu
-        borrowedDocument.add(doc);
-        numberBorrowed += 1;
+    // Phương thức trả tài liệu
+    public void returnDocument(Transaction transaction) {
+        if (LoanList.contains(transaction)) {
+            LoanList.remove(transaction);
+            TransactionDAO transactionDAO = new TransactionDAO();
+            transactionDAO.returnTransaction(transaction);
+            BorrowedList.add(transaction);
+            numberBorrowed--;
+        } else {
+            System.out.println("Document not found in borrowed list.");
+        }
     }
 
-    public void returnDocument(Document doc) {
-        // Trả tài liệu
-        borrowedDocument.remove(doc);
-        numberBorrowed -= 1;
-    }
-
-    public void displayUserInfo(User user){
-        
+    // Phương thức hiển thị thông tin người dùng
+    public void displayUserInfo() {
+        System.out.println("Name: " + name);
+        System.out.println("Email: " + email);
+        System.out.println("Phone: " + phone);
+        System.out.println("Birthday: " + birthday);
+        System.out.println("Address: " + address);
+        System.out.println("Number Borrowed: " + numberBorrowed);
+        System.out.println("Loan Term: " + (loanTerm ? "Allowed" : "Not Allowed"));
     }
 }

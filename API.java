@@ -1,12 +1,16 @@
-package BTL_OOP;
+package BTLOOP;
 
 import com.google.gson.*;
+import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 public class API {
     private static final String API_KEY = "AIzaSyB5dvT2OSJZxqpMKgS7gEw-5GN_uKpQAPs";
@@ -14,7 +18,7 @@ public class API {
     public API() {
     }
     
-
+    // tìm sách từ API
     public static String searchDocument(String title, String author, String ISBN, String category, String language) {
         try {
             StringBuilder queryBuilder = new StringBuilder("q=");
@@ -70,6 +74,8 @@ public class API {
         }
         return null;
     }
+    
+    
     private static String parseDocumentGetImage(String jsonResponse) {
         if (jsonResponse == null || jsonResponse.isEmpty()) {
             System.out.println("Phản hồi JSON rỗng hoặc null, không thể phân tích.");
@@ -95,7 +101,6 @@ public class API {
                         }
                     }
                     return imageUrl;
-
                 }
             } else {
                 System.out.println("Không có mục nào trong phản hồi JSON.");
@@ -106,8 +111,9 @@ public class API {
         }
         return null;
     }
-    public static String getImage(){
-        String jsonResponse = searchDocument("c++","","","","");
+    // lấy url của image tưf API
+    public static String getImageUrl(String title, String author, String ISBN, String category, String language){
+        String jsonResponse = searchDocument(title, author, ISBN, category, language);
         if (jsonResponse == null) {
             System.out.println("Không thể lấy dữ liệu từ API.");
         }
@@ -126,7 +132,7 @@ public class API {
 
         try {
             JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
-
+//            System.out.println(jsonObject);
             if (jsonObject.has("items") && jsonObject.get("items").isJsonArray()) {
                 JsonArray items = jsonObject.getAsJsonArray("items");
                 for (int i = 0; i < Math.min(10, items.size()); i++) {
@@ -148,12 +154,12 @@ public class API {
                     String publisher = volumeInfo.has("publisher") && !volumeInfo.get("publisher").isJsonNull() ?
                             volumeInfo.get("publisher").getAsString() : "N/A";
 
-                    int yearPublished = 0;
+                    String publishedDate = "";
                     if (volumeInfo.has("publishedDate")) {
                         try {
-                            yearPublished = Integer.parseInt(volumeInfo.get("publishedDate").getAsString().substring(0, 4));
+                            publishedDate = volumeInfo.get("publishedDate").getAsString();
                         } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                            yearPublished = 0;
+                            publishedDate = "N/A"; // Gán giá trị mặc định nếu định dạng không chính xác
                         }
                     }
 
@@ -176,11 +182,25 @@ public class API {
                             }
                         }
                     }
+                    
+                    String description ="N/A";
+                    if (volumeInfo.has("description")) {
+                        description = volumeInfo.get("description").getAsString();
+                    }
+                    
 
+                    String imageLink = "N/A";
+                    if (volumeInfo.has("imageLinks") && volumeInfo.get("imageLinks").isJsonObject()) {
+                        JsonObject imageLinks = volumeInfo.getAsJsonObject("imageLinks");
+                        if (imageLinks.has("thumbnail")) {
+                            imageLink = imageLinks.get("thumbnail").getAsString();
+                        }
+                    }
+                    
                     String language = volumeInfo.has("language") && !volumeInfo.get("language").isJsonNull() ?
                             volumeInfo.get("language").getAsString() : "N/A";
 
-                    Book book = new Book(ISBN, "1", title, author, publisher, yearPublished, 1, category, language);
+                    Book book = new Book( title, author, publisher, publishedDate, 1, "Fiction", "English", description, imageLink, ISBN);
                     result.add(book);
 
                 }
@@ -195,6 +215,33 @@ public class API {
         return result;
     }
 
+    
+    public static void hienthiImage(Document doc, JLabel jlabel) {
+        //String imageUrl = API.setImage(doc.getTitle(), doc.getAuthor(), "", doc.getCategory(), doc.getLanguage());
+        String imageUrl = getImageUrl(doc.getTitle(),"","", "", "");
+        if(imageUrl.equals("N/A")) return;
+        try {
+            if (imageUrl != null) {
+                ImageIcon imageIcon = new ImageIcon(new URL(imageUrl));
+
+                int labelWidth = jlabel.getWidth();
+                int labelHeight = jlabel.getHeight();
+
+                // Thay đổi kích thước của hình ảnh để vừa với JLabel
+                Image image = imageIcon.getImage();
+                Image scaledImage = image.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+                jlabel.setIcon(new ImageIcon(scaledImage));
+
+            } else {
+                JLabel errorLabel = new JLabel("Không tìm thấy ảnh.");
+            }
+        } catch (MalformedURLException e) {
+            System.out.println("URL không hợp lệ: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Lỗi khi tải ảnh từ URL: " + e.getMessage());
+        }
+    }
+    
     public static ArrayList<Document> getArrayDocument(String title, String author, String ISBN, String category, String language) {
         String jsonResponse = searchDocument(title, author, ISBN, category, language);
         if (jsonResponse == null) {

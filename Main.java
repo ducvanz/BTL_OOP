@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package BTL_OOP;
+package BTLOOP;
 
 import java.awt.CardLayout;
 import java.sql.Connection;
@@ -44,12 +44,15 @@ public class Main extends JFrame {
         ManagePanel managePanel = new ManagePanel(con, frame, mainPanel);
         FindDocumentPanel findDocumentPanel = new FindDocumentPanel(con, frame, mainPanel);
         FindBookManage FindBookManage = new FindBookManage(con, frame, mainPanel);
-
+        DisplayDocumentPanel displayDocumentPanel = new DisplayDocumentPanel(con, frame, mainPanel);
+        
         mainPanel.add(signupPanel, "signupPanel");
         mainPanel.add(loginPanel, "loginPanel");
         mainPanel.add(userPanel, "userPanel");
         mainPanel.add(managePanel, "managePanel");
         mainPanel.add(findDocumentPanel, "findDocumentPanel");
+        mainPanel.add(displayDocumentPanel, "displayDocumentPanel");
+        mainPanel.add(FindBookManage, "findBookManage");
 //<<<<<<< HEAD
 //
 //        mainFframe.add(mainPanel);

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package BTL_OOP;
+package BTLOOP;
 
 import java.awt.CardLayout;
 import java.awt.Container;
@@ -121,7 +121,6 @@ public class SignupPanel extends JPanel {
 
         libraryNameLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         libraryNameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        libraryNameLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/Screenshot_54.png"))); // NOI18N
         libraryNameLabel.setText("THƯ VIỆN SỐ ANTEXT");
         libraryNameLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -298,19 +297,19 @@ public class SignupPanel extends JPanel {
 
         int check = 0;
         // check MSV -> true -> check +1;
-        String msv = msvTextField.getText();
+        int ID = Integer.parseInt(msvTextField.getText());
 
         // check tên đã đúng chưa -> true -> check +1;
         String name = nameTextField.getText();
 
         // check tai khoan da ton tai
-        String accout = userAccountTextField.getText();
+        String username = userAccountTextField.getText();
 
         char[] arr = passwordTextField.getPassword();
         String pass = new String(arr);
-        User user = new User(msv, name, accout, pass);
+        User user = new User(ID, name, username, pass);
 
-        if (AuthenticationService.checkID(msv, con)) {
+        if (AuthenticationService.checkID(ID, con)) {
             check ++;
         } else {
             msvTextField.setText("Nhập sai");
@@ -324,7 +323,7 @@ public class SignupPanel extends JPanel {
             resetOfSignUp();
         }
 
-        if (!AuthenticationService.checkAccount(accout, con)) {
+        if (!AuthenticationService.checkAccount(username, con)) {
             check++;
         } else {
             userAccountTextField.setText("Tai khoan da ton tai!");

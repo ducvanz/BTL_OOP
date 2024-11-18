@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package BTL_OOP;
+package BTLOOP;
 
-import java.awt.CardLayout;
+import java.awt.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Connection;
@@ -16,11 +16,11 @@ import javax.swing.*;
  * @author thinh
  */
 public class FindDocumentPanel extends JPanel {
-
+    DocumentDAO documentDAO = new DocumentDAO();
     private Connection con;
     private JFrame mainFrame;
     private JPanel mainPanel;
-    DefaultListModel<String> listModel = new DefaultListModel<>();
+    DefaultListModel<Document> listModel = new DefaultListModel<>();
     String title = "";
     String author = "";
     String ISBN = "";
@@ -31,60 +31,70 @@ public class FindDocumentPanel extends JPanel {
      * Creates new form managePanel
      */
     public FindDocumentPanel(Connection con, JFrame mainFframe, JPanel mainPanel) {
-
         initComponents();
         this.con = con;
         this.mainFrame = mainFframe;
         this.mainPanel = mainPanel;
         resultFindDocumentJList.setVisible(false);
         jScrollPane1.setVisible(false);
-        hienthiImage();
+        //hienthiImage();
+        Document doc = documentDAO.getDocumentByID(1);
+        ImageIcon imageIcon = new ImageIcon(doc.getImage());
+
+        // Đặt ImageIcon vào JLabel
+        imageJLabel.setIcon(imageIcon);
         
     }
 
 
     public void hienthi2(String title, String author, String ISBN, String category, String language) {
-        ArrayList<Document> arrDocument = API.getArrayDocument(title, author, ISBN, category, language);
-        if (arrDocument != null) {
-            for (Document doc : arrDocument) {
-                listModel.addElement(doc.toString());
-                doc.displayDocumentInfor();
+        // Tạo một SwingWorker để thực hiện tìm kiếm trong nền
+        SwingWorker<ArrayList<Document>, Void> worker = new SwingWorker<ArrayList<Document>, Void>() {
+            @Override
+            protected ArrayList<Document> doInBackground() throws Exception {
+                return API.getArrayDocument(title, author, ISBN, category, language);
             }
-            if(arrDocument!=null && (!titleJTextField.getText().trim().isEmpty() || !authorJTextField.getText().trim().isEmpty()
-                    || !ISBNJTextField.getText().trim().isEmpty())){
-                resultFindDocumentJList.setModel(listModel);
-                resultFindDocumentJList.setVisibleRowCount(Math.min(listModel.size(), 5));
-                resultFindDocumentJList.setFixedCellHeight(30);
-                jScrollPane1.setVisible(true);
-                resultFindDocumentJList.setVisible(true);
-                jScrollPane1.setViewportView(resultFindDocumentJList);
-            } else {
-                jScrollPane1.setVisible(false);
-                resultFindDocumentJList.setVisible(false);
+
+            @Override
+            protected void done() {
+                try {
+                    ArrayList<Document> arrDocument = get(); // Lấy kết quả từ doInBackground
+                    if (arrDocument != null) {
+                        listModel.clear(); // Xóa danh sách trước khi thêm mới
+                        for (Document doc : arrDocument) {
+                            listModel.addElement(doc);
+                        }
+                        if (arrDocument.size() > 0 && (!titleJTextField.getText().trim().isEmpty() || !authorJTextField.getText().trim().isEmpty()
+                                || !ISBNJTextField.getText().trim().isEmpty())) {
+                            //resultFindDocumentJList.setModel((DefaultListModel) listModel);
+                            resultFindDocumentJList.setModel((DefaultListModel) listModel);
+                            resultFindDocumentJList.setVisibleRowCount(Math.min(listModel.size(), 5));
+                            resultFindDocumentJList.setFixedCellHeight(30);
+                            jScrollPane1.setVisible(true);
+                            resultFindDocumentJList.setVisible(true);
+                            jScrollPane1.setViewportView(resultFindDocumentJList);
+                        } else {
+                            jScrollPane1.setVisible(false);
+                            resultFindDocumentJList.setVisible(false);
+                        }
+                    } else {
+                        listModel.clear();
+                        jScrollPane1.setVisible(false);
+                        resultFindDocumentJList.setVisible(false);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    // Xử lý lỗi nếu có
+                    JOptionPane.showMessageDialog(null, "Lỗi khi tìm kiếm tài liệu: " + e.getMessage());
+                }
             }
-        } else {
-            listModel.clear();
-            jScrollPane1.setVisible(false);
-            resultFindDocumentJList.setVisible(false);   
-        }
+        };
+
+        // Bắt đầu thực hiện worker
+        worker.execute();
     }
-    public void hienthiImage() {
-        String imageUrl = API.getImage();
-        if(imageUrl.equals("N/A")) return;
-        try {
-            if (imageUrl != null) {
-                // Tải ảnh từ URL
-                ImageIcon imageIcon = new ImageIcon(new URL(imageUrl));
-                imageJLabel.setIcon(imageIcon);
-            } else {
-                JLabel errorLabel = new JLabel("Không tìm thấy ảnh.");
-            }
-        } catch (MalformedURLException e) {
-            System.out.println("URL không hợp lệ: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("Lỗi khi tải ảnh từ URL: " + e.getMessage());
-        }
-    }
+     
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -115,7 +125,7 @@ public class FindDocumentPanel extends JPanel {
         jSeparator2 = new javax.swing.JSeparator();
         imageJLabel = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(102, 255, 255));
+        setBackground(new java.awt.Color(153, 255, 255));
         setPreferredSize(new java.awt.Dimension(800, 650));
         setRequestFocusEnabled(false);
         setVerifyInputWhenFocusTarget(false);
@@ -123,7 +133,7 @@ public class FindDocumentPanel extends JPanel {
         jSeparator1.setBackground(new java.awt.Color(255, 0, 51));
         jSeparator1.setForeground(new java.awt.Color(255, 0, 51));
 
-        avata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/image/Remove-bg.ai_1729220335126.png"))); // NOI18N
+        avata.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTLOOP/Remove-bg.ai_1729220335126.png"))); // NOI18N
 
         backButton.setText("Back");
         backButton.addActionListener(new java.awt.event.ActionListener() {
@@ -260,7 +270,7 @@ public class FindDocumentPanel extends JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(46, 46, 46)
                 .addComponent(imageJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(130, 644, Short.MAX_VALUE))
+                .addGap(248, 644, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,12 +323,21 @@ public class FindDocumentPanel extends JPanel {
         resultFindDocumentJList.getAccessibleContext().setAccessibleName("");
 
         getAccessibleContext().setAccessibleName("findDocumentPanel1");
-
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        titleJTextField.setText("");
+        authorJTextField.setText("");
+        ISBNJTextField.setText("");
+        imageJLabel.setIcon(null);
+        jScrollPane1.setVisible(false);
+        resultFindDocumentJList.setVisible(false);
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
-        cl.show(mainPanel, "managePanel");
+        if (LoginPanel.isManage){
+            cl.show(mainPanel, "managePanel");
+        } else {
+            cl.show(mainPanel, "userPanel");
+        }
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void authorJTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_authorJTextFieldKeyTyped
@@ -363,15 +382,29 @@ public class FindDocumentPanel extends JPanel {
     private void resultFindDocumentJListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultFindDocumentJListMouseClicked
         if (evt.getClickCount() == 2) {
         // Lấy chỉ số của dòng được nhấp đúp
+        
+        ArrayList<Document> arrDocument = documentDAO.getAllDocuments();
         int index = resultFindDocumentJList.locationToIndex(evt.getPoint());
-
-        // Kiểm tra nếu chỉ số hợp lệ
         if (index != -1) {
             Object item = resultFindDocumentJList.getModel().getElementAt(index);
-            if(item instanceof Document){
-                // chuyen den panel hien thi voi tham so document
-                
+            Document doc = (Document) item;
+                       
+
+            for(Document d: arrDocument) {
+                if (d.getTitle().equals(doc.getTitle())){
+                    DisplayDocumentPanel.setDocument(d);
+                    DisplayDocumentPanel.displayDocument(true);
+                    CardLayout cl = (CardLayout) mainPanel.getLayout();
+                    cl.show(mainPanel, "displayDocumentPanel");
+                    return;
+                }
             }
+            DisplayDocumentPanel.setDocument(doc);
+            DisplayDocumentPanel.displayDocument(false);
+            
+            CardLayout cl = (CardLayout) mainPanel.getLayout();
+            cl.show(mainPanel, "displayDocumentPanel");
+
         }
     }
         

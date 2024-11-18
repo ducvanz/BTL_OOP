@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package BTL_OOP;
+package BTLOOP;
 
 import java.awt.CardLayout;
 import java.sql.Connection;
@@ -21,7 +21,8 @@ public class LoginPanel extends JPanel {
 
     JFrame mainFrame;
     JPanel mainPanel;
-    public static User userOverAll; 
+    public static User userOverAll;
+    public static boolean isManage;
 
     /**
      * Creates new form loginPanel
@@ -31,6 +32,7 @@ public class LoginPanel extends JPanel {
         this.con = con;
         this.mainFrame = mainFrame;
         this.mainPanel = mainPanel;
+        isManage = false; 
         if (userOverAll == null) {
             userOverAll = new User();
         }
@@ -70,7 +72,6 @@ public class LoginPanel extends JPanel {
 
         librarynameInLoginLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         librarynameInLoginLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        librarynameInLoginLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/Screenshot_54.png"))); // NOI18N
         librarynameInLoginLabel.setText("THƯ VIỆN SỐ ANTEXT");
         librarynameInLoginLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -253,7 +254,7 @@ public class LoginPanel extends JPanel {
             check = AuthenticationService.accountLogin(accountUser, pass, 1, con);
         }
         
-        userOverAll.setUserAccount(accountUser);
+        userOverAll.setUsername(accountUser);
         // kiem tra tai khoan
         if (check == 0) {
             thongbaodangnhapsai.setText("Tài khoản hoặc mật khẩu chưa chính xác");
@@ -261,36 +262,30 @@ public class LoginPanel extends JPanel {
             passwordInLoginPasswordField.setText("");
         } else if (check == 1) {
             
-            int userID = manage.getUserIDByUserAccount(accountUser);
+            int userID = manage.getUserIDByUsername(accountUser);
             LoginPanel.userOverAll = manage.getUserByID(userID);
-            UserPanel.setUsername(userOverAll.getUserName());
+            UserPanel.setUsername(userOverAll.getName());
             CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
             cl.show(mainPanel, "userPanel");
             
         } else {
             // quan ly
-            int userID = manage.getUserIDByUserAccount(accountUser);
-//<<<<<<< HEAD
-//            user = manage.getUserByID(userID);
-//            
-//            ManagePanel.setUsername(user.getUserName());
-//            
-//=======
+            int userID = manage.getUserIDByUsername(accountUser);
             LoginPanel.userOverAll = manage.getUserByID(userID);
-            ManagePanel.setUsername(userOverAll.getUserName());
+            ManagePanel.setUsername(userOverAll.getName());
             FindBookManage.setDefaultInfo();
+            isManage = true;
             CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
             cl.show(mainPanel, "managePanel");
 
         }
+        System.out.println("3");
+        userOverAll.displayUserInfo();
         // set pane login
         loginButton.setText("ĐĂNG NHẬP");
         accountInLoginTextField.setText("");
         passwordInLoginPasswordField.setText("");
         
-        // set user in find book manage
-        
-
     }//GEN-LAST:event_loginButtonActionPerformed
 
     public static JTextField getAccountInLoginTextField() {
