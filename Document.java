@@ -7,7 +7,7 @@ public abstract class Document {
     protected String title;
     protected String author;
     protected String publisher;
-    protected String publishedDate; // Nên sử dụng kiểu DATE hoặc String cho ngày tháng
+    protected String publishedDate;
     protected int quantity;
     protected String category;
     protected String language;

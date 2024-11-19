@@ -7,14 +7,9 @@ package BTL_OOP;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.sql.Connection;
-import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.ListSelectionModel;
 import javax.swing.ImageIcon;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -23,15 +18,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JTable;
@@ -146,7 +137,9 @@ public class FindBookManage extends javax.swing.JPanel {
     public void desDefault(String ima, JLabel label) {
         try {
             // Địa chỉ ảnh mặc định
-            String imagePath = "C:\\Users\\Admin\\NetBean\\DEMO_BTL\\src\\BTL_OOP\\image\\" + ima;  // Thay đổi đường dẫn ảnh mặc định của bạn
+            //String imagePath = "C:\\Users\\Admin\\NetBean\\DEMO_BTL\\src\\BTL_OOP\\image\\" + ima;  // Thay đổi đường dẫn ảnh mặc định của bạn
+
+            String imagePath = "C:\\Users\\thinh\\JAVA\\SWING\\src\\BTL_OOP\\image\\" + ima;  // Thay đổi đường dẫn ảnh mặc định của bạn
 
             // Đọc ảnh từ file
             Image image = ImageIO.read(new File(imagePath));
@@ -719,10 +712,11 @@ public class FindBookManage extends javax.swing.JPanel {
                     JOptionPane.QUESTION_MESSAGE);
                     
                     if (results == JOptionPane.YES_OPTION) {
-                        List<Book> list = Abook.searchBooks(con, Abook.getTitle(),
-                                Abook.getAuthor(), Abook.getISBN(), Abook.getPublisher(), 
-                                Abook.getPublishedDate(), Abook.getCategory(), Abook.getLanguage());
+//                        List<Book> list = Abook.searchBooks(con, Abook.getTitle(),
+//                                Abook.getAuthor(), Abook.getISBN(), Abook.getPublisher(), 
+//                                Abook.getPublishedDate(), Abook.getCategory(), Abook.getLanguage());
                         
+                        List<Document> list = API.getArrayDocument(Abook.getTitle(), Abook.getAuthor(), Abook.getISBN(), Abook.getCategory(), Abook.getLanguage());
                         if (!list.isEmpty()) {
                             JOptionPane.showMessageDialog(null, "Thông tin tài liệu đã tồn lại trong cơ sở dữ liệu");
                         } else {
@@ -779,19 +773,7 @@ public class FindBookManage extends javax.swing.JPanel {
         cl.show(mainPanel, "editBook");
     }//GEN-LAST:event_suaSachActionPerformed
 
-//    public static void main(String[] args) {
-//        JFrame frame = new JFrame("Find Book Manage");
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Đóng ứng dụng khi đóng frame
-//        frame.setSize(800, 650); // Kích thước frame (chiều rộng, chiều cao)
-//        
-//        // Tạo một đối tượng FindBookManage và thêm vào frame
-//        FindBookManage findBookManagePanel = new FindBookManage();
-//        frame.add(findBookManagePanel); // Thêm panel vào frame
-//        
-//        // Đặt frame ở giữa màn hình
-//        frame.setLocationRelativeTo(null);
-//        frame.setVisible(true); // Hiển thị frame
-//    }
+
     
     public void enterUpLoad() {
         // Thêm KeyListener để bắt sự kiện nhấn phím Enter trên jTextField1

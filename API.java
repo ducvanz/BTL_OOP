@@ -10,15 +10,82 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.SwingWorker;
 
 public class API {
     private static final String API_KEY = "AIzaSyB5dvT2OSJZxqpMKgS7gEw-5GN_uKpQAPs";
 
     public API() {
     }
-    
+    // Tìm sách từ API trong một luồng nền
+    public static void searchBooksInBackground(String title, String author, String ISBN, String category, String language, Consumer<List<Book>> callback) {
+        SwingWorker<List<Document>, Void> worker = new SwingWorker<List<Document>, Void>() {
+            @Override
+            protected List<Document> doInBackground() throws Exception {
+                String jsonResponse = searchDocument(title, author, ISBN, category, language);
+                if (jsonResponse == null) {
+                    return null;
+                }
+                return parseDocument(jsonResponse);
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    List<Document> doc = get(); // Lấy danh sách sách từ phương thức doInBackground
+                    if (doc != null && !doc.isEmpty()) {
+                        // Xử lý danh sách sách đã tìm thấy
+                        for (Document document : doc) {
+                            System.out.println("Title: " + document.getTitle());
+                            // Cập nhật giao diện người dùng, ví dụ thêm vào một danh sách hiển thị
+                            // hoặc cập nhật một JTable, JList, v.v.
+                        }
+                    } else {
+                        System.out.println("Không tìm thấy sách nào.");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        worker.execute();
+    }
+
+    // Tải ảnh trong một luồng nền
+    public static void loadImageInBackground(String imageUrl, JLabel label) {
+        SwingWorker<ImageIcon, Void> worker = new SwingWorker<ImageIcon, Void>() {
+            @Override
+            protected ImageIcon doInBackground() throws Exception {
+                try {
+                    return new ImageIcon(new URL(imageUrl));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    ImageIcon icon = get();
+                    if (icon != null) {
+                        // Thay đổi kích thước của hình ảnh để vừa với JLabel
+                        Image image = icon.getImage();
+                        Image scaledImage = image.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
+                        label.setIcon(new ImageIcon(scaledImage));
+                    } else {
+                        label.setText("Không tìm thấy ảnh.");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        worker.execute();
+    }
     // tìm sách từ API
     public static String searchDocument(String title, String author, String ISBN, String category, String language) {
         try {

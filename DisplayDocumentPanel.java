@@ -447,37 +447,38 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
 
     // load ảnh từ filePath lên jlabel
     public static void loadImageFromFilePath(JLabel label, String filePath) {
-        // Xóa icon hiện tại
-        label.setIcon(null);
-        label.setText("");
+        SwingWorker<ImageIcon, Void> worker = new SwingWorker<ImageIcon, Void>() {
+            @Override
+            protected ImageIcon doInBackground() throws Exception {
+                File imageFile = new File(filePath);
+                if (!imageFile.exists()) {
+                    return null; // Return null if image not found
+                }
 
-        try {
-            File imageFile = new File(filePath);
-
-            // Kiểm tra nếu ảnh tồn tại
-            if (!imageFile.exists()) {
-                label.setText("Image not found!");
-                return;
+                ImageIcon imageIcon = new ImageIcon(filePath);
+                int labelWidth = label.getWidth();
+                int labelHeight = label.getHeight();
+                Image image = imageIcon.getImage();
+                Image scaledImage = image.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
+                return new ImageIcon(scaledImage);
             }
 
-            // Tạo ImageIcon từ File
-            ImageIcon imageIcon = new ImageIcon(filePath);
-
-            // Lấy kích thước JLabel
-            int labelWidth = label.getWidth();
-            int labelHeight = label.getHeight();
-
-            // Thay đổi kích thước ảnh để vừa với JLabel
-            Image image = imageIcon.getImage();
-            Image scaledImage = image.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
-
-            // Đặt ảnh đã thay đổi kích thước lên JLabel
-            label.setIcon(new ImageIcon(scaledImage));
-        } catch (Exception e) {
-            label.setText("Error loading image!");
-            label.setIcon(null);
-            System.out.println("Lỗi khi tải ảnh: " + e.getMessage());
-        }
+            @Override
+            protected void done() {
+                try {
+                    ImageIcon icon = get();
+                    if (icon != null) {
+                        label.setIcon(icon);
+                    } else {
+                        label.setText("Image not found!");
+                    }
+                } catch (Exception e) {
+                    label.setText("Error loading image!");
+                    System.out.println("Error loading image: " + e.getMessage());
+                }
+            }
+        };
+        worker.execute(); // Start the thread
     }
     
     private void backButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseClicked
