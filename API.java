@@ -20,39 +20,6 @@ public class API {
 
     public API() {
     }
-    // Tìm sách từ API trong một luồng nền
-    public static void searchBooksInBackground(String title, String author, String ISBN, String category, String language, Consumer<List<Book>> callback) {
-        SwingWorker<List<Document>, Void> worker = new SwingWorker<List<Document>, Void>() {
-            @Override
-            protected List<Document> doInBackground() throws Exception {
-                String jsonResponse = searchDocument(title, author, ISBN, category, language);
-                if (jsonResponse == null) {
-                    return null;
-                }
-                return parseDocument(jsonResponse);
-            }
-
-            @Override
-            protected void done() {
-                try {
-                    List<Document> doc = get(); // Lấy danh sách sách từ phương thức doInBackground
-                    if (doc != null && !doc.isEmpty()) {
-                        // Xử lý danh sách sách đã tìm thấy
-                        for (Document document : doc) {
-                            System.out.println("Title: " + document.getTitle());
-                            // Cập nhật giao diện người dùng, ví dụ thêm vào một danh sách hiển thị
-                            // hoặc cập nhật một JTable, JList, v.v.
-                        }
-                    } else {
-                        System.out.println("Không tìm thấy sách nào.");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        worker.execute();
-    }
 
     // Tải ảnh trong một luồng nền
     public static void loadImageInBackground(String imageUrl, JLabel label) {
@@ -81,14 +48,71 @@ public class API {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                    label.setText("Lỗi khi tải ảnh.");
                 }
             }
         };
         worker.execute();
     }
+
+    // Phân tích JSON để lấy URL ảnh
+    private static String parseDocumentGetImage(String jsonResponse) {
+        if (jsonResponse == null || jsonResponse.isEmpty()) {
+            System.out.println("Phản hồi JSON rỗng hoặc null, không thể phân tích.");
+            return null;
+        }
+
+        try {
+            JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
+
+            if (jsonObject.has("items") && jsonObject.get("items").isJsonArray()) {
+                JsonArray items = jsonObject.getAsJsonArray("items");
+                for (int i = 0; i < Math.min(1, items.size()); i++) {
+                    JsonObject item = items.get(i).getAsJsonObject();
+                    JsonObject volumeInfo = item.has("volumeInfo") && item.get("volumeInfo").isJsonObject() ?
+                            item.getAsJsonObject("volumeInfo") : new JsonObject();
+
+                    // Lấy link ảnh thumbnail
+                    if (volumeInfo.has("imageLinks") && volumeInfo.get("imageLinks").isJsonObject()) {
+                        JsonObject imageLinks = volumeInfo.getAsJsonObject("imageLinks");
+                        if (imageLinks.has("thumbnail")) {
+                            return imageLinks.get("thumbnail").getAsString();
+                        }
+                    }
+                }
+            } else {
+                System.out.println("Không có mục nào trong phản hồi JSON.");
+            }
+        } catch (JsonSyntaxException e) {
+            System.out.println("Lỗi khi phân tích JSON: " + e.getMessage());
+        }
+        return null;
+    }
+
+    // Lấy URL của ảnh từ API
+    public static String getImageUrl(String title, String author, String ISBN, String category, String language) {
+        String jsonResponse = searchDocument(title, author, ISBN, category, language);
+        if (jsonResponse == null) {
+            System.out.println("Không thể lấy dữ liệu từ API.");
+            return null;
+        }
+        return parseDocumentGetImage(jsonResponse);
+    }
+
+    // Hiển thị ảnh
+    public static void displayImage(Document doc, JLabel jlabel) {
+        String imageUrl = getImageUrl(doc.getTitle(), "", "", "", "");
+        if (imageUrl != null && !imageUrl.equals("N/A")) {
+            loadImageInBackground(imageUrl, jlabel);
+            System.out.println("Hiển thị ảnh từ API thành công");
+        } else {
+            jlabel.setText("");
+        }
+    }
     // tìm sách từ API
     public static String searchDocument(String title, String author, String ISBN, String category, String language) {
         try {
+            int maxResults = 40;
             StringBuilder queryBuilder = new StringBuilder("q=");
             boolean isFirst = true;
 
@@ -113,7 +137,7 @@ public class API {
             }
 
             // Tạo URL cho truy vấn tìm kiếm
-            String urlString = "https://www.googleapis.com/books/v1/volumes?" + queryBuilder.toString() + "&key=" + API_KEY;
+            String urlString = "https://www.googleapis.com/books/v1/volumes?" + queryBuilder.toString() + "&maxResults=" + maxResults + "&key=" + API_KEY;
             System.out.println("Request URL: " + urlString);
 
             URL url = new URL(urlString);
@@ -143,54 +167,6 @@ public class API {
         return null;
     }
     
-    
-    private static String parseDocumentGetImage(String jsonResponse) {
-        if (jsonResponse == null || jsonResponse.isEmpty()) {
-            System.out.println("Phản hồi JSON rỗng hoặc null, không thể phân tích.");
-            return null;
-        }
-
-        try {
-            JsonObject jsonObject = JsonParser.parseString(jsonResponse).getAsJsonObject();
-
-            if (jsonObject.has("items") && jsonObject.get("items").isJsonArray()) {
-                JsonArray items = jsonObject.getAsJsonArray("items");
-                for (int i = 0; i < Math.min(1, items.size()); i++) {
-                    JsonObject item = items.get(i).getAsJsonObject();
-                    JsonObject volumeInfo = item.has("volumeInfo") && item.get("volumeInfo").isJsonObject() ?
-                            item.getAsJsonObject("volumeInfo") : new JsonObject();
-                    System.out.println(volumeInfo);
-                    // Lấy link ảnh thumbnail
-                    String imageUrl = "N/A";
-                    if (volumeInfo.has("imageLinks") && volumeInfo.get("imageLinks").isJsonObject()) {
-                        JsonObject imageLinks = volumeInfo.getAsJsonObject("imageLinks");
-                        if (imageLinks.has("thumbnail")) {
-                            imageUrl = imageLinks.get("thumbnail").getAsString();
-                        }
-                    }
-                    return imageUrl;
-                }
-            } else {
-                System.out.println("Không có mục nào trong phản hồi JSON.");
-                return null;
-            }
-        }catch (JsonSyntaxException e) {
-            System.out.println("Lỗi khi phân tích JSON: " + e.getMessage());
-        }
-        return null;
-    }
-    // lấy url của image tưf API
-    public static String getImageUrl(String title, String author, String ISBN, String category, String language){
-        String jsonResponse = searchDocument(title, author, ISBN, category, language);
-        if (jsonResponse == null) {
-            System.out.println("Không thể lấy dữ liệu từ API.");
-        }
-        return parseDocumentGetImage(jsonResponse);
-    }
-
-
-
-
     private static ArrayList<Document> parseDocument(String jsonResponse) {
         ArrayList<Document> result = new ArrayList<>();
         if (jsonResponse == null || jsonResponse.isEmpty()) {
@@ -203,13 +179,26 @@ public class API {
 //            System.out.println(jsonObject);
             if (jsonObject.has("items") && jsonObject.get("items").isJsonArray()) {
                 JsonArray items = jsonObject.getAsJsonArray("items");
-                for (int i = 0; i < Math.min(10, items.size()); i++) {
+                System.out.println("item size: " + items.size());
+                for (int i = 0; i < Math.min(20, items.size()); i++) {
                     JsonObject item = items.get(i).getAsJsonObject();
                     JsonObject volumeInfo = item.has("volumeInfo") && item.get("volumeInfo").isJsonObject() ?
                             item.getAsJsonObject("volumeInfo") : new JsonObject();
 
+                    // Lấy title
                     String title = volumeInfo.has("title") && !volumeInfo.get("title").isJsonNull() ?
                             volumeInfo.get("title").getAsString() : "Unknown Title";
+
+                    // Lấy subtitle: để sau khi làm csdl
+//                    String subtitle = "";
+//                    if (volumeInfo.has("subtitle") && !volumeInfo.get("subtitle").isJsonNull()) {
+//                        subtitle = volumeInfo.get("subtitle").getAsString();
+//                    }
+//
+//                    // Kết hợp title và subtitle
+//                    if (!subtitle.isEmpty()) {
+//                        title += ": " + subtitle; // Thêm dấu hai chấm giữa title và subtitle
+//                    }
 
                     String author = "N/A";
                     if (volumeInfo.has("authors") && volumeInfo.get("authors").isJsonArray()) {
@@ -280,35 +269,11 @@ public class API {
         } catch (JsonSyntaxException e) {
             System.out.println("Lỗi khi phân tích JSON: " + e.getMessage());
         }
+        System.out.println("Lấy tài liệu từ API thành công");
         return result;
     }
 
     
-    public static void hienthiImage(Document doc, JLabel jlabel) {
-        //String imageUrl = API.setImage(doc.getTitle(), doc.getAuthor(), "", doc.getCategory(), doc.getLanguage());
-        String imageUrl = getImageUrl(doc.getTitle(),"","", "", "");
-        if(imageUrl.equals("N/A")) return;
-        try {
-            if (imageUrl != null) {
-                ImageIcon imageIcon = new ImageIcon(new URL(imageUrl));
-
-                int labelWidth = jlabel.getWidth();
-                int labelHeight = jlabel.getHeight();
-
-                // Thay đổi kích thước của hình ảnh để vừa với JLabel
-                Image image = imageIcon.getImage();
-                Image scaledImage = image.getScaledInstance(labelWidth, labelHeight, Image.SCALE_SMOOTH);
-                jlabel.setIcon(new ImageIcon(scaledImage));
-
-            } else {
-                JLabel errorLabel = new JLabel("Không tìm thấy ảnh.");
-            }
-        } catch (MalformedURLException e) {
-            System.out.println("URL không hợp lệ: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("Lỗi khi tải ảnh từ URL: " + e.getMessage());
-        }
-    }
     
     public static ArrayList<Document> getArrayDocument(String title, String author, String ISBN, String category, String language) {
         String jsonResponse = searchDocument(title, author, ISBN, category, language);

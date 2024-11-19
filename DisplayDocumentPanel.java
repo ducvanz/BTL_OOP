@@ -36,8 +36,6 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
         this.mainFrame = mainFrame;
         this.mainPanel = mainPanel;
         this.document = null;
-        
-        System.out.println("4");
         //user.displayUserInfo();
     }
 
@@ -194,7 +192,6 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
         });
 
         imageDocumentJLabel.setBackground(new java.awt.Color(255, 255, 255));
-        imageDocumentJLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/image/logOut.png"))); // NOI18N
 
         author.setText("Tác giả: ");
 
@@ -264,50 +261,53 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(89, 89, 89)
                         .addComponent(borrow)))
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(titleJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(category)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(categoryJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(author)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(authorJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(publisher)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(publisherJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(publishedDate)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(publishedDateJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(quantity)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(quantityJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(language)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(languageJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(84, 84, 84)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(degree)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(degreeJLabel))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(ISBN)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(ISBNJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(description)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(category)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(categoryJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(author)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(authorJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(publisher)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(publisherJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(publishedDate)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(publishedDateJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(quantity)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(quantityJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(language)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(languageJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(84, 84, 84)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(degree)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(degreeJLabel))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(ISBN)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(ISBNJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(description)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(99, 99, 99)
+                        .addComponent(titleJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(35, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -402,20 +402,20 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
             quantityJLabel.setText("Not available.");
         }
         descriptionJTextArea.setText(document.getDescription());
-        System.out.println("Label size: " + imageDocumentJLabel.getWidth() + "x" + imageDocumentJLabel.getHeight());
 
-        if (!document.getImageLink().equals("N/A")){
-            //imageDocumentJLabel.setIcon()
-            API.hienthiImage(document, imageDocumentJLabel);
-                    System.out.println("CÓ");
+        if (document.getImage()!= null) {
+            DocumentDAO.displayImageFromBytes(document.getImage(), imageDocumentJLabel);
+        } else if (!document.getImageLink().equals("N/A")){
+            API.displayImage(document, imageDocumentJLabel);
+//            System.out.println("CÓ");
 
         } else {
-            System.out.println("KHONG");
-            loadImageFromFilePath(imageDocumentJLabel, "C:\\Users\\Admin\\NetBean\\DEMO_BTL\\src\\BTL_OOP\\image\\Remove-bg.ai_1729220335126.png");
+//            System.out.println("KHONG");
+            loadImageFromFilePath(imageDocumentJLabel, "C:\\Users\\thinh\\JAVA\\SWING\\src\\BTL_OOP\\image\\ScreenShot_63.png");
         }
         
         if (document instanceof Book) {
-            System.out.println("OK");
+//            System.out.println("OK");
             Book book = (Book) document;
             ISBN.setText("ISBN");
             ISBNJLabel.setText(book.getISBN());
@@ -470,7 +470,7 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
                     if (icon != null) {
                         label.setIcon(icon);
                     } else {
-                        label.setText("Image not found!");
+                        label.setText("");
                     }
                 } catch (Exception e) {
                     label.setText("Error loading image!");
@@ -483,6 +483,7 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
     
     private void backButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseClicked
         // TODO add your handling code here:
+        imageDocumentJLabel.setIcon(null);
         CardLayout cl = (CardLayout) mainPanel.getLayout();
         cl.show(mainPanel, "findDocumentPanel");
     }//GEN-LAST:event_backButtonMouseClicked

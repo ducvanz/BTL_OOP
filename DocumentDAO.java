@@ -1,5 +1,8 @@
 package BTL_OOP;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,13 +12,14 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 public class DocumentDAO {
-    private final Connection connection;
+    private static Connection connection = DatabaseConnection.getConnection();
 
     public DocumentDAO() {
-        DatabaseConnection dbConnection = new DatabaseConnection();
-        connection = dbConnection.getConnection();
     }
 
     public Document getDocumentByID(int ID) {
@@ -28,14 +32,13 @@ public class DocumentDAO {
         return null;
     }
     
+    // Lấy tài liệu từ CSDL
     public static ArrayList<Document> getAllDocumentInDB(String title, String author, String ISBN, String category, String language) {
         ArrayList<Document> documents = new ArrayList<>();
-        Connection connection = null; // Kết nối cơ sở dữ liệu
+        
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-
         try {
-
             // Xây dựng câu lệnh SQL động
             StringBuilder query = new StringBuilder(
                 "SELECT " +
@@ -47,9 +50,8 @@ public class DocumentDAO {
                 "LEFT JOIN Newspaper n ON d.documentID = n.ID " +
                 "WHERE 1=1 "
             );
-
-            // Thêm điều kiện động vào câu truy vấn
-            if (title != null && !title.isEmpty()) {
+        
+            if (title != "" && !title.isEmpty()) {
                 query.append("AND d.title LIKE ? ");
             }
             if (author != null && !author.isEmpty()) {
@@ -64,9 +66,11 @@ public class DocumentDAO {
             if (language != null && !language.isEmpty()) {
                 query.append("AND d.language LIKE ? ");
             }
-
+        
+            // In câu lệnh SQL để kiểm tra
+//            System.out.println("Câu lệnh SQL: " + query.toString());
             preparedStatement = connection.prepareStatement(query.toString());
-
+        
             // Gán giá trị cho các tham số
             int index = 1;
             if (title != null && !title.isEmpty()) {
@@ -84,9 +88,10 @@ public class DocumentDAO {
             if (language != null && !language.isEmpty()) {
                 preparedStatement.setString(index++, "%" + language + "%");
             }
-
+        
+//            System.out.println("Câu lệnh SQL1: " + preparedStatement);
+            // Thực thi truy vấn
             resultSet = preparedStatement.executeQuery();
-
             // Xử lý kết quả
             while (resultSet.next()) {
                 int documentID = resultSet.getInt("documentID");
@@ -102,7 +107,7 @@ public class DocumentDAO {
                 byte[] image = resultSet.getBytes("image");
 
                 // Kiểm tra loại tài liệu và tạo đối tượng tương ứng
-                if (resultSet.getString("ISBN") != null) {
+                if (resultSet.getString("book_ISBN") != null) {
                     // Tài liệu là Book
                     Book book = new Book();
                     book.setID(String.format("%06d", documentID));
@@ -113,13 +118,13 @@ public class DocumentDAO {
                     book.setQuantity(quantity);
                     book.setCategory(category1);
                     book.setLanguage(language1);
-                    book.setISBN(resultSet.getString("ISBN"));
+                    book.setISBN(resultSet.getString("book_ISBN"));
                     book.setDescription(description);
                     book.setImagelink(imageLink);
                     book.setImage(image);
 
                     documents.add(book); // Thêm vào danh sách tài liệu
-                } else if (resultSet.getString("degree") != null) {
+                } else if (resultSet.getString("thesis_degree") != null) {
                     // Tài liệu là Thesis
                     Thesis thesis = new Thesis();
                     thesis.setID(String.format("%06d", documentID));
@@ -130,13 +135,13 @@ public class DocumentDAO {
                     thesis.setQuantity(quantity);
                     thesis.setCategory(category1);
                     thesis.setLanguage(language1);
-                    thesis.setDegree(resultSet.getString("degree"));
-                    thesis.setUniversity(resultSet.getString("university"));
+                    thesis.setDegree(resultSet.getString("thesis_degree"));
+                    thesis.setUniversity(resultSet.getString("thesis_university"));
                     thesis.setDescription(description);
                     thesis.setImagelink(imageLink);
                     thesis.setImage(image);
                     documents.add(thesis); // Thêm vào danh sách tài liệu
-                } else if (resultSet.getString("ISSN") != null) {
+                } else if (resultSet.getString("newspaper_ISSN") != null) {
                     // Tài liệu là Newspaper
                     Newspaper newspaper = new Newspaper();
                     newspaper.setID(String.format("%06d", documentID));
@@ -150,23 +155,22 @@ public class DocumentDAO {
                     newspaper.setDescription(description);
                     newspaper.setImagelink(imageLink);
                     newspaper.setImage(image);
-                    newspaper.setISSN(resultSet.getString("ISSN"));
-                    newspaper.setIssueNumber(resultSet.getString("issueNumber"));
+                    newspaper.setISSN(resultSet.getString("newspaper_ISSN"));
+                    newspaper.setIssueNumber(resultSet.getString("newspaper_issueNumber"));
                     documents.add(newspaper); // Thêm vào danh sách tài liệu
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return documents;
     }
 
-
-    public byte[] getImageBytesFromUrl(String imageUrl) {
-        if(imageUrl == null) return null;
+    // Chuyển filePath xang mảng byte
+    public byte[] getImageBytesFromUrl(String filePath) {
+        if(filePath == null) return null;
         try {
-            URL url = new URL(imageUrl);
+            URL url = new URL(filePath);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoInput(true);
             connection.connect();
@@ -186,6 +190,35 @@ public class DocumentDAO {
             e.printStackTrace();
             return null; // Trả về null nếu có lỗi
         }
+    }
+    
+    public static void displayImageFromBytes(byte[] imageData, JLabel label) {
+        if (imageData == null || imageData.length == 0) {
+            label.setText("Không có dữ liệu hình ảnh.");
+            return;
+        }
+
+        try {
+            // Chuyển đổi byte[] thành BufferedImage
+            ByteArrayInputStream bis = new ByteArrayInputStream(imageData);
+            BufferedImage bufferedImage = ImageIO.read(bis);
+
+            if (bufferedImage != null) {
+                // Chuyển đổi BufferedImage thành ImageIcon
+                ImageIcon imageIcon = new ImageIcon(bufferedImage);
+                
+                // Thay đổi kích thước của hình ảnh để vừa với JLabel
+                Image scaledImage = imageIcon.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
+                label.setIcon(new ImageIcon(scaledImage));
+                System.out.println("Hiển thị ảnh thành công");
+            } else {
+                label.setText("Không thể tạo hình ảnh từ dữ liệu.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            label.setText("Lỗi khi hiển thị hình ảnh.");
+        }
+         System.out.println("Hiển thị ảnh từ CSDL thành công");
     }
 
     public void addDocument(Document doc, String imageUrl) {
