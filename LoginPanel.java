@@ -23,6 +23,7 @@ public class LoginPanel extends JPanel {
     JPanel mainPanel;
     public static User userOverAll;
     public static boolean isManage;
+    TransactionDAO transactionDAO;
 
     /**
      * Creates new form loginPanel
@@ -262,23 +263,23 @@ public class LoginPanel extends JPanel {
             passwordInLoginPasswordField.setText("");
         } else if (check == 1) {
             
-            int userID = manage.getUserIDByUsername(accountUser);
-            LoginPanel.userOverAll = manage.getUserByID(userID);
+            LoginPanel.userOverAll = manage.getUserByUsername(accountUser);
             UserPanel.setUsername(userOverAll.getName());
             CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
             cl.show(mainPanel, "userPanel");
             updateAccount();
+            print();
             
         } else {
 
-            int userID = manage.getUserIDByUsername(accountUser);
-            LoginPanel.userOverAll = manage.getUserByID(userID);
+            LoginPanel.userOverAll = manage.getUserByUsername(accountUser);
             ManagePanel.setUsername(userOverAll.getName());
             FindBookManage.setDefaultInfo();
             isManage = true;
             CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
             cl.show(mainPanel, "managePanel");
             updateAccount();
+            print();
 
         }
         userOverAll.displayUserInfo();
@@ -288,10 +289,17 @@ public class LoginPanel extends JPanel {
         passwordInLoginPasswordField.setText("");
     }//GEN-LAST:event_loginButtonActionPerformed
 
+    public void print(){
+        for(Transaction t : userOverAll.getLoanList()){
+            System.out.println(t.getTitle());
+        }
+    }
     public void updateAccount() {
         EditBook.user = userOverAll;
         FindBookManage.user = userOverAll;
         ManagePanel.user = userOverAll;
+        transactionDAO = new TransactionDAO();
+        System.out.println();
     }
     
     public static JTextField getAccountInLoginTextField() {

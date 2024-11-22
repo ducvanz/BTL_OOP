@@ -17,15 +17,26 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class DocumentDAO {
-    private static Connection connection = DatabaseConnection.getConnection();
+    private static Connection connection;
 
     public DocumentDAO() {
+        connection = DatabaseConnection.getConnection();
     }
 
     public Document getDocumentByID(int ID) {
         ArrayList<Document> allDocuments = getAllDocuments();
         for (Document doc : allDocuments) {
             if (Integer.parseInt(doc.getID()) == ID) {
+                return doc; // Trả về tài liệu nếu tìm thấy
+            }
+        }
+        return null;
+    }
+
+    public Document getDocumentByTitle(String title) {
+        ArrayList<Document> allDocuments = getAllDocuments();
+        for (Document doc : allDocuments) {
+            if (doc.getTitle().equals(title)) {
                 return doc; // Trả về tài liệu nếu tìm thấy
             }
         }

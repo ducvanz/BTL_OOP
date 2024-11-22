@@ -155,29 +155,13 @@ public abstract class Document {
     
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
+        if (obj instanceof Document) {
+            Document doc = (Document) obj;
+            return title.equals(doc.getTitle()) && author.equals(doc.getAuthor()) && publisher.equals(doc.getPublisher()) && category.equals(doc.getCategory())
+                   && language.equals(doc.getLanguage());
         }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Document other = (Document) obj;
-        if (!Objects.equals(this.title, other.title)) {
-            return false;
-        }
-        if (!Objects.equals(this.author, other.author)) {
-            return false;
-        }
-        if (!Objects.equals(this.publisher, other.publisher)) {
-            return false;
-        }
-        if (!Objects.equals(this.category, other.category)) {
-            return false;
-        }
-        return Objects.equals(this.language, other.language);
+        
+        return false;
     }
 
     @Override

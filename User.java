@@ -162,7 +162,7 @@ public class User {
         this.password = password;
     }
 
-
+    
     // Phương thức mượn tài liệu
     public void borrowDocument(Transaction transaction) {
         if (loanTerm) {
@@ -170,19 +170,28 @@ public class User {
             LoanList.add(transaction);
             transactionDAO.addTransaction(transaction);
             numberBorrowed++;
+            System.out.println("Mượn tài liệu thành công.");
         } else {
             System.out.println("User  is not allowed to borrow documents.");
         }
     }
 
     // Phương thức trả tài liệu
-    public void returnDocument(Transaction transaction) {
+    public void returnDocument(Transaction transaction, String returnedDate) {
+        for(Transaction t : LoanList) {
+            System.out.println(t.toString());
+        }
+        System.out.println(" ****" + transaction.toString() + "      ******");
         if (LoanList.contains(transaction)) {
             LoanList.remove(transaction);
+            transaction.setStatus("returned");
+            transaction.setReturnedDate(returnedDate);
             TransactionDAO transactionDAO = new TransactionDAO();
             transactionDAO.returnTransaction(transaction);
             BorrowedList.add(transaction);
             numberBorrowed--;
+            System.out.println("Trả tài liệu thành công.");
+
         } else {
             System.out.println("Document not found in borrowed list.");
         }

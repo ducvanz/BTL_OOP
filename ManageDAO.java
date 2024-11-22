@@ -35,7 +35,7 @@ public class ManageDAO {
         }
     }
 
-    public int getUserIDByUsername(String username) {
+    public User getUserByUsername(String username) {
         String sql = "SELECT userID FROM User WHERE username = ?";
         int userID = -1; // Nếu không tìm thấy user, trả về -1
 
@@ -49,7 +49,8 @@ public class ManageDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return userID;
+        
+        return getUserByID(userID);
     }
 
     public User getUserByID(int userID) {

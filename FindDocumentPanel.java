@@ -45,8 +45,6 @@ public class FindDocumentPanel extends JPanel {
         Document doc = documentDAO.getDocumentByID(1);
         ImageIcon imageIcon = new ImageIcon(doc.getImageLink());
 
-        // Đặt ImageIcon vào JLabel
-        imageJLabel.setIcon(imageIcon);
         
     }
 
@@ -88,16 +86,22 @@ public class FindDocumentPanel extends JPanel {
                         jScrollPane1.setVisible(false);
                         resultFindDocumentJList.setVisible(false);
                     }
+                    System.out.println("Hiển thị danh sách tài liệu thành công.");
                 } catch (Exception e) {
                     e.printStackTrace();
                     // Xử lý lỗi nếu có
                     JOptionPane.showMessageDialog(null, "Lỗi khi nhập để tìm kiếm tài liệu: " + e.getMessage());
                 }
+                if (checkDisplayResult()){
+                    jScrollPane1.setVisible(true);
+                    resultFindDocumentJList.setVisible(true);
+                }
             }
         };
-
+        
         // Bắt đầu thực hiện worker
         worker.execute();
+        
     }
      
     
@@ -129,7 +133,23 @@ public class FindDocumentPanel extends JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         resultFindDocumentJList = new javax.swing.JList<>();
         jSeparator2 = new javax.swing.JSeparator();
-        imageJLabel = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        imageJLabel2 = new javax.swing.JLabel();
+        imageJLabel7 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        imageJLabel3 = new javax.swing.JLabel();
+        imageJLabel8 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        imageJLabel1 = new javax.swing.JLabel();
+        imageJLabel6 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        imageJLabel4 = new javax.swing.JLabel();
+        imageJLabel9 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(153, 255, 255));
         setPreferredSize(new java.awt.Dimension(800, 650));
@@ -207,11 +227,55 @@ public class FindDocumentPanel extends JPanel {
         jSeparator2.setBackground(new java.awt.Color(255, 0, 51));
         jSeparator2.setForeground(new java.awt.Color(255, 0, 51));
 
+        jLabel2.setText("Sách gì đây ai biết");
+
+        jLabel3.setText("Sách gì đây ai biết");
+
+        imageJLabel2.setBackground(new java.awt.Color(255, 0, 51));
+        imageJLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTLOOP/logOut.png"))); // NOI18N
+
+        imageJLabel7.setBackground(new java.awt.Color(255, 0, 51));
+        imageJLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTLOOP/logOut.png"))); // NOI18N
+
+        jLabel4.setText("Sách gì đây ai biết");
+
+        jLabel5.setText("Sách gì đây ai biết");
+
+        imageJLabel3.setBackground(new java.awt.Color(255, 0, 51));
+        imageJLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTLOOP/logOut.png"))); // NOI18N
+
+        imageJLabel8.setBackground(new java.awt.Color(255, 0, 51));
+        imageJLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTLOOP/logOut.png"))); // NOI18N
+
+        jLabel6.setText("Sách gì đây ai biết");
+
+        jLabel7.setText("Sách gì đây ai biết");
+
+        imageJLabel1.setBackground(new java.awt.Color(255, 0, 51));
+        imageJLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTLOOP/logOut.png"))); // NOI18N
+
+        imageJLabel6.setBackground(new java.awt.Color(255, 0, 51));
+        imageJLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTLOOP/logOut.png"))); // NOI18N
+
+        jLabel1.setText("Sách gì đây ai biết");
+
+        imageJLabel4.setBackground(new java.awt.Color(255, 0, 51));
+        imageJLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTLOOP/logOut.png"))); // NOI18N
+
+        imageJLabel9.setBackground(new java.awt.Color(255, 0, 51));
+        imageJLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTLOOP/logOut.png"))); // NOI18N
+
+        jLabel8.setText("Sách gì đây ai biết");
+
+        jLabel10.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
+        jLabel10.setText("Gợi ý tài liệu cho bạn");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
+            .addComponent(jSeparator2)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,16 +316,56 @@ public class FindDocumentPanel extends JPanel {
                                         .addComponent(titleJTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addComponent(jSeparator2)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(resultFindDocumentJList, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(imageJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(248, 644, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(66, 66, 66)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(imageJLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(imageJLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel1)
+                                            .addComponent(jLabel2))))
+                                .addGap(72, 72, 72)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(imageJLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(imageJLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel4)
+                                            .addComponent(jLabel3))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(imageJLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(imageJLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel6)
+                                            .addComponent(jLabel5))))
+                                .addGap(72, 72, 72)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(imageJLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(imageJLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel8)
+                                            .addComponent(jLabel7))))
+                                .addGap(52, 52, 52))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(resultFindDocumentJList, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(20, 20, 20))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -303,10 +407,44 @@ public class FindDocumentPanel extends JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(resultFindDocumentJList, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(imageJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(203, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(resultFindDocumentJList, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(imageJLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1)
+                        .addGap(13, 13, 13)
+                        .addComponent(imageJLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(imageJLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4)
+                        .addGap(13, 13, 13)
+                        .addComponent(imageJLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(imageJLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel6)
+                        .addGap(13, 13, 13)
+                        .addComponent(imageJLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(imageJLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8)
+                        .addGap(13, 13, 13)
+                        .addComponent(imageJLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel7)))
+                .addContainerGap())
         );
 
         resultFindDocumentJList.getAccessibleContext().setAccessibleName("");
@@ -318,7 +456,6 @@ public class FindDocumentPanel extends JPanel {
         titleJTextField.setText("");
         authorJTextField.setText("");
         ISBNJTextField.setText("");
-        imageJLabel.setIcon(null);
         jScrollPane1.setVisible(false);
         resultFindDocumentJList.setVisible(false);
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
@@ -356,8 +493,11 @@ public class FindDocumentPanel extends JPanel {
     }//GEN-LAST:event_ISBNJTextFieldKeyReleased
 
     private void categoryComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryComboBoxActionPerformed
-        
+       
         category = (String) categoryComboBox.getSelectedItem();
+        if (checkDisplayResult()){
+            
+        }
     }//GEN-LAST:event_categoryComboBoxActionPerformed
 
     private void languageComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_languageComboBoxActionPerformed
@@ -405,6 +545,13 @@ public class FindDocumentPanel extends JPanel {
             return false;
         }
     }
+    
+    private boolean checkDisplayResult(){
+        if(title.equals("") && author.equals("") && ISBN.length()!=13) {
+            return false;
+        }
+        return true;
+    }
     private void titleJTextFieldKeyReleased(java.awt.event.KeyEvent evt) {
         title = titleJTextField.getText().trim();
         if (!title.equals(oldTitle) && !title.equals("")){
@@ -431,7 +578,23 @@ public class FindDocumentPanel extends JPanel {
     private javax.swing.JButton backButton;
     private javax.swing.JComboBox<String> categoryComboBox;
     private javax.swing.JLabel categoryJLabel;
-    private javax.swing.JLabel imageJLabel;
+    private javax.swing.JLabel imageJLabel1;
+    private javax.swing.JLabel imageJLabel2;
+    private javax.swing.JLabel imageJLabel3;
+    private javax.swing.JLabel imageJLabel4;
+    private javax.swing.JLabel imageJLabel6;
+    private javax.swing.JLabel imageJLabel7;
+    private javax.swing.JLabel imageJLabel8;
+    private javax.swing.JLabel imageJLabel9;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
