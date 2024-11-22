@@ -18,12 +18,16 @@ import java.util.ArrayList;
 
 public class DatabaseConnection {
 
+    // Kết nối với MySQL
+//    private static final String URL = "jdbc:mysql://sql12.freesqldatabase.com:3306/sql12739033"; 
+//    private static final String USER = "sql12739033"; 
+//    private static final String PASSWORD = "IrDju4s9qc"; 
     private static final String URL = "jdbc:mysql://localhost:3306/libraryoop"; 
     private static final String USER = "root"; 
-    private static final String PASSWORD = "";
+    private static final String PASSWORD = "maiducvan112@##";
     public static Connection con;
 
-    public static Connection getConnection() {
+    public  Connection getConnection() {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -32,7 +36,6 @@ public class DatabaseConnection {
             e.printStackTrace();
         }
         con = connection;
-        System.out.println("Kết nối csdl thành công");
         return connection;
     }
 

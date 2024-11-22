@@ -77,7 +77,7 @@ public class Book extends Document {
         List<Book> books = new ArrayList<>();
         try {
             // Xây dựng câu truy vấn SQL với các điều kiện động
-            StringBuilder query = new StringBuilder("SELECT * FROM document join book using (documentID) WHERE 1=1");
+            StringBuilder query = new StringBuilder("SELECT * FROM document join book on document.documentID = book.ID WHERE 1=1");
 
             // Thêm điều kiện nếu tham số không rỗng
             if (!title.isEmpty()) {
@@ -93,7 +93,7 @@ public class Book extends Document {
                 query.append(" AND publisher LIKE ?");
             }
             if (!yearPublished.isEmpty()) {
-                query.append(" AND yearPublished = ?");
+                query.append(" AND publishedDate = ?");
             }
             if (!category.isEmpty()) {
                 query.append(" AND category LIKE ?");
@@ -138,7 +138,7 @@ public class Book extends Document {
                 book.setAuthor(rs.getString("author"));
                 book.setISBN(rs.getString("isbn"));
                 book.setPublisher(rs.getString("publisher"));
-                book.setPublishedDate(rs.getString("yearPublished"));
+                book.setPublishedDate(rs.getString("publishedDate"));
                 book.setCategory(rs.getString("category"));
                 book.setLanguage(rs.getString("language"));
                 books.add(book);
@@ -155,8 +155,75 @@ public class Book extends Document {
     }
     
     public void addBook(Connection con, Book book) {
-        
+        String insertBookQuery = "INSERT INTO document (documentID, title, author, publisher, publishedDate, quantity, language, category, description) " +
+                                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        System.out.println(book.getImageLink());
+
+        String insertDocumentQuery = "INSERT INTO book (ID, ISBN) VALUES (?, ?)";
+        String getMaxDocumentIDQuery = "SELECT MAX(documentID) FROM document";
+
+        try {
+            // Bắt đầu giao dịch
+            con.setAutoCommit(false);
+
+            int newDocumentID = 1; // Mặc định là 1 nếu bảng trống
+
+            // Lấy giá trị documentID lớn nhất
+            try (PreparedStatement stmt = con.prepareStatement(getMaxDocumentIDQuery);
+                 ResultSet rs = stmt.executeQuery()) {
+
+                if (rs.next()) {
+                    // Nếu có giá trị MAX, cộng thêm 1
+                    newDocumentID = rs.getInt(1) + 1;
+                }
+            }
+
+            // Thêm sách vào bảng `document`
+            try (PreparedStatement bookStmt = con.prepareStatement(insertBookQuery)) {
+                bookStmt.setInt(1, newDocumentID);
+                bookStmt.setString(2, book.getTitle());
+                bookStmt.setString(3, book.getAuthor());
+                bookStmt.setString(4, book.getPublisher());
+                bookStmt.setString(5, book.getPublishedDate());
+                bookStmt.setInt(6, book.getQuantity());
+                bookStmt.setString(7, book.getLanguage());
+                bookStmt.setString(8, book.getCategory());
+                bookStmt.setString(9, book.getDescription());
+                //bookStmt.setString(10, book.getImageLink());
+
+                bookStmt.executeUpdate();
+            }
+
+            // Thêm dữ liệu vào bảng `book`
+            try (PreparedStatement docStmt = con.prepareStatement(insertDocumentQuery)) {
+                docStmt.setInt(1, newDocumentID);
+                docStmt.setString(2, book.getISBN());
+                docStmt.executeUpdate();
+            }
+
+            // Commit giao dịch
+            con.commit();
+            System.out.println("Book and document added successfully!");
+
+        } catch (SQLException e) {
+            // Rollback nếu có lỗi
+            try {
+                con.rollback();
+            } catch (SQLException rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            // Đặt lại chế độ auto-commit
+            try {
+                con.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
+
 
     
 }

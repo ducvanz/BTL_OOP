@@ -347,7 +347,8 @@ public class API {
                         String publishedDate = volumeInfo.has("publishedDate") ? volumeInfo.get("publishedDate").getAsString() : "null";
                         String categories = volumeInfo.has("categories") ? volumeInfo.getAsJsonArray("categories").get(0).getAsString() : "null";
                         String language = volumeInfo.has("language") ? volumeInfo.get("language").getAsString() : "null";
-
+                        String description = volumeInfo.has("description") ? volumeInfo.get("description").getAsString() : "null";
+                        
                         String imageLink = "null";
                         if (volumeInfo.has("imageLinks")) {
                             JsonObject imageLinks = volumeInfo.getAsJsonObject("imageLinks");
@@ -362,7 +363,7 @@ public class API {
                         }
 
                         Book book = new Book(bookTitle, bookAuthors, publisher, publishedDate, 0,
-                     categories, language, "", imageLink, bookIsbn);
+                     categories, language, description, imageLink, bookIsbn);
                         list.add(book);
                     }
                 }

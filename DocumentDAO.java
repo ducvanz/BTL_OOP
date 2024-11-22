@@ -17,7 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class DocumentDAO {
-    private static Connection connection = DatabaseConnection.getConnection();
+    private static Connection connection = DatabaseConnection.con;
 
     public DocumentDAO() {
     }
