@@ -31,12 +31,10 @@ public class Manage extends User {
         manageDAO.addUser(user);       
     }
     
-    public User getUserByID(int userID) {
-        return manageDAO.getUserByID(userID);
-    }
+
     
-    public int getUserIDByUsername(String username) {
-        return manageDAO.getUserIDByUsername(username);
+    public User getUserByUsername(String username) {
+        return manageDAO.getUserByUsername(username);
     }
         
     public ArrayList<User> getAllUsers() {

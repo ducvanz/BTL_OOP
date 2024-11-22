@@ -67,6 +67,9 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
         borrowDateJLabel = new javax.swing.JLabel();
         returnDateJLabel = new javax.swing.JLabel();
         confirmButton = new javax.swing.JButton();
+        returnDialog = new javax.swing.JDialog();
+        returnJLabel = new javax.swing.JLabel();
+        confirmReturnButton = new javax.swing.JButton();
         avataJLabel = new javax.swing.JLabel();
         usernameJLabel = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -79,7 +82,7 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
         publishedDate = new javax.swing.JLabel();
         language = new javax.swing.JLabel();
         quantity = new javax.swing.JLabel();
-        borrow = new javax.swing.JButton();
+        borrowButton = new javax.swing.JButton();
         description = new javax.swing.JLabel();
         authorJLabel = new javax.swing.JLabel();
         categoryJLabel = new javax.swing.JLabel();
@@ -116,7 +119,7 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
         confirmButton.setText("Xác nhận");
         confirmButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                confirmButtonMouseClicked(evt);
+                confirmBorrowButtonMouseClicked(evt);
             }
         });
 
@@ -171,6 +174,42 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
                 .addGap(27, 27, 27))
         );
 
+        returnJLabel.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        returnJLabel.setText("Bạn muốn trả tài liệu?");
+        returnJLabel.setToolTipText("");
+
+        confirmReturnButton.setText("Xác nhận");
+        confirmReturnButton.setToolTipText("");
+        confirmReturnButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmReturnButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout returnDialogLayout = new javax.swing.GroupLayout(returnDialog.getContentPane());
+        returnDialog.getContentPane().setLayout(returnDialogLayout);
+        returnDialogLayout.setHorizontalGroup(
+            returnDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(returnDialogLayout.createSequentialGroup()
+                .addGroup(returnDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(returnDialogLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(returnJLabel))
+                    .addGroup(returnDialogLayout.createSequentialGroup()
+                        .addGap(78, 78, 78)
+                        .addComponent(confirmReturnButton)))
+                .addContainerGap(36, Short.MAX_VALUE))
+        );
+        returnDialogLayout.setVerticalGroup(
+            returnDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(returnDialogLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(returnJLabel)
+                .addGap(18, 18, 18)
+                .addComponent(confirmReturnButton)
+                .addContainerGap(9, Short.MAX_VALUE))
+        );
+
         setBackground(new java.awt.Color(153, 255, 255));
         setPreferredSize(new java.awt.Dimension(800, 650));
 
@@ -205,10 +244,10 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
 
         quantity.setText("Số lượng:");
 
-        borrow.setText("Mượn");
-        borrow.addMouseListener(new java.awt.event.MouseAdapter() {
+        borrowButton.setText("Mượn");
+        borrowButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                borrowMouseClicked(evt);
+                borrowButtonMouseClicked(evt);
             }
         });
 
@@ -260,7 +299,7 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
                         .addComponent(imageDocumentJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(89, 89, 89)
-                        .addComponent(borrow)))
+                        .addComponent(borrowButton)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(35, 35, 35)
@@ -344,7 +383,7 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(imageDocumentJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(borrow))
+                        .addComponent(borrowButton))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(titleJLabel)
                         .addGap(34, 34, 34)
@@ -405,13 +444,17 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
 
         if (document.getImage()!= null) {
             DocumentDAO.displayImageFromBytes(document.getImage(), imageDocumentJLabel);
+            System.out.println("Ảnh từ csdl image");
+
         } else if (!document.getImageLink().equals("N/A")){
             API.displayImage(document, imageDocumentJLabel);
-//            System.out.println("CÓ");
-
+            System.out.println("Ảnh từ csdl imageLink");
         } else {
-//            System.out.println("KHONG");
-            loadImageFromFilePath(imageDocumentJLabel, "C:\\Users\\thinh\\JAVA\\SWING\\src\\BTL_OOP\\image\\ScreenShot_63.png");
+
+            System.out.println("Ảnh mặc định");
+            //Sua dong dnay 
+            loadImageFromFilePath(imageDocumentJLabel, "C:\\Users\\thinh\\JAVA\\SWING\\src\\BTL_OOP\\image\\Screenshot_63.png");
+
         }
         
         if (document instanceof Book) {
@@ -438,11 +481,11 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
 
         for (Transaction transaction : user.getLoanList()) {
             if (transaction.getTitle().equals(document.getTitle())) {
-                borrow.setText("Đang mượn");
+                borrowButton.setText("Đang mượn");
                 return;
             }
         }
-        borrow.setText("Mượn");
+        borrowButton.setText("Mượn");
     }
 
     // load ảnh từ filePath lên jlabel
@@ -488,9 +531,34 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
         cl.show(mainPanel, "findDocumentPanel");
     }//GEN-LAST:event_backButtonMouseClicked
 
-    private void confirmButtonMouseClicked(java.awt.event.MouseEvent evt) {                                           
-        
-        if (borrow.getText().equals("Mượn")){
+    private void confirmReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmReturnButtonActionPerformed
+        // Xacs nhan tra sach
+        System.out.println("OK1");
+        user.setNumberBorrowed(user.getNumberBorrowed() - 1);
+        document.setQuantity(document.getQuantity() + 1);
+        String borrowedDateString = new String();
+        String returnedDateString = new String();
+        for(Transaction tran: user.getLoanList()) {
+            if(document.getTitle().equals(tran.getTitle())) {
+                borrowedDateString = tran.getBorrowedDate();
+                returnedDateString = tran.getReturnedDate();
+            }
+        }
+        LocalDate returned = LocalDate.now();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String returnedDate= returned.format(formatter);
+
+        Transaction transaction = new Transaction(user, document.getTitle(), borrowedDateString, returnedDateString, "borrowed");
+
+        user.returnDocument(transaction, returnedDate);
+        returnDialog.setVisible(false);
+        JOptionPane.showMessageDialog(mainFrame, "Trả thành công!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        displayDocument(true);
+        borrowButton.setText("Mượn");
+    }//GEN-LAST:event_confirmReturnButtonActionPerformed
+
+    private void confirmBorrowButtonMouseClicked(java.awt.event.MouseEvent evt) {   
             user.setNumberBorrowed(user.getNumberBorrowed() + 1);
             document.setQuantity(document.getQuantity() - 1);
             LocalDate borrowedDate = LocalDate.now();
@@ -506,29 +574,46 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
             borrowDialog.setVisible(false);
             JOptionPane.showMessageDialog(mainFrame, "Mượn thành công!", "Thông báo", JOptionPane.WARNING_MESSAGE);
             displayDocument(true);
-            borrow.setText("Đang mượn");
-        } else {
-            JOptionPane.showMessageDialog(mainFrame, "Sách không có trong thư viện!", "Thông báo", JOptionPane.WARNING_MESSAGE);
-
-        }
+            borrowButton.setText("Đang mượn");
+     
     }
 
-    private void borrowMouseClicked(java.awt.event.MouseEvent evt) {                                    
+    private void borrowButtonMouseClicked(java.awt.event.MouseEvent evt) {                                    
         if (!quantityJLabel.getText().equals("Not available.")) {
-            if (document.getQuantity() == 0) {
-                JOptionPane.showMessageDialog(mainFrame, "Sách đã hết!", "Thông báo", JOptionPane.WARNING_MESSAGE);
-            } else if (!LoginPanel.userOverAll.isLoanTerm()) {
-                JOptionPane.showMessageDialog(mainFrame, "Số lượng sách bạn mượn quá giới hạn!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            if (borrowButton.getText().equals("Mượn")){
+                if (document.getQuantity() == 0) {
+                    JOptionPane.showMessageDialog(mainFrame, "Sách đã hết!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+                } else if (!LoginPanel.userOverAll.isLoanTerm()) {
+                    JOptionPane.showMessageDialog(mainFrame, "Số lượng sách bạn mượn quá giới hạn!", "Thông báo", JOptionPane.WARNING_MESSAGE);
 
+                } else {
+                    // Muon sasch
+                    System.out.println("OK3");
+                    borrowDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                    borrowDialog.pack();
+                    borrowDialog.setLocationRelativeTo(mainFrame);
+                    LocalDate borrowedDate = LocalDate.now();
+                    titleInDiaLog.setText(document.getTitle());
+                    LocalDate returnedDate = borrowedDate.plusMonths(2);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                    String borrowedDateString = borrowedDate.format(formatter);
+                    String returnedDateString = returnedDate.format(formatter);
+                    borrowDateJLabel.setText(borrowedDateString);
+                    returnDateJLabel.setText(returnedDateString);
+                    
+                    borrowDialog.setVisible(true);
+                }
             } else {
-                borrowDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-                borrowDialog.pack();
-                borrowDialog.setLocationRelativeTo(mainFrame);
-                borrowDialog.setVisible(true);
+                //Tra sach
+                System.out.println("OK4");
+                returnDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                returnDialog.pack();
+                returnDialog.setLocationRelativeTo(mainFrame);
+                returnDialog.setVisible(true);
             }
         } else {
+            System.out.println("OK5");
             JOptionPane.showMessageDialog(mainFrame, "Sách không có trong thư viện!", "Thông báo", JOptionPane.WARNING_MESSAGE);
-
         }
     }
 
@@ -541,13 +626,14 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
     private static javax.swing.JLabel authorJLabel;
     private javax.swing.JLabel avataJLabel;
     private javax.swing.JButton backButton;
-    private static javax.swing.JButton borrow;
+    private static javax.swing.JButton borrowButton;
     private javax.swing.JLabel borrowDate;
     private javax.swing.JLabel borrowDateJLabel;
     private javax.swing.JDialog borrowDialog;
     private javax.swing.JLabel category;
     private static javax.swing.JLabel categoryJLabel;
     private javax.swing.JButton confirmButton;
+    private javax.swing.JButton confirmReturnButton;
     private static javax.swing.JLabel degree;
     private static javax.swing.JLabel degreeJLabel;
     private javax.swing.JLabel description;
@@ -567,6 +653,8 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
     private javax.swing.JLabel questionDiaLog;
     private javax.swing.JLabel returnDate;
     private javax.swing.JLabel returnDateJLabel;
+    private javax.swing.JDialog returnDialog;
+    private javax.swing.JLabel returnJLabel;
     private javax.swing.JLabel title;
     private javax.swing.JLabel titleInDiaLog;
     private static javax.swing.JLabel titleJLabel;

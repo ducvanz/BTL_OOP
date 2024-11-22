@@ -1,6 +1,7 @@
 package BTL_OOP;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class User {
     private int ID;
@@ -162,7 +163,7 @@ public class User {
         this.password = password;
     }
 
-
+    
     // Phương thức mượn tài liệu
     public void borrowDocument(Transaction transaction) {
         if (loanTerm) {
@@ -170,23 +171,68 @@ public class User {
             LoanList.add(transaction);
             transactionDAO.addTransaction(transaction);
             numberBorrowed++;
+            System.out.println("Mượn tài liệu thành công.");
         } else {
             System.out.println("User  is not allowed to borrow documents.");
         }
     }
 
     // Phương thức trả tài liệu
-    public void returnDocument(Transaction transaction) {
+    public void returnDocument(Transaction transaction, String returnedDate) {
         if (LoanList.contains(transaction)) {
             LoanList.remove(transaction);
+            transaction.setStatus("returned");
+            transaction.setReturnedDate(returnedDate);
             TransactionDAO transactionDAO = new TransactionDAO();
             transactionDAO.returnTransaction(transaction);
             BorrowedList.add(transaction);
             numberBorrowed--;
+            System.out.println("Trả tài liệu thành công.");
+
         } else {
             System.out.println("Document not found in borrowed list.");
         }
     }
+    
+    // Lấy danh sách các tài liệu đang mượn 
+    public ArrayList<Document> getBorrowedDocument(){
+        ArrayList<Document> result = new ArrayList<>();
+        List<Document> allDocument = new ArrayList<>();
+        allDocument = DocumentDAO.getAllDocuments();
+        List<String> transactionTitles = new ArrayList<>();
+        for (Transaction transaction : LoanList) {
+            transactionTitles.add(transaction.getTitle());
+        }
+
+        // Tìm các Document có tên trùng với tên trong danh sách mượn
+        for (Document document : allDocument) {
+            if (transactionTitles.contains(document.getTitle())) {
+                result.add(document);
+            }
+        }
+        return result;
+            
+    } 
+
+    // Lấy danh sách các tài liệu đã mượn 
+    public ArrayList<Document> getReturnedDocument(){
+        ArrayList<Document> result = new ArrayList<>();
+        List<Document> allDocument = new ArrayList<>();
+        allDocument = DocumentDAO.getAllDocuments();
+        List<String> transactionTitles = new ArrayList<>();
+        for (Transaction transaction : BorrowedList) {
+            transactionTitles.add(transaction.getTitle());
+        }
+
+        // Tìm các Document có tên trùng với tên trong danh sách đã mượn
+        for (Document document : allDocument) {
+            if (transactionTitles.contains(document.getTitle())) {
+                result.add(document);
+            }
+        }
+        return result;
+            
+    } 
 
     // Phương thức hiển thị thông tin người dùng
     public void displayUserInfo() {

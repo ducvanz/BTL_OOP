@@ -4,6 +4,8 @@
  */
 package BTL_OOP;
 
+import java.util.Objects;
+
 
 /**
  *
@@ -71,5 +73,19 @@ public class Transaction {
     public String toString() {
         return "Transaction{" + "user=" + user + ", title=" + title + ", borrowedDate=" + borrowedDate + ", returnedDate=" + returnedDate + ", status=" + status + '}';
     }
-    
+
+     @Override
+    public int hashCode() {
+        return Objects.hash(user, title, status);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Transaction) {
+            Transaction tran = (Transaction) obj;
+            return user.equals(tran.getUser()) && title.equals(tran.getTitle()) && borrowedDate.equals(tran.getBorrowedDate())
+                    && returnedDate.equals(tran.getReturnedDate()) && status.equals(tran.getStatus());
+        }
+        return false;
+    }
 }
