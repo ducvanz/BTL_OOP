@@ -178,10 +178,6 @@ public class User {
 
     // Phương thức trả tài liệu
     public void returnDocument(Transaction transaction, String returnedDate) {
-        for(Transaction t : LoanList) {
-            System.out.println(t.toString());
-        }
-        System.out.println(" ****" + transaction.toString() + "      ******");
         if (LoanList.contains(transaction)) {
             LoanList.remove(transaction);
             transaction.setStatus("returned");

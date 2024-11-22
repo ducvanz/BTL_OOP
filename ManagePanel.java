@@ -4,6 +4,7 @@
  */
 package BTL_OOP;
 
+
 import java.awt.CardLayout;
 import java.sql.Connection;
 import javax.swing.JFrame;
@@ -45,7 +46,7 @@ public class ManagePanel extends javax.swing.JPanel {
         jLabel17 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
+        inFoManageLabel = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         findDocumentJLabel = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
@@ -61,7 +62,7 @@ public class ManagePanel extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        usernameManage = new javax.swing.JLabel();
+        userNameManage = new javax.swing.JLabel();
         birthdayManage = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
@@ -109,13 +110,18 @@ public class ManagePanel extends javax.swing.JPanel {
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel23.setText("ACCOUNT");
 
-        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/image/Remove-bg.ai_1729220335126.png"))); // NOI18N
-        jLabel25.setCursor(new java.awt.Cursor(java.awt.Cursor.SW_RESIZE_CURSOR));
-        jLabel25.setDebugGraphicsOptions(javax.swing.DebugGraphics.FLASH_OPTION);
-        jLabel25.setDisabledIcon(null);
-        jLabel25.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabel25.setIconTextGap(0);
-        jLabel25.setMaximumSize(new java.awt.Dimension(19, 196));
+        inFoManageLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/image/Remove-bg.ai_1729220335126.png"))); // NOI18N
+        inFoManageLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.SW_RESIZE_CURSOR));
+        inFoManageLabel.setDebugGraphicsOptions(javax.swing.DebugGraphics.FLASH_OPTION);
+        inFoManageLabel.setDisabledIcon(null);
+        inFoManageLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        inFoManageLabel.setIconTextGap(0);
+        inFoManageLabel.setMaximumSize(new java.awt.Dimension(19, 196));
+        inFoManageLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                inFoManageLabelMouseClicked(evt);
+            }
+        });
 
         jLabel26.setBackground(new java.awt.Color(204, 204, 204));
         jLabel26.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -150,10 +156,6 @@ public class ManagePanel extends javax.swing.JPanel {
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(87, Short.MAX_VALUE)
-                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(79, 79, 79))
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,27 +166,31 @@ public class ManagePanel extends javax.swing.JPanel {
                     .addComponent(findDocumentJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap(97, Short.MAX_VALUE)
+                .addComponent(inFoManageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(95, 95, 95))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
-                .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(inFoManageLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73)
+                .addGap(46, 46, 46)
                 .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(findDocumentJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -284,8 +290,8 @@ public class ManagePanel extends javax.swing.JPanel {
                             .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(birthdayManage, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(usernameManage, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(21, Short.MAX_VALUE))
+                            .addComponent(userNameManage, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,7 +301,7 @@ public class ManagePanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(usernameManage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(userNameManage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -380,7 +386,7 @@ public class ManagePanel extends javax.swing.JPanel {
                         .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(74, 74, 74)
+                        .addGap(89, 89, 89)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -390,13 +396,13 @@ public class ManagePanel extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(57, 57, 57)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -448,34 +454,54 @@ public class ManagePanel extends javax.swing.JPanel {
         FindDocumentPanel.setUsername(getUsername());
     }//GEN-LAST:event_findDocumentJLabelMouseClicked
 
+    private void jLabel26MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel26MouseClicked
+
+    }//GEN-LAST:event_jLabel26MouseClicked
+
     private void jLabel22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel22MouseClicked
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
         cl.show(mainPanel, "findBookManage");
     }//GEN-LAST:event_jLabel22MouseClicked
-
-    private void jLabel26MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel26MouseClicked
-        
-    }//GEN-LAST:event_jLabel26MouseClicked
 
     private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
 
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
         cl.show(mainPanel, "editBook");
     }//GEN-LAST:event_jLabel17MouseClicked
+
+    private void inFoManageLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inFoManageLabelMouseClicked
+        // TODO add your handling code here:
+        
+//        if(LoginPanel.userOverAll instanceof Manage)
+//        { 
+//            System.out.print("jo");
+//            InFoManagePanel.displayManage();
+//            InFoManagePanel.setManage((Manage)LoginPanel.userOverAll);
+//            CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
+//            cl.show(mainPanel, "inFoManagePanel");
+//        }
+            /*System.out.print("jo");
+            InFoManagePanel.displayManage();
+            InFoManagePanel.setManage((Manage)LoginPanel.userOverAll);*/
+            CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
+            cl.show(mainPanel, "inFoManagePanel");
+        
+    }//GEN-LAST:event_inFoManageLabelMouseClicked
     
     public static void setUsername(String username){
-        ManagePanel.usernameManage.setText(username);
+        ManagePanel.userNameManage.setText(username);
     }
 
     public static String getUsername() {
-        return usernameManage.getText();
+        return userNameManage.getText();
     }
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private static javax.swing.JLabel birthdayManage;
+    private javax.swing.JLabel birthdayManage;
     private javax.swing.JLabel findDocumentJLabel;
     private javax.swing.JLabel home;
+    private javax.swing.JLabel inFoManageLabel;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
@@ -483,7 +509,6 @@ public class ManagePanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
@@ -504,6 +529,6 @@ public class ManagePanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JPanel managePane;
-    private static javax.swing.JLabel usernameManage;
+    private static javax.swing.JLabel userNameManage;
     // End of variables declaration//GEN-END:variables
 }

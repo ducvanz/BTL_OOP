@@ -42,6 +42,7 @@ public class FindDocumentPanel extends JPanel {
         this.mainPanel = mainPanel;
         resultFindDocumentJList.setVisible(false);
         jScrollPane1.setVisible(false);
+
         Document doc = documentDAO.getDocumentByID(1);
         ImageIcon imageIcon = new ImageIcon(doc.getImageLink());
 

@@ -16,11 +16,11 @@ public class TransactionDAO {
     public TransactionDAO() {
         connection = DatabaseConnection.con;
         user = LoginPanel.userOverAll;
-        System.out.println(user.getName());
+//        System.out.println(user.getName());
         user.setBorrowedList(getReturnedDocumentByUser(user));
-        System.out.println("-----" + (char) user.getLoanList().size()+ "     ---------");
+//        System.out.println("-----" + (char) user.getLoanList().size()+ "     ---------");
         user.setLoanList(getBorrowedDocumentByUser(user));
-        System.out.println("****" + user.getBorrowedList().size() + "      ***");
+//        System.out.println("****" + user.getBorrowedList().size() + "      ***");
         user.displayUserInfo();
         manageDAO = new ManageDAO();
         documentDAO = new DocumentDAO();

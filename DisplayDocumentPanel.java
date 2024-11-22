@@ -444,13 +444,17 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
 
         if (document.getImage()!= null) {
             DocumentDAO.displayImageFromBytes(document.getImage(), imageDocumentJLabel);
+            System.out.println("Ảnh từ csdl image");
+
         } else if (!document.getImageLink().equals("N/A")){
             API.displayImage(document, imageDocumentJLabel);
-//            System.out.println("CÓ");
-
+            System.out.println("Ảnh từ csdl imageLink");
         } else {
-//            System.out.println("KHONG");
-            loadImageFromFilePath(imageDocumentJLabel, "C:\\Users\\thinh\\JAVA\\SWING\\src\\BTL_OOP\\image\\ScreenShot_63.png");
+
+            System.out.println("Ảnh mặc định");
+            //Sua dong dnay 
+            loadImageFromFilePath(imageDocumentJLabel, "C:\\Users\\thinh\\JAVA\\SWING\\src\\BTL_OOP\\image\\Screenshot_63.png");
+
         }
         
         if (document instanceof Book) {
