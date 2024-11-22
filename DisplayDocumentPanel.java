@@ -558,8 +558,7 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
         borrowButton.setText("Mượn");
     }//GEN-LAST:event_confirmReturnButtonActionPerformed
 
-    private void confirmBorrowButtonMouseClicked(java.awt.event.MouseEvent evt) {                                           
-        System.out.println("OK2");
+    private void confirmBorrowButtonMouseClicked(java.awt.event.MouseEvent evt) {   
             user.setNumberBorrowed(user.getNumberBorrowed() + 1);
             document.setQuantity(document.getQuantity() - 1);
             LocalDate borrowedDate = LocalDate.now();
@@ -593,6 +592,15 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
                     borrowDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
                     borrowDialog.pack();
                     borrowDialog.setLocationRelativeTo(mainFrame);
+                    LocalDate borrowedDate = LocalDate.now();
+                    titleInDiaLog.setText(document.getTitle());
+                    LocalDate returnedDate = borrowedDate.plusMonths(2);
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                    String borrowedDateString = borrowedDate.format(formatter);
+                    String returnedDateString = returnedDate.format(formatter);
+                    borrowDateJLabel.setText(borrowedDateString);
+                    returnDateJLabel.setText(returnedDateString);
+                    
                     borrowDialog.setVisible(true);
                 }
             } else {

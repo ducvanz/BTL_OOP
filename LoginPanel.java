@@ -267,6 +267,7 @@ public class LoginPanel extends JPanel {
             UserPanel.setUsername(userOverAll.getName());
             CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
             cl.show(mainPanel, "userPanel");
+            updateAccount();
 
             
         } else {
@@ -278,6 +279,7 @@ public class LoginPanel extends JPanel {
             isManage = true;
             CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
             cl.show(mainPanel, "managePanel");
+            updateAccount();
 
 
         }
@@ -298,7 +300,7 @@ public class LoginPanel extends JPanel {
         FindBookManage.user = userOverAll;
         ManagePanel.user = userOverAll;
         transactionDAO = new TransactionDAO();
-        System.out.println();
+        FindDocumentPanel.displayRecommentDocument();
     }
 
     

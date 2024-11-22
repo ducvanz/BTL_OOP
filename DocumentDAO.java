@@ -1,4 +1,4 @@
-package BTL_OOP;
+    package BTL_OOP;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -391,7 +391,7 @@ public class DocumentDAO {
         }
     }
 
-    public ArrayList<Document> getAllDocuments() {
+    public static ArrayList<Document> getAllDocuments() {
         ArrayList<Document> documents = new ArrayList<>();
         String query = "SELECT d.documentID, d.title, d.author, d.publisher, d.publishedDate, d.quantity, d.category, d.language, d.description, d.imageLink, d.image, " +
                 "b.ISBN, t.degree, t.university, n.ISSN, n.issueNumber " +
