@@ -219,6 +219,9 @@
                   <Dimension value="[19, 196]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="avataMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

@@ -6,6 +6,7 @@ package BTL_OOP;
 
 import java.awt.CardLayout;
 import java.sql.Connection;
+import java.util.HashSet;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -129,6 +130,11 @@ public class UserPanel extends JPanel {
         avata.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         avata.setIconTextGap(0);
         avata.setMaximumSize(new java.awt.Dimension(19, 196));
+        avata.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                avataMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout homeLayout = new javax.swing.GroupLayout(home);
         home.setLayout(homeLayout);
@@ -251,7 +257,17 @@ public class UserPanel extends JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+      
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void avataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_avataMouseClicked
+        // TODO add your handling code here:
+        InFoUserPanel.setDefaultInfo();
+        
+        CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
+        cl.show(mainPanel, "inFoUserPanel");
+        
+    }//GEN-LAST:event_avataMouseClicked
 
     public static void setUsername(String username){
         UserPanel.username.setText(username);

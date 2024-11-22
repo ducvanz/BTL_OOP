@@ -1,19 +1,21 @@
 
 package BTL_OOP;
 
+import java.util.Objects;
+
 public abstract class Document {
 
-    protected String ID;
-    protected String title;
-    protected String author;
-    protected String publisher;
-    protected String publishedDate; // Nên sử dụng kiểu DATE hoặc String cho ngày tháng
-    protected int quantity;
-    protected String category;
-    protected String language;
-    protected String description;
-    protected String imageLink;
-    protected byte[] image;
+    private String ID;
+    private String title;
+    private String author;
+    private String publisher;
+    private String publishedDate;
+    private int quantity;
+    private String category;
+    private String language;
+    private String description;
+    private String imageLink;
+    private byte[] image;
 
     // Constructor với các tham số
     public Document(String title, String author, String publisher, String publishedDate, int quantity,
@@ -151,5 +153,40 @@ public abstract class Document {
         return  title + " - " + author;
     }
     
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Document other = (Document) obj;
+        if (!Objects.equals(this.title, other.title)) {
+            return false;
+        }
+        if (!Objects.equals(this.author, other.author)) {
+            return false;
+        }
+        if (!Objects.equals(this.publisher, other.publisher)) {
+            return false;
+        }
+        if (!Objects.equals(this.category, other.category)) {
+            return false;
+        }
+        return Objects.equals(this.language, other.language);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, author, publisher, category, language);
+    }
+    
     public abstract void getInfo();
+    public static void main (String[] args) {
+        System.out.print("Ho");
+    }
 }

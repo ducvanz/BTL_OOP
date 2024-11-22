@@ -457,7 +457,11 @@ public class InFoUserPanel extends javax.swing.JPanel {
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
-        cl.show(mainPanel, "managePanel");
+        if (LoginPanel.isManage){
+            cl.show(mainPanel, "managePanel");
+        } else {
+            cl.show(mainPanel, "userPanel");
+        }
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void showPassCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPassCheckBoxActionPerformed

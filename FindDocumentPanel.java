@@ -5,10 +5,11 @@
 package BTL_OOP;
 
 import java.awt.*;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
@@ -24,8 +25,12 @@ public class FindDocumentPanel extends JPanel {
     String title = "";
     String author = "";
     String ISBN = "";
-    String category = "";
-    String language = "";
+    String category = "All";
+    String language = "All";
+    String oldTitle = "";
+    String oldAuthor = "";
+    
+    
 
     /**
      * Creates new form managePanel
@@ -37,24 +42,28 @@ public class FindDocumentPanel extends JPanel {
         this.mainPanel = mainPanel;
         resultFindDocumentJList.setVisible(false);
         jScrollPane1.setVisible(false);
-        //hienthiImage();
-//        Document doc = documentDAO.getDocumentByID(1);
-//        ImageIcon imageIcon = new ImageIcon(doc.getImageLink());
-//
-//        // Đặt ImageIcon vào JLabel
-//        imageJLabel.setIcon(imageIcon);
-//        
+
+        Document doc = documentDAO.getDocumentByID(1);
+        ImageIcon imageIcon = new ImageIcon(doc.getImageLink());
+
+        // Đặt ImageIcon vào JLabel
+        imageJLabel.setIcon(imageIcon);
+        
     }
 
-
-    public void hienthi2(String title, String author, String ISBN, String category, String language) {
+    public void displayResultFindDocument(boolean check, String title, String author, String ISBN, String category, String language) {
         // Tạo một SwingWorker để thực hiện tìm kiếm trong nền
-        SwingWorker<ArrayList<Document>, Void> worker = new SwingWorker<ArrayList<Document>, Void>() {
+        SwingWorker<ArrayList<Document>, Void> worker;
+        worker = new SwingWorker<ArrayList<Document>, Void>() {
             @Override
             protected ArrayList<Document> doInBackground() throws Exception {
-                return API.getArrayDocument(title, author, ISBN, category, language);
+                ArrayList<Document> result =MultiThreaded.searchDocument(check, title, author, ISBN, category, language);
+                if (result == null){
+                    return null;
+                }
+                return result;
             }
-
+            
             @Override
             protected void done() {
                 try {
@@ -64,9 +73,7 @@ public class FindDocumentPanel extends JPanel {
                         for (Document doc : arrDocument) {
                             listModel.addElement(doc);
                         }
-                        if (arrDocument.size() > 0 && (!titleJTextField.getText().trim().isEmpty() || !authorJTextField.getText().trim().isEmpty()
-                                || !ISBNJTextField.getText().trim().isEmpty())) {
-                            //resultFindDocumentJList.setModel((DefaultListModel) listModel);
+                        if (arrDocument.size() > 0) {
                             resultFindDocumentJList.setModel((DefaultListModel) listModel);
                             resultFindDocumentJList.setVisibleRowCount(Math.min(listModel.size(), 5));
                             resultFindDocumentJList.setFixedCellHeight(30);
@@ -85,7 +92,7 @@ public class FindDocumentPanel extends JPanel {
                 } catch (Exception e) {
                     e.printStackTrace();
                     // Xử lý lỗi nếu có
-                    JOptionPane.showMessageDialog(null, "Lỗi khi tìm kiếm tài liệu: " + e.getMessage());
+                    JOptionPane.showMessageDialog(null, "Lỗi khi nhập để tìm kiếm tài liệu: " + e.getMessage());
                 }
             }
         };
@@ -150,11 +157,6 @@ public class FindDocumentPanel extends JPanel {
 
         ISBNJLabel.setText("ISBN:");
 
-        ISBNJTextField.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                ISBNJTextFieldFocusLost(evt);
-            }
-        });
         ISBNJTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 ISBNJTextFieldKeyReleased(evt);
@@ -163,11 +165,6 @@ public class FindDocumentPanel extends JPanel {
 
         authorJLabel.setText("Tác giả:");
 
-        titleJTextField.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                titleJTextFieldFocusLost(evt);
-            }
-        });
         titleJTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 titleJTextFieldKeyReleased(evt);
@@ -176,11 +173,6 @@ public class FindDocumentPanel extends JPanel {
 
         titleJLabel.setText("Tên:");
 
-        authorJTextField.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                authorJTextFieldFocusLost(evt);
-            }
-        });
         authorJTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 authorJTextFieldKeyTyped(evt);
@@ -190,7 +182,7 @@ public class FindDocumentPanel extends JPanel {
         languageJLabel.setText("Ngôn ngữ:");
         languageJLabel.setToolTipText("");
 
-        languageComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tiếng Việt", "English", "Tiếng Pháp" }));
+        languageComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "English", "Vietnam", "Another" }));
         languageComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 languageComboBoxActionPerformed(evt);
@@ -199,7 +191,7 @@ public class FindDocumentPanel extends JPanel {
 
         categoryJLabel.setText("Thể loại:");
 
-        categoryComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Sách", "Tiểu Thuyết", "Truyện", "Luận Án", "Báo", " " }));
+        categoryComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "All", "Fiction", "Newspaper", "Thesis", "Cooking", "Education", "Self-help", "Biography", "Economics", "Business", "Another" }));
         categoryComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 categoryComboBoxActionPerformed(evt);
@@ -340,42 +332,39 @@ public class FindDocumentPanel extends JPanel {
 
     private void authorJTextFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_authorJTextFieldKeyTyped
         author = authorJTextField.getText().trim();
-        hienthi2(title, author, ISBN, category, language);
+        if (!author.equals(oldAuthor) && !author.equals("")){
+            oldAuthor = author;
+            if (checkDocument()) {
+                displayResultFindDocument(checkDocument(), title, author, ISBN, "", "");
+            } else {
+                displayResultFindDocument(checkDocument(), title, author, ISBN, category, language);
+            }
+        }
 
     }//GEN-LAST:event_authorJTextFieldKeyTyped
 
     private void ISBNJTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ISBNJTextFieldKeyReleased
         ISBN = ISBNJTextField.getText().trim();
-        hienthi2("", "", ISBN, "", "");
+        if (ISBN.length()==13){
+            if (checkDocument()) {
+                displayResultFindDocument(checkDocument(), title, author, ISBN, "", "");
+            } else {
+                displayResultFindDocument(checkDocument(), title, author, ISBN, category, language);
+            }
+        }
+        
 
     }//GEN-LAST:event_ISBNJTextFieldKeyReleased
 
     private void categoryComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryComboBoxActionPerformed
+        
         category = (String) categoryComboBox.getSelectedItem();
     }//GEN-LAST:event_categoryComboBoxActionPerformed
 
     private void languageComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_languageComboBoxActionPerformed
         language = (String) languageComboBox.getSelectedItem();
+
     }//GEN-LAST:event_languageComboBoxActionPerformed
-
-    private void titleJTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_titleJTextFieldFocusLost
-        title = titleJTextField.getText().trim();
-        hienthi2(title, author, ISBN, category, language);
-    }//GEN-LAST:event_titleJTextFieldFocusLost
-
-    private void authorJTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_authorJTextFieldFocusLost
-        author = authorJTextField.getText().trim();
-        hienthi2(title, author, ISBN, category, language);
-    }//GEN-LAST:event_authorJTextFieldFocusLost
-
-    private void ISBNJTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ISBNJTextFieldFocusLost
-        ISBN = ISBNJTextField.getText().trim();
-        if(ISBN.isEmpty()){
-            hienthi2(title, author, ISBN, category, language);
-        } else {
-            hienthi2("", "", ISBN, "", "");
-        }
-    }//GEN-LAST:event_ISBNJTextFieldFocusLost
 
     private void resultFindDocumentJListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultFindDocumentJListMouseClicked
         if (evt.getClickCount() == 2) {
@@ -407,10 +396,26 @@ public class FindDocumentPanel extends JPanel {
     }
         
     }//GEN-LAST:event_resultFindDocumentJListMouseClicked
-
+    // true: tìm cả API và CSDL, false: tìm CSDL
+    private boolean checkDocument(){
+        System.out.println("Category: " + category);
+        System.out.println("Language: "  + language);
+        if ((category.equals("All") || category.equals("Fiction")) && (language.equals("All") || language.equals("English"))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     private void titleJTextFieldKeyReleased(java.awt.event.KeyEvent evt) {
         title = titleJTextField.getText().trim();
-        hienthi2(title, author, ISBN, category, language);
+        if (!title.equals(oldTitle) && !title.equals("")){
+            oldTitle = title;
+            if (checkDocument()) {
+                displayResultFindDocument(checkDocument(), title, author, ISBN, "", "");
+            } else {
+                displayResultFindDocument(checkDocument(), title, author, ISBN, category, language);
+            }
+        }
     }
 
     public static void setUsername(String username_) {
