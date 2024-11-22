@@ -146,8 +146,8 @@ public class FindBookManage extends javax.swing.JPanel {
     public void desDefault(String ima, JLabel label) {
         try {
             // Địa chỉ ảnh mặc định
-            String imagePath = "C:\\Users\\Admin\\NetBean\\DEMO_BTL\\src\\BTL_OOP\\image\\" + ima;  // Thay đổi đường dẫn ảnh mặc định của bạn
-
+            //String imagePath = "C:\\Users\\Admin\\NetBean\\DEMO_BTL\\src\\BTL_OOP\\image\\" + ima;  // Thay đổi đường dẫn ảnh mặc định của bạn
+            String imagePath = "D:\\OOP\\demoBTL\\src\\BTL_OOP\\image\\" + ima;
             // Đọc ảnh từ file
             Image image = ImageIO.read(new File(imagePath));
 
@@ -311,6 +311,11 @@ public class FindBookManage extends javax.swing.JPanel {
                 jButton2MouseClicked(evt);
             }
         });
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Tên tài liệu: ");
 
@@ -391,6 +396,11 @@ public class FindBookManage extends javax.swing.JPanel {
         });
 
         jButton3.setText("up file");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -778,6 +788,14 @@ public class FindBookManage extends javax.swing.JPanel {
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
         cl.show(mainPanel, "editBook");
     }//GEN-LAST:event_suaSachActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 //    public static void main(String[] args) {
 //        JFrame frame = new JFrame("Find Book Manage");

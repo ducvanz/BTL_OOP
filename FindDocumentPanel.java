@@ -38,12 +38,12 @@ public class FindDocumentPanel extends JPanel {
         resultFindDocumentJList.setVisible(false);
         jScrollPane1.setVisible(false);
         //hienthiImage();
-        Document doc = documentDAO.getDocumentByID(1);
-        ImageIcon imageIcon = new ImageIcon(doc.getImageLink());
-
-        // Đặt ImageIcon vào JLabel
-        imageJLabel.setIcon(imageIcon);
-        
+//        Document doc = documentDAO.getDocumentByID(1);
+//        ImageIcon imageIcon = new ImageIcon(doc.getImageLink());
+//
+//        // Đặt ImageIcon vào JLabel
+//        imageJLabel.setIcon(imageIcon);
+//        
     }
 
 
