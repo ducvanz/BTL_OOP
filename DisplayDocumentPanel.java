@@ -411,7 +411,7 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
 
         } else {
             System.out.println("KHONG");
-            loadImageFromFilePath(imageDocumentJLabel, "C:\\Users\\Admin\\NetBean\\DEMO_BTL\\src\\BTL_OOP\\image\\Remove-bg.ai_1729220335126.png");
+            loadImageFromFilePath(imageDocumentJLabel, "D:\\OOP\\demoBTL\\src\\BTL_OOP\\image\\Remove-bg.ai_1729220335126.png");
         }
         
         if (document instanceof Book) {

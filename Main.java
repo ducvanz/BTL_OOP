@@ -46,7 +46,7 @@ public class Main extends JFrame {
         FindBookManage FindBookManage = new FindBookManage(con, frame, mainPanel);
         EditBook editBook = new EditBook(con, frame, mainPanel);
         DisplayDocumentPanel displayDocumentPanel = new DisplayDocumentPanel(con, frame, mainPanel);
-        
+        InFoUserPanel inFoUserPanel = new InFoUserPanel(con,frame, mainPanel);
         mainPanel.add(signupPanel, "signupPanel");
         mainPanel.add(loginPanel, "loginPanel");
         mainPanel.add(userPanel, "userPanel");
@@ -55,7 +55,7 @@ public class Main extends JFrame {
         mainPanel.add(editBook, "editBook");
         mainPanel.add(displayDocumentPanel, "displayDocumentPanel");
         mainPanel.add(FindBookManage, "findBookManage");
-
+        mainPanel.add(inFoUserPanel, "inFoUserPanel");
         
         // Thêm mainPanel vào JDialog
         add(mainPanel);
