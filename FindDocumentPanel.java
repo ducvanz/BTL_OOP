@@ -163,7 +163,7 @@ public class FindDocumentPanel extends JPanel {
                 System.out.println("Ảnh từ csdl image");
             } else {
                 System.out.println("Ảnh mặc định");
-                loadImageFromFilePath(imageLabel, "C:\\Users\\thinh\\JAVA\\SWING\\src\\BTL_OOP\\image\\Screenshot_63.png");
+                loadImageFromFilePath(imageLabel, "C:\\Users\\Admin\\NetBean\\BTL2\\src\\BTL_OOP\\image\\Screenshot_63.png");
             }
     
             count++;  // Tiến tới tài liệu tiếp theo
@@ -306,7 +306,7 @@ public class FindDocumentPanel extends JPanel {
         titleJLabel6.setText("Sách gì đây ai biết 6");
 
         imageJLabel6.setBackground(new java.awt.Color(255, 0, 51));
-        imageJLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTLOOP/logOut.png"))); // NOI18N
+        imageJLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/logOut.png"))); // NOI18N
         imageJLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imageJLabel6MouseClicked(evt);
@@ -314,7 +314,7 @@ public class FindDocumentPanel extends JPanel {
         });
 
         imageJLabel2.setBackground(new java.awt.Color(255, 0, 51));
-        imageJLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTLOOP/logOut.png"))); // NOI18N
+        imageJLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/logOut.png"))); // NOI18N
         imageJLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imageJLabel2MouseClicked(evt);
@@ -326,7 +326,7 @@ public class FindDocumentPanel extends JPanel {
         titleJLabel7.setText("Sách gì đây ai biết 7");
 
         imageJLabel7.setBackground(new java.awt.Color(255, 0, 51));
-        imageJLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTLOOP/logOut.png"))); // NOI18N
+        imageJLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/logOut.png"))); // NOI18N
         imageJLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imageJLabel7MouseClicked(evt);
@@ -334,7 +334,7 @@ public class FindDocumentPanel extends JPanel {
         });
 
         imageJLabel3.setBackground(new java.awt.Color(255, 0, 51));
-        imageJLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTLOOP/logOut.png"))); // NOI18N
+        imageJLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/logOut.png"))); // NOI18N
         imageJLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imageJLabel3MouseClicked(evt);
@@ -346,7 +346,7 @@ public class FindDocumentPanel extends JPanel {
         titleJLabel8.setText("Sách gì đây ai biết 8");
 
         imageJLabel5.setBackground(new java.awt.Color(255, 0, 51));
-        imageJLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTLOOP/logOut.png"))); // NOI18N
+        imageJLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/logOut.png"))); // NOI18N
         imageJLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imageJLabel5MouseClicked(evt);
@@ -354,7 +354,7 @@ public class FindDocumentPanel extends JPanel {
         });
 
         imageJLabel1.setBackground(new java.awt.Color(255, 0, 51));
-        imageJLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTLOOP/logOut.png"))); // NOI18N
+        imageJLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/logOut.png"))); // NOI18N
         imageJLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imageJLabel1MouseClicked(evt);
@@ -364,7 +364,7 @@ public class FindDocumentPanel extends JPanel {
         titleJLabel1.setText("Sách gì đây ai biết 1");
 
         imageJLabel8.setBackground(new java.awt.Color(255, 0, 51));
-        imageJLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTLOOP/logOut.png"))); // NOI18N
+        imageJLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/logOut.png"))); // NOI18N
         imageJLabel8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imageJLabel8MouseClicked(evt);
@@ -372,7 +372,7 @@ public class FindDocumentPanel extends JPanel {
         });
 
         imageJLabel4.setBackground(new java.awt.Color(255, 0, 51));
-        imageJLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTLOOP/logOut.png"))); // NOI18N
+        imageJLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/logOut.png"))); // NOI18N
         imageJLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imageJLabel4MouseClicked(evt);
@@ -622,16 +622,29 @@ public class FindDocumentPanel extends JPanel {
                 if (d.getTitle().equals(doc.getTitle())){
                     DisplayDocumentPanel.setDocument(d);
                     DisplayDocumentPanel.displayDocument(true);
-                    CardLayout cl = (CardLayout) mainPanel.getLayout();
-                    cl.show(mainPanel, "displayDocumentPanel");
+                    // if status == edit -> 
+                    if (LoginPanel.status.equals("edit")) {
+                        CardLayout cl = (CardLayout) mainPanel.getLayout();
+                        cl.show(mainPanel, "removeDocument");
+                    } else {
+                        CardLayout cl = (CardLayout) mainPanel.getLayout();
+                        cl.show(mainPanel, "displayDocumentPanel");
+                    }
+                    
                     return;
                 }
             }
             DisplayDocumentPanel.setDocument(doc);
             DisplayDocumentPanel.displayDocument(false);
             
-            CardLayout cl = (CardLayout) mainPanel.getLayout();
-            cl.show(mainPanel, "displayDocumentPanel");
+            // if status == edit -> 
+            if (LoginPanel.status.equals("edit")) {
+                CardLayout cl = (CardLayout) mainPanel.getLayout();
+                cl.show(mainPanel, "removeDocument");
+            } else {
+                CardLayout cl = (CardLayout) mainPanel.getLayout();
+                cl.show(mainPanel, "displayDocumentPanel");
+            }
 
         }
     }
@@ -694,38 +707,62 @@ public class FindDocumentPanel extends JPanel {
         }
     }//GEN-LAST:event_imageJLabel8MouseClicked
     
-    public void displayRecommentDocument(JLabel jlabel){
+    //Hiển thị sách gơij ý 
+    public static void displayRecommentDocument(JLabel label) {
+        // Lấy tất cả tài liệu từ cơ sở dữ liệu và lịch sử mượn trả
+        ArrayList<Document> allDocument = DocumentDAO.getAllDocuments();
+        ArrayList<Document> borrowedDocument = LoginPanel.userOverAll.getBorrowedDocument();
+        ArrayList<Document> returnedDocument = LoginPanel.userOverAll.getReturnedDocument();
+        // Gộp lịch sử mượn và trả tài liệu vào một danh sách
+        Set<Document> mergedDocuments = new HashSet<>();
+        mergedDocuments.addAll(borrowedDocument);
+        mergedDocuments.addAll(returnedDocument);
+        ArrayList<Document> history = new ArrayList<>(mergedDocuments);
+        
+        // Lấy danh sách các tài liệu gợi ý
+        RecommentDocument rcm = new RecommentDocument();
+        ArrayList<Document> rcmDocument = rcm.getRecommendations(history, allDocument);
+        // Lấy Map chứa các JLabel cho tiêu đề và ảnh
         Map<JLabel, JLabel> labelMap = getListRecomentDocumentJLabel();
+        
+        // Duyệt qua danh sách tài liệu gợi ý và cập nhật vào JLabel
+        int count = 0;
+        if (rcmDocument != null) {
+            for (Document doc : rcmDocument) {
+                if (count >= labelMap.size()) break;  // Dừng khi hết số lượng JLabel cần thiết
 
-            // Duyệt qua Map để tìm tài liệu tương ứng với JLabel đã click
-            for (Map.Entry<JLabel, JLabel> entry : labelMap.entrySet()) {
+                // Lấy cặp JLabel cho tiêu đề và hình ảnh
+                Map.Entry<JLabel, JLabel> entry = (Map.Entry<JLabel, JLabel>) labelMap.entrySet().toArray()[count];
+                JLabel titleLabel = entry.getKey();
+                JLabel imageLabel = entry.getValue();
+                System.out.println(entry.getKey().getText() + "  " +  entry.getValue().getText());
+                // Cập nhật tiêu đề tài liệu vào JLabel
+                titleLabel.setText(doc.getTitle());
+                imageLabel.setText(doc.getTitle());
+                // Cập nhật hình ảnh tài liệu vào JLabel
+                if (doc.getImage() != null) {
+                    DocumentDAO.displayImageFromBytes(doc.getImage(), imageLabel);
+                    System.out.println("Ảnh từ csdl image");
+                } else {
+                    System.out.println("Ảnh mặc định");
+                    loadImageFromFilePath(imageLabel, "C:\\Users\\thinh\\JAVA\\SWING\\src\\BTL_OOP\\image\\Screenshot_63.png");
+                }
+
+                count++;  // Tiến tới tài liệu tiếp theo
+            }
+            // Đặt lại các JLabel còn lại trong Map nếu không có tài liệu nào được cập nhật
+            for (int i = count; i < labelMap.size(); i++) {
+                Map.Entry<JLabel, JLabel> entry = (Map.Entry<JLabel, JLabel>) labelMap.entrySet().toArray()[i];
                 JLabel titleLabel = entry.getKey();
                 JLabel imageLabel = entry.getValue();
 
-                // Kiểm tra nếu nhấp vào JLabel tương ứng với imageJLabel1
-                if (titleLabel.getText().equals(jlabel.getText())) {
-                    // Tìm tài liệu từ entry, lấy tiêu đề từ entry.getKey() hoặc entry.getValue()
-                    String title = titleLabel.getText();
-
-                    // Lấy danh sách tài liệu từ cơ sở dữ liệu hoặc đã có
-                    ArrayList<Document> arrDocument = DocumentDAO.getAllDocuments();
-
-                    // Tìm tài liệu có tiêu đề tương ứng
-                    for (Document doc : arrDocument) {
-                        if (doc.getTitle().equals(title)) {
-                            // Nếu tìm thấy tài liệu, set tài liệu vào panel hiển thị
-                            DisplayDocumentPanel.setDocument(doc);
-                            DisplayDocumentPanel.displayDocument(true);  // Hiển thị tài liệu đầy đủ
-
-                            // Chuyển qua màn hình chi tiết tài liệu
-                            CardLayout cl = (CardLayout) mainPanel.getLayout();
-                            cl.show(mainPanel, "displayDocumentPanel");
-                            return;  // Dừng vòng lặp sau khi tìm thấy tài liệu
-                        }
-                    }
-                }
+                // Đặt lại tiêu đề và hình ảnh mặc định cho những JLabel còn lại
+                titleLabel.setText("");  // Xóa tên tài liệu
+                imageLabel.setIcon(null); // Xóa ảnh
             }
+        }
     }
+    
     // true: tìm cả API và CSDL, false: tìm CSDL
     private boolean checkDocument(){
         System.out.println("Category: " + category);

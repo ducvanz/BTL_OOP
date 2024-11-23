@@ -23,6 +23,7 @@ public class LoginPanel extends JPanel {
     JPanel mainPanel;
     public static User userOverAll;
     public static boolean isManage;
+    public static String status;
     TransactionDAO transactionDAO;
 
     /**

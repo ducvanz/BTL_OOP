@@ -21,12 +21,12 @@
         <Property name="text" type="java.lang.String" value="Th&#xea;m s&#xe1;ch"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JMenuItem" name="suaSach">
+    <Component class="javax.swing.JMenuItem" name="quanLy">
       <Properties>
-        <Property name="text" type="java.lang.String" value="S&#x1eed;a s&#xe1;ch"/>
+        <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd; t&#xe0;i li&#x1ec7;u"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="suaSachActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="quanLyActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JMenuItem" name="timsach">
@@ -37,12 +37,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="timsachActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JMenuItem" name="xoaSach">
+    <Component class="javax.swing.JMenuItem" name="thongTin">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Xo&#xe1; s&#xe1;ch"/>
+        <Property name="text" type="java.lang.String" value="Th&#xf4;ng tin ng&#x1b0;&#x1edd;i d&#xf9;ng"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="xoaSachActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="thongTinActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JMenuItem" name="nguoidung">
@@ -319,8 +319,11 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="cc" green="cc" red="cc" type="rgb"/>
+            </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="14" style="0"/>
+              <Font name="Segoe UI" size="14" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="menu"/>
           </Properties>

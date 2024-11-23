@@ -259,7 +259,7 @@ public class DocumentDAO {
                     documentStmt.setBytes(10, doc.getImage());
                 }
             } else {
-                documentStmt.setNull(10, Types.BLOB); // Nếu không có hình ảnh, đặt NULL
+                //documentStmt.setNull(10, Types.BLOB); // Nếu không có hình ảnh, đặt NULL
             }
 
             documentStmt.executeUpdate();

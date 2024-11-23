@@ -100,22 +100,22 @@ public class FindBookManage extends javax.swing.JPanel {
 
         trangchu.setBackground(new Color(255, 255, 255));       // Màu nền cho item
         trangchu.setForeground(Color.BLACK);                 // Màu chữ cho item
-        suaSach.setBackground(new Color(255, 255, 255));
-        suaSach.setForeground(Color.BLACK);
+        quanLy.setBackground(new Color(255, 255, 255));
+        quanLy.setForeground(Color.BLACK);
         themSach.setBackground(new Color(255, 255, 255));       // Màu nền cho item
         themSach.setForeground(Color.BLACK);                 // Màu chữ cho item
         timsach.setBackground(new Color(255, 255, 255));
         timsach.setForeground(Color.BLACK);
-        xoaSach.setBackground(new Color(255, 255, 255));
-        xoaSach.setForeground(Color.BLACK);
+        thongTin.setBackground(new Color(255, 255, 255));
+        thongTin.setForeground(Color.BLACK);
         nguoidung.setBackground(new Color(255, 255, 255));
         nguoidung.setForeground(Color.BLACK);
         
         manageMenu.add(trangchu);
-        manageMenu.add(suaSach);
+        manageMenu.add(quanLy);
         manageMenu.add(themSach);
         manageMenu.add(timsach);
-        manageMenu.add(xoaSach);
+        manageMenu.add(thongTin);
         manageMenu.add(nguoidung);
     }
 
@@ -140,7 +140,7 @@ public class FindBookManage extends javax.swing.JPanel {
             //String imagePath = "C:\\Users\\Admin\\NetBean\\DEMO_BTL\\src\\BTL_OOP\\image\\" + ima;  // Thay đổi đường dẫn ảnh mặc định của bạn
             //Sua dong nay di 
 //            String imagePath = "D:\\OOP\\BTLOOP\\src\\BTL_OOP\\image\\" + ima;  // Thay đổi đường dẫn ảnh mặc định của bạn
-            String imagePath = "C:\\Users\\Admin\\NetBean\\DEMO_BTL\\src\\BTL_OOP\\image\\" + ima;  // Thay đổi đường dẫn ảnh mặc định của bạn
+            String imagePath = "C:\\Users\\Admin\\NetBean\\BTL2\\src\\BTL_OOP\\image\\" + ima;  // Thay đổi đường dẫn ảnh mặc định của bạn
 
 
             // Đọc ảnh từ file
@@ -193,9 +193,9 @@ public class FindBookManage extends javax.swing.JPanel {
         manageMenu = new javax.swing.JPopupMenu();
         trangchu = new javax.swing.JMenuItem();
         themSach = new javax.swing.JMenuItem();
-        suaSach = new javax.swing.JMenuItem();
+        quanLy = new javax.swing.JMenuItem();
         timsach = new javax.swing.JMenuItem();
-        xoaSach = new javax.swing.JMenuItem();
+        thongTin = new javax.swing.JMenuItem();
         nguoidung = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -235,10 +235,10 @@ public class FindBookManage extends javax.swing.JPanel {
 
         themSach.setText("Thêm sách");
 
-        suaSach.setText("Sửa sách");
-        suaSach.addActionListener(new java.awt.event.ActionListener() {
+        quanLy.setText("Quản lý tài liệu");
+        quanLy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                suaSachActionPerformed(evt);
+                quanLyActionPerformed(evt);
             }
         });
 
@@ -249,10 +249,10 @@ public class FindBookManage extends javax.swing.JPanel {
             }
         });
 
-        xoaSach.setText("Xoá sách");
-        xoaSach.addActionListener(new java.awt.event.ActionListener() {
+        thongTin.setText("Thông tin người dùng");
+        thongTin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                xoaSachActionPerformed(evt);
+                thongTinActionPerformed(evt);
             }
         });
 
@@ -285,7 +285,8 @@ public class FindBookManage extends javax.swing.JPanel {
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("menu");
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -746,7 +747,8 @@ public class FindBookManage extends javax.swing.JPanel {
                                     JOptionPane.showMessageDialog(null, "thêm thành công!");
                                     Abook.setImagelink(imageLabelToBase64String(jLabel5));
 
-                                    Abook.addBook(con, Abook);
+                                    DocumentDAO dc = new DocumentDAO();
+                                    dc.addDocument(Abook, "");
                                     resetPane();
                                 } catch (NumberFormatException es) {
                                     JOptionPane.showMessageDialog(null, "Lỗi nhập số lượng!");
@@ -761,9 +763,9 @@ public class FindBookManage extends javax.swing.JPanel {
                 }
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void xoaSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_xoaSachActionPerformed
+    private void thongTinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thongTinActionPerformed
         
-    }//GEN-LAST:event_xoaSachActionPerformed
+    }//GEN-LAST:event_thongTinActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int result = JOptionPane.showConfirmDialog(
@@ -780,10 +782,10 @@ public class FindBookManage extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void suaSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suaSachActionPerformed
+    private void quanLyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quanLyActionPerformed
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
-        cl.show(mainPanel, "editBook");
-    }//GEN-LAST:event_suaSachActionPerformed
+        cl.show(mainPanel, "manageDocumentPanel");
+    }//GEN-LAST:event_quanLyActionPerformed
 
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -936,10 +938,11 @@ public class FindBookManage extends javax.swing.JPanel {
                                 try {
                                     int nh = Integer.parseInt(input);
                                     Abook.setQuantity(nh);
+                                    Abook.setDescription("");
                                     JOptionPane.showMessageDialog(null, "thêm thành công!");
-                                    Abook.setImagelink(imageLabelToBase64String(jLabel5));
 
-                                    Abook.addBook(con, Abook);
+                                    DocumentDAO dc = new DocumentDAO();
+                                    dc.addDocument(Abook, null);
                                     resetPane();
                                 } catch (NumberFormatException es) {
                                     JOptionPane.showMessageDialog(null, "Lỗi nhập số lượng!");
@@ -1019,10 +1022,10 @@ public class FindBookManage extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField6;
     private javax.swing.JPopupMenu manageMenu;
     private javax.swing.JMenuItem nguoidung;
-    private javax.swing.JMenuItem suaSach;
+    private javax.swing.JMenuItem quanLy;
     private javax.swing.JMenuItem themSach;
+    private javax.swing.JMenuItem thongTin;
     private javax.swing.JMenuItem timsach;
     private javax.swing.JMenuItem trangchu;
-    private javax.swing.JMenuItem xoaSach;
     // End of variables declaration//GEN-END:variables
 }
