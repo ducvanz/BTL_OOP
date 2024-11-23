@@ -23,6 +23,7 @@ public class LoginPanel extends JPanel {
     JPanel mainPanel;
     public static User userOverAll;
     public static boolean isManage;
+    public static String status;
     TransactionDAO transactionDAO;
 
     /**
@@ -297,7 +298,6 @@ public class LoginPanel extends JPanel {
     public void resetLogin(){
         accountInLoginTextField.setText("");
         passwordInLoginPasswordField.setText("");
-        manageRadioButton.setEnabled(false);
         thongbaodangnhapsai.setText("");
         loginButton.setText("LOGIN");
     }

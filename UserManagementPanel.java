@@ -24,38 +24,37 @@ public class UserManagementPanel extends javax.swing.JPanel {
     
     public void loadUserTable() {
     // Định nghĩa các cột hiển thị
-    String[] columns = {"ID", "Tên", "Tên đăng nhập", "Email", "SDT", "Ngày sinh", "Địa chỉ", "Total"};
-    DefaultTableModel model = new DefaultTableModel(columns, 0);
+        String[] columns = {"ID", "Tên", "Tên đăng nhập", "Email", "SDT", "Ngày sinh", "Địa chỉ", "Total"};
+        DefaultTableModel model = new DefaultTableModel(columns, 0);
 
-    // Xóa dữ liệu cũ
-    model.setRowCount(0);  
-    
-    // Lấy danh sách người dùng từ lớp quản lý
-    ArrayList<User> users = manage.getArrayUsers();
+        // Xóa dữ liệu cũ
+        model.setRowCount(0);  
+        // Lấy danh sách người dùng từ lớp quản lý
+        ArrayList<User> users = manage.getArrayUsers();
 
-    if (users == null || users.isEmpty()) {
-        // Nếu danh sách người dùng rỗng, hiển thị thông báo
-        System.out.println("Không có dữ liệu người dùng để hiển thị.");
-        return;
+        if (users == null || users.isEmpty()) {
+            // Nếu danh sách người dùng rỗng, hiển thị thông báo
+            System.out.println("Không có dữ liệu người dùng để hiển thị.");
+            return;
+        }
+
+        // Đổ dữ liệu từ danh sách vào bảng
+        for (User user : users) {
+            model.addRow(new Object[]{
+                user.getID(),
+                user.getName(),
+                user.getUsername(),
+                user.getEmail(),
+                user.getPhone(),
+                user.getBirthday(),
+                user.getAddress(),
+                user.getNumberBorrowed()
+            });
+        }
+
+        // Gán mô hình mới cho bảng
+        infoTable.setModel(model);
     }
-
-    // Đổ dữ liệu từ danh sách vào bảng
-    for (User user : users) {
-        model.addRow(new Object[]{
-            user.getID(),
-            user.getName(),
-            user.getUsername(),
-            user.getEmail(),
-            user.getPhone(),
-            user.getBirthday(),
-            user.getAddress(),
-            user.getNumberBorrowed()
-        });
-    }
-
-    // Gán mô hình mới cho bảng
-    infoTable.setModel(model);
-}
 
     
     
@@ -149,10 +148,28 @@ public class UserManagementPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel1.setText("Danh sách người dùng của thư viện");
 
-        infoTable.setAutoCreateRowSorter(true);
         infoTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
                 "ID", "Tên", "Tên đăng nhập", "Email", "SDT", "Ngày sinh ", "Địa chỉ", "Total"
@@ -167,7 +184,6 @@ public class UserManagementPanel extends javax.swing.JPanel {
             }
         });
         infoTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        infoTable.setCellSelectionEnabled(true);
         infoTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(infoTable);
         if (infoTable.getColumnModel().getColumnCount() > 0) {

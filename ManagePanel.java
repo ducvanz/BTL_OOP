@@ -47,7 +47,7 @@ public class ManagePanel extends javax.swing.JPanel {
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         inFoManageLabel = new javax.swing.JLabel();
-        infoJLabel = new javax.swing.JLabel();
+        jlabel26 = new javax.swing.JLabel();
         findDocumentJLabel = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -118,14 +118,14 @@ public class ManagePanel extends javax.swing.JPanel {
         inFoManageLabel.setIconTextGap(0);
         inFoManageLabel.setMaximumSize(new java.awt.Dimension(19, 196));
 
-        infoJLabel.setBackground(new java.awt.Color(204, 204, 204));
-        infoJLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        infoJLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        infoJLabel.setText("THÔNG TIN");
-        infoJLabel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        infoJLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+        jlabel26.setBackground(new java.awt.Color(204, 204, 204));
+        jlabel26.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jlabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlabel26.setText("THÔNG TIN");
+        jlabel26.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jlabel26.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                infoJLabelMouseClicked(evt);
+                jlabel26MouseClicked(evt);
             }
         });
 
@@ -162,7 +162,7 @@ public class ManagePanel extends javax.swing.JPanel {
                     .addComponent(home, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(infoJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jlabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(findDocumentJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -187,7 +187,7 @@ public class ManagePanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(findDocumentJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(infoJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jlabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(97, Short.MAX_VALUE))
@@ -454,12 +454,12 @@ public class ManagePanel extends javax.swing.JPanel {
         FindDocumentPanel.setUsername(getUsername());
     }//GEN-LAST:event_findDocumentJLabelMouseClicked
 
-    private void infoJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_infoJLabelMouseClicked
+    private void jlabel26MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabel26MouseClicked
 
         InFoUserPanel.setDefaultInfo();
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
         cl.show(mainPanel, "inFoUserPanel");
-    }//GEN-LAST:event_infoJLabelMouseClicked
+    }//GEN-LAST:event_jlabel26MouseClicked
 
     private void jLabel22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel22MouseClicked
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
@@ -469,7 +469,7 @@ public class ManagePanel extends javax.swing.JPanel {
     private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
 
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
-        cl.show(mainPanel, "editBook");
+        cl.show(mainPanel, "manageDocumentPanel");
     }//GEN-LAST:event_jLabel17MouseClicked
 
     private void jLabel29MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel29MouseClicked
@@ -494,7 +494,6 @@ public class ManagePanel extends javax.swing.JPanel {
     private javax.swing.JLabel findDocumentJLabel;
     private javax.swing.JLabel home;
     private javax.swing.JLabel inFoManageLabel;
-    private javax.swing.JLabel infoJLabel;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
@@ -520,6 +519,7 @@ public class ManagePanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JLabel jlabel26;
     private javax.swing.JPanel managePane;
     private static javax.swing.JLabel userNameManage;
     // End of variables declaration//GEN-END:variables

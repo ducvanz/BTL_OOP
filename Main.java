@@ -44,7 +44,8 @@ public class Main extends JFrame {
         ManagePanel managePanel = new ManagePanel(con, frame, mainPanel);
         FindDocumentPanel findDocumentPanel = new FindDocumentPanel(con, frame, mainPanel);
         FindBookManage FindBookManage = new FindBookManage(con, frame, mainPanel);
-        EditBook editBook = new EditBook(con, frame, mainPanel);
+        ManageDocumentPanel manageDocumentPanel = new ManageDocumentPanel(con, frame, mainPanel);
+        
         DisplayDocumentPanel displayDocumentPanel = new DisplayDocumentPanel(con, frame, mainPanel);
         InFoUserPanel inFoUserPanel = new InFoUserPanel(con,frame, mainPanel);
         UserManagementPanel userManagementPanel = new UserManagementPanel();
@@ -53,11 +54,11 @@ public class Main extends JFrame {
         mainPanel.add(userPanel, "userPanel");
         mainPanel.add(managePanel, "managePanel");
         mainPanel.add(findDocumentPanel, "findDocumentPanel");
-        mainPanel.add(editBook, "editBook");
         mainPanel.add(displayDocumentPanel, "displayDocumentPanel");
         mainPanel.add(FindBookManage, "findBookManage");
         mainPanel.add(inFoUserPanel, "inFoUserPanel");
         mainPanel.add(userManagementPanel, "userManagementPanel");
+        mainPanel.add(manageDocumentPanel,"manageDocumentPanel");
         
         // Thêm mainPanel vào JDialog
         add(mainPanel);

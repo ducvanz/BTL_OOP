@@ -100,7 +100,7 @@
                               <Component id="home" alignment="0" max="32767" attributes="0"/>
                               <Component id="jLabel17" alignment="0" max="32767" attributes="0"/>
                               <Component id="jLabel22" alignment="0" max="32767" attributes="0"/>
-                              <Component id="infoJLabel" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jlabel26" alignment="0" max="32767" attributes="0"/>
                               <Component id="findDocumentJLabel" alignment="0" max="32767" attributes="0"/>
                               <Component id="jLabel29" alignment="0" max="32767" attributes="0"/>
                           </Group>
@@ -129,7 +129,7 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="findDocumentJLabel" min="-2" pref="39" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="infoJLabel" min="-2" pref="39" max="-2" attributes="0"/>
+                          <Component id="jlabel26" min="-2" pref="39" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jLabel29" min="-2" pref="39" max="-2" attributes="0"/>
                           <EmptySpace pref="97" max="32767" attributes="0"/>
@@ -223,7 +223,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="infoJLabel">
+                <Component class="javax.swing.JLabel" name="jlabel26">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="cc" green="cc" red="cc" type="rgb"/>
@@ -240,7 +240,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="infoJLabelMouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jlabel26MouseClicked"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="findDocumentJLabel">
