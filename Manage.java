@@ -11,7 +11,27 @@ public class Manage extends User {
     ManageDAO manageDAO = new ManageDAO();
     DocumentDAO documentDAO = new DocumentDAO();
     
+    public Manage(){
+        
+    }
+    
+    public Manage(User user){
+        this.setID(user.getID());
+        this.setName(user.getName());
+        this.setAddress(user.getAddress());
+        this.setPhone(user.getPhone());
+        this.setEmail(user.getEmail());
+        this.setBirthday(user.getBirthday());
+        this.setUsername(user.getUsername());
+        this.setPassword(user.getPassword());
+        this.setLoanList(user.getLoanList());
+        this.setBorrowedList(user.getBorrowedList());
+        this.setLoanTerm(user.isLoanTerm());
+        this.setNumberBorrowed(user.getNumberBorrowed());      
+    }
     public ArrayList<User> getArrayUsers() {
+        System.out.println("123");
+        setArrayUsers();
         return users;
     }
 
@@ -20,6 +40,7 @@ public class Manage extends User {
     }
 
     public ArrayList<Document> getArrayDocuments() {
+        setArrayDocuments();
         return documents;
     }
 
@@ -37,9 +58,6 @@ public class Manage extends User {
         return manageDAO.getUserByUsername(username);
     }
         
-    public ArrayList<User> getAllUsers() {
-        return manageDAO.getAllUsers();
-    }
     public void removeUser(User user) {
         manageDAO.removeUser(user);
     }
@@ -62,10 +80,6 @@ public class Manage extends User {
 
     public void updateDocument(Document doc) {
         documentDAO.updateDocument(doc);
-    }
-
-    public ArrayList<Document> getAllDocuments() { 
-        return documentDAO.getAllDocuments();
     }
     
 }

@@ -109,19 +109,22 @@ public class RecommentDocument {
     private ArrayList<Document> searchDocuments(List<String> topKeywords, String topCategory, List<Document> allDocuments) {
         ArrayList<Document> result = new ArrayList<>();
         
+        if (topKeywords.size() >= 3 ){
             String top1 = topKeywords.get(0);
             String top2 = topKeywords.get(1);
             String top3 = topKeywords.get(2);
             System.out.println(top1 + "*" + top2 + "*" + top3);
             System.out.println(topCategory);
-        for(Document doc : allDocuments) {
-            String title = doc.getTitle();
-            
-            if ((title.contains(top1) || title.contains(top2) || title.contains(top3)) && doc.getCategory().equals(topCategory)) {
-                System.out.println(title);
-                result.add(doc);
+            for(Document doc : allDocuments) {
+                String title = doc.getTitle();
+
+                if ((title.contains(top1) || title.contains(top2) || title.contains(top3)) && doc.getCategory().equals(topCategory)) {
+                    System.out.println(title);
+                    result.add(doc);
+                }
             }
+            return result;
         }
-         return result;
+        return null;
     }
 }

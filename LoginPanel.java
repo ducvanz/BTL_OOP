@@ -268,6 +268,7 @@ public class LoginPanel extends JPanel {
             CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
             cl.show(mainPanel, "userPanel");
             updateAccount();
+            resetLogin();
 
             
         } else {
@@ -279,7 +280,10 @@ public class LoginPanel extends JPanel {
             isManage = true;
             CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
             cl.show(mainPanel, "managePanel");
+            UserManagementPanel managetment = new UserManagementPanel();
+            
             updateAccount();
+            resetLogin();
 
 
         }
@@ -290,10 +294,12 @@ public class LoginPanel extends JPanel {
         passwordInLoginPasswordField.setText("");
     }//GEN-LAST:event_loginButtonActionPerformed
 
-    public void print(){
-        for(Transaction t : userOverAll.getLoanList()){
-            System.out.println(t.getTitle());
-        }
+    public void resetLogin(){
+        accountInLoginTextField.setText("");
+        passwordInLoginPasswordField.setText("");
+        manageRadioButton.setEnabled(false);
+        thongbaodangnhapsai.setText("");
+        loginButton.setText("LOGIN");
     }
     public void updateAccount() {
         EditBook.user = userOverAll;

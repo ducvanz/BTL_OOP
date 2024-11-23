@@ -47,7 +47,7 @@ public class ManagePanel extends javax.swing.JPanel {
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         inFoManageLabel = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
+        infoJLabel = new javax.swing.JLabel();
         findDocumentJLabel = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -87,7 +87,7 @@ public class ManagePanel extends javax.swing.JPanel {
         jLabel17.setBackground(new java.awt.Color(204, 204, 204));
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setText("SỬA SÁCH");
+        jLabel17.setText("QUẢN LÝ SÁCH");
         jLabel17.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jLabel17.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -117,20 +117,15 @@ public class ManagePanel extends javax.swing.JPanel {
         inFoManageLabel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         inFoManageLabel.setIconTextGap(0);
         inFoManageLabel.setMaximumSize(new java.awt.Dimension(19, 196));
-        inFoManageLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                inFoManageLabelMouseClicked(evt);
-            }
-        });
 
-        jLabel26.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel26.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel26.setText("XOÁ SÁCH");
-        jLabel26.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jLabel26.addMouseListener(new java.awt.event.MouseAdapter() {
+        infoJLabel.setBackground(new java.awt.Color(204, 204, 204));
+        infoJLabel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        infoJLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        infoJLabel.setText("THÔNG TIN");
+        infoJLabel.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        infoJLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel26MouseClicked(evt);
+                infoJLabelMouseClicked(evt);
             }
         });
 
@@ -148,8 +143,13 @@ public class ManagePanel extends javax.swing.JPanel {
         jLabel29.setBackground(new java.awt.Color(204, 204, 204));
         jLabel29.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel29.setText("NGƯỜI DÙNG");
+        jLabel29.setText("QUẢN LÝ NGƯỜI DÙNG");
         jLabel29.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jLabel29.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel29MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -162,7 +162,7 @@ public class ManagePanel extends javax.swing.JPanel {
                     .addComponent(home, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(infoJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(findDocumentJLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -187,7 +187,7 @@ public class ManagePanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(findDocumentJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(infoJLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(97, Short.MAX_VALUE))
@@ -454,9 +454,12 @@ public class ManagePanel extends javax.swing.JPanel {
         FindDocumentPanel.setUsername(getUsername());
     }//GEN-LAST:event_findDocumentJLabelMouseClicked
 
-    private void jLabel26MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel26MouseClicked
+    private void infoJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_infoJLabelMouseClicked
 
-    }//GEN-LAST:event_jLabel26MouseClicked
+        InFoUserPanel.setDefaultInfo();
+        CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
+        cl.show(mainPanel, "inFoUserPanel");
+    }//GEN-LAST:event_infoJLabelMouseClicked
 
     private void jLabel22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel22MouseClicked
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
@@ -469,24 +472,13 @@ public class ManagePanel extends javax.swing.JPanel {
         cl.show(mainPanel, "editBook");
     }//GEN-LAST:event_jLabel17MouseClicked
 
-    private void inFoManageLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inFoManageLabelMouseClicked
-        // TODO add your handling code here:
+    private void jLabel29MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel29MouseClicked
+        UserManagementPanel management = new UserManagementPanel();
+        management.setAll();
+        CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
+        cl.show(mainPanel, "userManagementPanel");
         
-//        if(LoginPanel.userOverAll instanceof Manage)
-//        { 
-//            System.out.print("jo");
-//            InFoManagePanel.displayManage();
-//            InFoManagePanel.setManage((Manage)LoginPanel.userOverAll);
-//            CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
-//            cl.show(mainPanel, "inFoManagePanel");
-//        }
-            /*System.out.print("jo");
-            InFoManagePanel.displayManage();
-            InFoManagePanel.setManage((Manage)LoginPanel.userOverAll);*/
-            CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
-            cl.show(mainPanel, "inFoManagePanel");
-        
-    }//GEN-LAST:event_inFoManageLabelMouseClicked
+    }//GEN-LAST:event_jLabel29MouseClicked
     
     public static void setUsername(String username){
         ManagePanel.userNameManage.setText(username);
@@ -498,10 +490,11 @@ public class ManagePanel extends javax.swing.JPanel {
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel birthdayManage;
+    private static javax.swing.JLabel birthdayManage;
     private javax.swing.JLabel findDocumentJLabel;
     private javax.swing.JLabel home;
     private javax.swing.JLabel inFoManageLabel;
+    private javax.swing.JLabel infoJLabel;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
@@ -509,7 +502,6 @@ public class ManagePanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;

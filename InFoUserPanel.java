@@ -120,7 +120,6 @@ public class InFoUserPanel extends javax.swing.JPanel {
         manageNameLabel.setText("ACCOUNT");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("TRANG CÁ NHÂN");
 
         backButton.setBackground(new java.awt.Color(0, 255, 102));
@@ -403,12 +402,13 @@ public class InFoUserPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel11)
-                            .addComponent(changEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(emailJlabel))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(changEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel9)
+                                .addComponent(jLabel11)
+                                .addComponent(emailJlabel)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -617,7 +617,7 @@ public class InFoUserPanel extends javax.swing.JPanel {
         String birthday = user.getBirthday();
         String phone = user.getPhone();
         //String sex = user.getSex();
-        
+        System.out.println("OK3111111111");
         phoneJlabel.setText(phone);
         emailJlabel.setText(email);
         passwordLabel.setText("************"); 

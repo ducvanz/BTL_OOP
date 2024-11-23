@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.HashSet;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -72,13 +73,12 @@ public class UserPanel extends JPanel {
         home = new javax.swing.JPanel();
         homeUser = new javax.swing.JLabel();
         thongtin = new javax.swing.JLabel();
-        tailieumuon = new javax.swing.JLabel();
         username = new javax.swing.JLabel();
         timtailieu = new javax.swing.JLabel();
         avata = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        logOutButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(800, 650));
@@ -102,12 +102,11 @@ public class UserPanel extends JPanel {
         thongtin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         thongtin.setText("THÔNG TIN");
         thongtin.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        tailieumuon.setBackground(new java.awt.Color(204, 204, 204));
-        tailieumuon.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        tailieumuon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        tailieumuon.setText("TÀI LIỆU MƯỢN");
-        tailieumuon.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        thongtin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                thongtinMouseClicked(evt);
+            }
+        });
 
         username.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         username.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -130,11 +129,6 @@ public class UserPanel extends JPanel {
         avata.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         avata.setIconTextGap(0);
         avata.setMaximumSize(new java.awt.Dimension(19, 196));
-        avata.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                avataMouseClicked(evt);
-            }
-        });
 
         javax.swing.GroupLayout homeLayout = new javax.swing.GroupLayout(home);
         home.setLayout(homeLayout);
@@ -143,14 +137,13 @@ public class UserPanel extends JPanel {
             .addGroup(homeLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(homeUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(thongtin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(tailieumuon, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
                     .addComponent(username, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(timtailieu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(timtailieu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(homeUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homeLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(109, Short.MAX_VALUE)
                 .addComponent(avata, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(102, 102, 102))
         );
@@ -163,13 +156,11 @@ public class UserPanel extends JPanel {
                 .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(homeUser, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(tailieumuon, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
+                .addGap(43, 43, 43)
                 .addComponent(timtailieu, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(42, 42, 42)
                 .addComponent(thongtin, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(213, Short.MAX_VALUE))
+                .addContainerGap(273, Short.MAX_VALUE))
         );
 
         thongtin.getAccessibleContext().setAccessibleName("");
@@ -180,42 +171,40 @@ public class UserPanel extends JPanel {
         jLabel1.setForeground(new java.awt.Color(51, 51, 51));
         jLabel1.setText("LIBRARY");
 
-        jButton1.setBackground(new java.awt.Color(102, 153, 0));
-        jButton1.setForeground(new java.awt.Color(51, 51, 51));
-        jButton1.setText("Đăng xuất");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        logOutButton.setBackground(new java.awt.Color(102, 153, 0));
+        logOutButton.setForeground(new java.awt.Color(51, 51, 51));
+        logOutButton.setText("Đăng xuất");
+        logOutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                logOutButtonActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("jLabel2");
+        jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
+        jLabel2.setText("TRANG CHỦ");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(76, 76, 76)
+                .addGap(32, 32, 32)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 265, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(143, 143, 143)
-                .addComponent(jButton1)
+                .addComponent(logOutButton)
                 .addGap(37, 37, 37))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel2)))
+                    .addComponent(jLabel2)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(logOutButton)))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -227,7 +216,7 @@ public class UserPanel extends JPanel {
                 .addGroup(UserPanel_Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         UserPanel_Layout.setVerticalGroup(
             UserPanel_Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,19 +244,29 @@ public class UserPanel extends JPanel {
         FindDocumentPanel.setUsername(getUsername());
     }//GEN-LAST:event_mouseClickedFindDoucument
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
         // TODO add your handling code here:
-      
-    }//GEN-LAST:event_jButton1ActionPerformed
+      int result = JOptionPane.showConfirmDialog(
+                null,
+                "Bạn có chắc chắn muốn đăng xuất?",
+                "Xác nhận",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+        
+        if (result == JOptionPane.YES_OPTION) {
+            CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
+            cl.show(mainPanel, "loginPanel");
+        }
+    }//GEN-LAST:event_logOutButtonActionPerformed
 
-    private void avataMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_avataMouseClicked
+    private void thongtinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_thongtinMouseClicked
         // TODO add your handling code here:
         InFoUserPanel.setDefaultInfo();
         
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
         cl.show(mainPanel, "inFoUserPanel");
-        
-    }//GEN-LAST:event_avataMouseClicked
+    }//GEN-LAST:event_thongtinMouseClicked
 
     public static void setUsername(String username){
         UserPanel.username.setText(username);
@@ -283,11 +282,10 @@ public class UserPanel extends JPanel {
     private javax.swing.JLabel avata;
     private javax.swing.JPanel home;
     private javax.swing.JLabel homeUser;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel tailieumuon;
+    private javax.swing.JButton logOutButton;
     private javax.swing.JLabel thongtin;
     private javax.swing.JLabel timtailieu;
     private static javax.swing.JLabel username;

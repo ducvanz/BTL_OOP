@@ -63,7 +63,7 @@ public class FindBookManage extends javax.swing.JPanel {
     }
     
     public void allSetUp() {
-        resizeButtonIcon(jButton1, 12, 12);
+        resizeButtonIcon(logOutButton, 12, 12);
         resizeLabelIcon(jLabel1, 80, 80);
         //resizeLabelIcon(jLabel8, 247, 161);
         addMenuItem();
@@ -140,7 +140,7 @@ public class FindBookManage extends javax.swing.JPanel {
             //String imagePath = "C:\\Users\\Admin\\NetBean\\DEMO_BTL\\src\\BTL_OOP\\image\\" + ima;  // Thay đổi đường dẫn ảnh mặc định của bạn
             //Sua dong nay di 
 //            String imagePath = "D:\\OOP\\BTLOOP\\src\\BTL_OOP\\image\\" + ima;  // Thay đổi đường dẫn ảnh mặc định của bạn
-            String imagePath = "C:\\Users\\Admin\\NetBean\\DEMO_BTL\\src\\BTL_OOP\\image\\" + ima;  // Thay đổi đường dẫn ảnh mặc định của bạn
+            String imagePath = "C:\\Users\\thinh\\JAVA\\SWING\\src\\BTL_OOP\\image\\" + ima;  // Thay đổi đường dẫn ảnh mặc định của bạn
 
 
             // Đọc ảnh từ file
@@ -201,7 +201,7 @@ public class FindBookManage extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        logOutButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -273,15 +273,15 @@ public class FindBookManage extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 28)); // NOI18N
         jLabel3.setText("Thêm tài liệu");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/logOut.png"))); // NOI18N
-        jButton1.setText("Đăng xuất");
-        jButton1.setAlignmentY(0.0F);
-        jButton1.setFocusCycleRoot(true);
-        jButton1.setIconTextGap(1);
-        jButton1.setMargin(new java.awt.Insets(2, 0, 3, 0));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        logOutButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/logOut.png"))); // NOI18N
+        logOutButton.setText("Đăng xuất");
+        logOutButton.setAlignmentY(0.0F);
+        logOutButton.setFocusCycleRoot(true);
+        logOutButton.setIconTextGap(1);
+        logOutButton.setMargin(new java.awt.Insets(2, 0, 3, 0));
+        logOutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                logOutButtonActionPerformed(evt);
             }
         });
 
@@ -472,7 +472,7 @@ public class FindBookManage extends javax.swing.JPanel {
                                 .addComponent(jLabel4)
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(logOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
                                         .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -510,7 +510,7 @@ public class FindBookManage extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(logOutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
@@ -765,7 +765,7 @@ public class FindBookManage extends javax.swing.JPanel {
         
     }//GEN-LAST:event_xoaSachActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
         int result = JOptionPane.showConfirmDialog(
                 null,
                 "Bạn có chắc chắn muốn đăng xuất?",
@@ -778,7 +778,7 @@ public class FindBookManage extends javax.swing.JPanel {
             CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
             cl.show(mainPanel, "loginPanel");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_logOutButtonActionPerformed
 
     private void suaSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suaSachActionPerformed
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
@@ -989,7 +989,6 @@ public class FindBookManage extends javax.swing.JPanel {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -1017,6 +1016,7 @@ public class FindBookManage extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
+    private javax.swing.JButton logOutButton;
     private javax.swing.JPopupMenu manageMenu;
     private javax.swing.JMenuItem nguoidung;
     private javax.swing.JMenuItem suaSach;
