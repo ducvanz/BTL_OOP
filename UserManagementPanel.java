@@ -19,43 +19,35 @@ public class UserManagementPanel extends javax.swing.JPanel {
      * Creates new form UserManagementPanel
      */
     public UserManagementPanel() {
-        initComponents();      
+        initComponents();
+        
     }
     
     public void loadUserTable() {
-    // Định nghĩa các cột hiển thị
-        String[] columns = {"ID", "Tên", "Tên đăng nhập", "Email", "SDT", "Ngày sinh", "Địa chỉ", "Total"};
+        String[] columns = {"ID", "Tên", "Tên người dùng", "Email", "SDT", "Ngày sinh", "Địa chỉ", "Total Borrowed"}; // Cột hiển thị tên thuộc tính và giá trị
         DefaultTableModel model = new DefaultTableModel(columns, 0);
-
-        // Xóa dữ liệu cũ
-        model.setRowCount(0);  
-        // Lấy danh sách người dùng từ lớp quản lý
+        
+        // Lấy danh sách người dùng
         ArrayList<User> users = manage.getArrayUsers();
-
-        if (users == null || users.isEmpty()) {
-            // Nếu danh sách người dùng rỗng, hiển thị thông báo
-            System.out.println("Không có dữ liệu người dùng để hiển thị.");
-            return;
-        }
-
-        // Đổ dữ liệu từ danh sách vào bảng
+    
+        // Đổ dữ liệu mới vào bảng
         for (User user : users) {
             model.addRow(new Object[]{
-                user.getID(),
-                user.getName(),
-                user.getUsername(),
-                user.getEmail(),
-                user.getPhone(),
-                user.getBirthday(),
-                user.getAddress(),
+                user.getID(), 
+                user.getName(), 
+                user.getUsername(), 
+                user.getEmail(), 
+                user.getPhone(), 
+                user.getBirthday(), 
+                user.getAddress(), 
                 user.getNumberBorrowed()
             });
         }
-
-        // Gán mô hình mới cho bảng
+    
+        // Cập nhật lại bảng với dữ liệu mới
         infoTable.setModel(model);
     }
-
+    
     
     
     public void setAll(){
@@ -152,39 +144,27 @@ public class UserManagementPanel extends javax.swing.JPanel {
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
                 "ID", "Tên", "Tên đăng nhập", "Email", "SDT", "Ngày sinh ", "Địa chỉ", "Total"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        infoTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        infoTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(infoTable);
         if (infoTable.getColumnModel().getColumnCount() > 0) {
             infoTable.getColumnModel().getColumn(0).setPreferredWidth(50);

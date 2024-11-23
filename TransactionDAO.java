@@ -5,7 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TransactionDAO {
     private final Connection connection;
@@ -130,4 +133,43 @@ public class TransactionDAO {
             return false;
         }
     }
+    
+    public ArrayList<Document> topDocument() {
+        Map<Document, Integer> count = new HashMap<>();
+        
+        ArrayList<Document> allDocuments = new ArrayList<>();
+        allDocuments.addAll(user.getBorrowedDocument());
+        allDocuments.addAll(user.getReturnedDocument());
+    
+        for (Document document : allDocuments) {
+            count.put(document, count.getOrDefault(document, 0) + 1);
+        }
+    
+        // Chuyển Map thành List
+        List<Map.Entry<Document, Integer>> sortedList = new ArrayList<>(count.entrySet());
+
+        // Sắp xếp danh sách theo giá trị (giảm dần)
+        sortedList.sort(new Comparator<Map.Entry<Document, Integer>>() {
+            @Override
+            public int compare(Map.Entry<Document, Integer> entry1, Map.Entry<Document, Integer> entry2) {
+                Integer value1 = entry1.getValue();
+                Integer value2 = entry2.getValue();
+                return value2 - value1;
+            }
+        });
+
+    
+        // Lấy ra 6 tài liệu đầu tiên
+        ArrayList<Document> topDocuments = new ArrayList<>();
+        for (int i = 0; i < Math.min(6, sortedList.size()); i++) {
+            topDocuments.add(sortedList.get(i).getKey());
+        }
+        for(Document doc:topDocuments){
+            System.out.println("SÁCH-----");
+            doc.getInfo();
+            System.out.println("SÁCH+++++");
+        }
+        return topDocuments;
+    }
+
 }
