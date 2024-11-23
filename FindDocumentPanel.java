@@ -22,7 +22,7 @@ import javax.swing.*;
  *
  * @author thinh
  */
-public class FindDocumentPanel extends JPanel {
+public class FindDocumentPanel extends JPanel{
     DocumentDAO documentDAO = new DocumentDAO();
     private Connection con;
     private JFrame mainFrame;
@@ -35,7 +35,7 @@ public class FindDocumentPanel extends JPanel {
     String language = "All";
     String oldTitle = "";
     String oldAuthor = "";
-    
+    static RenderDocument render;
     
 
     /**
@@ -51,7 +51,7 @@ public class FindDocumentPanel extends JPanel {
 
         Document doc = documentDAO.getDocumentByID(1);
         ImageIcon imageIcon = new ImageIcon(doc.getImageLink());
-
+        render = new RenderDocument();
         
     }
 
@@ -145,69 +145,8 @@ public class FindDocumentPanel extends JPanel {
         Map<JLabel, JLabel> labelMap = getListRecomentDocumentJLabel();
         
         // Duyệt qua danh sách tài liệu gợi ý và cập nhật vào JLabel
-        int count = 0;
         if (rcmDocument != null) {
-            for (Document doc : rcmDocument) {
-                if (count >= labelMap.size()) break;  // Dừng khi hết số lượng JLabel cần thiết
-//=======
-//        for (Document doc : rcmDocument) {
-//            if (count >= labelMap.size()) break;  // Dừng khi hết số lượng JLabel cần thiết
-//            
-//            // Lấy cặp JLabel cho tiêu đề và hình ảnh
-//            Map.Entry<JLabel, JLabel> entry = (Map.Entry<JLabel, JLabel>) labelMap.entrySet().toArray()[count];
-//            JLabel titleLabel = entry.getKey();
-//            JLabel imageLabel = entry.getValue();
-//            System.out.println(entry.getKey().getText() + "  " +  entry.getValue().getText());
-//            // Cập nhật tiêu đề tài liệu vào JLabel
-//            titleLabel.setText(doc.getTitle());
-//            imageLabel.setText(doc.getTitle());
-//            // Cập nhật hình ảnh tài liệu vào JLabel
-//            if (doc.getImage() != null) {
-//                DocumentDAO.displayImageFromBytes(doc.getImage(), imageLabel);
-//                System.out.println("Ảnh từ csdl image");
-//            } else {
-//                System.out.println("Ảnh mặc định");
-//                loadImageFromFilePath(imageLabel, "C:\\Users\\Admin\\NetBean\\BTL2\\src\\BTL_OOP\\image\\Screenshot_63.png");
-//            }
-//    
-//            count++;  // Tiến tới tài liệu tiếp theo
-//        }
-//        // Đặt lại các JLabel còn lại trong Map nếu không có tài liệu nào được cập nhật
-//        for (int i = count; i < labelMap.size(); i++) {
-//            Map.Entry<JLabel, JLabel> entry = (Map.Entry<JLabel, JLabel>) labelMap.entrySet().toArray()[i];
-//            JLabel titleLabel = entry.getKey();
-//            JLabel imageLabel = entry.getValue();
-//>>>>>>> dd9e4c128be5684f765f2399249ccaa144f65093
-
-                // Lấy cặp JLabel cho tiêu đề và hình ảnh
-                Map.Entry<JLabel, JLabel> entry = (Map.Entry<JLabel, JLabel>) labelMap.entrySet().toArray()[count];
-                JLabel titleLabel = entry.getKey();
-                JLabel imageLabel = entry.getValue();
-                System.out.println(entry.getKey().getText() + "  " +  entry.getValue().getText());
-                // Cập nhật tiêu đề tài liệu vào JLabel
-                titleLabel.setText(doc.getTitle());
-                imageLabel.setText(doc.getTitle());
-                // Cập nhật hình ảnh tài liệu vào JLabel
-                if (doc.getImage() != null) {
-                    DocumentDAO.displayImageFromBytes(doc.getImage(), imageLabel);
-                    System.out.println("Ảnh từ csdl image");
-                } else {
-                    System.out.println("Ảnh mặc định");
-                    loadImageFromFilePath(imageLabel, "C:\\Users\\thinh\\JAVA\\SWING\\src\\BTL_OOP\\image\\Screenshot_63.png");
-                }
-
-                count++;  // Tiến tới tài liệu tiếp theo
-            }
-            // Đặt lại các JLabel còn lại trong Map nếu không có tài liệu nào được cập nhật
-            for (int i = count; i < labelMap.size(); i++) {
-                Map.Entry<JLabel, JLabel> entry = (Map.Entry<JLabel, JLabel>) labelMap.entrySet().toArray()[i];
-                JLabel titleLabel = entry.getKey();
-                JLabel imageLabel = entry.getValue();
-
-                // Đặt lại tiêu đề và hình ảnh mặc định cho những JLabel còn lại
-                titleLabel.setText("");  // Xóa tên tài liệu
-                imageLabel.setIcon(null); // Xóa ảnh
-            }
+            render.renderDocument(rcmDocument, labelMap);
         }
     }
     
@@ -685,114 +624,77 @@ public class FindDocumentPanel extends JPanel {
     private void imageJLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageJLabel1MouseClicked
 
         if (evt.getClickCount() == 2) {  // Kiểm tra nếu người dùng nhấp đúp
-            displayRecommentDocument(imageJLabel1);
+            render.renderDocumentToInfoDocument(imageJLabel1);
+            CardLayout cl = (CardLayout) mainPanel.getLayout();
+            cl.show(mainPanel, "displayDocumentPanel");
         }
     }//GEN-LAST:event_imageJLabel1MouseClicked
 
     private void imageJLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageJLabel2MouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {  // Kiểm tra nếu người dùng nhấp đúp
-            displayRecommentDocument(imageJLabel2);
+            render.renderDocumentToInfoDocument(imageJLabel1);
+            CardLayout cl = (CardLayout) mainPanel.getLayout();
+            cl.show(mainPanel, "displayDocumentPanel");
         }
     }//GEN-LAST:event_imageJLabel2MouseClicked
 
     private void imageJLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageJLabel3MouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {  // Kiểm tra nếu người dùng nhấp đúp
-            displayRecommentDocument(imageJLabel3);
+            render.renderDocumentToInfoDocument(imageJLabel1);
+            CardLayout cl = (CardLayout) mainPanel.getLayout();
+            cl.show(mainPanel, "displayDocumentPanel");
         }
     }//GEN-LAST:event_imageJLabel3MouseClicked
 
     private void imageJLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageJLabel4MouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {  // Kiểm tra nếu người dùng nhấp đúp
-            displayRecommentDocument(imageJLabel4);
+            render.renderDocumentToInfoDocument(imageJLabel1);
+            CardLayout cl = (CardLayout) mainPanel.getLayout();
+            cl.show(mainPanel, "displayDocumentPanel");
         }
     }//GEN-LAST:event_imageJLabel4MouseClicked
 
     private void imageJLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageJLabel5MouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {  // Kiểm tra nếu người dùng nhấp đúp
-            displayRecommentDocument(imageJLabel5);
+            render.renderDocumentToInfoDocument(imageJLabel1);
+            CardLayout cl = (CardLayout) mainPanel.getLayout();
+            cl.show(mainPanel, "displayDocumentPanel");
         }
     }//GEN-LAST:event_imageJLabel5MouseClicked
 
     private void imageJLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageJLabel6MouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {  // Kiểm tra nếu người dùng nhấp đúp
-            displayRecommentDocument(imageJLabel6);
+            render.renderDocumentToInfoDocument(imageJLabel1);
+            CardLayout cl = (CardLayout) mainPanel.getLayout();
+            cl.show(mainPanel, "displayDocumentPanel");
         }
     }//GEN-LAST:event_imageJLabel6MouseClicked
 
     private void imageJLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageJLabel7MouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {  // Kiểm tra nếu người dùng nhấp đúp
-            displayRecommentDocument(imageJLabel7);
+            render.renderDocumentToInfoDocument(imageJLabel1);
+            CardLayout cl = (CardLayout) mainPanel.getLayout();
+            cl.show(mainPanel, "displayDocumentPanel");
         }
     }//GEN-LAST:event_imageJLabel7MouseClicked
 
     private void imageJLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageJLabel8MouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {  // Kiểm tra nếu người dùng nhấp đúp
-            displayRecommentDocument(imageJLabel8);
+            render.renderDocumentToInfoDocument(imageJLabel1);
+            CardLayout cl = (CardLayout) mainPanel.getLayout();
+            cl.show(mainPanel, "displayDocumentPanel");
         }
     }//GEN-LAST:event_imageJLabel8MouseClicked
     
     //Hiển thị sách gơij ý 
-    public static void displayRecommentDocument(JLabel label) {
-        // Lấy tất cả tài liệu từ cơ sở dữ liệu và lịch sử mượn trả
-        ArrayList<Document> allDocument = DocumentDAO.getAllDocuments();
-        ArrayList<Document> borrowedDocument = LoginPanel.userOverAll.getBorrowedDocument();
-        ArrayList<Document> returnedDocument = LoginPanel.userOverAll.getReturnedDocument();
-        // Gộp lịch sử mượn và trả tài liệu vào một danh sách
-        Set<Document> mergedDocuments = new HashSet<>();
-        mergedDocuments.addAll(borrowedDocument);
-        mergedDocuments.addAll(returnedDocument);
-        ArrayList<Document> history = new ArrayList<>(mergedDocuments);
-        
-        // Lấy danh sách các tài liệu gợi ý
-        RecommentDocument rcm = new RecommentDocument();
-        ArrayList<Document> rcmDocument = rcm.getRecommendations(history, allDocument);
-        // Lấy Map chứa các JLabel cho tiêu đề và ảnh
-        Map<JLabel, JLabel> labelMap = getListRecomentDocumentJLabel();
-        
-        // Duyệt qua danh sách tài liệu gợi ý và cập nhật vào JLabel
-        int count = 0;
-        if (rcmDocument != null) {
-            for (Document doc : rcmDocument) {
-                if (count >= labelMap.size()) break;  // Dừng khi hết số lượng JLabel cần thiết
-
-                // Lấy cặp JLabel cho tiêu đề và hình ảnh
-                Map.Entry<JLabel, JLabel> entry = (Map.Entry<JLabel, JLabel>) labelMap.entrySet().toArray()[count];
-                JLabel titleLabel = entry.getKey();
-                JLabel imageLabel = entry.getValue();
-                System.out.println(entry.getKey().getText() + "  " +  entry.getValue().getText());
-                // Cập nhật tiêu đề tài liệu vào JLabel
-                titleLabel.setText(doc.getTitle());
-                imageLabel.setText(doc.getTitle());
-                // Cập nhật hình ảnh tài liệu vào JLabel
-                if (doc.getImage() != null) {
-                    DocumentDAO.displayImageFromBytes(doc.getImage(), imageLabel);
-                    System.out.println("Ảnh từ csdl image");
-                } else {
-                    System.out.println("Ảnh mặc định");
-                    loadImageFromFilePath(imageLabel, "C:\\Users\\thinh\\JAVA\\SWING\\src\\BTL_OOP\\image\\Screenshot_63.png");
-                }
-
-                count++;  // Tiến tới tài liệu tiếp theo
-            }
-            // Đặt lại các JLabel còn lại trong Map nếu không có tài liệu nào được cập nhật
-            for (int i = count; i < labelMap.size(); i++) {
-                Map.Entry<JLabel, JLabel> entry = (Map.Entry<JLabel, JLabel>) labelMap.entrySet().toArray()[i];
-                JLabel titleLabel = entry.getKey();
-                JLabel imageLabel = entry.getValue();
-
-                // Đặt lại tiêu đề và hình ảnh mặc định cho những JLabel còn lại
-                titleLabel.setText("");  // Xóa tên tài liệu
-                imageLabel.setIcon(null); // Xóa ảnh
-            }
-        }
-    }
+    
     
     // true: tìm cả API và CSDL, false: tìm CSDL
     private boolean checkDocument(){

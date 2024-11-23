@@ -307,6 +307,12 @@ public class LoginPanel extends JPanel {
         ManagePanel.user = userOverAll;
         transactionDAO = new TransactionDAO();
         FindDocumentPanel.displayRecommentDocument();
+        if (isManage) {
+            UserPanel.displayRecommentDocument();
+            ManagePanel.displayRecommentDocument();
+        } else {
+            UserPanel.displayRecommentDocument();
+        }
     }
 
     

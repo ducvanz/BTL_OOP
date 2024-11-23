@@ -4,9 +4,14 @@
  */
 package BTL_OOP;
 
+import static BTL_OOP.FindDocumentPanel.render;
 import java.awt.CardLayout;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,6 +27,7 @@ public class UserPanel extends JPanel {
     private Connection con;
     private JFrame mainFrame;
     private JPanel mainPanel;
+    static RenderDocument render;
     
     /**
      * Creates new form userPanel
@@ -33,6 +39,7 @@ public class UserPanel extends JPanel {
         this.con = con;
         this.mainFrame = mainFrame;
         this.mainPanel = mainPanel;
+        render = new RenderDocument();
         enterLogin();
         
     }
@@ -67,7 +74,6 @@ public class UserPanel extends JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         UserPanel_ = new javax.swing.JPanel();
         home = new javax.swing.JPanel();
@@ -80,6 +86,18 @@ public class UserPanel extends JPanel {
         jLabel1 = new javax.swing.JLabel();
         logOutButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        titleJLabel1 = new javax.swing.JLabel();
+        imageJLabel1 = new javax.swing.JLabel();
+        titleJLabel2 = new javax.swing.JLabel();
+        imageJLabel2 = new javax.swing.JLabel();
+        titleJLabel3 = new javax.swing.JLabel();
+        imageJLabel3 = new javax.swing.JLabel();
+        imageJLabel6 = new javax.swing.JLabel();
+        titleJLabel4 = new javax.swing.JLabel();
+        imageJLabel4 = new javax.swing.JLabel();
+        titleJLabel5 = new javax.swing.JLabel();
+        imageJLabel5 = new javax.swing.JLabel();
+        titleJLabel6 = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(800, 650));
         setPreferredSize(new java.awt.Dimension(800, 650));
@@ -143,7 +161,7 @@ public class UserPanel extends JPanel {
                     .addComponent(homeUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homeLayout.createSequentialGroup()
-                .addContainerGap(109, Short.MAX_VALUE)
+                .addContainerGap(77, Short.MAX_VALUE)
                 .addComponent(avata, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(102, 102, 102))
         );
@@ -154,13 +172,13 @@ public class UserPanel extends JPanel {
                 .addComponent(avata, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(45, 45, 45)
                 .addComponent(homeUser, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addGap(44, 44, 44)
                 .addComponent(timtailieu, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addGap(53, 53, 53)
                 .addComponent(thongtin, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(273, Short.MAX_VALUE))
+                .addContainerGap(244, Short.MAX_VALUE))
         );
 
         thongtin.getAccessibleContext().setAccessibleName("");
@@ -190,11 +208,11 @@ public class UserPanel extends JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 265, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 146, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(143, 143, 143)
+                .addGap(152, 152, 152)
                 .addComponent(logOutButton)
-                .addGap(37, 37, 37))
+                .addGap(28, 28, 28))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,11 +220,76 @@ public class UserPanel extends JPanel {
                 .addGap(17, 17, 17)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(logOutButton)))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(logOutButton))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
+
+        titleJLabel1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        titleJLabel1.setText("Sách gì đây ai biết 1");
+
+        imageJLabel1.setBackground(new java.awt.Color(255, 0, 51));
+        imageJLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/logOut.png"))); // NOI18N
+        imageJLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imageJLabel1MouseClicked(evt);
+            }
+        });
+
+        titleJLabel2.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        titleJLabel2.setText("Sách gì đây ai biết 1");
+
+        imageJLabel2.setBackground(new java.awt.Color(255, 0, 51));
+        imageJLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/logOut.png"))); // NOI18N
+        imageJLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imageJLabel2MouseClicked(evt);
+            }
+        });
+
+        titleJLabel3.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        titleJLabel3.setText("Sách gì đây ai biết 1");
+
+        imageJLabel3.setBackground(new java.awt.Color(255, 0, 51));
+        imageJLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/logOut.png"))); // NOI18N
+        imageJLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imageJLabel3MouseClicked(evt);
+            }
+        });
+
+        imageJLabel6.setBackground(new java.awt.Color(255, 0, 51));
+        imageJLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/logOut.png"))); // NOI18N
+        imageJLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imageJLabel6MouseClicked(evt);
+            }
+        });
+
+        titleJLabel4.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        titleJLabel4.setText("Sách gì đây ai biết 1");
+
+        imageJLabel4.setBackground(new java.awt.Color(255, 0, 51));
+        imageJLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/logOut.png"))); // NOI18N
+        imageJLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imageJLabel4MouseClicked(evt);
+            }
+        });
+
+        titleJLabel5.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        titleJLabel5.setText("Sách gì đây ai biết 1");
+
+        imageJLabel5.setBackground(new java.awt.Color(255, 0, 51));
+        imageJLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BTL_OOP/logOut.png"))); // NOI18N
+        imageJLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                imageJLabel5MouseClicked(evt);
+            }
+        });
+
+        titleJLabel6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        titleJLabel6.setText("Sách gì đây ai biết 1");
 
         javax.swing.GroupLayout UserPanel_Layout = new javax.swing.GroupLayout(UserPanel_);
         UserPanel_.setLayout(UserPanel_Layout);
@@ -214,26 +297,78 @@ public class UserPanel extends JPanel {
             UserPanel_Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(UserPanel_Layout.createSequentialGroup()
                 .addGroup(UserPanel_Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(13, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(UserPanel_Layout.createSequentialGroup()
+                        .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(UserPanel_Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(UserPanel_Layout.createSequentialGroup()
+                                .addGroup(UserPanel_Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(imageJLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(titleJLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(40, 40, 40)
+                                .addGroup(UserPanel_Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(imageJLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(titleJLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(40, 40, 40)
+                                .addGroup(UserPanel_Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(imageJLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(titleJLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(UserPanel_Layout.createSequentialGroup()
+                                .addGroup(UserPanel_Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(imageJLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(titleJLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(40, 40, 40)
+                                .addGroup(UserPanel_Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(imageJLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(titleJLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(40, 40, 40)
+                                .addGroup(UserPanel_Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(imageJLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(titleJLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         UserPanel_Layout.setVerticalGroup(
             UserPanel_Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(UserPanel_Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, 604, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(UserPanel_Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(UserPanel_Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(UserPanel_Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addGroup(UserPanel_Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(UserPanel_Layout.createSequentialGroup()
+                                .addComponent(imageJLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(titleJLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(UserPanel_Layout.createSequentialGroup()
+                                .addComponent(imageJLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(titleJLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(UserPanel_Layout.createSequentialGroup()
+                                .addComponent(imageJLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(titleJLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(27, 27, 27)
+                        .addGroup(UserPanel_Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(UserPanel_Layout.createSequentialGroup()
+                                .addComponent(imageJLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(titleJLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(UserPanel_Layout.createSequentialGroup()
+                                .addComponent(imageJLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(titleJLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(UserPanel_Layout.createSequentialGroup()
+                                .addComponent(imageJLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(titleJLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 139;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 6);
-        add(UserPanel_, gridBagConstraints);
+        add(UserPanel_, new java.awt.GridBagConstraints());
         UserPanel_.getAccessibleContext().setAccessibleName("userPanel");
     }// </editor-fold>//GEN-END:initComponents
 
@@ -268,6 +403,87 @@ public class UserPanel extends JPanel {
         cl.show(mainPanel, "inFoUserPanel");
     }//GEN-LAST:event_thongtinMouseClicked
 
+    public static Map<JLabel, JLabel> getListRecomentDocumentJLabel() {
+        Map<JLabel, JLabel> result = new LinkedHashMap<>();
+        result.put(titleJLabel1, imageJLabel1);
+        result.put(titleJLabel2, imageJLabel2);
+        result.put(titleJLabel3, imageJLabel3);
+        result.put(titleJLabel4, imageJLabel4);
+        result.put(titleJLabel5, imageJLabel5);
+        result.put(titleJLabel6, imageJLabel6);
+        return result;
+    }
+    
+    //Hiển thị sách gơij ý 
+    public static void displayRecommentDocument() {
+        // Lấy tất cả tài liệu từ cơ sở dữ liệu và lịch sử mượn trả
+        ArrayList<Document> allDocument = DocumentDAO.getAllDocuments();
+        TransactionDAO transaction = new TransactionDAO();
+        ArrayList<Document> suggest = transaction.topDocument();
+        
+        // Lấy Map chứa các JLabel cho tiêu đề và ảnh
+        Map<JLabel, JLabel> labelMap = getListRecomentDocumentJLabel();
+        
+        // Duyệt qua danh sách tài liệu gợi ý và cập nhật vào JLabel
+        if (suggest != null) {
+            render.renderDocument(suggest, labelMap);
+        }
+    }
+    
+    private void imageJLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageJLabel1MouseClicked
+        if (evt.getClickCount() == 2) {  // Kiểm tra nếu người dùng nhấp đúp
+            render.renderDocumentToInfoDocument(imageJLabel1);
+            CardLayout cl = (CardLayout) mainPanel.getLayout();
+            cl.show(mainPanel, "displayDocumentPanel");
+        }
+
+    }//GEN-LAST:event_imageJLabel1MouseClicked
+
+    private void imageJLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageJLabel2MouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {  // Kiểm tra nếu người dùng nhấp đúp
+            render.renderDocumentToInfoDocument(imageJLabel2);
+            CardLayout cl = (CardLayout) mainPanel.getLayout();
+            cl.show(mainPanel, "displayDocumentPanel");
+        }
+    }//GEN-LAST:event_imageJLabel2MouseClicked
+
+    private void imageJLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageJLabel3MouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {  // Kiểm tra nếu người dùng nhấp đúp
+            render.renderDocumentToInfoDocument(imageJLabel3);
+            CardLayout cl = (CardLayout) mainPanel.getLayout();
+            cl.show(mainPanel, "displayDocumentPanel");
+        }
+    }//GEN-LAST:event_imageJLabel3MouseClicked
+
+    private void imageJLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageJLabel6MouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {  // Kiểm tra nếu người dùng nhấp đúp
+            render.renderDocumentToInfoDocument(imageJLabel6);
+            CardLayout cl = (CardLayout) mainPanel.getLayout();
+            cl.show(mainPanel, "displayDocumentPanel");
+        }
+    }//GEN-LAST:event_imageJLabel6MouseClicked
+
+    private void imageJLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageJLabel4MouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {  // Kiểm tra nếu người dùng nhấp đúp
+            render.renderDocumentToInfoDocument(imageJLabel4);
+            CardLayout cl = (CardLayout) mainPanel.getLayout();
+            cl.show(mainPanel, "displayDocumentPanel");
+        }
+    }//GEN-LAST:event_imageJLabel4MouseClicked
+
+    private void imageJLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageJLabel5MouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {  // Kiểm tra nếu người dùng nhấp đúp
+            render.renderDocumentToInfoDocument(imageJLabel5);
+            CardLayout cl = (CardLayout) mainPanel.getLayout();
+            cl.show(mainPanel, "displayDocumentPanel");
+        }
+    }//GEN-LAST:event_imageJLabel5MouseClicked
+
     public static void setUsername(String username){
         UserPanel.username.setText(username);
     }
@@ -282,12 +498,24 @@ public class UserPanel extends JPanel {
     private javax.swing.JLabel avata;
     private javax.swing.JPanel home;
     private javax.swing.JLabel homeUser;
+    private static javax.swing.JLabel imageJLabel1;
+    private static javax.swing.JLabel imageJLabel2;
+    private static javax.swing.JLabel imageJLabel3;
+    private static javax.swing.JLabel imageJLabel4;
+    private static javax.swing.JLabel imageJLabel5;
+    private static javax.swing.JLabel imageJLabel6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton logOutButton;
     private javax.swing.JLabel thongtin;
     private javax.swing.JLabel timtailieu;
+    private static javax.swing.JLabel titleJLabel1;
+    private static javax.swing.JLabel titleJLabel2;
+    private static javax.swing.JLabel titleJLabel3;
+    private static javax.swing.JLabel titleJLabel4;
+    private static javax.swing.JLabel titleJLabel5;
+    private static javax.swing.JLabel titleJLabel6;
     private static javax.swing.JLabel username;
     // End of variables declaration//GEN-END:variables
 }
