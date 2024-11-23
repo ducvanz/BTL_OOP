@@ -71,6 +71,8 @@ public class Main extends JFrame {
         
 
         setVisible(true);
+        
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public void setDB() {

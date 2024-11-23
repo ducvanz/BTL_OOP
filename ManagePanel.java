@@ -473,8 +473,9 @@ public class ManagePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jLabel17MouseClicked
 
     private void jLabel29MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel29MouseClicked
-        UserManagementPanel management = new UserManagementPanel();
-        management.setAll();
+//        UserManagementPanel management = new UserManagementPanel();
+//        management.setAll();
+//        System.out.println("he");
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
         cl.show(mainPanel, "userManagementPanel");
         

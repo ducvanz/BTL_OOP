@@ -30,7 +30,6 @@ public class Manage extends User {
         this.setNumberBorrowed(user.getNumberBorrowed());      
     }
     public ArrayList<User> getArrayUsers() {
-        System.out.println("123");
         setArrayUsers();
         return users;
     }
@@ -58,7 +57,7 @@ public class Manage extends User {
         return manageDAO.getUserByUsername(username);
     }
         
-    public void removeUser(User user) {
+    public void removeUser(int user) {
         manageDAO.removeUser(user);
     }
 

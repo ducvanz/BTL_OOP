@@ -97,8 +97,7 @@ public class ManageDAO {
         }
     }
 
-    public void removeUser (User user) {
-        int userID = user.getID();
+    public void removeUser (int userID) {
         String sql = "DELETE FROM User WHERE userID = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             pstmt.setInt(1, userID);
