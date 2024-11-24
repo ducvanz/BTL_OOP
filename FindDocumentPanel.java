@@ -4,18 +4,13 @@
  */
 package BTL_OOP;
 
-import static BTL_OOP.DisplayDocumentPanel.loadImageFromFilePath;
 import java.awt.*;
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
@@ -525,6 +520,7 @@ public class FindDocumentPanel extends JPanel{
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        DisplayDocumentPanel.isFromHome = true;
         titleJTextField.setText("");
         authorJTextField.setText("");
         ISBNJTextField.setText("");
@@ -592,14 +588,8 @@ public class FindDocumentPanel extends JPanel{
                 if (d.getTitle().equals(doc.getTitle())){
                     DisplayDocumentPanel.setDocument(d);
                     DisplayDocumentPanel.displayDocument(true);
-                    // if status == edit -> 
-                    if (LoginPanel.status.equals("edit")) {
-                        CardLayout cl = (CardLayout) mainPanel.getLayout();
-                        cl.show(mainPanel, "removeDocument");
-                    } else {
-                        CardLayout cl = (CardLayout) mainPanel.getLayout();
-                        cl.show(mainPanel, "displayDocumentPanel");
-                    }
+                    CardLayout cl = (CardLayout) mainPanel.getLayout();
+                    cl.show(mainPanel, "displayDocumentPanel");
                     
                     return;
                 }
@@ -607,14 +597,8 @@ public class FindDocumentPanel extends JPanel{
             DisplayDocumentPanel.setDocument(doc);
             DisplayDocumentPanel.displayDocument(false);
             
-            // if status == edit -> 
-            if (LoginPanel.status.equals("edit")) {
-                CardLayout cl = (CardLayout) mainPanel.getLayout();
-                cl.show(mainPanel, "removeDocument");
-            } else {
-                CardLayout cl = (CardLayout) mainPanel.getLayout();
-                cl.show(mainPanel, "displayDocumentPanel");
-            }
+            CardLayout cl = (CardLayout) mainPanel.getLayout();
+            cl.show(mainPanel, "displayDocumentPanel");
 
         }
     }
@@ -624,72 +608,88 @@ public class FindDocumentPanel extends JPanel{
     private void imageJLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageJLabel1MouseClicked
 
         if (evt.getClickCount() == 2) {  // Kiểm tra nếu người dùng nhấp đúp
-            render.renderDocumentToInfoDocument(imageJLabel1);
-            CardLayout cl = (CardLayout) mainPanel.getLayout();
-            cl.show(mainPanel, "displayDocumentPanel");
+            if (imageJLabel1.getIcon() != null) {
+                render.renderDocumentToInfoDocument(imageJLabel1);
+                CardLayout cl = (CardLayout) mainPanel.getLayout();
+                cl.show(mainPanel, "displayDocumentPanel");
+            }
         }
     }//GEN-LAST:event_imageJLabel1MouseClicked
 
     private void imageJLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageJLabel2MouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {  // Kiểm tra nếu người dùng nhấp đúp
-            render.renderDocumentToInfoDocument(imageJLabel1);
-            CardLayout cl = (CardLayout) mainPanel.getLayout();
-            cl.show(mainPanel, "displayDocumentPanel");
+            if (imageJLabel2.getIcon() != null) {
+                render.renderDocumentToInfoDocument(imageJLabel2);
+                CardLayout cl = (CardLayout) mainPanel.getLayout();
+                cl.show(mainPanel, "displayDocumentPanel");
+            }
         }
     }//GEN-LAST:event_imageJLabel2MouseClicked
 
     private void imageJLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageJLabel3MouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {  // Kiểm tra nếu người dùng nhấp đúp
-            render.renderDocumentToInfoDocument(imageJLabel1);
-            CardLayout cl = (CardLayout) mainPanel.getLayout();
-            cl.show(mainPanel, "displayDocumentPanel");
+            if (imageJLabel3.getIcon() != null) {
+                render.renderDocumentToInfoDocument(imageJLabel3);
+                CardLayout cl = (CardLayout) mainPanel.getLayout();
+                cl.show(mainPanel, "displayDocumentPanel");
+            }
         }
     }//GEN-LAST:event_imageJLabel3MouseClicked
 
     private void imageJLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageJLabel4MouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {  // Kiểm tra nếu người dùng nhấp đúp
-            render.renderDocumentToInfoDocument(imageJLabel1);
-            CardLayout cl = (CardLayout) mainPanel.getLayout();
-            cl.show(mainPanel, "displayDocumentPanel");
+            if (imageJLabel4.getIcon() != null) {
+                render.renderDocumentToInfoDocument(imageJLabel4);
+                CardLayout cl = (CardLayout) mainPanel.getLayout();
+                cl.show(mainPanel, "displayDocumentPanel");
+            }
         }
     }//GEN-LAST:event_imageJLabel4MouseClicked
 
     private void imageJLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageJLabel5MouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {  // Kiểm tra nếu người dùng nhấp đúp
-            render.renderDocumentToInfoDocument(imageJLabel1);
-            CardLayout cl = (CardLayout) mainPanel.getLayout();
-            cl.show(mainPanel, "displayDocumentPanel");
+            if (imageJLabel5.getIcon() != null) {
+                render.renderDocumentToInfoDocument(imageJLabel5);
+                CardLayout cl = (CardLayout) mainPanel.getLayout();
+                cl.show(mainPanel, "displayDocumentPanel");
+            }
         }
     }//GEN-LAST:event_imageJLabel5MouseClicked
 
     private void imageJLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageJLabel6MouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {  // Kiểm tra nếu người dùng nhấp đúp
-            render.renderDocumentToInfoDocument(imageJLabel1);
-            CardLayout cl = (CardLayout) mainPanel.getLayout();
-            cl.show(mainPanel, "displayDocumentPanel");
+            if (imageJLabel6.getIcon() != null) {
+                render.renderDocumentToInfoDocument(imageJLabel6);
+                CardLayout cl = (CardLayout) mainPanel.getLayout();
+                cl.show(mainPanel, "displayDocumentPanel");
+            }
         }
     }//GEN-LAST:event_imageJLabel6MouseClicked
 
     private void imageJLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageJLabel7MouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {  // Kiểm tra nếu người dùng nhấp đúp
-            render.renderDocumentToInfoDocument(imageJLabel1);
-            CardLayout cl = (CardLayout) mainPanel.getLayout();
-            cl.show(mainPanel, "displayDocumentPanel");
+            if (imageJLabel7.getIcon() != null) {
+                render.renderDocumentToInfoDocument(imageJLabel7);
+                CardLayout cl = (CardLayout) mainPanel.getLayout();
+                cl.show(mainPanel, "displayDocumentPanel");
+            }
         }
     }//GEN-LAST:event_imageJLabel7MouseClicked
 
     private void imageJLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageJLabel8MouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {  // Kiểm tra nếu người dùng nhấp đúp
-            render.renderDocumentToInfoDocument(imageJLabel1);
-            CardLayout cl = (CardLayout) mainPanel.getLayout();
-            cl.show(mainPanel, "displayDocumentPanel");
+            if (imageJLabel8.getIcon() != null) {
+                render.renderDocumentToInfoDocument(imageJLabel8);
+                CardLayout cl = (CardLayout) mainPanel.getLayout();
+                cl.show(mainPanel, "displayDocumentPanel");
+            }
         }
     }//GEN-LAST:event_imageJLabel8MouseClicked
     

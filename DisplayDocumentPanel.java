@@ -27,6 +27,7 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
     private JPanel mainPanel;
     private static Document document;
     private static User user;
+    static boolean isFromHome;
     /**
      * Creates new form managePanel
      */
@@ -36,7 +37,7 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
         this.mainFrame = mainFrame;
         this.mainPanel = mainPanel;
         this.document = null;
-        //user.displayUserInfo();
+        isFromHome = false;
     }
 
     public static Document getDocument() {
@@ -526,9 +527,21 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
     
     private void backButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseClicked
         // TODO add your handling code here:
-        imageDocumentJLabel.setIcon(null);
-        CardLayout cl = (CardLayout) mainPanel.getLayout();
-        cl.show(mainPanel, "findDocumentPanel");
+        if (!isFromHome) {
+            imageDocumentJLabel.setIcon(null);
+            CardLayout cl = (CardLayout) mainPanel.getLayout();
+            cl.show(mainPanel, "findDocumentPanel");
+        } else {
+            if (LoginPanel.isManage) {
+                imageDocumentJLabel.setIcon(null);
+            CardLayout cl = (CardLayout) mainPanel.getLayout();
+            cl.show(mainPanel, "managePanel");
+            } else {
+                imageDocumentJLabel.setIcon(null);
+                CardLayout cl = (CardLayout) mainPanel.getLayout();
+                cl.show(mainPanel, "userPanel");
+            }
+        }
     }//GEN-LAST:event_backButtonMouseClicked
 
     private void confirmReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmReturnButtonActionPerformed

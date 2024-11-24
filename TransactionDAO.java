@@ -1,5 +1,6 @@
 package BTL_OOP;
 
+import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,8 +8,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class TransactionDAO {
     private final Connection connection;
@@ -134,12 +137,10 @@ public class TransactionDAO {
         }
     }
     
-    public ArrayList<Document> topDocument() {
+    public ArrayList<Document> topDocument(User user) {
         Map<Document, Integer> count = new HashMap<>();
         
-        ArrayList<Document> allDocuments = new ArrayList<>();
-        allDocuments.addAll(user.getBorrowedDocument());
-        allDocuments.addAll(user.getReturnedDocument());
+        ArrayList<Document> allDocuments = getTopDocumentForUser(user);
     
         for (Document document : allDocuments) {
             count.put(document, count.getOrDefault(document, 0) + 1);
@@ -171,5 +172,43 @@ public class TransactionDAO {
         }
         return topDocuments;
     }
+    
+    // Lấy danh sách các sách top tài liệu dc mượn nhiều mà ng dùng chưa từng mượn
+    public ArrayList<Document> getTopDocumentForUser(User user) {
+        ArrayList<String> titles = new ArrayList<>();
+        String sql = "SELECT title FROM TRANSACTION " +
+                     "WHERE name <> ? " +
+                     "GROUP BY title " +
+                     "HAVING COUNT(title) > 1 AND title NOT IN (SELECT title FROM TRANSACTION WHERE name = ?) " +
+                     "ORDER BY COUNT(title) DESC LIMIT 6";
+    
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getName());
+            ResultSet resultSet = preparedStatement.executeQuery();
+    
+            while (resultSet.next()) {
+                String title = resultSet.getString("title");
+                titles.add(title);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        ArrayList<Document> allDocuments = documentDAO.getAllDocuments();
+        ArrayList<Document> resultDocuments = new ArrayList<>();
+
+        // Sử dụng HashSet để kiểm tra nhanh sự tồn tại của title
+        Set<String> titleSet = new HashSet<>(titles);
+
+        // Lọc các tài liệu có title nằm trong danh sách titles
+        for (Document document : allDocuments) {
+            if (titleSet.contains(document.getTitle())) {
+                resultDocuments.add(document);
+            }
+        }
+
+        return resultDocuments;
+    }
+    
 
 }

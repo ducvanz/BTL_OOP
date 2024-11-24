@@ -23,7 +23,6 @@ public class LoginPanel extends JPanel {
     JPanel mainPanel;
     public static User userOverAll;
     public static boolean isManage;
-    public static String status;
     TransactionDAO transactionDAO;
 
     /**
@@ -302,13 +301,12 @@ public class LoginPanel extends JPanel {
         loginButton.setText("LOGIN");
     }
     public void updateAccount() {
-        EditBook.user = userOverAll;
         FindBookManage.user = userOverAll;
         ManagePanel.user = userOverAll;
         transactionDAO = new TransactionDAO();
         FindDocumentPanel.displayRecommentDocument();
+        DisplayDocumentPanel.isFromHome = true;
         if (isManage) {
-            UserPanel.displayRecommentDocument();
             ManagePanel.displayRecommentDocument();
         } else {
             UserPanel.displayRecommentDocument();
