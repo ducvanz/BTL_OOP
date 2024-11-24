@@ -10,12 +10,14 @@ import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
@@ -100,8 +102,9 @@ public class InFoUserPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         showBorrowedDocumentListTable = new javax.swing.JTable();
         nameUserJlabel = new javax.swing.JLabel();
+        showBorrowedDocumenList = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(102, 255, 204));
+        setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(800, 650));
         setPreferredSize(new java.awt.Dimension(800, 650));
 
@@ -234,6 +237,8 @@ public class InFoUserPanel extends javax.swing.JPanel {
 
         changeAddress.setText(".....");
 
+        UpdateInfo.setBackground(new java.awt.Color(0, 153, 51));
+        UpdateInfo.setForeground(new java.awt.Color(51, 51, 51));
         UpdateInfo.setText("Cập nhật");
         UpdateInfo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -274,6 +279,15 @@ public class InFoUserPanel extends javax.swing.JPanel {
 
         nameUserJlabel.setText("jLabel1");
 
+        showBorrowedDocumenList.setBackground(new java.awt.Color(0, 204, 0));
+        showBorrowedDocumenList.setForeground(new java.awt.Color(51, 51, 51));
+        showBorrowedDocumenList.setText("Xem");
+        showBorrowedDocumenList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showBorrowedDocumenListActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -288,11 +302,13 @@ public class InFoUserPanel extends javax.swing.JPanel {
                                     .addGap(28, 28, 28)
                                     .addComponent(jLabel3)
                                     .addGap(38, 38, 38)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(nameUserJlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(nameJlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(nameJlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(changName)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(nameUserJlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(changName)
+                                        .addGap(6, 6, 6))
                                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(27, 27, 27)
@@ -321,9 +337,11 @@ public class InFoUserPanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(153, 153, 153)
-                                .addComponent(UpdateInfo))
+                                .addComponent(UpdateInfo)
+                                .addGap(331, 331, 331)
+                                .addComponent(showBorrowedDocumenList))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(25, 25, 25)
                                         .addComponent(jLabel5)
@@ -375,7 +393,8 @@ public class InFoUserPanel extends javax.swing.JPanel {
                                         .addComponent(changeAddress))
                                     .addGroup(layout.createSequentialGroup()
                                         .addContainerGap()
-                                        .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(jSeparator6)
+                                        .addGap(2, 2, 2)))
                                 .addGap(71, 71, 71)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -392,11 +411,11 @@ public class InFoUserPanel extends javax.swing.JPanel {
                     .addComponent(nameJlabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(changName)
+                        .addComponent(jLabel3)
                         .addComponent(nameUserJlabel)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(changName))
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -448,8 +467,13 @@ public class InFoUserPanel extends javax.swing.JPanel {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
-                .addComponent(UpdateInfo)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(UpdateInfo))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(showBorrowedDocumenList)))
                 .addGap(152, 152, 152))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -479,7 +503,7 @@ public class InFoUserPanel extends javax.swing.JPanel {
                String newName = JOptionPane.showInputDialog(this,"Đổi tên người dùng.", "Nhập tên bạn muốn đổi", JOptionPane.INFORMATION_MESSAGE,null, null, nameJlabel.getText()).toString();
                 user.setName(newName);
             System.out.print(user.getName());
-            nameJlabel.setText(newName);
+            nameUserJlabel.setText(newName);
            } 
            catch (Exception e) {
                System.out.print("");
@@ -604,6 +628,30 @@ public class InFoUserPanel extends javax.swing.JPanel {
               } else passwordLabel.setText("********");
         }
     }//GEN-LAST:event_UpdateInfoActionPerformed
+
+    private void showBorrowedDocumenListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showBorrowedDocumenListActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel defaultTableModel = new DefaultTableModel();
+         showBorrowedDocumentListTable.setModel(defaultTableModel);
+         showBorrowedDocumentListTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+         defaultTableModel.addColumn("STT");
+         defaultTableModel.addColumn("ID");
+         defaultTableModel.addColumn("Tên sách");
+         defaultTableModel.addColumn("Ngày mượn");
+        
+         ArrayList<Document> borrowedDocumentList = user.getBorrowedDocument();
+         int i = 1;
+         
+         
+         for(Document document : borrowedDocumentList) {
+             
+             defaultTableModel.addRow(new Object[] {i, document.getID(),
+                                                    document.getTitle()});
+             i++;
+         }
+         
+         
+    }//GEN-LAST:event_showBorrowedDocumenListActionPerformed
     public void showBorrowedDocumentList () {
        
     }
@@ -625,6 +673,7 @@ public class InFoUserPanel extends javax.swing.JPanel {
         String addressUser = user.getAddress();
         addressJlabel.setText(addressUser);
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton UpdateInfo;
@@ -668,6 +717,7 @@ public class InFoUserPanel extends javax.swing.JPanel {
     private static javax.swing.JLabel passwordLabel;
     private static javax.swing.JLabel phoneJlabel;
     private static javax.swing.JLabel sexJlabel;
+    private javax.swing.JButton showBorrowedDocumenList;
     private javax.swing.JTable showBorrowedDocumentListTable;
     private static javax.swing.JCheckBox showPassCheckBox;
     // End of variables declaration//GEN-END:variables

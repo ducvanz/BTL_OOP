@@ -191,9 +191,9 @@ public class UserPanel extends JPanel {
         logOutButton.setBackground(new java.awt.Color(102, 153, 0));
         logOutButton.setForeground(new java.awt.Color(51, 51, 51));
         logOutButton.setText("Đăng xuất");
-        logOutButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                logOutButtonActionPerformed(evt);
+        logOutButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logOutButtonMouseClicked(evt);
             }
         });
 
@@ -379,22 +379,6 @@ public class UserPanel extends JPanel {
         FindDocumentPanel.setUsername(getUsername());
     }//GEN-LAST:event_mouseClickedFindDoucument
 
-    private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
-        // TODO add your handling code here:
-      int result = JOptionPane.showConfirmDialog(
-                null,
-                "Bạn có chắc chắn muốn đăng xuất?",
-                "Xác nhận",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE
-        );
-        
-        if (result == JOptionPane.YES_OPTION) {
-            CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
-            cl.show(mainPanel, "loginPanel");
-        }
-    }//GEN-LAST:event_logOutButtonActionPerformed
-
     private void thongtinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_thongtinMouseClicked
         // TODO add your handling code here:
         InFoUserPanel.setDefaultInfo();
@@ -425,9 +409,10 @@ public class UserPanel extends JPanel {
         Map<JLabel, JLabel> labelMap = getListRecomentDocumentJLabel();
         
         // Duyệt qua danh sách tài liệu gợi ý và cập nhật vào JLabel
-        if (suggest != null) {
-            render.renderDocument(suggest, labelMap);
-        }
+//        if (suggest != null) {
+//            render.renderDocument(suggest, labelMap);
+//        }
+        render.renderDocument(suggest, labelMap);
     }
     
     private void imageJLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageJLabel1MouseClicked
@@ -495,6 +480,32 @@ public class UserPanel extends JPanel {
             }
         }
     }//GEN-LAST:event_imageJLabel5MouseClicked
+
+    private void logOutButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logOutButtonMouseClicked
+
+        int result = JOptionPane.showConfirmDialog(
+                null,
+                "Bạn có chắc chắn muốn đăng xuất?",
+                "Xác nhận",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+        
+        if (result == JOptionPane.YES_OPTION) {
+            CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
+            cl.show(mainPanel, "loginPanel");
+            Map<JLabel, JLabel> labelMap = UserPanel.getListRecomentDocumentJLabel();
+            for (int i = 0; i < labelMap.size(); i++) {
+                Map.Entry<JLabel, JLabel> entry = (Map.Entry<JLabel, JLabel>) labelMap.entrySet().toArray()[i];
+                JLabel titleLabel = entry.getKey();
+                JLabel imageLabel = entry.getValue();
+
+                // Đặt lại tiêu đề và hình ảnh mặc định cho những JLabel còn lại
+                titleLabel.setText("");  // Xóa tên tài liệu
+                imageLabel.setIcon(null); // Xóa ảnh
+            }
+        }
+    }//GEN-LAST:event_logOutButtonMouseClicked
 
     public static void setUsername(String username){
         UserPanel.username.setText(username);

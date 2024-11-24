@@ -308,6 +308,7 @@ public class LoginPanel extends JPanel {
         DisplayDocumentPanel.isFromHome = true;
         if (isManage) {
             ManagePanel.displayRecommentDocument();
+            
         } else {
             UserPanel.displayRecommentDocument();
         }

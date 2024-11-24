@@ -48,7 +48,7 @@ public class Main extends JFrame {
         
         DisplayDocumentPanel displayDocumentPanel = new DisplayDocumentPanel(con, frame, mainPanel);
         InFoUserPanel inFoUserPanel = new InFoUserPanel(con,frame, mainPanel);
-        UserManagementPanel userManagementPanel = new UserManagementPanel();
+        UserManagementPanel userManagementPanel = new UserManagementPanel(con, frame, mainPanel);
         mainPanel.add(signupPanel, "signupPanel");
         mainPanel.add(loginPanel, "loginPanel");
         mainPanel.add(userPanel, "userPanel");

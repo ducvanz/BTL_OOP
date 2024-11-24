@@ -22,12 +22,8 @@ public class TransactionDAO {
     public TransactionDAO() {
         connection = DatabaseConnection.con;
         user = LoginPanel.userOverAll;
-//        System.out.println(user.getName());
         user.setBorrowedList(getReturnedDocumentByUser(user));
-//        System.out.println("-----" + (char) user.getLoanList().size()+ "     ---------");
         user.setLoanList(getBorrowedDocumentByUser(user));
-//        System.out.println("****" + user.getBorrowedList().size() + "      ***");
-        user.displayUserInfo();
         manageDAO = new ManageDAO();
         documentDAO = new DocumentDAO();
     }
@@ -36,13 +32,11 @@ public class TransactionDAO {
     public ArrayList<Transaction> getReturnedDocumentByUser (User user) {
         ArrayList<Transaction> returnedTransactions = new ArrayList<>();
         String sql = "SELECT DISTINCT title, borrowedDate, returnDate FROM TRANSACTION WHERE name = ? AND status = 'returned'";
-        System.out.println("1");
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, user.getName());
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                System.out.println("2");
                 String title = resultSet.getString("title");
                 String borrowedDate = resultSet.getString("borrowedDate");
                 String returnedDate = resultSet.getString("returnDate");
@@ -60,13 +54,11 @@ public class TransactionDAO {
     public ArrayList<Transaction> getBorrowedDocumentByUser (User user) {
         ArrayList<Transaction> borrowedTransactions = new ArrayList<>();
         String sql = "SELECT DISTINCT title, borrowedDate, returnDate FROM TRANSACTION WHERE name = ? AND status = 'borrowed'";
-        System.out.println("3");
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, user.getName());
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                System.out.println("4");
                 String title = resultSet.getString("title");
                 String borrowedDate = resultSet.getString("borrowedDate");
                 String returnedDate = resultSet.getString("returnDate");
@@ -84,7 +76,6 @@ public class TransactionDAO {
     
     public boolean addTransaction(Transaction transaction) {
         String sql = "INSERT INTO TRANSACTION (name, title, borrowedDate, returnDate, status) VALUES (?, ?, ?, ?, ?)";
-        transaction.getUser().displayUserInfo();
         user.setNumberBorrowed(user.getNumberBorrowed() + 1);
         manageDAO.updateUser(user);
         
@@ -166,7 +157,6 @@ public class TransactionDAO {
             topDocuments.add(sortedList.get(i).getKey());
         }
         for(Document doc:topDocuments){
-            System.out.println("SÁCH-----");
             doc.getInfo();
             System.out.println("SÁCH+++++");
         }

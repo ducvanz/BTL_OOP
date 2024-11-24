@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -281,9 +282,9 @@ public class FindBookManage extends javax.swing.JPanel {
         logOutButton.setFocusCycleRoot(true);
         logOutButton.setIconTextGap(1);
         logOutButton.setMargin(new java.awt.Insets(2, 0, 3, 0));
-        logOutButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                logOutButtonActionPerformed(evt);
+        logOutButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logOutButtonMouseClicked(evt);
             }
         });
 
@@ -769,21 +770,6 @@ public class FindBookManage extends javax.swing.JPanel {
         
     }//GEN-LAST:event_thongTinActionPerformed
 
-    private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
-        int result = JOptionPane.showConfirmDialog(
-                null,
-                "Bạn có chắc chắn muốn đăng xuất?",
-                "Xác nhận",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE
-        );
-        
-        if (result == JOptionPane.YES_OPTION) {
-            CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
-            cl.show(mainPanel, "loginPanel");
-        }
-    }//GEN-LAST:event_logOutButtonActionPerformed
-
     private void quanLyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quanLyActionPerformed
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
         cl.show(mainPanel, "manageDocumentPanel");
@@ -797,6 +783,32 @@ public class FindBookManage extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void logOutButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logOutButtonMouseClicked
+        int result = JOptionPane.showConfirmDialog(
+                null,
+                "Bạn có chắc chắn muốn đăng xuất?",
+                "Xác nhận",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+        
+        if (result == JOptionPane.YES_OPTION) {
+            CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
+            cl.show(mainPanel, "loginPanel");
+            LoginPanel.isManage = false;
+            Map<JLabel, JLabel> labelMap = ManagePanel.getListRecomentDocumentJLabel();
+            for (int i = 0; i < labelMap.size(); i++) {
+                Map.Entry<JLabel, JLabel> entry = (Map.Entry<JLabel, JLabel>) labelMap.entrySet().toArray()[i];
+                JLabel titleLabel = entry.getKey();
+                JLabel imageLabel = entry.getValue();
+
+                // Đặt lại tiêu đề và hình ảnh mặc định cho những JLabel còn lại
+                titleLabel.setText("");  // Xóa tên tài liệu
+                imageLabel.setIcon(null); // Xóa ảnh
+            }
+        }
+    }//GEN-LAST:event_logOutButtonMouseClicked
 
     
     public void enterUpLoad() {

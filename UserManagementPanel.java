@@ -4,12 +4,13 @@
  */
 package BTL_OOP;
 
-import static BTL_OOP.ManageDocumentPanel.user;
 import java.awt.CardLayout;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -40,6 +41,7 @@ public class UserManagementPanel extends javax.swing.JPanel {
         this.con = con;
         this.frame = frame;
         this.mainPanel = mainPanel;
+        System.out.println(mainPanel);
         if(user == null) {
             user = new User();
         }
@@ -857,20 +859,33 @@ public class UserManagementPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jLabel27MouseEntered
 
     private void jButton14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton14MouseClicked
-        int choose = JOptionPane.showConfirmDialog(
-            mainPanel,
-            "Bạn muốn đăng xuất?",
-            "Xác nhận đăng xuất",
-            JOptionPane.YES_NO_OPTION
+        int result = JOptionPane.showConfirmDialog(
+                null,
+                "Bạn có chắc chắn muốn đăng xuất?",
+                "Xác nhận",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
         );
-
-        if (choose == JOptionPane.YES_OPTION) {
+        
+        if (result == JOptionPane.YES_OPTION) {
             CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
-            cl.show(mainPanel, "loginPanel"); // Chuyển sang panel "loginPanel"
+            cl.show(mainPanel, "loginPanel");
+            LoginPanel.isManage = false;
+            Map<JLabel, JLabel> labelMap = UserPanel.getListRecomentDocumentJLabel();
+            for (int i = 0; i < labelMap.size(); i++) {
+                Map.Entry<JLabel, JLabel> entry = (Map.Entry<JLabel, JLabel>) labelMap.entrySet().toArray()[i];
+                JLabel titleLabel = entry.getKey();
+                JLabel imageLabel = entry.getValue();
+
+                // Đặt lại tiêu đề và hình ảnh mặc định cho những JLabel còn lại
+                titleLabel.setText("");  // Xóa tên tài liệu
+                imageLabel.setIcon(null); // Xóa ảnh
+            }
         }
     }//GEN-LAST:event_jButton14MouseClicked
 
     private void trangchuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trangchuActionPerformed
+        System.out.println(mainPanel);
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
         cl.show(mainPanel, "managePanel");
     }//GEN-LAST:event_trangchuActionPerformed

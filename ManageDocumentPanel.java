@@ -8,7 +8,9 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.sql.Connection;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -724,8 +726,21 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
         );
 
         if (choose == JOptionPane.YES_OPTION) {
+            
             CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
             cl.show(mainPanel, "loginPanel"); // Chuyển sang panel "loginPanel"
+            LoginPanel.isManage = false;
+
+            Map<JLabel, JLabel> labelMap = ManagePanel.getListRecomentDocumentJLabel();
+            for (int i = 0; i < labelMap.size(); i++) {
+                Map.Entry<JLabel, JLabel> entry = (Map.Entry<JLabel, JLabel>) labelMap.entrySet().toArray()[i];
+                JLabel titleLabel = entry.getKey();
+                JLabel imageLabel = entry.getValue();
+
+                // Đặt lại tiêu đề và hình ảnh mặc định cho những JLabel còn lại
+                titleLabel.setText("");  // Xóa tên tài liệu
+                imageLabel.setIcon(null); // Xóa ảnh
+            }
         }
 
     }//GEN-LAST:event_jButton14MouseClicked

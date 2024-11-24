@@ -121,7 +121,7 @@ public class FindDocumentPanel extends JPanel{
         return result;
     }
     
-    //Hiển thị sách gơij ý 
+    //Hiển thị sách gơij ý dựa vào lịch sử đang và đã mượn
     public static void displayRecommentDocument() {
         // Lấy tất cả tài liệu từ cơ sở dữ liệu và lịch sử mượn trả
         ArrayList<Document> allDocument = DocumentDAO.getAllDocuments();
@@ -140,9 +140,10 @@ public class FindDocumentPanel extends JPanel{
         Map<JLabel, JLabel> labelMap = getListRecomentDocumentJLabel();
         
         // Duyệt qua danh sách tài liệu gợi ý và cập nhật vào JLabel
-        if (rcmDocument != null) {
-            render.renderDocument(rcmDocument, labelMap);
-        }
+//        if (rcmDocument != null) {
+//            render.renderDocument(rcmDocument, labelMap);
+//        }
+        render.renderDocument(rcmDocument, labelMap);
     }
     
     /**
