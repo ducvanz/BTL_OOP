@@ -118,9 +118,9 @@
                                           <Component id="imageJLabel8" alignment="1" min="-2" pref="110" max="-2" attributes="0"/>
                                           <Component id="imageJLabel4" alignment="1" min="-2" pref="110" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="titleJLabel4" alignment="1" min="-2" pref="110" max="-2" attributes="0"/>
+                                      <Component id="titleJLabel8" alignment="1" min="-2" pref="110" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="titleJLabel8" alignment="1" min="-2" pref="110" max="-2" attributes="0"/>
+                                  <Component id="titleJLabel4" alignment="1" min="-2" pref="110" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                           </Group>
@@ -399,6 +399,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="titleJLabel5">
       <Properties>
+        <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="S&#xe1;ch g&#xec; &#x111;&#xe2;y ai bi&#x1ebf;t 5"/>
       </Properties>
       <AuxValues>
@@ -407,6 +408,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="titleJLabel6">
       <Properties>
+        <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="S&#xe1;ch g&#xec; &#x111;&#xe2;y ai bi&#x1ebf;t 6"/>
       </Properties>
       <AuxValues>
@@ -447,6 +449,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="titleJLabel2">
       <Properties>
+        <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="S&#xe1;ch g&#xec; &#x111;&#xe2;y ai bi&#x1ebf;t 2"/>
       </Properties>
       <AuxValues>
@@ -455,6 +458,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="titleJLabel7">
       <Properties>
+        <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="S&#xe1;ch g&#xec; &#x111;&#xe2;y ai bi&#x1ebf;t 7"/>
       </Properties>
       <AuxValues>
@@ -495,6 +499,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="titleJLabel3">
       <Properties>
+        <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="S&#xe1;ch g&#xec; &#x111;&#xe2;y ai bi&#x1ebf;t 3"/>
       </Properties>
       <AuxValues>
@@ -503,6 +508,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="titleJLabel8">
       <Properties>
+        <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="S&#xe1;ch g&#xec; &#x111;&#xe2;y ai bi&#x1ebf;t 8"/>
       </Properties>
       <AuxValues>
@@ -543,6 +549,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="titleJLabel1">
       <Properties>
+        <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="S&#xe1;ch g&#xec; &#x111;&#xe2;y ai bi&#x1ebf;t 1"/>
       </Properties>
       <AuxValues>
@@ -583,6 +590,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="titleJLabel4">
       <Properties>
+        <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="S&#xe1;ch g&#xec; &#x111;&#xe2;y ai bi&#x1ebf;t 4"/>
       </Properties>
       <AuxValues>

@@ -1,48 +1,52 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package BTL_OOP;
 
 import java.util.Objects;
 
-
-/**
- *
- * @author thinh
- */
 public class Transaction {
-    private User user;
-    private String title;
-    private String borrowedDate;
-    private String returnedDate;
-    private String status;
+    private int transactionID; // ID duy nhất cho giao dịch
+    private int userID;        // ID của người dùng
+    private int documentID;    // ID của tài liệu
+    private String borrowedDate; // Ngày mượn
+    private String returnedDate; // Ngày trả
+    private String status;       // Trạng thái
 
-    public Transaction(){
+    // Constructor mặc định
+    public Transaction() {
     }
-    
-    public Transaction(User user, String title, String borrowedDate, String returnedDate, String status) {
-        this.user = user;
-        this.title = title;
+
+    // Constructor đầy đủ
+    public Transaction(int transactionID, int userID, int documentID, String borrowedDate, String returnedDate, String status) {
+        this.transactionID = transactionID;
+        this.userID = userID;
+        this.documentID = documentID;
         this.borrowedDate = borrowedDate;
         this.returnedDate = returnedDate;
         this.status = status;
     }
 
-    public User getUser() {
-        return user;
+    // Getter và Setter cho các thuộc tính
+    public int getTransactionID() {
+        return transactionID;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setTransactionID(int transactionID) {
+        this.transactionID = transactionID;
     }
 
-    public String getTitle() {
-        return title;
+    public int getUserID() {
+        return userID;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+    public int getDocumentID() {
+        return documentID;
+    }
+
+    public void setDocumentID(int documentID) {
+        this.documentID = documentID;
     }
 
     public String getBorrowedDate() {
@@ -71,21 +75,31 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return "Transaction{" + "user=" + user + ", title=" + title + ", borrowedDate=" + borrowedDate + ", returnedDate=" + returnedDate + ", status=" + status + '}';
+        return "Transaction{" +
+                "transactionID=" + transactionID +
+                ", userID=" + userID +
+                ", documentID=" + documentID +
+                ", borrowedDate='" + borrowedDate + '\'' +
+                ", returnedDate='" + returnedDate + '\'' +
+                ", status='" + status + '\'' +
+                '}';
     }
 
-     @Override
+    @Override
     public int hashCode() {
-        return Objects.hash(user, title, status);
+        return Objects.hash(transactionID, userID, documentID, borrowedDate, returnedDate, status);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof Transaction) {
-            Transaction tran = (Transaction) obj;
-            return user.equals(tran.getUser()) && title.equals(tran.getTitle()) && borrowedDate.equals(tran.getBorrowedDate())
-                    && returnedDate.equals(tran.getReturnedDate()) && status.equals(tran.getStatus());
-        }
-        return false;
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Transaction that = (Transaction) obj;
+        return transactionID == that.transactionID &&
+               userID == that.userID &&
+               documentID == that.documentID &&
+               Objects.equals(borrowedDate, that.borrowedDate) &&
+               Objects.equals(returnedDate, that.returnedDate) &&
+               Objects.equals(status, that.status);
     }
 }

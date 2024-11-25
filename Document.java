@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public abstract class Document {
 
-    private String ID;
+    private int ID;
     private String title;
     private String author;
     private String publisher;
@@ -56,7 +56,7 @@ public abstract class Document {
         this.imageLink = "";
     }
 
-    public String getID() {
+    public int getID() {
         return ID;
     }
 
@@ -80,7 +80,7 @@ public abstract class Document {
         return quantity;
     }
 
-    public void setID(String documentID) {
+    public void setID(int documentID) {
         this.ID = documentID;
     }
 
@@ -88,9 +88,6 @@ public abstract class Document {
         return language;
     }
 
-    public void setDocumentID(String documentID) {
-        this.ID = documentID;
-    }
 
     public void setTitle(String title) {
         this.title = title;

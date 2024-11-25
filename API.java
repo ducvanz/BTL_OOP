@@ -5,12 +5,10 @@ import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingWorker;
@@ -188,17 +186,6 @@ public class API {
                     // Lấy title
                     String title = volumeInfo.has("title") && !volumeInfo.get("title").isJsonNull() ?
                             volumeInfo.get("title").getAsString() : "Unknown Title";
-
-                    // Lấy subtitle: để sau khi làm csdl
-//                    String subtitle = "";
-//                    if (volumeInfo.has("subtitle") && !volumeInfo.get("subtitle").isJsonNull()) {
-//                        subtitle = volumeInfo.get("subtitle").getAsString();
-//                    }
-//
-//                    // Kết hợp title và subtitle
-//                    if (!subtitle.isEmpty()) {
-//                        title += ": " + subtitle; // Thêm dấu hai chấm giữa title và subtitle
-//                    }
 
                     String author = "N/A";
                     if (volumeInfo.has("authors") && volumeInfo.get("authors").isJsonArray()) {

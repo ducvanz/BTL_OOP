@@ -10,6 +10,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  *
@@ -17,9 +18,9 @@ import java.util.Map;
  */
 public class RecommentDocument {
     
-    public ArrayList<Document> getRecommendations(ArrayList<Document> history, ArrayList<Document> allDocument) {
+    public ArrayList<Document> getRecommendations(ArrayList<Document> history, ArrayList<Document> allDocument, int total) {
         Map<String, Integer> keyword = Collections.synchronizedMap(new HashMap<>());
-        Map<String, Integer> category= Collections.synchronizedMap(new HashMap<>());
+        Map<String, Integer> category = Collections.synchronizedMap(new HashMap<>());
 
         // Tạo 2 Thread: Một cho việc đếm từ khóa, một cho việc đếm thể loại
         Thread keywordThread = new Thread(new Runnable() {
@@ -67,11 +68,63 @@ public class RecommentDocument {
         //  Lấy thể loại xuất hiện nhiều nhất
         String topCategory = getTopCategory(category);
 
-        // 7. Tìm và trả về tài liệu gợi ý
-        return searchDocuments(topKeywords, topCategory, allDocument);
+        // Tìm và trả về tài liệu gợi ý
+        return searchDocuments(topKeywords, topCategory, allDocument, total, history);
+    }
+
+    // Trả về các tài liệu gợi ý 
+    private ArrayList<Document> searchDocuments(List<String> topKeywords, String topCategory, List<Document> allDocuments, int total, ArrayList<Document> history) {
+        ArrayList<Document> result = new ArrayList<>();
+    
+        // Lọc các tài liệu theo từ khóa và thể loại
+        // Lọc các tài liệu theo số lượng từ khóa có sẵn
+        for (Document doc : allDocuments) {
+            String title = doc.getTitle();
+            boolean matchesKeyword = false;
+    
+            // Kiểm tra xem title có chứa bất kỳ từ khóa nào trong danh sách topKeywords không
+            for (String keyword : topKeywords) {
+                if (title.contains(keyword)) {
+                    matchesKeyword = true;
+                    break;
+                }
+            }
+    
+            // Nếu title chứa ít nhất 1 từ khóa và cùng thể loại, thêm vào kết quả nếu không có trong lịch sử
+            if (matchesKeyword && doc.getCategory().equals(topCategory) && !history.contains(doc)) {
+                result.add(doc);
+            }
+        }
+    
+        // Nếu kết quả ít hơn total, thêm tài liệu cùng thể loại vào
+        if (result.size() < total) {
+            for (Document doc : allDocuments) {
+                if (doc.getCategory().equals(topCategory) && !result.contains(doc) && !history.contains(doc)) {
+                    result.add(doc);
+                }
+                if (result.size() >= total) break; // Nếu đủ tài liệu, thoát vòng lặp
+            }
+        }
+    
+        // Nếu vẫn thiếu tài liệu, thêm tài liệu ngẫu nhiên từ allDocuments (không có trong lịch sử)
+        if (result.size() < total) {
+            Random random = new Random();
+            while (result.size() < total) {
+                Document randomDoc = allDocuments.get(random.nextInt(allDocuments.size()));
+                if (!result.contains(randomDoc) && !history.contains(randomDoc)) {
+                    result.add(randomDoc);
+                }
+            }
+        }
+    
+        // Trả về total tài liệu ngẫu nhiên
+        Collections.shuffle(result); // Sắp xếp ngẫu nhiên để đảm bảo tính ngẫu nhiên
+        return new ArrayList<>(result.subList(0, total));
     }
     
-    // Trả về danh sách 3 từ khóa phổ biến nhất
+
+    
+    // Trả về danh sách 2 từ khóa phổ biến nhất
     private List<String> getTopKeywords(Map<String, Integer> keywordFrequency) {
         List<Map.Entry<String, Integer>> keywordList = new ArrayList<>(keywordFrequency.entrySet());
 
@@ -84,7 +137,7 @@ public class RecommentDocument {
         });
 
         List<String> topKeywords = new ArrayList<>();
-        for (int i = 0; i < Math.min(3, keywordList.size()); i++) {
+        for (int i = 0; i < Math.min(2, keywordList.size()); i++) {
             topKeywords.add(keywordList.get(i).getKey());
         }
 
@@ -105,26 +158,5 @@ public class RecommentDocument {
         return topCategory;
     }   
     
-    // Trả về các tài liệu gợi ý 
-    private ArrayList<Document> searchDocuments(List<String> topKeywords, String topCategory, List<Document> allDocuments) {
-        ArrayList<Document> result = new ArrayList<>();
-        
-        if (topKeywords.size() >= 3 ){
-            String top1 = topKeywords.get(0);
-            String top2 = topKeywords.get(1);
-            String top3 = topKeywords.get(2);
-            System.out.println(top1 + "*" + top2 + "*" + top3);
-            System.out.println(topCategory);
-            for(Document doc : allDocuments) {
-                String title = doc.getTitle();
 
-                if ((title.contains(top1) || title.contains(top2) || title.contains(top3)) && doc.getCategory().equals(topCategory)) {
-                    System.out.println(title);
-                    result.add(doc);
-                }
-            }
-            return result;
-        }
-        return null;
-    }
 }

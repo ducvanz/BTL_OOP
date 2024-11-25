@@ -312,6 +312,8 @@ public class LoginPanel extends JPanel {
         } else {
             UserPanel.displayRecommentDocument();
         }
+        
+
     }
 
     

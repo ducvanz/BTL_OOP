@@ -53,6 +53,7 @@ public class RenderDocument {
             JLabel imageLabel = entry.getValue();
             // Đặt lại tiêu đề và hình ảnh mặc định cho những JLabel còn lại
             titleLabel.setText("");  // Xóa tên tài liệu
+            imageLabel.setText("");
             imageLabel.setIcon(null); // Xóa ảnh
         }
         

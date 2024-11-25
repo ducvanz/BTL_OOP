@@ -64,10 +64,7 @@ public class Main extends JFrame {
         add(mainPanel);
         
         // Hiển thị SignupPanel khi khởi động
-        cardLayout.show(mainPanel, "signupPanel");
-        
-        
-        //cardLayout.show(mainPanel, "findDocumentPanel");
+        cardLayout.show(mainPanel, "signupPanel");;
         
 
         setVisible(true);

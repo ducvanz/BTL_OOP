@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 public class TransactionDAO {
@@ -22,26 +23,26 @@ public class TransactionDAO {
     public TransactionDAO() {
         connection = DatabaseConnection.con;
         user = LoginPanel.userOverAll;
-        user.setBorrowedList(getReturnedDocumentByUser(user));
-        user.setLoanList(getBorrowedDocumentByUser(user));
+        user.setBorrowedList(getReturnedDocumentByUser(user.getID()));
+        user.setLoanList(getBorrowedDocumentByUser(user.getID()));
         manageDAO = new ManageDAO();
         documentDAO = new DocumentDAO();
     }
 
     // Hàm để lấy tài liệu đã mượn theo tên người dùng
-    public ArrayList<Transaction> getReturnedDocumentByUser (User user) {
+    public ArrayList<Transaction> getReturnedDocumentByUser(int userID) {
         ArrayList<Transaction> returnedTransactions = new ArrayList<>();
-        String sql = "SELECT DISTINCT title, borrowedDate, returnDate FROM TRANSACTION WHERE name = ? AND status = 'returned'";
+        String sql = "SELECT transactionID, documentID, borrowedDate, returnedDate, status FROM TRANSACTION WHERE userID = ? AND status = 'returned'";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, user.getName());
+            preparedStatement.setInt(1, userID);
             ResultSet resultSet = preparedStatement.executeQuery();
-
             while (resultSet.next()) {
-                String title = resultSet.getString("title");
+                int transactionID = resultSet.getInt("transactionID");
+                int documentID = resultSet.getInt("documentID");
                 String borrowedDate = resultSet.getString("borrowedDate");
-                String returnedDate = resultSet.getString("returnDate");
-                Transaction transaction = new Transaction(user, title, borrowedDate, returnedDate, "returned");
-                System.out.print(transaction.toString());
+                String returnedDate = resultSet.getString("returnedDate");
+                String status = resultSet.getString("status");
+                Transaction transaction = new Transaction(transactionID, userID, documentID, borrowedDate, returnedDate, status);
                 returnedTransactions.add(transaction);
             }
         } catch (SQLException e) {
@@ -49,21 +50,22 @@ public class TransactionDAO {
         }
         return returnedTransactions;
     }
+    
 
     // Hàm để lấy danh sách tài liệu đang mượn theo tên người dùng
-    public ArrayList<Transaction> getBorrowedDocumentByUser (User user) {
+    public ArrayList<Transaction> getBorrowedDocumentByUser(int userID) {
         ArrayList<Transaction> borrowedTransactions = new ArrayList<>();
-        String sql = "SELECT DISTINCT title, borrowedDate, returnDate FROM TRANSACTION WHERE name = ? AND status = 'borrowed'";
+        String sql = "SELECT transactionID, documentID, borrowedDate, returnedDate, status FROM TRANSACTION WHERE userID = ? AND status = 'borrowed'";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, user.getName());
+            preparedStatement.setInt(1, userID);
             ResultSet resultSet = preparedStatement.executeQuery();
-
             while (resultSet.next()) {
-                String title = resultSet.getString("title");
+                int transactionID = resultSet.getInt("transactionID");
+                int documentID = resultSet.getInt("documentID");
                 String borrowedDate = resultSet.getString("borrowedDate");
-                String returnedDate = resultSet.getString("returnDate");
-                Transaction transaction = new Transaction(user, title, borrowedDate, returnedDate, "borrowed");
-                System.out.print(transaction.toString());
+                String returnedDate = resultSet.getString("returnedDate");
+                String status = resultSet.getString("status");
+                Transaction transaction = new Transaction(transactionID, userID, documentID, borrowedDate, returnedDate, status);
                 borrowedTransactions.add(transaction);
             }
         } catch (SQLException e) {
@@ -71,62 +73,74 @@ public class TransactionDAO {
         }
         return borrowedTransactions;
     }
-
-    // Hàm để thêm một transaction
     
+
     public boolean addTransaction(Transaction transaction) {
-        String sql = "INSERT INTO TRANSACTION (name, title, borrowedDate, returnDate, status) VALUES (?, ?, ?, ?, ?)";
-        user.setNumberBorrowed(user.getNumberBorrowed() + 1);
-        manageDAO.updateUser(user);
-        
+        String sql = "INSERT INTO TRANSACTION (userID, documentID, borrowedDate, returnedDate, status) VALUES (?, ?, ?, ?, ?)";
+        String updateUserSql = "UPDATE user SET numberBorrowed = numberBorrowed + 1 WHERE userID = ?";
+        String updateDocumentSql = "UPDATE document SET quantity = quantity - 1 WHERE documentID = ?";
+    
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, transaction.getUser().getName());
-            preparedStatement.setString(2, transaction.getTitle());
+            preparedStatement.setInt(1, transaction.getUserID());
+            preparedStatement.setInt(2, transaction.getDocumentID());
             preparedStatement.setString(3, transaction.getBorrowedDate());
             preparedStatement.setString(4, transaction.getReturnedDate());
-            preparedStatement.setString(5, "borrowed");
+            preparedStatement.setString(5, transaction.getStatus());
             int rowsAffected = preparedStatement.executeUpdate();
-
-            // Cập nhật số lượng sách trong bảng document
-            String sql2 = "UPDATE document SET quantity = quantity - 1 WHERE title = ?";
-            try (PreparedStatement preparedStatement2 = connection.prepareStatement(sql2)) {
-                preparedStatement2.setString(1, transaction.getTitle());
-                rowsAffected = preparedStatement2.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace();
+    
+            // Giảm số lượng tài liệu
+            try (PreparedStatement preparedStatement2 = connection.prepareStatement(updateDocumentSql)) {
+                preparedStatement2.setInt(1, transaction.getDocumentID());
+                preparedStatement2.executeUpdate();
             }
-
+    
+            // Tăng số lượng sách mượn của người dùng
+            try (PreparedStatement preparedStatement3 = connection.prepareStatement(updateUserSql)) {
+                preparedStatement3.setInt(1, transaction.getUserID());
+                preparedStatement3.executeUpdate();
+            }
+    
             return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
-        
-        
     }
+    
+    
 
     // Hàm để cập nhật trạng thái của transaction thành 'returned' theo name và title
-    public boolean returnTransaction(Transaction transaction) {
-        String sql = "UPDATE TRANSACTION SET status = 'returned' WHERE name = ? AND title = ?";
-        user.setNumberBorrowed(user.getNumberBorrowed()  - 1);
-        manageDAO.updateUser(user);
+    public boolean returnTransaction(int transactionID, int userID, int documentID) {
+        String sql = "UPDATE TRANSACTION SET status = 'returned', returnedDate = CURRENT_DATE WHERE transactionID = ?";
+        String updateUserSql = "UPDATE user SET numberBorrowed = numberBorrowed - 1 WHERE userID = ?";
+        String updateDocumentSql = "UPDATE document SET quantity = quantity + 1 WHERE documentID = ?";
+    
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, transaction.getUser ().getName());
-            preparedStatement.setString(2, transaction.getTitle());
+            preparedStatement.setInt(1, transactionID);
             int rowsAffected = preparedStatement.executeUpdate();
-            String sql2 = "UPDATE document SET quantity = quantity + 1 WHERE title = ?";
-            try (PreparedStatement preparedStatement2 = connection.prepareStatement(sql2)) {
-                preparedStatement2.setString(1, transaction.getTitle());
-                rowsAffected = preparedStatement2.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace();
+    
+            // Tăng số lượng tài liệu
+            try (PreparedStatement preparedStatement2 = connection.prepareStatement(updateDocumentSql)) {
+                preparedStatement2.setInt(1, documentID);
+                preparedStatement2.executeUpdate();
             }
+    
+            // Giảm số lượng sách mượn của người dùng
+            try (PreparedStatement preparedStatement3 = connection.prepareStatement(updateUserSql)) {
+                preparedStatement3.setInt(1, userID);
+                preparedStatement3.executeUpdate();
+            }
+    
             return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
+    
+    
+    
+    
     
     public ArrayList<Document> topDocument(User user) {
         Map<Document, Integer> count = new HashMap<>();
@@ -158,47 +172,73 @@ public class TransactionDAO {
         }
         for(Document doc:topDocuments){
             doc.getInfo();
-            System.out.println("SÁCH+++++");
         }
+        System.out.println("CHAY VAO DAY ROI");
         return topDocuments;
     }
     
-    // Lấy danh sách các sách top tài liệu dc mượn nhiều mà ng dùng chưa từng mượn
     public ArrayList<Document> getTopDocumentForUser(User user) {
-        ArrayList<String> titles = new ArrayList<>();
-        String sql = "SELECT title FROM TRANSACTION " +
-                     "WHERE name <> ? " +
-                     "GROUP BY title " +
-                     "HAVING COUNT(title) > 1 AND title NOT IN (SELECT title FROM TRANSACTION WHERE name = ?) " +
-                     "ORDER BY COUNT(title) DESC LIMIT 6";
-    
+        ArrayList<Integer> documentIds = new ArrayList<>();
+        String sql = "SELECT documentID FROM TRANSACTION " +
+                    "WHERE userID <> ? " + // Lọc những giao dịch không phải của người dùng này
+                    "AND documentID NOT IN (SELECT documentID FROM TRANSACTION WHERE userID = ?) " + // Tài liệu chưa mượn bởi người dùng này
+                    "GROUP BY documentID " +
+                    "ORDER BY COUNT(documentID) DESC LIMIT 6"; // Chỉ lấy 6 tài liệu được mượn nhiều nhất
+        
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, user.getName());
-            preparedStatement.setString(2, user.getName());
+            preparedStatement.setInt(1, user.getID());  // userID là của người dùng hiện tại
+            preparedStatement.setInt(2, user.getID());  // userID để lọc các tài liệu người dùng này đã mượn
             ResultSet resultSet = preparedStatement.executeQuery();
-    
+
             while (resultSet.next()) {
-                String title = resultSet.getString("title");
-                titles.add(title);
+                int documentID = resultSet.getInt("documentID");
+                documentIds.add(documentID);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        ArrayList<Document> allDocuments = documentDAO.getAllDocuments();
+
+        ArrayList<Document> allDocuments = documentDAO.getAllDocuments();  // Lấy tất cả các tài liệu
         ArrayList<Document> resultDocuments = new ArrayList<>();
 
-        // Sử dụng HashSet để kiểm tra nhanh sự tồn tại của title
-        Set<String> titleSet = new HashSet<>(titles);
+        // Sử dụng HashSet để kiểm tra nhanh sự tồn tại của documentID
+        Set<Integer> documentIdSet = new HashSet<>(documentIds);
 
-        // Lọc các tài liệu có title nằm trong danh sách titles
+        // Lọc các tài liệu có documentID nằm trong danh sách documentIds
         for (Document document : allDocuments) {
-            if (titleSet.contains(document.getTitle())) {
+            if (documentIdSet.contains(document.getID())) {
                 resultDocuments.add(document);
             }
         }
 
-        return resultDocuments;
-    }
-    
+        // Nếu số lượng tài liệu ít hơn 6, thêm các tài liệu chưa mượn
+        if (resultDocuments.size() < 6) {
+            Set<Integer> alreadyBorrowedDocumentIds = new HashSet<>();
+            
+            // Thêm tài liệu chưa được mượn vào kết quả
+            for (Document document : allDocuments) {
+                if (!documentIdSet.contains(document.getID()) && !alreadyBorrowedDocumentIds.contains(document.getID())) {
+                    resultDocuments.add(document);
+                    alreadyBorrowedDocumentIds.add(document.getID());
+                }
+                if (resultDocuments.size() >= 6) break; // Nếu đủ 6 tài liệu, thoát vòng lặp
+            }
+        }
+
+        // Nếu số lượng tài liệu vẫn chưa đủ 6, thêm tài liệu ngẫu nhiên từ thư viện
+        if (resultDocuments.size() < 6) {
+            Random random = new Random();
+            while (resultDocuments.size() < 6) {
+                Document randomDoc = allDocuments.get(random.nextInt(allDocuments.size()));
+                // Kiểm tra nếu tài liệu chưa được mượn bởi người dùng và chưa có trong kết quả
+                if (!documentIdSet.contains(randomDoc.getID()) && !resultDocuments.contains(randomDoc)) {
+                    resultDocuments.add(randomDoc);
+                }
+            }
+        }
+
+        // Trả về 6 tài liệu
+        return new ArrayList<>(resultDocuments.subList(0, 6));
+    }    
 
 }

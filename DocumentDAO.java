@@ -26,7 +26,7 @@ public class DocumentDAO {
     public Document getDocumentByID(int ID) {
         ArrayList<Document> allDocuments = getAllDocuments();
         for (Document doc : allDocuments) {
-            if (Integer.parseInt(doc.getID()) == ID) {
+            if (doc.getID() == ID) {
                 return doc; // Trả về tài liệu nếu tìm thấy
             }
         }
@@ -121,7 +121,7 @@ public class DocumentDAO {
                 if (resultSet.getString("book_ISBN") != null) {
                     // Tài liệu là Book
                     Book book = new Book();
-                    book.setID(String.format("%06d", documentID));
+                    book.setID(documentID);
                     book.setTitle(title1);
                     book.setAuthor(author1);
                     book.setPublisher(publisher);
@@ -138,7 +138,7 @@ public class DocumentDAO {
                 } else if (resultSet.getString("thesis_degree") != null) {
                     // Tài liệu là Thesis
                     Thesis thesis = new Thesis();
-                    thesis.setID(String.format("%06d", documentID));
+                    thesis.setID(documentID);
                     thesis.setTitle(title1);
                     thesis.setAuthor(author1);
                     thesis.setPublisher(publisher);
@@ -155,7 +155,7 @@ public class DocumentDAO {
                 } else if (resultSet.getString("newspaper_ISSN") != null) {
                     // Tài liệu là Newspaper
                     Newspaper newspaper = new Newspaper();
-                    newspaper.setID(String.format("%06d", documentID));
+                    newspaper.setID(documentID);
                     newspaper.setTitle(title1);
                     newspaper.setAuthor(author1);
                     newspaper.setPublisher(publisher);
@@ -325,7 +325,7 @@ public class DocumentDAO {
             } else {
                 documentStmt.setNull(10, Types.BLOB); // Nếu không có hình ảnh, đặt NULL
             }
-            documentStmt.setInt(11, Integer.parseInt(doc.getID())); // Sử dụng documentID để cập nhật
+            documentStmt.setInt(11,doc.getID()); // Sử dụng documentID để cập nhật
             documentStmt.executeUpdate();
 
             // Cập nhật bảng con dựa trên loại tài liệu
@@ -333,7 +333,7 @@ public class DocumentDAO {
                 Book book = (Book) doc;
                 try (PreparedStatement bookStmt = connection.prepareStatement(updateBookQuery)) {
                     bookStmt.setString(1, book.getISBN());
-                    bookStmt.setInt(2, Integer.parseInt(book.getID())); // Sử dụng documentID
+                    bookStmt.setInt(2, book.getID()); // Sử dụng documentID
                     bookStmt.executeUpdate();
                 }
             } else if (doc instanceof Thesis) {
@@ -341,7 +341,7 @@ public class DocumentDAO {
                 try (PreparedStatement thesisStmt = connection.prepareStatement(updateThesisQuery)) {
                     thesisStmt.setString(1, thesis.getDegree());
                     thesisStmt.setString(2, thesis.getUniversity());
-                    thesisStmt.setInt(3, Integer.parseInt(thesis.getID())); // Sử dụng documentID
+                    thesisStmt.setInt(3, thesis.getID()); // Sử dụng documentID
                     thesisStmt.executeUpdate();
                 }
             } else if (doc instanceof Newspaper) {
@@ -349,7 +349,7 @@ public class DocumentDAO {
                 try (PreparedStatement newspaperStmt = connection.prepareStatement(updateNewspaperQuery)) {
                     newspaperStmt.setString(1, newspaper.getISSN());
                     newspaperStmt.setString(2, newspaper.getIssueNumber());
-                    newspaperStmt.setInt(3, Integer.parseInt(newspaper.getID())); // Sử dụng documentID
+                    newspaperStmt.setInt(3, newspaper.getID()); // Sử dụng documentID
                     newspaperStmt.executeUpdate();
                 }
             }
@@ -420,7 +420,7 @@ public class DocumentDAO {
                 if (resultSet.getString("ISBN") != null) {
                     // Tài liệu là Book
                     Book book = new Book();
-                    book.setID(String.format("%06d", documentID));
+                    book.setID(documentID);
                     book.setTitle(title);
                     book.setAuthor(author);
                     book.setPublisher(publisher);
@@ -437,7 +437,7 @@ public class DocumentDAO {
                 } else if (resultSet.getString("degree") != null) {
                     // Tài liệu là Thesis
                     Thesis thesis = new Thesis();
-                    thesis.setID(String.format("%06d", documentID));
+                    thesis.setID(documentID);
                     thesis.setTitle(title);
                     thesis.setAuthor(author);
                     thesis.setPublisher(publisher);
@@ -454,7 +454,7 @@ public class DocumentDAO {
                 } else if (resultSet.getString("ISSN") != null) {
                     // Tài liệu là Newspaper
                     Newspaper newspaper = new Newspaper();
-                    newspaper.setID(String.format("%06d", documentID));
+                    newspaper.setID(documentID);
                     newspaper.setTitle(title);
                     newspaper.setAuthor(author);
                     newspaper.setPublisher(publisher);

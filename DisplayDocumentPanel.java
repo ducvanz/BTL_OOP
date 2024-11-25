@@ -479,11 +479,14 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
             ISBN.setText("ISSN:");
             ISBNJLabel.setText(newspaper.getISSN());
         }
-
+        System.out.println("SIZE" + user.getLoanList().size());
         for (Transaction transaction : user.getLoanList()) {
-            if (transaction.getTitle().equals(document.getTitle())) {
-                borrowButton.setText("Đang mượn");
-                return;
+            transaction.toString();
+                    System.out.println("docID: " + document.getID() + " ** " + transaction.getDocumentID());
+                    if (document.getID() == transaction.getDocumentID()) {
+                    borrowButton.setText("Đang mượn");
+                    return;
+                
             }
         }
         borrowButton.setText("Mượn");
@@ -552,7 +555,7 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
         String borrowedDateString = new String();
         String returnedDateString = new String();
         for(Transaction tran: user.getLoanList()) {
-            if(document.getTitle().equals(tran.getTitle())) {
+            if(document.getID() == tran.getDocumentID()) {
                 borrowedDateString = tran.getBorrowedDate();
                 returnedDateString = tran.getReturnedDate();
             }
@@ -562,7 +565,7 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String returnedDate= returned.format(formatter);
 
-        Transaction transaction = new Transaction(user, document.getTitle(), borrowedDateString, returnedDateString, "borrowed");
+        Transaction transaction = new Transaction(0,user.getID(), document.getID(), borrowedDateString, returnedDateString, "borrowed");
 
         user.returnDocument(transaction, returnedDate);
         returnDialog.setVisible(false);
@@ -581,7 +584,7 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
             String borrowedDateString = borrowedDate.format(formatter);
             String returnedDateString = returnedDate.format(formatter);
 
-            Transaction transaction = new Transaction(user, document.getTitle(), borrowedDateString, returnedDateString, "borrowed");
+            Transaction transaction = new Transaction(0,user.getID(), document.getID(), borrowedDateString, returnedDateString, "borrowed");
             
             user.borrowDocument(transaction);
             borrowDialog.setVisible(false);

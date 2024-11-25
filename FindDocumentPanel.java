@@ -43,9 +43,6 @@ public class FindDocumentPanel extends JPanel{
         this.mainPanel = mainPanel;
         resultFindDocumentJList.setVisible(false);
         jScrollPane1.setVisible(false);
-
-        Document doc = documentDAO.getDocumentByID(1);
-        ImageIcon imageIcon = new ImageIcon(doc.getImageLink());
         render = new RenderDocument();
         
     }
@@ -73,23 +70,37 @@ public class FindDocumentPanel extends JPanel{
                         for (Document doc : arrDocument) {
                             listModel.addElement(doc);
                         }
+                        System.out.println("SĨE" + listModel.getSize());
                         if (arrDocument.size() > 0) {
-                            resultFindDocumentJList.setModel((DefaultListModel) listModel);
-                            resultFindDocumentJList.setVisibleRowCount(Math.min(listModel.size(), 5));
-                            resultFindDocumentJList.setFixedCellHeight(30);
-                            jScrollPane1.setVisible(true);
-                            resultFindDocumentJList.setVisible(true);
-                            jScrollPane1.setViewportView(resultFindDocumentJList);
+                            // Cập nhật giao diện trong SwingUtilities.invokeLater
+                            SwingUtilities.invokeLater(() -> {
+                                resultFindDocumentJList.setVisibleRowCount(Math.min(listModel.size(), 5));
+                                resultFindDocumentJList.setFixedCellHeight(30);
+                                resultFindDocumentJList.setModel((DefaultListModel)listModel);
+                                jScrollPane1.setVisible(true);
+                                resultFindDocumentJList.setVisible(true);
+                                jScrollPane1.setViewportView(resultFindDocumentJList);
+                                // Làm mới giao diện
+                                jScrollPane1.revalidate();
+                                jScrollPane1.repaint();
+                                resultFindDocumentJList.revalidate();
+                                resultFindDocumentJList.repaint();
+                            });
                         } else {
                             jScrollPane1.setVisible(false);
                             resultFindDocumentJList.setVisible(false);
+                            System.out.println("Khoong cos tai lieu ");
                         }
+                        // Làm mới container cha
+                        mainPanel.revalidate();
+                        mainPanel.repaint();
                     } else {
                         listModel.clear();
                         jScrollPane1.setVisible(false);
                         resultFindDocumentJList.setVisible(false);
+                        System.out.println("cha co gi .");
                     }
-                    System.out.println("Hiển thị danh sách tài liệu thành công.");
+                    
                 } catch (Exception e) {
                     e.printStackTrace();
                     // Xử lý lỗi nếu có
@@ -101,7 +112,6 @@ public class FindDocumentPanel extends JPanel{
                 }
             }
         };
-        
         // Bắt đầu thực hiện worker
         worker.execute();
         
@@ -135,16 +145,15 @@ public class FindDocumentPanel extends JPanel{
         
         // Lấy danh sách các tài liệu gợi ý
         RecommentDocument rcm = new RecommentDocument();
-        ArrayList<Document> rcmDocument = rcm.getRecommendations(history, allDocument);
+        ArrayList<Document> rcmDocument = rcm.getRecommendations(history, allDocument, 8);
         // Lấy Map chứa các JLabel cho tiêu đề và ảnh
         Map<JLabel, JLabel> labelMap = getListRecomentDocumentJLabel();
         
-        // Duyệt qua danh sách tài liệu gợi ý và cập nhật vào JLabel
-//        if (rcmDocument != null) {
-//            render.renderDocument(rcmDocument, labelMap);
-//        }
         render.renderDocument(rcmDocument, labelMap);
     }
+    
+
+
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -267,8 +276,10 @@ public class FindDocumentPanel extends JPanel{
         jSeparator2.setBackground(new java.awt.Color(255, 0, 51));
         jSeparator2.setForeground(new java.awt.Color(255, 0, 51));
 
+        titleJLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleJLabel5.setText("Sách gì đây ai biết 5");
 
+        titleJLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleJLabel6.setText("Sách gì đây ai biết 6");
 
         imageJLabel6.setBackground(new java.awt.Color(255, 0, 51));
@@ -287,8 +298,10 @@ public class FindDocumentPanel extends JPanel{
             }
         });
 
+        titleJLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleJLabel2.setText("Sách gì đây ai biết 2");
 
+        titleJLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleJLabel7.setText("Sách gì đây ai biết 7");
 
         imageJLabel7.setBackground(new java.awt.Color(255, 0, 51));
@@ -307,8 +320,10 @@ public class FindDocumentPanel extends JPanel{
             }
         });
 
+        titleJLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleJLabel3.setText("Sách gì đây ai biết 3");
 
+        titleJLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleJLabel8.setText("Sách gì đây ai biết 8");
 
         imageJLabel5.setBackground(new java.awt.Color(255, 0, 51));
@@ -327,6 +342,7 @@ public class FindDocumentPanel extends JPanel{
             }
         });
 
+        titleJLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleJLabel1.setText("Sách gì đây ai biết 1");
 
         imageJLabel8.setBackground(new java.awt.Color(255, 0, 51));
@@ -345,6 +361,7 @@ public class FindDocumentPanel extends JPanel{
             }
         });
 
+        titleJLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleJLabel4.setText("Sách gì đây ai biết 4");
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N
@@ -426,8 +443,8 @@ public class FindDocumentPanel extends JPanel{
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(imageJLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(imageJLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(titleJLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(titleJLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(titleJLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(titleJLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(52, 52, 52))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -564,9 +581,6 @@ public class FindDocumentPanel extends JPanel{
     private void categoryComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryComboBoxActionPerformed
        
         category = (String) categoryComboBox.getSelectedItem();
-        if (checkDisplayResult()){
-            
-        }
     }//GEN-LAST:event_categoryComboBoxActionPerformed
 
     private void languageComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_languageComboBoxActionPerformed
@@ -699,8 +713,6 @@ public class FindDocumentPanel extends JPanel{
     
     // true: tìm cả API và CSDL, false: tìm CSDL
     private boolean checkDocument(){
-        System.out.println("Category: " + category);
-        System.out.println("Language: "  + language);
         if ((category.equals("All") || category.equals("Fiction")) && (language.equals("All") || language.equals("English"))) {
             return true;
         } else {
@@ -714,13 +726,17 @@ public class FindDocumentPanel extends JPanel{
         }
         return true;
     }
+    
     private void titleJTextFieldKeyReleased(java.awt.event.KeyEvent evt) {
         title = titleJTextField.getText().trim();
         if (!title.equals(oldTitle) && !title.equals("")){
+            System.out.println(title);
             oldTitle = title;
             if (checkDocument()) {
+                System.out.println("*****1");
                 displayResultFindDocument(checkDocument(), title, author, ISBN, "", "");
             } else {
+                System.out.println("*****2");
                 displayResultFindDocument(checkDocument(), title, author, ISBN, category, language);
             }
         }

@@ -88,7 +88,6 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
                 x.getPublishedDate(),
                 x.getQuantity(),
                 x.getLanguage(),
-                x.getLanguage(),
                 x.getCategory(),
                 x.getDescription()
             });
@@ -858,7 +857,7 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
 
     private void confirmEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmEditActionPerformed
             Book Abook = new Book();
-            Abook.setID(infoDocument.getValueAt(rowNow, 0).toString());
+            Abook.setID((Integer) infoDocument.getValueAt(rowNow, 0));
             Abook.setTitle(nameDialog1.getText());
             Abook.setAuthor(authorDialog1.getText());
             Abook.setPublisher(publisherDialog1.getText());

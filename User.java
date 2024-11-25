@@ -184,7 +184,7 @@ public class User {
             transaction.setStatus("returned");
             transaction.setReturnedDate(returnedDate);
             TransactionDAO transactionDAO = new TransactionDAO();
-            transactionDAO.returnTransaction(transaction);
+            transactionDAO.returnTransaction(transaction.getTransactionID(), transaction.getUserID(), transaction.getDocumentID());
             BorrowedList.add(transaction);
             numberBorrowed--;
             System.out.println("Trả tài liệu thành công.");
@@ -199,14 +199,14 @@ public class User {
         ArrayList<Document> result = new ArrayList<>();
         List<Document> allDocument = new ArrayList<>();
         allDocument = DocumentDAO.getAllDocuments();
-        List<String> transactionTitles = new ArrayList<>();
+        List<Integer> transactionID= new ArrayList<>();
         for (Transaction transaction : LoanList) {
-            transactionTitles.add(transaction.getTitle());
+            transactionID.add(transaction.getDocumentID());
         }
 
         // Tìm các Document có tên trùng với tên trong danh sách mượn
         for (Document document : allDocument) {
-            if (transactionTitles.contains(document.getTitle())) {
+            if (transactionID.contains(document.getID())) {
                 result.add(document);
             }
         }
@@ -219,14 +219,14 @@ public class User {
         ArrayList<Document> result = new ArrayList<>();
         List<Document> allDocument = new ArrayList<>();
         allDocument = DocumentDAO.getAllDocuments();
-        List<String> transactionTitles = new ArrayList<>();
+        List<Integer> transactionID = new ArrayList<>();
         for (Transaction transaction : BorrowedList) {
-            transactionTitles.add(transaction.getTitle());
+            transactionID.add(transaction.getTransactionID());
         }
 
         // Tìm các Document có tên trùng với tên trong danh sách đã mượn
         for (Document document : allDocument) {
-            if (transactionTitles.contains(document.getTitle())) {
+            if (transactionID.contains(document.getID())) {
                 result.add(document);
             }
         }

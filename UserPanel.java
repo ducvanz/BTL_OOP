@@ -500,7 +500,6 @@ public class UserPanel extends JPanel {
                 JLabel titleLabel = entry.getKey();
                 JLabel imageLabel = entry.getValue();
 
-                // Đặt lại tiêu đề và hình ảnh mặc định cho những JLabel còn lại
                 titleLabel.setText("");  // Xóa tên tài liệu
                 imageLabel.setIcon(null); // Xóa ảnh
             }
@@ -514,7 +513,7 @@ public class UserPanel extends JPanel {
     public static String getUsername() {
         return username.getText();
     }
-    
+   
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel UserPanel_;
