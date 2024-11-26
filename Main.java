@@ -4,6 +4,17 @@
  */
 package BTL_OOP;
 
+import BTL_OOP.connectionDB.DatabaseConnection;
+import BTL_OOP.login.LoginPanel;
+import BTL_OOP.login.SignupPanel;
+import BTL_OOP.users.DisplayDocumentPanel;
+import BTL_OOP.users.FindDocumentPanel;
+import BTL_OOP.users.InFoUserPanel;
+import BTL_OOP.users.UserPanel;
+import BTL_OOP.manage.ManagePanel;
+import BTL_OOP.manage.FindBookManage;
+import BTL_OOP.manage.ManageDocumentPanel;
+import BTL_OOP.manage.UserManagementPanel;
 import java.awt.CardLayout;
 import java.sql.Connection;
 import javax.swing.JDialog;
@@ -48,9 +59,9 @@ public class Main extends JFrame {
         
         DisplayDocumentPanel displayDocumentPanel = new DisplayDocumentPanel(con, frame, mainPanel);
         InFoUserPanel inFoUserPanel = new InFoUserPanel(con,frame, mainPanel);
-        
-        UserManagementPanel userManagementPanel = new UserManagementPanel(con,frame, mainPanel);
-        
+
+        UserManagementPanel userManagementPanel = new UserManagementPanel(con, frame, mainPanel);
+
         mainPanel.add(signupPanel, "signupPanel");
         mainPanel.add(loginPanel, "loginPanel");
         mainPanel.add(userPanel, "userPanel");
@@ -66,10 +77,7 @@ public class Main extends JFrame {
         add(mainPanel);
         
         // Hiển thị SignupPanel khi khởi động
-        cardLayout.show(mainPanel, "signupPanel");
-        
-        
-        //cardLayout.show(mainPanel, "findDocumentPanel");
+        cardLayout.show(mainPanel, "signupPanel");;
         
 
         setVisible(true);
