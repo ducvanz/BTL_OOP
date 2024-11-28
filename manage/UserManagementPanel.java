@@ -30,7 +30,7 @@ public class UserManagementPanel extends javax.swing.JPanel {
     JPanel mainPanel;
     static User user;
     private static int rowNow ;
-    ManageDAO mnd = new ManageDAO();
+    ManageDAO manageDao = ManageDAO.getManageDAO();
     /**
      * Creates new form UserManagementPanel
      */
@@ -59,10 +59,9 @@ public class UserManagementPanel extends javax.swing.JPanel {
 
         // Xóa dữ liệu cũ
         model.setRowCount(0);  
-        
-        ManageDAO md = new ManageDAO(); 
+         
         // Lấy danh sách người dùng từ lớp quản lý
-        ArrayList<User> users = md.getAllUsers();
+        ArrayList<User> users = manageDao.getAllUsers();
 
         for (User x: users) {
             System.out.println(x.getID());
@@ -916,7 +915,7 @@ public class UserManagementPanel extends javax.swing.JPanel {
     private void confirmRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmRemoveActionPerformed
 
         Object b = infoUser.getValueAt(rowNow, 0);
-        mnd.removeUser(Integer.parseInt(b.toString()));
+        manageDao.removeUser(Integer.parseInt(b.toString()));
         System.out.println(Integer.parseInt(b.toString()));
         loadUserTable();
         removeDialog.setVisible(false);
@@ -944,7 +943,7 @@ public class UserManagementPanel extends javax.swing.JPanel {
         user.setUsername(infoUser.getValueAt(rowNow, 1).toString());
         user.setPhone(phone.getText());
         
-        mnd.updateUser(user);
+        manageDao.updateUser(user);
         loadUserTable();
         editDialog.setVisible(false);
         
@@ -1048,7 +1047,7 @@ public class UserManagementPanel extends javax.swing.JPanel {
         user.setUsername(accountDialog2.getText().toString());
         user.setPhone(phone.getText());
         
-        mnd.addUser(user);
+        manageDao.addUser(user);
         loadUserTable();
         addDialog1.setVisible(false);
     }//GEN-LAST:event_confirmEdit1ActionPerformed

@@ -19,12 +19,22 @@ import java.util.ArrayList;
 public class DatabaseConnection {
 
 
-    private static final String URL = "jdbc:mysql://127.0.0.1:3306/libraryoop"; 
+    private static final String URL = "jdbc:mysql://localhost:3306/libraryoop";
     private static final String USER = "root"; 
-    private static final String PASSWORD = "Thuyet@30042005";
-    public static Connection con;
+    private static final String PASSWORD = "maiducvan112@##";
+    public Connection con;
+    private static DatabaseConnection database;
+    private DatabaseConnection() {}
 
-    public static Connection getConnection() {
+    public static DatabaseConnection getDatabaseConnection() {
+        if (database == null) {
+            database = new DatabaseConnection();
+            database.getConnection();
+        }
+        return database;
+    }
+    
+    public Connection getConnection() {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(URL, USER, PASSWORD);

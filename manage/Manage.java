@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Manage extends User {
     private ArrayList<User> users;
     private ArrayList<Document> documents; 
-    ManageDAO manageDAO = new ManageDAO();
+    ManageDAO manageDAO = ManageDAO.getManageDAO();
     DocumentDAO documentDAO = new DocumentDAO();
     
     public Manage(){

@@ -238,7 +238,6 @@ public class User {
             
     } 
 
-    // Phương thức hiển thị thông tin người dùng
     public void displayUserInfo() {
         System.out.println("Name: " + name);
         System.out.println("Email: " + email);

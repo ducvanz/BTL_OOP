@@ -6,7 +6,6 @@ import BTL_OOP.users.User;
 import BTL_OOP.manage.ManageDAO;
 import BTL_OOP.document.DocumentDAO;
 import BTL_OOP.document.Document;
-import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,17 +20,14 @@ import java.util.Random;
 import java.util.Set;
 
 public class TransactionDAO {
-    private final Connection connection;
-    ManageDAO manageDAO;
+    private final Connection connection = DatabaseConnection.getDatabaseConnection().con;
+    ManageDAO manageDAO = ManageDAO.getManageDAO();
     DocumentDAO documentDAO;
-    User user = new User();
+    public static User user = LoginPanel.userOverAll;
 
     public TransactionDAO() {
-        connection = DatabaseConnection.con;
-        user = LoginPanel.userOverAll;
         user.setBorrowedList(getReturnedDocumentByUser(user.getID()));
         user.setLoanList(getBorrowedDocumentByUser(user.getID()));
-        manageDAO = new ManageDAO();
         documentDAO = new DocumentDAO();
     }
 
@@ -204,7 +200,7 @@ public class TransactionDAO {
             e.printStackTrace();
         }
 
-        ArrayList<Document> allDocuments = documentDAO.getAllDocuments();  // Lấy tất cả các tài liệu
+        ArrayList<Document> allDocuments = documentDAO.getAllDocuments();
         ArrayList<Document> resultDocuments = new ArrayList<>();
 
         // Sử dụng HashSet để kiểm tra nhanh sự tồn tại của documentID

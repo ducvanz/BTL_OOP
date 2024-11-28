@@ -42,6 +42,7 @@ public class InFoUserPanel extends javax.swing.JPanel {
     private JFrame frame;
     private JPanel mainPanel;
     static User beforeUpdateUser;
+    private static ManageDAO manageDAO = ManageDAO.getManageDAO();
     
     public InFoUserPanel(Connection con, JFrame frame, JPanel mainPanel) {
         initComponents();
@@ -158,7 +159,7 @@ public class InFoUserPanel extends javax.swing.JPanel {
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(backButton)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -752,7 +753,6 @@ public class InFoUserPanel extends javax.swing.JPanel {
                 JOptionPane.QUESTION_MESSAGE // Biểu tượng
         );
         if (result == 0) {
-             ManageDAO manageDAO = new ManageDAO();
                 manageDAO.updateUser(user);
                manageNameLabel.setText(user.getName());
         }

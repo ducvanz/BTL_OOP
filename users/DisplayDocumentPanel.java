@@ -501,7 +501,11 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
         borrowButton.setText("Mượn");
     }
 
-    // load ảnh từ filePath lên jlabel
+    /**
+     * Load anh len
+     * @param label label can load anh
+     * @param filePath link file anh
+     */
     public static void loadImageFromFilePath(JLabel label, String filePath) {
         SwingWorker<ImageIcon, Void> worker = new SwingWorker<ImageIcon, Void>() {
             @Override

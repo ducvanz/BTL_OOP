@@ -77,24 +77,27 @@ public class AuthenticationService {
         return "Name too long!";
     }
 
-    // Regular expression to match valid characters, including Vietnamese characters with diacritics
-    String regex = "^[\\p{L} ]+$"; // \p{L} matches any kind of letter from any language
+    String regex = "^[\\p{L} ]+$";
 
     if (name.matches(regex)) {
-        return "true";  // valid name
+        return "true"; 
     } else {
-        return "Invalid name!";  // name contains invalid characters
+        return "Invalid name!";
         }
     }
     
+    /**
+     * Check id if exist
+     * @param ID
+     * @param con
+     * @return 
+     */
     public static boolean checkID (int ID, Connection con) {
         String select = "SELECT 1 FROM User WHERE userID = ?";
         try(PreparedStatement pstm = con.prepareStatement(select)) {
             
             pstm.setInt(1, ID);
-            // Thực thi câu lệnh truy vấn
             try (ResultSet res = pstm.executeQuery()) {
-                // Nếu có kết quả, nghĩa là tài khoản tồn tại
                 if (res.next()) {
                     return false;
                 }
@@ -125,15 +128,12 @@ public class AuthenticationService {
         try(PreparedStatement pstm = con.prepareStatement(select)) {
             
             pstm.setString(1, account);
-            // Thực thi câu lệnh truy vấn
             try (ResultSet res = pstm.executeQuery()) {
-                // Nếu có kết quả, nghĩa là tài khoản tồn tại
                 return res.next();
             }
              catch (SQLException e) {
                 e.printStackTrace();
             }
-            // Trả về false nếu có lỗi hoặc tài khoản không tồn tại
             return false;
         } catch (SQLException e) {
             e.printStackTrace();

@@ -4,8 +4,10 @@
  */
 package BTL_OOP.login;
 
+import BTL_OOP.Main;
 import BTL_OOP.publicc.TransactionDAO;
 import BTL_OOP.users.DisplayDocumentPanel;
+import BTL_OOP.connectionDB.DatabaseConnection;
 import BTL_OOP.users.FindDocumentPanel;
 import BTL_OOP.users.InFoUserPanel;
 import BTL_OOP.users.User;
@@ -13,40 +15,51 @@ import BTL_OOP.users.UserPanel;
 import BTL_OOP.manage.ManagePanel;
 import BTL_OOP.manage.FindBookManage;
 import BTL_OOP.manage.Manage;
-import BTL_OOP.manage.UserManagementPanel;
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Cursor;
+import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-/**
- *
- * @author thinh
- */
+
 public class LoginPanel extends JPanel {
-    private Connection con;
+    private Connection con = DatabaseConnection.getDatabaseConnection().con;
 
     JFrame mainFrame;
     JPanel mainPanel;
     public static User userOverAll;
     public static boolean isManage;
     TransactionDAO transactionDAO;
+    private CardLayout cl;
+    public static Manage manage = new Manage();
+    public static final String link = "C:\\Users\\Admin\\NetBean\\BTL2\\src\\BTL_OOP\\image\\";
 
     /**
      * Creates new form loginPanel
      */
-    public LoginPanel(Connection con, JFrame mainFrame, JPanel mainPanel) {
+    public LoginPanel(JFrame mainFrame, JPanel mainPanel) {
         initComponents();
-        this.con = con;
         this.mainFrame = mainFrame;
         this.mainPanel = mainPanel;
         isManage = false; 
         if (userOverAll == null) {
             userOverAll = new User();
         }
+        cl = (CardLayout) mainPanel.getLayout();
+        allSetup();
+    }
+    
+    public void allSetup() {
+        addToggleIcon(passwordInLoginPasswordField, link + "show.png" , link + "unShow.png");
     }
 
     /**
@@ -57,6 +70,7 @@ public class LoginPanel extends JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         loginPane = new javax.swing.JPanel();
         librarynameInLoginLabel = new javax.swing.JLabel();
@@ -75,7 +89,7 @@ public class LoginPanel extends JPanel {
         loginButton = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(800, 650));
-        setLayout(new java.awt.GridLayout(1, 0));
+        setLayout(new java.awt.GridLayout());
 
         loginPane.setBackground(new java.awt.Color(255, 255, 255));
         loginPane.setMaximumSize(new java.awt.Dimension(400, 350));
@@ -87,6 +101,7 @@ public class LoginPanel extends JPanel {
         librarynameInLoginLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         windowLoginPanel.setBackground(new java.awt.Color(239, 246, 246));
+        windowLoginPanel.setLayout(new java.awt.GridBagLayout());
 
         loginLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         loginLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -106,19 +121,83 @@ public class LoginPanel extends JPanel {
             .addComponent(loginLabel, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 14;
+        gridBagConstraints.ipadx = 313;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        windowLoginPanel.add(loginLabelPanel, gridBagConstraints);
+
         accountInLoginLabel.setText("Tài khoản");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.ipadx = 35;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(94, 44, 0, 0);
+        windowLoginPanel.add(accountInLoginLabel, gridBagConstraints);
 
         accountInLoginTextField.setToolTipText("Tên đăng nhập");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 6;
+        gridBagConstraints.ipadx = 293;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 44, 0, 0);
+        windowLoginPanel.add(accountInLoginTextField, gridBagConstraints);
 
         passwordInLoginLabel.setText("Mật khẩu");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.ipadx = 21;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(16, 44, 0, 0);
+        windowLoginPanel.add(passwordInLoginLabel, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = 6;
+        gridBagConstraints.ipadx = 293;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 44, 0, 0);
+        windowLoginPanel.add(passwordInLoginPasswordField, gridBagConstraints);
 
         forgotPasswordLabel.setForeground(new java.awt.Color(0, 153, 255));
         forgotPasswordLabel.setText("Bạn quên mật khẩu?                                         Sign up");
         forgotPasswordLabel.setToolTipText("");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.ipadx = -167;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(20, 48, 21, 0);
+        windowLoginPanel.add(forgotPasswordLabel, gridBagConstraints);
 
         manageRadioButton.setText("Tài khoản quản lý");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 4;
+        gridBagConstraints.ipadx = 21;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(12, 44, 0, 0);
+        windowLoginPanel.add(manageRadioButton, gridBagConstraints);
 
         thongbaodangnhapsai.setFont(new java.awt.Font("Segoe UI", 2, 10)); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.ipadx = 284;
+        gridBagConstraints.ipady = 10;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(6, 64, 0, 0);
+        windowLoginPanel.add(thongbaodangnhapsai, gridBagConstraints);
 
         signupInLoginLabel.setForeground(new java.awt.Color(0, 153, 255));
         signupInLoginLabel.setText("Đăng ký");
@@ -128,6 +207,13 @@ public class LoginPanel extends JPanel {
                 signupInLoginLabelMouseClicked(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.gridwidth = 7;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(20, 22, 21, 0);
+        windowLoginPanel.add(signupInLoginLabel, gridBagConstraints);
 
         loginButtonPanel.setBackground(new java.awt.Color(239, 246, 246));
 
@@ -154,59 +240,14 @@ public class LoginPanel extends JPanel {
                 .addComponent(loginButton))
         );
 
-        javax.swing.GroupLayout windowLoginPanelLayout = new javax.swing.GroupLayout(windowLoginPanel);
-        windowLoginPanel.setLayout(windowLoginPanelLayout);
-        windowLoginPanelLayout.setHorizontalGroup(
-            windowLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(loginLabelPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(windowLoginPanelLayout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addGroup(windowLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(windowLoginPanelLayout.createSequentialGroup()
-                        .addComponent(forgotPasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(signupInLoginLabel)
-                        .addGap(23, 23, 23))
-                    .addGroup(windowLoginPanelLayout.createSequentialGroup()
-                        .addComponent(thongbaodangnhapsai, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(windowLoginPanelLayout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addGroup(windowLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(manageRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(passwordInLoginPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(passwordInLoginLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(accountInLoginTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(accountInLoginLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(35, Short.MAX_VALUE))
-            .addGroup(windowLoginPanelLayout.createSequentialGroup()
-                .addComponent(loginButtonPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        windowLoginPanelLayout.setVerticalGroup(
-            windowLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(windowLoginPanelLayout.createSequentialGroup()
-                .addComponent(loginLabelPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(94, 94, 94)
-                .addComponent(accountInLoginLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(accountInLoginTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addComponent(passwordInLoginLabel)
-                .addGap(18, 18, 18)
-                .addComponent(passwordInLoginPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(thongbaodangnhapsai, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(manageRadioButton)
-                .addGap(52, 52, 52)
-                .addComponent(loginButtonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addGroup(windowLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(forgotPasswordLabel)
-                    .addComponent(signupInLoginLabel))
-                .addGap(21, 21, 21))
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.gridwidth = 13;
+        gridBagConstraints.ipadx = 152;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(52, 0, 0, 0);
+        windowLoginPanel.add(loginButtonPanel, gridBagConstraints);
 
         javax.swing.GroupLayout loginPaneLayout = new javax.swing.GroupLayout(loginPane);
         loginPane.setLayout(loginPaneLayout);
@@ -238,7 +279,6 @@ public class LoginPanel extends JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void signupInLoginLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signupInLoginLabelMouseClicked
-        CardLayout cl = (CardLayout) mainPanel.getLayout();
         cl.show( mainPanel, "signupPanel");
         
     }//GEN-LAST:event_signupInLoginLabelMouseClicked
@@ -258,7 +298,6 @@ public class LoginPanel extends JPanel {
          * 2: manage
          */
         int check = 0;
-        Manage manage = new Manage();
         if (manageRadioButton.isSelected()) {
             // check mk manage
             check = AuthenticationService.accountLogin(accountUser, pass, 2, con);
@@ -277,7 +316,6 @@ public class LoginPanel extends JPanel {
             
             LoginPanel.userOverAll = manage.getUserByUsername(accountUser);
             UserPanel.setUsername(userOverAll.getName());
-            CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
             cl.show(mainPanel, "userPanel");
             updateAccount();
             resetLogin();
@@ -290,16 +328,11 @@ public class LoginPanel extends JPanel {
             FindBookManage.setDefaultInfo();
             InFoUserPanel.setDefaultInfo();
             isManage = true;
-            CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
             cl.show(mainPanel, "managePanel");
-            UserManagementPanel managetment = new UserManagementPanel();
-            
             updateAccount();
             resetLogin();
 
-
         }
-        userOverAll.displayUserInfo();
         // set pane logi
         loginButton.setText("ĐĂNG NHẬP");
         accountInLoginTextField.setText("");
@@ -310,12 +343,12 @@ public class LoginPanel extends JPanel {
         accountInLoginTextField.setText("");
         passwordInLoginPasswordField.setText("");
         thongbaodangnhapsai.setText("");
-        loginButton.setText("LOGIN");
+        loginButton.setText("ĐĂNG NHẬP");
     }
-    public void updateAccount() {
+    public static void updateAccount() {
         FindBookManage.user = userOverAll;
         ManagePanel.user = userOverAll;
-        transactionDAO = new TransactionDAO();
+        TransactionDAO.user = userOverAll;
         FindDocumentPanel.displayRecommentDocument();
         DisplayDocumentPanel.isFromHome = true;
         if (isManage) {
@@ -326,6 +359,11 @@ public class LoginPanel extends JPanel {
         }
         
 
+    }
+    
+    public static void resetLoginAfter() {
+        userOverAll = null;
+        updateAccount();
     }
 
     
@@ -340,6 +378,41 @@ public class LoginPanel extends JPanel {
     public static JButton getLoginButton() {
         return loginButton;
     }
+    
+    /**
+     * Them icon cho o mk
+     * @param passwordField
+     * @param showIconPath
+     * @param hideIconPath 
+     */
+    public static void addToggleIcon(JPasswordField passwordField, String showIconPath, String hideIconPath) {
+
+        ImageIcon showIcon = new ImageIcon(new ImageIcon(showIconPath).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+        ImageIcon hideIcon = new ImageIcon(new ImageIcon(hideIconPath).getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH));
+
+        JLabel toggleIcon = new JLabel(hideIcon);
+        toggleIcon.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        passwordField.setLayout(new BorderLayout());
+        passwordField.add(toggleIcon, BorderLayout.EAST);
+
+        toggleIcon.addMouseListener(new MouseAdapter() {
+            private boolean isPasswordVisible = false;
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                isPasswordVisible = !isPasswordVisible;
+                if (isPasswordVisible) {
+                    passwordField.setEchoChar((char) 0); // Hiện mật khẩu
+                    toggleIcon.setIcon(showIcon); // Đổi sang icon "Hiện"
+                } else {
+                    passwordField.setEchoChar('\u2022'); // Ẩn mật khẩu
+                    toggleIcon.setIcon(hideIcon); // Đổi sang icon "Ẩn"
+                }
+            }
+        });
+    }
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -11,12 +11,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class ManageDAO {
-    private final Connection connection;
+    private final Connection connection = DatabaseConnection.getDatabaseConnection().con;
 
-    public ManageDAO() {
-        DatabaseConnection dbConnection = new DatabaseConnection();
-        connection = dbConnection.getConnection();
-    }
+    private static ManageDAO manageDao = new ManageDAO();
+    private ManageDAO() {}
 
     public void addUser (User user) {
         String sql = "INSERT INTO User (name, email, phone, birthday, address, loanTerm, numberBorrowed, username, password, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -35,6 +33,9 @@ public class ManageDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    public static ManageDAO getManageDAO() {
+        return manageDao;
     }
 
     public User getUserByUsername(String username) {

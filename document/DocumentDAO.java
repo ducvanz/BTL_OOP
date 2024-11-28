@@ -20,7 +20,7 @@ import javax.swing.JLabel;
 
 public class DocumentDAO {
 
-    private static Connection connection = DatabaseConnection.con;
+    private static Connection connection = DatabaseConnection.getDatabaseConnection().con;
     
     public DocumentDAO() {
     }
@@ -402,6 +402,7 @@ public class DocumentDAO {
                 "LEFT JOIN Thesis t ON d.documentID = t.ID " +
                 "LEFT JOIN Newspaper n ON d.documentID = n.ID";
 
+        
         try (PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
 
