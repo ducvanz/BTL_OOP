@@ -21,7 +21,7 @@ public class DatabaseConnection {
 
     private static final String URL = "jdbc:mysql://127.0.0.1:3306/libraryoop"; 
     private static final String USER = "root"; 
-    private static final String PASSWORD = "maiducvan112@##";
+    private static final String PASSWORD = "Thuyet@30042005";
     public static Connection con;
 
     public static Connection getConnection() {
