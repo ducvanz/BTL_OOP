@@ -435,8 +435,6 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     // true là hiển thị sách có trong db, false là kco và lấy từ API, k thể mượn
     public static void displayDocument(boolean hasInDB) {
-
-        document.getInfo();
         user = LoginPanel.userOverAll;
         
         titleJLabel.setText(document.getTitle());
@@ -454,14 +452,14 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
 
         if (document.getImage()!= null) {
             DocumentDAO.displayImageFromBytes(document.getImage(), imageDocumentJLabel);
-            System.out.println("Ảnh từ csdl image");
+//            System.out.println("Ảnh từ csdl image");
 
         } else if (!document.getImageLink().equals("N/A")){
             API.displayImage(document, imageDocumentJLabel);
-            System.out.println("Ảnh từ csdl imageLink");
+//            System.out.println("Ảnh từ csdl imageLink");
         } else {
 
-            System.out.println("Ảnh mặc định");
+//            System.out.println("Ảnh mặc định");
             //Sua dong dnay 
             loadImageFromFilePath(imageDocumentJLabel, "C:\\Users\\Admin\\NetBean\\BTL2\\src\\BTL_OOP\\image\\Screenshot_63.png");
 
@@ -488,15 +486,15 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
             ISBN.setText("ISSN:");
             ISBNJLabel.setText(newspaper.getISSN());
         }
-        System.out.println("SIZE" + user.getLoanList().size());
+        
+        user.reset();
         for (Transaction transaction : user.getLoanList()) {
-            transaction.toString();
-                    System.out.println("docID: " + document.getID() + " ** " + transaction.getDocumentID());
+//            transaction.toString();
+//                    System.out.println("docID: " + document.getID() + " ** " + transaction.getDocumentID());
                     if (document.getID() == transaction.getDocumentID()) {
-                    borrowButton.setText("Đang mượn");
-                    return;
-                
-            }
+                        borrowButton.setText("Đang mượn");
+                        return;
+                    }
         }
         borrowButton.setText("Mượn");
     }

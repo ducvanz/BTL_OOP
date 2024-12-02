@@ -26,9 +26,13 @@ public class TransactionDAO {
     public static User user = LoginPanel.userOverAll;
 
     public TransactionDAO() {
+        reset();
+        documentDAO = new DocumentDAO();
+    }
+    
+    public void reset(){
         user.setBorrowedList(getReturnedDocumentByUser(user.getID()));
         user.setLoanList(getBorrowedDocumentByUser(user.getID()));
-        documentDAO = new DocumentDAO();
     }
 
     // Hàm để lấy tài liệu đã mượn theo tên người dùng
@@ -172,10 +176,7 @@ public class TransactionDAO {
         for (int i = 0; i < Math.min(6, sortedList.size()); i++) {
             topDocuments.add(sortedList.get(i).getKey());
         }
-        for(Document doc:topDocuments){
-            doc.getInfo();
-        }
-        System.out.println("CHAY VAO DAY ROI");
+        System.out.println("Đã lọc ra 6 tài liệu top");
         return topDocuments;
     }
     

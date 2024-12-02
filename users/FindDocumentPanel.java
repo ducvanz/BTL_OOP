@@ -66,7 +66,7 @@ public class FindDocumentPanel extends JPanel{
         worker = new SwingWorker<ArrayList<Document>, Void>() {
             @Override
             protected ArrayList<Document> doInBackground() throws Exception {
-                ArrayList<Document> result =MultiThreaded.searchDocument(check, title, author, ISBN, category, language);
+                ArrayList<Document> result =MultiThreaded.searchDocument(title, author, ISBN, category, language);
                 if (result == null){
                     return null;
                 }

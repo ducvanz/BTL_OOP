@@ -563,10 +563,6 @@ public class ManagePanel extends javax.swing.JPanel {
         // Lấy Map chứa các JLabel cho tiêu đề và ảnh
         Map<JLabel, JLabel> labelMap = getListRecomentDocumentJLabel();
         
-        // Duyệt qua danh sách tài liệu gợi ý và cập nhật vào JLabel
-//        if (suggest != null) {
-//            render.renderDocument(suggest, labelMap);
-//        }
         render.renderDocument(suggest, labelMap);
     }
     

@@ -32,16 +32,16 @@ public class RenderDocument {
                 Map.Entry<JLabel, JLabel> entry = (Map.Entry<JLabel, JLabel>) labelMap.entrySet().toArray()[count];
                 JLabel titleLabel = entry.getKey();
                 JLabel imageLabel = entry.getValue();
-                System.out.println(entry.getKey().getText() + "  " +  entry.getValue().getText());
+//                System.out.println(entry.getKey().getText() + "  " +  entry.getValue().getText());
                 // Cập nhật tiêu đề tài liệu vào JLabel
                 titleLabel.setText(doc.getTitle());
                 imageLabel.setText(doc.getTitle());
                 // Cập nhật hình ảnh tài liệu vào JLabel
                 if (doc.getImage() != null) {
                     DocumentDAO.displayImageFromBytes(doc.getImage(), imageLabel);
-                    System.out.println("Ảnh từ csdl image");
+//                    System.out.println("Ảnh từ csdl image");
                 } else {
-                    System.out.println("Ảnh mặc định");
+//                    System.out.println("Ảnh mặc định");
                     DisplayDocumentPanel.loadImageFromFilePath(imageLabel, "C:\\Users\\Admin\\NetBean\\BTL2\\src\\BTL_OOP\\image\\Screenshot_63.png");
                 }
 

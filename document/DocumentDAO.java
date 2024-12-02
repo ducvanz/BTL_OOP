@@ -231,7 +231,7 @@ public class DocumentDAO {
             e.printStackTrace();
             label.setText("Lỗi khi hiển thị hình ảnh.");
         }
-         System.out.println("Hiển thị ảnh từ CSDL thành công");
+//         System.out.println("Hiển thị ảnh từ CSDL thành công");
     }
 
     public void addDocument(Document doc, String imageUrl) {

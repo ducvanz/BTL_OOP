@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit4TestClass.java to edit this template
  */
-package BTL_OOP.login;
+package BTL_OOP.test.login;
 
+import BTL_OOP.login.AuthenticationService;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;

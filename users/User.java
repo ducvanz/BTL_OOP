@@ -167,6 +167,11 @@ public class User {
         this.password = password;
     }
 
+    public void reset(){
+        TransactionDAO t = new TransactionDAO();
+        t.reset();
+    }
+
     
     // Phương thức mượn tài liệu
     public void borrowDocument(Transaction transaction) {
@@ -183,19 +188,33 @@ public class User {
 
     // Phương thức trả tài liệu
     public void returnDocument(Transaction transaction, String returnedDate) {
-        if (LoanList.contains(transaction)) {
-            LoanList.remove(transaction);
-            transaction.setStatus("returned");
-            transaction.setReturnedDate(returnedDate);
-            TransactionDAO transactionDAO = new TransactionDAO();
-            transactionDAO.returnTransaction(transaction.getTransactionID(), transaction.getUserID(), transaction.getDocumentID());
-            BorrowedList.add(transaction);
-            numberBorrowed--;
-            System.out.println("Trả tài liệu thành công.");
+        
+        for (Transaction t : LoanList) {
+            if (t.getUserID()==transaction.getUserID() && t.getDocumentID() == transaction.getDocumentID()
+                                            && t.getBorrowedDate().equals(transaction.getBorrowedDate())
+                                            && t.getReturnedDate().equals(transaction.getReturnedDate())
+                                            && t.getStatus().equals(transaction.getStatus())) {
 
-        } else {
-            System.out.println("Document not found in borrowed list.");
+                transaction.setTransactionID(t.getTransactionID());
+                if (LoanList.contains(transaction)) {
+                    LoanList.remove(transaction);
+                    setLoanList(LoanList);
+                    transaction.setStatus("returned");
+                    transaction.setReturnedDate(returnedDate);
+                    TransactionDAO transactionDAO = new TransactionDAO();
+                    transactionDAO.returnTransaction(transaction.getTransactionID(), transaction.getUserID(), transaction.getDocumentID());
+                    BorrowedList.add(transaction);
+                    numberBorrowed--;
+                    System.out.println("Trả tài liệu thành công.");
+
+                    return;
+                }
+
+            } 
+        
         }
+        System.out.println("Document not found in borrowed list.");
+
     }
     
     // Lấy danh sách các tài liệu đang mượn 

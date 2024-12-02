@@ -5,8 +5,6 @@
 package BTL_OOP.users;
 
 import BTL_OOP.login.LoginPanel;
-import BTL_OOP.login.LoginPanel;
-import BTL_OOP.publicc.TransactionDAO;
 import BTL_OOP.publicc.TransactionDAO;
 import BTL_OOP.document.RenderDocument;
 import BTL_OOP.manage.FindBookManage;
@@ -15,10 +13,8 @@ import BTL_OOP.document.Document;
 import java.awt.CardLayout;
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -420,10 +416,6 @@ public class UserPanel extends JPanel {
         // Lấy Map chứa các JLabel cho tiêu đề và ảnh
         Map<JLabel, JLabel> labelMap = getListRecomentDocumentJLabel();
         
-        // Duyệt qua danh sách tài liệu gợi ý và cập nhật vào JLabel
-//        if (suggest != null) {
-//            render.renderDocument(suggest, labelMap);
-//        }
         render.renderDocument(suggest, labelMap);
     }
     

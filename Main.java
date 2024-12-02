@@ -27,7 +27,7 @@ import javax.swing.SwingUtilities;
  *
  * @author thinh
  */
-public class Main extends JFrame {
+public final class Main extends JFrame {
 
 
     public CardLayout cardLayout;

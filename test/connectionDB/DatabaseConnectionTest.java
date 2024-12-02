@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit4TestClass.java to edit this template
  */
-package BTL_OOP;
+package BTL_OOP.test.connectionDB;
 
+import BTL_OOP.connectionDB.DatabaseConnection;
 import java.sql.Connection;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -20,7 +21,7 @@ public class DatabaseConnectionTest {
     @Test
     public void testGetConnection() {
            // Gọi phương thức kết nối cơ sở dữ liệu
-        Connection connection = DatabaseConnection.getConnection();
+        Connection connection = (Connection) DatabaseConnection.getDatabaseConnection();
 
         // Kiểm tra kết quả: connection không được null
         // Nếu test pass thì kết nối được, ngược lại 
