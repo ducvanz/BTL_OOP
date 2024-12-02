@@ -392,6 +392,7 @@ public class UserPanel extends JPanel {
         InFoUserPanel.setDefaultInfo();
         
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
+        InFoUserPanel.displayBorrowedDocument();
         cl.show(mainPanel, "inFoUserPanel");
     }//GEN-LAST:event_thongtinMouseClicked
 

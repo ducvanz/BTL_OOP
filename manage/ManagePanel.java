@@ -454,6 +454,7 @@ public class ManagePanel extends javax.swing.JPanel {
 
         InFoUserPanel.setDefaultInfo();
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
+        InFoUserPanel.displayBorrowedDocument();
         cl.show(mainPanel, "inFoUserPanel");
     }//GEN-LAST:event_jlabel26MouseClicked
 

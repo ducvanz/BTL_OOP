@@ -288,10 +288,8 @@ public class FindDocumentPanel extends JPanel{
         jSeparator2.setBackground(new java.awt.Color(255, 0, 51));
         jSeparator2.setForeground(new java.awt.Color(255, 0, 51));
 
-        titleJLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleJLabel5.setText("Sách gì đây ai biết 5");
 
-        titleJLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleJLabel6.setText("Sách gì đây ai biết 6");
 
         imageJLabel6.setBackground(new java.awt.Color(255, 0, 51));
@@ -310,10 +308,8 @@ public class FindDocumentPanel extends JPanel{
             }
         });
 
-        titleJLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleJLabel2.setText("Sách gì đây ai biết 2");
 
-        titleJLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleJLabel7.setText("Sách gì đây ai biết 7");
 
         imageJLabel7.setBackground(new java.awt.Color(255, 0, 51));
@@ -332,10 +328,8 @@ public class FindDocumentPanel extends JPanel{
             }
         });
 
-        titleJLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleJLabel3.setText("Sách gì đây ai biết 3");
 
-        titleJLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleJLabel8.setText("Sách gì đây ai biết 8");
 
         imageJLabel5.setBackground(new java.awt.Color(255, 0, 51));
@@ -354,7 +348,6 @@ public class FindDocumentPanel extends JPanel{
             }
         });
 
-        titleJLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleJLabel1.setText("Sách gì đây ai biết 1");
 
         imageJLabel8.setBackground(new java.awt.Color(255, 0, 51));
@@ -373,7 +366,6 @@ public class FindDocumentPanel extends JPanel{
             }
         });
 
-        titleJLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titleJLabel4.setText("Sách gì đây ai biết 4");
 
         jLabel10.setFont(new java.awt.Font("Times New Roman", 3, 18)); // NOI18N

@@ -545,7 +545,12 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
             imageDocumentJLabel.setIcon(null);
             CardLayout cl = (CardLayout) mainPanel.getLayout();
             cl.show(mainPanel, "findDocumentPanel");
-        } else {
+        } else if (InFoUserPanel.isFromInfoUser) {
+            imageDocumentJLabel.setIcon(null);
+            CardLayout cl = (CardLayout) mainPanel.getLayout();
+            cl.show(mainPanel, "inFoUserPanel");
+            InFoUserPanel.isFromInfoUser = false;
+        }else {
             if (LoginPanel.isManage) {
                 imageDocumentJLabel.setIcon(null);
             CardLayout cl = (CardLayout) mainPanel.getLayout();

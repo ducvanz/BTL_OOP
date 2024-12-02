@@ -11,12 +11,15 @@ import BTL_OOP.manage.FindBookManage;
 import BTL_OOP.manage.ManageDAO;
 import BTL_OOP.document.Document;
 import static BTL_OOP.manage.FindBookManage.user;
+import BTL_OOP.publicc.Transaction;
 import java.awt.CardLayout;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -44,18 +47,101 @@ public class InFoUserPanel extends javax.swing.JPanel {
     static User beforeUpdateUser;
     private static ManageDAO manageDAO = ManageDAO.getManageDAO();
     
+    public static boolean isFromInfoUser = false;
+    
     public InFoUserPanel(Connection con, JFrame frame, JPanel mainPanel) {
         initComponents();
         this.con = con;
         this.frame = frame;
         this.mainPanel = mainPanel;
-        
-         DefaultTableModel defaultTableModel = new DefaultTableModel();
-         showBorrowedDocumentListTable.setModel(defaultTableModel);
-         defaultTableModel.addColumn("ID");
-         defaultTableModel.addColumn("Tên sách");
-         setAvata();
+        setAvata();
     }
+    
+    public static void displayBorrowedDocument() {
+        DefaultTableModel defaultTableModel = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return false; // Trả về false để không cho phép chỉnh sửa bất kỳ ô nào
+            }
+        };
+        borrowedDocumentTable.setModel(defaultTableModel);
+        borrowedDocumentTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        defaultTableModel.addColumn("STT");
+        defaultTableModel.addColumn("ID");
+        defaultTableModel.addColumn("Tên sách");
+        defaultTableModel.addColumn("Ngày Mượn");
+        defaultTableModel.addColumn("Ngày Trả");
+    
+        ArrayList<Transaction> loanList = user.getLoanList();
+        ArrayList<Document> borrowedDocument = user.getBorrowedDocument();
+    
+        if (loanList.isEmpty()) {
+            borrowedDocumentTable.setVisible(false);
+            System.out.println("Không có sách mượn.");
+            return;
+        }
+    
+        borrowedDocumentTable.setVisible(true);
+        System.out.println("loanlist: " + loanList.size());
+        System.out.println("borrowedlist: " + borrowedDocument.size());
+    
+        int i = 1; // Khởi tạo thứ tự dòng
+        for (Transaction t : loanList) {
+            String documentName = "Không tìm thấy tên sách"; // Tên mặc định nếu không khớp
+    
+            // So sánh ID sách
+            for (Document doc : borrowedDocument) {
+                System.out.println("tran:" + t.getDocumentID() + "--doc:" + doc.getID());
+                if (t.getDocumentID() == doc.getID()) { // So sánh ID sách
+                    documentName = doc.getTitle(); // Lấy tên sách nếu khớp
+                    break;
+                }
+            }
+    
+            // Thêm dòng dữ liệu vào bảng
+            Object[] row = new Object[]{
+                i,
+                t.getDocumentID(),
+                documentName,
+                t.getBorrowedDate(),
+                t.getReturnedDate()
+            };
+            defaultTableModel.addRow(row);
+    
+            // In ra dòng vừa thêm
+            System.out.println("Dòng dữ liệu: " + Arrays.toString(row));
+    
+            i++; // Tăng thứ tự dòng
+
+        }
+    
+        // Cập nhật chiều cao mỗi dòng
+        borrowedDocumentTable.setRowHeight(30);
+
+        // Cập nhật chiều cao bảng dựa trên số dòng
+        int totalHeight = borrowedDocumentTable.getRowCount() * borrowedDocumentTable.getRowHeight();
+        borrowedDocumentTable.setPreferredScrollableViewportSize(new Dimension(
+            borrowedDocumentTable.getWidth(), totalHeight
+        ));
+
+        // Cập nhật chiều cao JScrollPane dựa trên số dòng
+        int totalHeightJScroll = borrowedDocumentTable.getRowCount() * borrowedDocumentTable.getRowHeight();
+        int preferredHeight = Math.min(totalHeightJScroll, 300); // Giới hạn chiều cao tối đa của JScrollPane
+
+        // Cập nhật kích thước của JScrollPane
+        borrowedJScroll.setPreferredSize(new Dimension(
+            borrowedDocumentTable.getWidth(), 
+            preferredHeight
+        ));
+
+        // Cập nhật lại giao diện
+        borrowedDocumentTable.revalidate();
+        borrowedDocumentTable.repaint();
+        borrowedJScroll.revalidate();
+        borrowedJScroll.repaint();
+        }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -65,7 +151,6 @@ public class InFoUserPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
         avataJlabel = new javax.swing.JLabel();
@@ -77,11 +162,9 @@ public class InFoUserPanel extends javax.swing.JPanel {
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
-        jSeparator5 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         name = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -91,7 +174,6 @@ public class InFoUserPanel extends javax.swing.JPanel {
         emailJlabel = new javax.swing.JLabel();
         birthdayJlabel = new javax.swing.JLabel();
         phoneJlabel = new javax.swing.JLabel();
-        sexJlabel = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
         jLabel12 = new javax.swing.JLabel();
         passwordLabel = new javax.swing.JLabel();
@@ -103,19 +185,17 @@ public class InFoUserPanel extends javax.swing.JPanel {
         changEmail = new javax.swing.JLabel();
         changeBirth = new javax.swing.JLabel();
         changePhone = new javax.swing.JLabel();
-        changeSex = new javax.swing.JLabel();
         changPassword = new javax.swing.JLabel();
         changeAddress = new javax.swing.JLabel();
         UpdateInfo = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        showBorrowedDocumentListTable = new javax.swing.JTable();
         nameUserJlabel = new javax.swing.JLabel();
-        showBorrowedDocumenList = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
+        borrowedJScroll = new javax.swing.JScrollPane();
+        borrowedDocumentTable = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(800, 650));
         setPreferredSize(new java.awt.Dimension(800, 650));
-        setLayout(new java.awt.GridBagLayout());
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setForeground(new java.awt.Color(51, 51, 51));
@@ -152,232 +232,50 @@ public class InFoUserPanel extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(avataJlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(avataJlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(manageNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(309, 309, 309)
+                .addComponent(manageNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(265, 265, 265)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(backButton)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(avataJlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(manageNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(backButton))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(backButton))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(avataJlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(manageNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 131;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 32;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        add(jPanel1, gridBagConstraints);
-
         jLabel3.setText("Name:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(62, 28, 0, 0);
-        add(jLabel3, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 96;
-        gridBagConstraints.ipadx = 312;
-        gridBagConstraints.ipady = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 0, 0, 0);
-        add(jSeparator1, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 95;
-        gridBagConstraints.ipadx = 306;
-        gridBagConstraints.ipady = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 6, 0, 0);
-        add(jSeparator2, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 95;
-        gridBagConstraints.ipadx = 306;
-        gridBagConstraints.ipady = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
-        add(jSeparator3, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 9;
-        gridBagConstraints.gridwidth = 64;
-        gridBagConstraints.ipadx = 305;
-        gridBagConstraints.ipady = 25;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 6, 0, 0);
-        add(jSeparator4, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 11;
-        gridBagConstraints.gridwidth = 64;
-        gridBagConstraints.ipadx = 305;
-        gridBagConstraints.ipady = 10;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
-        add(jSeparator5, gridBagConstraints);
 
         jLabel4.setText("Email:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 27, 0, 0);
-        add(jLabel4, gridBagConstraints);
 
         jLabel5.setText("Ngày sinh:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 25, 0, 0);
-        add(jLabel5, gridBagConstraints);
 
         jLabel6.setText("Số điện thoại:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 7;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(29, 22, 0, 0);
-        add(jLabel6, gridBagConstraints);
-
-        jLabel7.setText("Giới tính:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 10;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 26, 0, 0);
-        add(jLabel7, gridBagConstraints);
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(51, 51, 51));
         jLabel8.setText("DANH SÁCH SÁCH MƯỢN");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 128;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.ipady = 16;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(46, 202, 0, 0);
-        add(jLabel8, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        add(name, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        add(jLabel9, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        add(jLabel10, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        add(nameJlabel, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        add(jLabel11, gridBagConstraints);
 
         emailJlabel.setText("jLabel12");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 8;
-        gridBagConstraints.ipadx = 127;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 15, 0, 0);
-        add(emailJlabel, gridBagConstraints);
 
         birthdayJlabel.setText("jLabel12");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.ipadx = 109;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 2, 0, 0);
-        add(birthdayJlabel, gridBagConstraints);
 
         phoneJlabel.setText("jLabel12");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 15;
-        gridBagConstraints.ipadx = 131;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(29, 6, 0, 0);
-        add(phoneJlabel, gridBagConstraints);
-
-        sexJlabel.setText("jLabel12");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
-        gridBagConstraints.gridy = 10;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.ipadx = 97;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 4, 0, 0);
-        add(sexJlabel, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 14;
-        gridBagConstraints.gridwidth = 64;
-        gridBagConstraints.ipadx = 305;
-        gridBagConstraints.ipady = 6;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 0);
-        add(jSeparator6, gridBagConstraints);
 
         jLabel12.setText("Mật khẩu:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 12;
-        gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(20, 23, 0, 0);
-        add(jLabel12, gridBagConstraints);
 
         passwordLabel.setText("jLabel13");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
-        gridBagConstraints.gridy = 12;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.ipadx = 103;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(20, 4, 0, 0);
-        add(passwordLabel, gridBagConstraints);
 
         showPassCheckBox.setText("xem");
         showPassCheckBox.addActionListener(new java.awt.event.ActionListener() {
@@ -385,43 +283,10 @@ public class InFoUserPanel extends javax.swing.JPanel {
                 showPassCheckBoxActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 14;
-        gridBagConstraints.gridy = 12;
-        gridBagConstraints.gridwidth = 16;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = -31;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 14, 0, 0);
-        add(showPassCheckBox, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 17;
-        gridBagConstraints.gridwidth = 33;
-        gridBagConstraints.ipadx = 309;
-        gridBagConstraints.ipady = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 0, 0, 0);
-        add(jSeparator7, gridBagConstraints);
 
         jLabel13.setText("Địa chỉ:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 15;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 24, 0, 0);
-        add(jLabel13, gridBagConstraints);
 
         addressJlabel.setText("jLabel14");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
-        gridBagConstraints.gridy = 15;
-        gridBagConstraints.gridwidth = 11;
-        gridBagConstraints.ipadx = 126;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 2, 0, 0);
-        add(addressJlabel, gridBagConstraints);
 
         changName.setText(".....");
         changName.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -429,12 +294,6 @@ public class InFoUserPanel extends javax.swing.JPanel {
                 changNameMouseClicked(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 31;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(62, 12, 0, 0);
-        add(changName, gridBagConstraints);
 
         changEmail.setText(".....");
         changEmail.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -442,28 +301,13 @@ public class InFoUserPanel extends javax.swing.JPanel {
                 changEmailMouseClicked(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 31;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 65;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 18, 0, 0);
-        add(changEmail, gridBagConstraints);
 
-        changeBirth.setText(".....");
+        changeBirth.setText("......");
         changeBirth.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 changeBirthMouseClicked(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 31;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 97;
-        gridBagConstraints.ipadx = -1;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 20, 0, 0);
-        add(changeBirth, gridBagConstraints);
 
         changePhone.setText(".....");
         changePhone.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -471,22 +315,6 @@ public class InFoUserPanel extends javax.swing.JPanel {
                 changePhoneMouseClicked(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 31;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 65;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(29, 18, 0, 0);
-        add(changePhone, gridBagConstraints);
-
-        changeSex.setText(".....");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 31;
-        gridBagConstraints.gridy = 10;
-        gridBagConstraints.gridwidth = 34;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 17, 0, 0);
-        add(changeSex, gridBagConstraints);
 
         changPassword.setText(".....");
         changPassword.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -494,23 +322,8 @@ public class InFoUserPanel extends javax.swing.JPanel {
                 changPasswordMouseClicked(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 31;
-        gridBagConstraints.gridy = 12;
-        gridBagConstraints.gridwidth = 34;
-        gridBagConstraints.ipadx = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(20, 14, 0, 0);
-        add(changPassword, gridBagConstraints);
 
         changeAddress.setText(".....");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 31;
-        gridBagConstraints.gridy = 15;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 15, 0, 0);
-        add(changeAddress, gridBagConstraints);
 
         UpdateInfo.setBackground(new java.awt.Color(0, 153, 51));
         UpdateInfo.setForeground(new java.awt.Color(51, 51, 51));
@@ -520,31 +333,55 @@ public class InFoUserPanel extends javax.swing.JPanel {
                 UpdateInfoActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
-        gridBagConstraints.gridy = 18;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(25, 58, 152, 0);
-        add(UpdateInfo, gridBagConstraints);
 
-        showBorrowedDocumentListTable.setBackground(new java.awt.Color(153, 153, 153));
-        showBorrowedDocumentListTable.setModel(new javax.swing.table.DefaultTableModel(
+        nameUserJlabel.setText("jLabel1");
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel14.setText("THÔNG TIN CÁ NHÂN");
+
+        borrowedDocumentTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Tên sách"
+                "STT", "ID", "Tên sách", "Ngày Mượn", "Ngày Trả"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -555,49 +392,175 @@ public class InFoUserPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        showBorrowedDocumentListTable.setPreferredSize(new java.awt.Dimension(60, 60));
-        showBorrowedDocumentListTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        showBorrowedDocumentListTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(showBorrowedDocumentListTable);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 128;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.gridheight = 13;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.ipadx = 408;
-        gridBagConstraints.ipady = 282;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 71, 0, 0);
-        add(jScrollPane1, gridBagConstraints);
-
-        nameUserJlabel.setText("jLabel1");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 7;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 24;
-        gridBagConstraints.ipadx = 154;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(62, 12, 0, 0);
-        add(nameUserJlabel, gridBagConstraints);
-
-        showBorrowedDocumenList.setBackground(new java.awt.Color(0, 204, 0));
-        showBorrowedDocumenList.setForeground(new java.awt.Color(51, 51, 51));
-        showBorrowedDocumenList.setText("Xem");
-        showBorrowedDocumenList.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                showBorrowedDocumenListActionPerformed(evt);
+        borrowedDocumentTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                borrowedDocumentTableMouseClicked(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 128;
-        gridBagConstraints.gridy = 18;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(16, 247, 0, 0);
-        add(showBorrowedDocumenList, gridBagConstraints);
+        borrowedJScroll.setViewportView(borrowedDocumentTable);
+        if (borrowedDocumentTable.getColumnModel().getColumnCount() > 0) {
+            borrowedDocumentTable.getColumnModel().getColumn(0).setPreferredWidth(50);
+            borrowedDocumentTable.getColumnModel().getColumn(1).setPreferredWidth(50);
+            borrowedDocumentTable.getColumnModel().getColumn(2).setPreferredWidth(300);
+            borrowedDocumentTable.getColumnModel().getColumn(3).setPreferredWidth(150);
+            borrowedDocumentTable.getColumnModel().getColumn(4).setPreferredWidth(150);
+        }
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(birthdayJlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(changeBirth)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(emailJlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(73, 73, 73)
+                                        .addComponent(changEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(changName))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(nameUserJlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel13)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(addressJlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(changeAddress))
+                                .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(phoneJlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(34, 34, 34)
+                                .addComponent(changePhone))
+                            .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jSeparator6)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabel12)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(passwordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(48, 48, 48)
+                                    .addComponent(showPassCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(changPassword)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(borrowedJScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(50, 50, 50))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addComponent(name)
+                    .addComponent(jLabel10)
+                    .addComponent(nameJlabel)
+                    .addComponent(jLabel11)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(UpdateInfo)
+                .addGap(364, 364, 364))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel8))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addComponent(name)
+                    .addComponent(jLabel10)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nameJlabel)
+                    .addComponent(jLabel11))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(nameUserJlabel)
+                            .addComponent(changName))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(phoneJlabel)
+                                .addComponent(jLabel6))
+                            .addComponent(changePhone))
+                        .addGap(3, 3, 3)
+                        .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(changEmail)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel4)
+                                .addComponent(emailJlabel)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(birthdayJlabel)
+                            .addComponent(jLabel5)
+                            .addComponent(changeBirth))
+                        .addGap(6, 6, 6)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(changeAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel13)
+                                .addComponent(addressJlabel)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(changPassword)
+                                .addComponent(showPassCheckBox))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel12)
+                                .addComponent(passwordLabel)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(13, 13, 13)
+                .addComponent(UpdateInfo)
+                .addGap(23, 23, 23)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(borrowedJScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     public void setAvata() {
@@ -768,32 +731,42 @@ public class InFoUserPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_UpdateInfoActionPerformed
 
-    private void showBorrowedDocumenListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showBorrowedDocumenListActionPerformed
+    private void borrowedDocumentTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_borrowedDocumentTableMouseClicked
         // TODO add your handling code here:
-        DefaultTableModel defaultTableModel = new DefaultTableModel();
-         showBorrowedDocumentListTable.setModel(defaultTableModel);
-         showBorrowedDocumentListTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-         defaultTableModel.addColumn("STT");
-         defaultTableModel.addColumn("ID");
-         defaultTableModel.addColumn("Tên sách");
-         defaultTableModel.addColumn("Ngày mượn");
-        
-         ArrayList<Document> borrowedDocumentList = user.getBorrowedDocument();
-         int i = 1;
-         
-         
-         for(Document document : borrowedDocumentList) {
-             
-             defaultTableModel.addRow(new Object[] {i, document.getID(),
-                                                    document.getTitle()});
-             i++;
-         }
-         
-         
-    }//GEN-LAST:event_showBorrowedDocumenListActionPerformed
-    public void showBorrowedDocumentList () {
-       
-    }
+        if (evt.getClickCount() == 2) {
+            int selectedRow = borrowedDocumentTable.getSelectedRow(); // Lấy chỉ số dòng đã chọn
+    
+            if (selectedRow != -1) {
+                // Lấy ID của sách từ cột "ID" trong dòng đã chọn
+                int documentID = (int) borrowedDocumentTable.getValueAt(selectedRow, 1);
+                
+                // Tìm kiếm Document tương ứng với documentID trong borrowedDocument
+                ArrayList<Document> borrowedDocuments = user.getBorrowedDocument();
+                Document selectedDocument = null;
+    
+                for (Document doc : borrowedDocuments) {
+                    if (doc.getID() == documentID) {
+                        selectedDocument = doc;
+                        break;
+                    }
+                }
+    
+                // Kiểm tra nếu tìm thấy Document tương ứng
+                if (selectedDocument != null) {
+                    DisplayDocumentPanel.setDocument(selectedDocument);
+                    DisplayDocumentPanel.displayDocument(true);
+                    CardLayout cl = (CardLayout) mainPanel.getLayout();
+                    cl.show(mainPanel, "displayDocumentPanel");
+                    isFromInfoUser = true;
+                    
+                    return;
+                } else {
+                    System.out.println("Không tìm thấy Document với ID: " + documentID);
+                }
+            }
+        }
+    }//GEN-LAST:event_borrowedDocumentTableMouseClicked
+
     public static void setDefaultInfo() {
         user = LoginPanel.userOverAll;
         beforeUpdateUser = LoginPanel.userOverAll;
@@ -820,33 +793,32 @@ public class InFoUserPanel extends javax.swing.JPanel {
     private javax.swing.JLabel avataJlabel;
     private javax.swing.JButton backButton;
     private static javax.swing.JLabel birthdayJlabel;
+    private static javax.swing.JTable borrowedDocumentTable;
+    private static javax.swing.JScrollPane borrowedJScroll;
     private javax.swing.JLabel changEmail;
     private javax.swing.JLabel changName;
     private javax.swing.JLabel changPassword;
     private javax.swing.JLabel changeAddress;
     private javax.swing.JLabel changeBirth;
     private javax.swing.JLabel changePhone;
-    private javax.swing.JLabel changeSex;
     private static javax.swing.JLabel emailJlabel;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private static javax.swing.JLabel manageNameLabel;
@@ -855,9 +827,6 @@ public class InFoUserPanel extends javax.swing.JPanel {
     private static javax.swing.JLabel nameUserJlabel;
     private static javax.swing.JLabel passwordLabel;
     private static javax.swing.JLabel phoneJlabel;
-    private static javax.swing.JLabel sexJlabel;
-    private javax.swing.JButton showBorrowedDocumenList;
-    private javax.swing.JTable showBorrowedDocumentListTable;
     private static javax.swing.JCheckBox showPassCheckBox;
     // End of variables declaration//GEN-END:variables
 }
