@@ -8,6 +8,7 @@ import BTL_OOP.main.Main;
 import BTL_OOP.main.ui.login.LoginPanel;
 import BTL_OOP.main.models.user.User;
 import BTL_OOP.main.dao.DocumentDAO;
+import BTL_OOP.main.services.CheckInput;
 import BTL_OOP.main.models.document.Book;
 import BTL_OOP.main.models.document.Document;
 import java.awt.CardLayout;
@@ -53,8 +54,6 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
 
         trangchu.setBackground(new Color(255, 255, 255));       // Màu nền cho item
         trangchu.setForeground(Color.BLACK);                 // Màu chữ cho item
-        quanLySach.setBackground(new Color(255, 255, 255));
-        quanLySach.setForeground(Color.BLACK);
         themSach.setBackground(new Color(255, 255, 255));       // Màu nền cho item
         themSach.setForeground(Color.BLACK);                 // Màu chữ cho item
         timsach.setBackground(new Color(255, 255, 255));
@@ -65,10 +64,8 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
         nguoidung.setForeground(Color.BLACK);
         
         manageMenu.add(trangchu);
-        manageMenu.add(quanLySach);
         manageMenu.add(themSach);
         manageMenu.add(timsach);
-        manageMenu.add(quanLySach);
         manageMenu.add(nguoidung);
     }
 
@@ -111,7 +108,6 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
         manageMenu = new javax.swing.JPopupMenu();
         trangchu = new javax.swing.JMenuItem();
         themSach = new javax.swing.JMenuItem();
-        quanLySach = new javax.swing.JMenuItem();
         timsach = new javax.swing.JMenuItem();
         thongtin = new javax.swing.JMenuItem();
         nguoidung = new javax.swing.JMenuItem();
@@ -176,14 +172,6 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
             }
         });
         manageMenu.add(themSach);
-
-        quanLySach.setText("Quản lý tài liệu");
-        quanLySach.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                quanLySachActionPerformed(evt);
-            }
-        });
-        manageMenu.add(quanLySach);
 
         timsach.setText("Tìm sách");
         timsach.addActionListener(new java.awt.event.ActionListener() {
@@ -766,15 +754,6 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_trangchuActionPerformed
     
     /**
-     * Chuyển sang trang quản lý tài liệu.
-     * @param evt mouseclick
-     */
-    private void quanLySachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quanLySachActionPerformed
-        CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
-        cl.show(mainPanel, "manageDocumentPanel");
-    }//GEN-LAST:event_quanLySachActionPerformed
-
-    /**
      * Chuyển sang trang tìm kiếm.
      * @param evt mouseclick
      */
@@ -908,10 +887,32 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
     private void confirmEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmEditActionPerformed
             Book Abook = new Book();
             Abook.setID((Integer) infoDocument.getValueAt(rowNow, 0));
+            if (!CheckInput.checkUserName(nameDialog1.getText())) {
+                JOptionPane.showMessageDialog(mainPanel, "Lỗi tên người dùng!");
+                return;
+            }
+            
             Abook.setTitle(nameDialog1.getText());
+            
+            if (!CheckInput.checkFullName(authorDialog1.getText())) {
+                JOptionPane.showMessageDialog(mainPanel, "Lỗi nhập tên tác giả!");
+                return;
+            }
             Abook.setAuthor(authorDialog1.getText());
+            
             Abook.setPublisher(publisherDialog1.getText());
+            
+            if (!CheckInput.checkBirthday(publishedDateDialog1.getText())) {
+                JOptionPane.showMessageDialog(mainPanel, "Lỗi ngày xuất bản!");
+                return;
+            }
             Abook.setPublishedDate(publishedDateDialog1.getText());
+            
+            if (!CheckInput.checkINT(quantityDialog1.getText())) {
+                JOptionPane.showMessageDialog(mainPanel, "Số lượng tài liệu không hợp lệ!");
+                return;
+            }
+            
             Abook.setQuantity(Integer.parseInt(quantityDialog1.getText()));
             Abook.setCategory(categoryDialog1.getText());
             Abook.setDescription(infoDocument.getValueAt(rowNow, 8).toString());
@@ -964,7 +965,6 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
     private javax.swing.JTextField publishedDateDialog1;
     private javax.swing.JLabel publisherDialog;
     private javax.swing.JTextField publisherDialog1;
-    private javax.swing.JMenuItem quanLySach;
     private javax.swing.JLabel quantityDialog;
     private javax.swing.JTextField quantityDialog1;
     private javax.swing.JLabel questionDiaLog;

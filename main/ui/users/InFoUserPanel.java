@@ -581,12 +581,13 @@ public class InFoUserPanel extends javax.swing.JPanel {
     private void changNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changNameMouseClicked
         // TODO add your handling code here:
            try {
-               String newName = JOptionPane.showInputDialog(this,"Đổi tên người dùng.", "Nhập tên bạn muốn đổi", JOptionPane.INFORMATION_MESSAGE,null, null, nameJlabel.getText()).toString();
+               String newName = JOptionPane.showInputDialog(this,"Đổi tên người dùng.", "Nhập tên bạn muốn đổi: \n" 
+                       + "VD: Ngo Viet Thuyet", JOptionPane.INFORMATION_MESSAGE,null, null, user.getName()).toString();
                if (!CheckInput.checkFullName(newName)) {
                 JOptionPane.showMessageDialog(mainPanel, "Tên không hợp lệ!");
-                } 
+                } else {
                user.setName(newName);
-               nameUserJlabel.setText(newName);
+               nameUserJlabel.setText(newName); }
            } 
            catch (Exception e) {
                System.out.print("");
@@ -644,10 +645,11 @@ public class InFoUserPanel extends javax.swing.JPanel {
             
             if (!CheckInput.checkEmail(newEmail)) {
                 JOptionPane.showMessageDialog(mainPanel, "Email không hợp lệ!");
-            }
+                
+            } else {
             user.setEmail(newEmail);
            // System.out.print(user.getName());
-            emailJlabel.setText(newEmail);
+            emailJlabel.setText(user.getEmail());}
          } 
          catch (Exception e) {
                System.out.print("");
@@ -655,17 +657,17 @@ public class InFoUserPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_changEmailMouseClicked
 
     private void changePhoneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changePhoneMouseClicked
-            String note = "Nhập số điện thoại bạn muốn đối : "
-                    + "'0325349605";
+            String note = "Nhập số điện thoại bạn muốn đối : \n"
+                    + "VD: 0325349605";
             try {
-            String newName = JOptionPane.showInputDialog(this,"Đổi số điện thoại người dùng.", note, JOptionPane.INFORMATION_MESSAGE,null, null, user.getPhone()).toString();
+            String newName = JOptionPane.showInputDialog(this, note, "Đổi số điện thoại người dùng.", JOptionPane.INFORMATION_MESSAGE,null, null, user.getPhone()).toString();
 
             if (!CheckInput.checkNumberPhone(newName)) {
                 JOptionPane.showMessageDialog(mainPanel, "SDT không hợp lệ!");
-            }
+            } else {
             user.setPhone(newName);
            // System.out.print(user.getName());
-            phoneJlabel.setText(newName);
+            phoneJlabel.setText(newName);}
             }
             catch (Exception e) {
                System.out.print("");
@@ -685,14 +687,16 @@ public class InFoUserPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
          // TODO add your handling code here:
          try {
-            String newName = JOptionPane.showInputDialog(this,"Đổi ngày sinh người dùng.", "Nhập ngày sinh bạn muốn đổi", JOptionPane.INFORMATION_MESSAGE,null, null, user.getBirthday()).toString();
+             String note = "Nhập ngày sinh bạn muốn đổi: \n" 
+                     + "VD: 30/04/2005";
+            String newName = JOptionPane.showInputDialog(this,note, "Đổi ngày sinh người dùng." , JOptionPane.INFORMATION_MESSAGE,null, null, user.getBirthday()).toString();
             
             if (!CheckInput.checkBirthday(newName)) {
                 JOptionPane.showMessageDialog(mainPanel, "Ngày sinh không hợp lệ!");
-            }
+            } else {
             user.setBirthday(newName);
            // System.out.print(user.getName());
-            birthdayJlabel.setText(newName);
+            birthdayJlabel.setText(newName); }
          } catch (Exception e) {
                System.out.print("");
            }

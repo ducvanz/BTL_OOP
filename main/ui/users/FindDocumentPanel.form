@@ -101,8 +101,8 @@
                                       <Component id="imageJLabel6" alignment="1" min="-2" pref="110" max="-2" attributes="0"/>
                                       <Component id="imageJLabel2" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="titleJLabel2" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="titleJLabel6" max="32767" attributes="0"/>
+                                  <Component id="titleJLabel2" alignment="0" min="-2" pref="110" max="-2" attributes="0"/>
+                                  <Component id="titleJLabel6" min="-2" pref="110" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -194,43 +194,43 @@
                   <Component id="resultFindDocumentJList" alignment="3" min="-2" pref="17" max="-2" attributes="0"/>
                   <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="17" max="32767" attributes="0"/>
+              <EmptySpace pref="19" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="imageJLabel1" min="-2" pref="150" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="titleJLabel1" min="-2" max="-2" attributes="0"/>
+                      <Component id="titleJLabel1" min="-2" pref="15" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                       <Component id="imageJLabel5" min="-2" pref="150" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="titleJLabel5" min="-2" max="-2" attributes="0"/>
+                      <Component id="titleJLabel5" min="-2" pref="15" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="imageJLabel2" min="-2" pref="150" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="titleJLabel2" min="-2" max="-2" attributes="0"/>
+                      <Component id="titleJLabel2" min="-2" pref="15" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                       <Component id="imageJLabel6" min="-2" pref="150" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="titleJLabel6" min="-2" max="-2" attributes="0"/>
+                      <Component id="titleJLabel6" min="-2" pref="15" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="imageJLabel3" min="-2" pref="150" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-                      <Component id="titleJLabel3" min="-2" max="-2" attributes="0"/>
+                      <Component id="titleJLabel3" min="-2" pref="15" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="imageJLabel7" min="-2" pref="150" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="titleJLabel7" min="-2" max="-2" attributes="0"/>
+                      <Component id="titleJLabel7" min="-2" pref="15" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="imageJLabel4" min="-2" pref="150" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="titleJLabel4" min="-2" max="-2" attributes="0"/>
+                      <Component id="titleJLabel4" min="-2" pref="15" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                       <Component id="imageJLabel8" min="-2" pref="150" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="titleJLabel8" min="-2" max="-2" attributes="0"/>
+                      <Component id="titleJLabel8" min="-2" pref="15" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>

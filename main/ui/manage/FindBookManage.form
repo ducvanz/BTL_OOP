@@ -16,11 +16,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="trangchuActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JMenuItem" name="themSach">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Th&#xea;m s&#xe1;ch"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JMenuItem" name="quanLy">
       <Properties>
         <Property name="text" type="java.lang.String" value="Qu&#x1ea3;n l&#xfd; t&#xe0;i li&#x1ec7;u"/>
@@ -49,6 +44,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Ng&#x1b0;&#x1edd;i d&#xf9;ng"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nguoidungActionPerformed"/>
+      </Events>
     </Component>
   </NonVisualComponents>
   <Properties>

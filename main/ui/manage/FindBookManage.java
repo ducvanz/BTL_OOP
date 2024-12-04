@@ -109,8 +109,7 @@ public class FindBookManage extends javax.swing.JPanel {
         trangchu.setForeground(Color.BLACK);                 // Màu chữ cho item
         quanLy.setBackground(new Color(255, 255, 255));
         quanLy.setForeground(Color.BLACK);
-        themSach.setBackground(new Color(255, 255, 255));       // Màu nền cho item
-        themSach.setForeground(Color.BLACK);                 // Màu chữ cho item
+          // Màu chữ cho item
         timsach.setBackground(new Color(255, 255, 255));
         timsach.setForeground(Color.BLACK);
         thongTin.setBackground(new Color(255, 255, 255));
@@ -120,7 +119,6 @@ public class FindBookManage extends javax.swing.JPanel {
         
         manageMenu.add(trangchu);
         manageMenu.add(quanLy);
-        manageMenu.add(themSach);
         manageMenu.add(timsach);
         manageMenu.add(thongTin);
         manageMenu.add(nguoidung);
@@ -146,9 +144,7 @@ public class FindBookManage extends javax.swing.JPanel {
             // Địa chỉ ảnh mặc định
             //String imagePath = "C:\\Users\\Admin\\NetBean\\DEMO_BTL\\src\\BTL_OOP\\image\\" + ima;  // Thay đổi đường dẫn ảnh mặc định của bạn
             //Sua dong nay di 
-//            String imagePath = "D:\\OOP\\BTLOOP\\src\\BTL_OOP\\image\\" + ima;  // Thay đổi đường dẫn ảnh mặc định của bạn
-
-            String imagePath = "C:\\Users\\thinh\\JAVA\\SWING\\src\\BTL_OOP\\image\\" + ima;  // Thay đổi đường dẫn ảnh mặc định của bạn
+            String imagePath = "D:\\OOP\\BTL_OOP\\src\\BTL_OOP\\image\\" + ima;  // Thay đổi đường dẫn ảnh mặc định của bạn
 
 
 
@@ -201,7 +197,6 @@ public class FindBookManage extends javax.swing.JPanel {
 
         manageMenu = new javax.swing.JPopupMenu();
         trangchu = new javax.swing.JMenuItem();
-        themSach = new javax.swing.JMenuItem();
         quanLy = new javax.swing.JMenuItem();
         timsach = new javax.swing.JMenuItem();
         thongTin = new javax.swing.JMenuItem();
@@ -242,8 +237,6 @@ public class FindBookManage extends javax.swing.JPanel {
             }
         });
 
-        themSach.setText("Thêm sách");
-
         quanLy.setText("Quản lý tài liệu");
         quanLy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -266,6 +259,11 @@ public class FindBookManage extends javax.swing.JPanel {
         });
 
         nguoidung.setText("Người dùng");
+        nguoidung.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nguoidungActionPerformed(evt);
+            }
+        });
 
         setBackground(new java.awt.Color(204, 204, 204));
 
@@ -780,7 +778,8 @@ public class FindBookManage extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void thongTinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thongTinActionPerformed
-        
+        CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
+            cl.show(mainPanel, "inFoUserPanel");
     }//GEN-LAST:event_thongTinActionPerformed
 
     private void quanLyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quanLyActionPerformed
@@ -822,6 +821,13 @@ public class FindBookManage extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_logOutButtonMouseClicked
+
+    private void nguoidungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nguoidungActionPerformed
+        // TODO add your handling code here:
+        CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
+            cl.show(mainPanel, "userManagementPanel");
+        
+    }//GEN-LAST:event_nguoidungActionPerformed
 
     
     public void enterUpLoad() {
@@ -1050,7 +1056,6 @@ public class FindBookManage extends javax.swing.JPanel {
     private javax.swing.JPopupMenu manageMenu;
     private javax.swing.JMenuItem nguoidung;
     private javax.swing.JMenuItem quanLy;
-    private javax.swing.JMenuItem themSach;
     private javax.swing.JMenuItem thongTin;
     private javax.swing.JMenuItem timsach;
     private javax.swing.JMenuItem trangchu;

@@ -8,7 +8,13 @@ import BTL_OOP.main.Main;
 import BTL_OOP.main.dao.ManageDAO;
 import BTL_OOP.main.ui.login.LoginPanel;
 import BTL_OOP.main.models.user.User;
-import BTL_OOP.users.UserPanel;
+import BTL_OOP.main.ui.users.UserPanel;
+import java.awt.CardLayout;
+import java.util.Map;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import BTL_OOP.main.services.CheckInput;
+import BTL_OOP.main.ui.users.UserPanel;
 import java.awt.CardLayout;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -105,7 +111,6 @@ public class UserManagementPanel extends javax.swing.JPanel {
         quanLySach = new javax.swing.JMenuItem();
         timsach = new javax.swing.JMenuItem();
         thongtin = new javax.swing.JMenuItem();
-        nguoidung = new javax.swing.JMenuItem();
         removeDialog = new javax.swing.JDialog();
         questionDiaLog = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
@@ -214,9 +219,6 @@ public class UserManagementPanel extends javax.swing.JPanel {
             }
         });
         manageMenu.add(thongtin);
-
-        nguoidung.setText("Quản lý người dùng");
-        manageMenu.add(nguoidung);
 
         removeDialog.setSize(new java.awt.Dimension(500, 350));
 
@@ -941,9 +943,29 @@ public class UserManagementPanel extends javax.swing.JPanel {
     private void confirmEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmEditActionPerformed
         User user = new User();
         user.setID(Integer.parseInt(infoUser.getValueAt(rowNow, 0).toString()));
+        if (!CheckInput.checkFullName(nameDialog1.getText())) {
+            JOptionPane.showMessageDialog(mainPanel, "Họ và tên không hợp lệ!");
+            return;
+        }
         user.setName(nameDialog1.getText());
+        if (!CheckInput.checkEmail(emailDialog1.getText())) {
+            if (emailDialog1.getText() == null) {
+                emailDialog1.setText("N/A");
+            } else {
+                JOptionPane.showMessageDialog(mainPanel, "Email không hợp lệ!");
+            }
+            return;
+        }
         user.setEmail(emailDialog1.getText());
         user.setAddress(addressDialog1.getText());
+        
+        if (!CheckInput.checkBirthday(birtDialog1.getText())) {
+            if (birtDialog1.getText() == null) {}
+            else {
+                JOptionPane.showMessageDialog(mainPanel, "Ngày sinh hợp lệ là: năm-tháng-ngày");
+                return;
+            }
+        }
         user.setBirthday(birtDialog1.getText());
         try {
             int borrowedDocs = Integer.parseInt(totalDialog1.getText());
@@ -954,6 +976,9 @@ public class UserManagementPanel extends javax.swing.JPanel {
 
         user.setPassword(passDialog1.getText());
         user.setUsername(infoUser.getValueAt(rowNow, 1).toString());
+        if (!CheckInput.checkNumberPhone(phone.getText())) {
+            JOptionPane.showMessageDialog(mainPanel, "Số điện thoại không hợp lệ!");
+        }
         user.setPhone(phone.getText());
         
         manageDao.updateUser(user);
@@ -1002,6 +1027,7 @@ public class UserManagementPanel extends javax.swing.JPanel {
 
         // Hiển thị dialog
         removeDialog.setLocationRelativeTo(mainFrame);
+        resetEditDialog();
         removeDialog.setVisible(true);
     }//GEN-LAST:event_removeUserButtonActionPerformed
 
@@ -1048,6 +1074,7 @@ public class UserManagementPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_nameDialog1ActionPerformed
 
     private void cancelEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelEditActionPerformed
+        resetEditDialog();
         editDialog.setVisible(false);
     }//GEN-LAST:event_cancelEditActionPerformed
 
@@ -1057,31 +1084,88 @@ public class UserManagementPanel extends javax.swing.JPanel {
      */
     private void confirmEdit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmEdit1ActionPerformed
         User user = new User();
+        if (!CheckInput.checkFullName(nameDialog2.getText())) {
+            JOptionPane.showMessageDialog(mainPanel, "Vui lòng điền đúng định dạng tên!");
+            return;
+        }
         user.setName(nameDialog2.getText());
+        if (!CheckInput.checkEmail(emailDialog2.getText())) {
+            if (emailDialog2.getText() == null) {
+                emailDialog2.setText("N/A");
+            } else {
+                JOptionPane.showMessageDialog(mainPanel, "Email không hợp lệ!");
+            }
+            return;
+        }
         user.setEmail(emailDialog2.getText());
         user.setAddress(addressDialog2.getText());
+        
+        if (!CheckInput.checkBirthday(birtDialog2.getText())) {
+            if (birtDialog2.getText() == null) {}
+            else {
+                JOptionPane.showMessageDialog(mainPanel, "Ngày sinh hợp lệ là: năm-tháng-ngày");
+                return;
+            }
+        }
         user.setBirthday(birtDialog2.getText());
         try {
             int borrowedDocs = Integer.parseInt(totalDialog2.getText());
             user.setNumberBorrowed(borrowedDocs);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(mainPanel, "Nhập sai Số sách mượn!");
+            return;
         }
 
         user.setPassword(passDialog2.getText());
+        if (!CheckInput.checkUserName(accountDialog2.getText())) {
+            JOptionPane.showMessageDialog(mainPanel, "Tên đăng nhập không hợp lệ!");
+            return;
+        }
         user.setUsername(accountDialog2.getText().toString());
+        
+        if (!CheckInput.checkNumberPhone(phoneDialog2.getText())) {
+            if (phoneDialog2.getText() == null) {}
+            else {
+                JOptionPane.showMessageDialog(mainPanel, "Số điện thoại không hợp lệ!");
+            }
+        }
         user.setPhone(phone.getText());
         
         manageDao.addUser(user);
         loadUserTable();
+        resetAddUserDialog();
         addDialog1.setVisible(false);
     }//GEN-LAST:event_confirmEdit1ActionPerformed
 
+    /**
+     * Xoá thông tin cũ ở dialog add.
+     */
+    private void resetAddUserDialog() {
+        nameDialog2.setText("");
+        passDialog2.setText("");
+        emailDialog2.setText("");
+        phoneDialog2.setText("");
+        addressDialog2.setText("");
+        birtDialog2.setText("");
+        totalDialog2.setText("");
+        accountDialog2.setText("");
+    }
+    
+    private void resetEditDialog() {
+        nameDialog1.setText("");
+        passDialog1.setText("");
+        emailDialog1.setText("");
+        phoneDialog1.setText("");
+        addressDialog1.setText("");
+        birtDialog1.setText("");
+        totalDialog1.setText("");
+    }
     private void cancelEdit1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelEdit1MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_cancelEdit1MouseClicked
 
     private void cancelEdit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelEdit1ActionPerformed
+        resetAddUserDialog();
         addDialog1.setVisible(false);
     }//GEN-LAST:event_cancelEdit1ActionPerformed
 
@@ -1134,7 +1218,6 @@ public class UserManagementPanel extends javax.swing.JPanel {
     private javax.swing.JLabel nameDialog;
     private javax.swing.JTextField nameDialog1;
     private javax.swing.JTextField nameDialog2;
-    private javax.swing.JMenuItem nguoidung;
     private javax.swing.JLabel pass;
     private javax.swing.JLabel pass1;
     private javax.swing.JTextField passDialog1;
