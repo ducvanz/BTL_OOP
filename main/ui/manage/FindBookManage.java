@@ -143,9 +143,9 @@ public class FindBookManage extends javax.swing.JPanel {
         try {
             // Địa chỉ ảnh mặc định
 //            String imagePath = "C:\\Users\\Admin\\NetBean\\DEMO_BTL\\src\\BTL_OOP\\image\\" + ima; 
-              String imagePath = "C:\\Users\\Admin\\NetBean\\BTL2\\src\\BTL_OOP\\image\\" + ima;
+            //  String imagePath = "C:\\Users\\Admin\\NetBean\\BTL2\\src\\BTL_OOP\\image\\" + ima;
             //Sua dong nay di 
-//            String imagePath = "D:\\OOP\\BTL_OOP\\src\\BTL_OOP\\image\\" + ima;  // Thay đổi đường dẫn ảnh mặc định của bạn
+            String imagePath = "D:\\OOP\\ahihi\\src\\BTL_OOP\\image\\" + ima;  // Thay đổi đường dẫn ảnh mặc định của bạn
 
 
 
