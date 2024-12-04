@@ -193,6 +193,11 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
         manageMenu.add(thongtin);
 
         nguoidung.setText("Người dùng");
+        nguoidung.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nguoidungActionPerformed(evt);
+            }
+        });
         manageMenu.add(nguoidung);
 
         removeDialog.setSize(new java.awt.Dimension(500, 350));
@@ -778,7 +783,8 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
 
     
     private void thongtinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thongtinActionPerformed
-
+         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
+        cl.show(mainPanel, "inFoUserPanel");
     }//GEN-LAST:event_thongtinActionPerformed
 
     /**
@@ -946,6 +952,12 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
     private void cancelEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelEditMouseClicked
         editDialog.setVisible(false);
     }//GEN-LAST:event_cancelEditMouseClicked
+
+    private void nguoidungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nguoidungActionPerformed
+        // TODO add your handling code here:
+        CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
+        cl.show(mainPanel, "userManagementPanel");
+    }//GEN-LAST:event_nguoidungActionPerformed
 
 
 

@@ -928,7 +928,8 @@ public class UserManagementPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_timsachActionPerformed
 
     private void thongtinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thongtinActionPerformed
-
+        CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
+        cl.show(mainPanel, "inFoUserPanel");
     }//GEN-LAST:event_thongtinActionPerformed
 
     

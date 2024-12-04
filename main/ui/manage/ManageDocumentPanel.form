@@ -44,6 +44,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Ng&#x1b0;&#x1edd;i d&#xf9;ng"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nguoidungActionPerformed"/>
+          </Events>
         </MenuItem>
       </SubComponents>
     </Container>
