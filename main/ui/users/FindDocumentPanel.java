@@ -48,7 +48,14 @@ public class FindDocumentPanel extends JPanel{
         FindBookManage.resizeLabelIcon(avata, 56, 56);
     }
 
-    // Dùng đa luồng để hiển thị danh sách trả về từ API và 
+    /**
+     * Dùng đa luồng để hiển thị sách trả về từ API.
+     * @param title
+     * @param author
+     * @param ISBN
+     * @param category
+     * @param language 
+     */
     public void displayResultFindDocument(String title, String author, String ISBN, String category, String language) {
         // Tạo một SwingWorker để thực hiện tìm kiếm trong nền
         SwingWorker<ArrayList<Document>, Void> worker;
@@ -114,7 +121,11 @@ public class FindDocumentPanel extends JPanel{
         
     }
     
-    // Map lưu <title, image> để hiển thị recomment 
+    /**
+     * Hiển thị sách gới ý.
+     * sử dụng 1 map gồm 2 label ghi lại thông tin về tên và ảnh
+     * @return 
+     */
     public static Map<JLabel, JLabel> getListRecomentDocumentJLabel() {
         Map<JLabel, JLabel> result = new LinkedHashMap<>();
         result.put(titleJLabel1, imageJLabel1);
@@ -128,7 +139,9 @@ public class FindDocumentPanel extends JPanel{
         return result;
     }
     
-    //Hiển thị sách gơij ý dựa vào lịch sử đang và đã mượn
+    /**
+     * Hiển thị sách gơij ý dựa vào lịch sử đang và đã mượn.
+     */
     public static void displayRecommentDocument() {
         // Lấy tất cả tài liệu từ cơ sở dữ liệu và lịch sử mượn trả
         ArrayList<Document> allDocument = DocumentDAO.getAllDocuments();
@@ -528,6 +541,10 @@ public class FindDocumentPanel extends JPanel{
         getAccessibleContext().setAccessibleName("findDocumentPanel1");
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Nhấn nút back thì xác định trạng thái và tiến hành chuyển trang.
+     * @param evt 
+     */
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         DisplayDocumentPanel.isFromHome = true;
         titleJTextField.setText("");

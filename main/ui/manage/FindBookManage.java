@@ -101,6 +101,9 @@ public class FindBookManage extends javax.swing.JPanel {
         }
     }
     
+    /**
+     * Set backgroud cho menu
+     */
     public void addMenuItem() {
         manageMenu.setBackground(new Color(50, 50, 50));  // Màu nền cho menu
         manageMenu.setForeground(Color.WHITE);            // Màu chữ cho menu
@@ -132,13 +135,11 @@ public class FindBookManage extends javax.swing.JPanel {
         jLabel2.setText(name);
     }
     
-    
-    // 
-    public void setTable() {
-        
-        
-    }
-    
+    /**
+     * Thiết kế giao diện mặc định cho trang.
+     * @param ima
+     * @param label 
+     */
     public void desDefault(String ima, JLabel label) {
         try {
             // Địa chỉ ảnh mặc định
@@ -301,9 +302,6 @@ public class FindBookManage extends javax.swing.JPanel {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 jLabel4MouseEntered(evt);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel4MouseExited(evt);
-            }
         });
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -382,41 +380,12 @@ public class FindBookManage extends javax.swing.JPanel {
 
         jLabel12.setText("Mô tả: file .dox");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-
         jTextField2.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
-            }
-        });
-
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
-            }
-        });
 
         jButton3.setText("up file");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
-            }
-        });
-
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
-            }
-        });
-
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
             }
         });
 
@@ -577,37 +546,28 @@ public class FindBookManage extends javax.swing.JPanel {
         getAccessibleContext().setAccessibleName("findBookManage");
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Chuyển sang trang chủ.
+     * @param evt 
+     */
     private void trangchuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trangchuActionPerformed
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
         cl.show(mainPanel, "managePanel");
     }//GEN-LAST:event_trangchuActionPerformed
 
+    /**
+     * Chuyển snag trang tìm kiếm sách.
+     * @param evt 
+     */
     private void timsachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timsachActionPerformed
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
         cl.show(mainPanel, "findDocumentPanel");
     }//GEN-LAST:event_timsachActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
-
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
-
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
-
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
-    // nhan nut -> tai file
+    /**
+     * Mở giao diện để tải file ảnh lên.
+     * @param evt 
+     */
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         
         JFileChooser fileChooser = new JFileChooser();
@@ -650,6 +610,9 @@ public class FindBookManage extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton2MouseClicked
 
+    /*
+    Chuyển ảnh về dạng link.
+    */
         public String imageLabelToBase64String(JLabel jLabel) {
         try {
             // Lấy ImageIcon từ JLabel
@@ -688,10 +651,10 @@ public class FindBookManage extends javax.swing.JPanel {
         }
     }
         
-    private void jLabel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseExited
-
-    }//GEN-LAST:event_jLabel4MouseExited
-
+    /**
+     * Mở menu khi khi chuyển chuột đến.
+     * @param evt 
+     */
     private void jLabel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseEntered
         manageMenu.show(jLabel4, evt.getX(), evt.getY());
     }//GEN-LAST:event_jLabel4MouseEntered
@@ -700,6 +663,10 @@ public class FindBookManage extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField6ActionPerformed
 
+    /**
+     * Thêm sách thủ công.
+     * @param evt 
+     */
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
                 Book Abook = new Book();
                 Abook.setTitle(jTextField2.getText());
@@ -778,11 +745,19 @@ public class FindBookManage extends javax.swing.JPanel {
                 }
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    /**
+     * Chuyển qua trang thông tin người dùng.
+     * @param evt 
+     */
     private void thongTinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thongTinActionPerformed
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
             cl.show(mainPanel, "inFoUserPanel");
     }//GEN-LAST:event_thongTinActionPerformed
 
+    /**
+     * Chuyển qua trang quản lý sách.
+     * @param evt 
+     */
     private void quanLyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quanLyActionPerformed
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
         cl.show(mainPanel, "manageDocumentPanel");
@@ -797,6 +772,10 @@ public class FindBookManage extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    /**
+     * Đăng xuất và reste lại trang.
+     * @param evt 
+     */
     private void logOutButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logOutButtonMouseClicked
         int result = JOptionPane.showConfirmDialog(
                 null,
@@ -823,6 +802,10 @@ public class FindBookManage extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_logOutButtonMouseClicked
 
+    /**
+     * Chuyển sang giao diện quản lý người dùng.
+     * @param evt 
+     */
     private void nguoidungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nguoidungActionPerformed
         // TODO add your handling code here:
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
@@ -830,7 +813,9 @@ public class FindBookManage extends javax.swing.JPanel {
         
     }//GEN-LAST:event_nguoidungActionPerformed
 
-    
+    /**
+     * Nhấn enter để cập nhật danh sách tài liệu.
+     */
     public void enterUpLoad() {
         // Thêm KeyListener để bắt sự kiện nhấn phím Enter trên jTextField1
         jTextField5.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -877,6 +862,9 @@ public class FindBookManage extends javax.swing.JPanel {
         });
     }
     
+    /**
+     * Nhấn enter để thực hiện load tài liệu từ API.
+     */
     public void upDateDataFromAPI() {
         ToolTipManager.sharedInstance().setInitialDelay(0);
 
@@ -1012,6 +1000,9 @@ public class FindBookManage extends javax.swing.JPanel {
         });
     }
     
+    /**
+     * Reset lại trang sau khi thêm sách thành công.
+     */
     public void resetPane() {
         jTextField1.setText("");
         jTextField2.setText("");

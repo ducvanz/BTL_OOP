@@ -559,6 +559,10 @@ public class InFoUserPanel extends javax.swing.JPanel {
         FindBookManage.resizeLabelIcon(avataJlabel, 60, 60);
     }
     
+    /**
+     * Nhấn nút back kiểm tra trạng thái và quay lại.
+     * @param evt 
+     */
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
@@ -569,6 +573,10 @@ public class InFoUserPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_backButtonActionPerformed
 
+    /**
+     * Hiện mật khẩu.
+     * @param evt 
+     */
     private void showPassCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showPassCheckBoxActionPerformed
         // TODO add your handling code here:
         if (showPassCheckBox.isSelected()) {
@@ -578,6 +586,10 @@ public class InFoUserPanel extends javax.swing.JPanel {
         else  passwordLabel.setText("*******");
     }//GEN-LAST:event_showPassCheckBoxActionPerformed
 
+    /**
+     * Ẩn mật khẩu.
+     * @param evt 
+     */
     private void changNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changNameMouseClicked
         // TODO add your handling code here:
            try {
@@ -675,11 +687,9 @@ public class InFoUserPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_changePhoneMouseClicked
 
     private void changPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changPasswordMouseClicked
-        // TODO add your handling code here:
-         // TODO add your handling code here:
+
             String newName = JOptionPane.showInputDialog(this,"Đổi mật khẩu người dùng.", "Nhập mật khẩu bạn muốn đổi", JOptionPane.INFORMATION_MESSAGE,null, null, user.getPassword()).toString();
             user.setPassword(newName);
-           // System.out.print(user.getName());
             passwordLabel.setText(newName);
     }//GEN-LAST:event_changPasswordMouseClicked
 

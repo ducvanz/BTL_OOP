@@ -18,7 +18,8 @@ import java.util.Random;
  */
 public class RecommentDocument {
     
-    public ArrayList<Document> getRecommendations(ArrayList<Document> history, ArrayList<Document> allDocument, int total) {
+    public ArrayList<Document> getRecommendations(ArrayList<Document> history,
+            ArrayList<Document> allDocument, int total) {
         Map<String, Integer> keyword = Collections.synchronizedMap(new HashMap<>());
         Map<String, Integer> category = Collections.synchronizedMap(new HashMap<>());
 
@@ -72,8 +73,17 @@ public class RecommentDocument {
         return searchDocuments(topKeywords, topCategory, allDocument, total, history);
     }
 
-    // Trả về các tài liệu gợi ý 
-    private ArrayList<Document> searchDocuments(List<String> topKeywords, String topCategory, List<Document> allDocuments, int total, ArrayList<Document> history) {
+    /**
+     * Lấy danh sách gợi ý sách.
+     * @param topKeywords
+     * @param topCategory
+     * @param allDocuments
+     * @param total
+     * @param history
+     * @return 
+     */
+    private ArrayList<Document> searchDocuments(List<String> topKeywords, 
+            String topCategory, List<Document> allDocuments, int total, ArrayList<Document> history) {
         ArrayList<Document> result = new ArrayList<>();
     
         // Lọc các tài liệu theo từ khóa và thể loại
@@ -124,7 +134,11 @@ public class RecommentDocument {
     
 
     
-    // Trả về danh sách 2 từ khóa phổ biến nhất
+    /**
+     * Trả về 2 từ khoá được dùng phổ biến nhất.
+     * @param keywordFrequency
+     * @return 
+     */
     private List<String> getTopKeywords(Map<String, Integer> keywordFrequency) {
         List<Map.Entry<String, Integer>> keywordList = new ArrayList<>(keywordFrequency.entrySet());
 
@@ -143,7 +157,12 @@ public class RecommentDocument {
 
         return topKeywords;
     }
-    // Trả về thể loại phổ biến nhất
+   
+    /**
+     * Tìm kiếm thể loại sách được tìm kiếm, mượn nhiều nhất.
+     * @param category
+     * @return 
+     */
     private String getTopCategory(Map<String, Integer> category) {
         String topCategory = null;
         int maxCount = 0;

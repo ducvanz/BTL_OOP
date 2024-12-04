@@ -72,6 +72,11 @@ public class AuthenticationService {
         }
     }
 
+    /**
+     * Kiểm tra sơ cấp tên người dùng.
+     * @param name
+     * @return 
+     */
     public static String checkName(String name) {
     if (name.length() > 30) {
         return "Name too long!";
@@ -123,6 +128,12 @@ public class AuthenticationService {
         
     }
     
+    /**
+     * Kiểm tra nếu tài khoản đã tồn tại.
+     * @param account tên tài khoản
+     * @param connection
+     * @return 
+     */
     public static boolean checkAccount(String account, Connection connection) {
         String select = "SELECT 1 FROM User WHERE username = ?";
         try(PreparedStatement pstm = connection.prepareStatement(select)) {

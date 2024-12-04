@@ -172,7 +172,10 @@ public class User {
     }
 
     
-    // Phương thức mượn tài liệu
+    /**
+     * Phương thức cài đặt phần mượn sách.
+     * @param transaction thao tác mượn sách
+     */
     public void borrowDocument(Transaction transaction) {
         if (loanTerm) {
             TransactionDAO transactionDAO = new TransactionDAO();
@@ -185,7 +188,11 @@ public class User {
         }
     }
 
-    // Phương thức trả tài liệu
+    /**
+     * Phương thức thực hiện trả sách.
+     * @param transaction thao tác trả sách
+     * @param returnedDate ngày trả
+     */
     public void returnDocument(Transaction transaction, String returnedDate) {
         
         for (Transaction t : LoanList) {
@@ -216,7 +223,10 @@ public class User {
 
     }
     
-    // Lấy danh sách các tài liệu đang mượn 
+    /**
+     * Lấy về danh sách tài liệu đang mượn.
+     * @return 
+     */
     public ArrayList<Document> getBorrowedDocument(){
         ArrayList<Document> result = new ArrayList<>();
         List<Document> allDocument = new ArrayList<>();
@@ -236,7 +246,10 @@ public class User {
             
     } 
 
-    // Lấy danh sách các tài liệu đã mượn 
+    /**
+     * Lấy về danh sách tài liệu đã mượn.
+     * @return 
+     */
     public ArrayList<Document> getReturnedDocument(){
         ArrayList<Document> result = new ArrayList<>();
         List<Document> allDocument = new ArrayList<>();
@@ -256,6 +269,10 @@ public class User {
             
     } 
 
+    /**
+     * Hiển thị thông tin người dùng.
+     * Chủ yếu dùng để check hàm
+     */
     public void displayUserInfo() {
         System.out.println("Name: " + name);
         System.out.println("Email: " + email);

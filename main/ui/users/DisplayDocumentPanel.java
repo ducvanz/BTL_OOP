@@ -427,7 +427,11 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
 
         getAccessibleContext().setAccessibleName("displayDocumentPanel");
     }// </editor-fold>//GEN-END:initComponents
-    // true là hiển thị sách có trong db, false là kco và lấy từ API, k thể mượn
+
+    /**
+     * Hiển thị sách lên trang.
+     * @param hasInDB true là sách trong db còn false là API
+     */
     public static void displayDocument(boolean hasInDB) {
         user = LoginPanel.userOverAll;
         
@@ -450,11 +454,8 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
 
         } else if (!document.getImageLink().equals("N/A")){
             API.displayImage(document, imageDocumentJLabel);
-//            System.out.println("Ảnh từ csdl imageLink");
         } else {
 
-//            System.out.println("Ảnh mặc định");
-            //Sua dong dnay 
             loadImageFromFilePath(imageDocumentJLabel, "C:\\Users\\Admin\\NetBean\\BTL2\\src\\BTL_OOP\\image\\Screenshot_63.png");
 
         }
@@ -533,6 +534,10 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
         worker.execute(); // Start the thread
     }
     
+    /**
+     * Nhấn nút back, xác định trạng thái và chuyển trang.
+     * @param evt 
+     */
     private void backButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backButtonMouseClicked
         // TODO add your handling code here:
         if (!isFromHome) {
@@ -557,6 +562,10 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_backButtonMouseClicked
 
+    /**
+     * Nhấn nút xác nhận trả sách.
+     * @param evt 
+     */
     private void confirmReturnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmReturnButtonActionPerformed
         // Xacs nhan tra sach
         System.out.println("OK1");
@@ -584,6 +593,10 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
         borrowButton.setText("Mượn");
     }//GEN-LAST:event_confirmReturnButtonActionPerformed
 
+    /**
+     * 
+     * @param evt 
+     */
     private void confirmBorrowButtonMouseClicked(java.awt.event.MouseEvent evt) {   
             user.setNumberBorrowed(user.getNumberBorrowed() + 1);
             document.setQuantity(document.getQuantity() - 1);
@@ -604,6 +617,10 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
      
     }
 
+    /**
+     * Thực hiện mượn sách hiện thông báo xác nhận và thêm 1 transaction.
+     * @param evt 
+     */
     private void borrowButtonMouseClicked(java.awt.event.MouseEvent evt) {                                    
         if (!quantityJLabel.getText().equals("Not available.")) {
             if (borrowButton.getText().equals("Mượn")){

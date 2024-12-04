@@ -909,7 +909,13 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
             
             document.setPublisher(publisherDialog1.getText());
             
-            if (!CheckInput.checkBirthday(publishedDateDialog1.getText())) {
+            String year = publishedDateDialog1.getText();
+            if (year.length() == 4 || year.length() == 3) {
+                if (!CheckInput.checkINT(publishedDateDialog1.getText())) {
+                    JOptionPane.showMessageDialog(mainPanel, "Lỗi ngày xuất bản!");
+                    return;
+                }
+            } else if (!CheckInput.checkBirthday(publishedDateDialog1.getText())) {
                 JOptionPane.showMessageDialog(mainPanel, "Lỗi ngày xuất bản!");
                 return;
             }
