@@ -37,7 +37,7 @@ public class LoginPanel extends JPanel {
     private TransactionDAO transactionDAO;
     private CardLayout cardLayout;
     public static Manage manage = new Manage();
-    public static final String link = "C:\\Users\\Admin\\NetBean\\BTL2\\src\\BTL_OOP\\image\\";
+    public static final String link = "D:\\OOP\\ahihi\\src\\BTL_OOP\\image\\";
 
     
     public LoginPanel() {

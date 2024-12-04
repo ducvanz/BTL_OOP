@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Set;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -41,7 +42,7 @@ public class InFoUserPanel extends javax.swing.JPanel {
     public static User beforeUpdateUser;
     private static final ManageDAO manageDAO = ManageDAO.getManageDAO();
     public static boolean isFromInfoUser = false;
-    
+    boolean checkChangeInfo = false;
     public InFoUserPanel() {
         initComponents();
         this.mainPanel = Main.mainPanel;
@@ -316,6 +317,11 @@ public class InFoUserPanel extends javax.swing.JPanel {
         });
 
         changeAddress.setText(".....");
+        changeAddress.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                changeAddressMouseClicked(evt);
+            }
+        });
 
         UpdateInfo.setBackground(new java.awt.Color(0, 153, 51));
         UpdateInfo.setForeground(new java.awt.Color(51, 51, 51));
@@ -598,6 +604,7 @@ public class InFoUserPanel extends javax.swing.JPanel {
                if (!CheckInput.checkFullName(newName)) {
                 JOptionPane.showMessageDialog(mainPanel, "Tên không hợp lệ!");
                 } else {
+                checkChangeInfo = true;
                user.setName(newName);
                nameUserJlabel.setText(newName); }
            } 
@@ -659,6 +666,7 @@ public class InFoUserPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(mainPanel, "Email không hợp lệ!");
                 
             } else {
+                 checkChangeInfo = true;
             user.setEmail(newEmail);
            // System.out.print(user.getName());
             emailJlabel.setText(user.getEmail());}
@@ -678,6 +686,7 @@ public class InFoUserPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(mainPanel, "SDT không hợp lệ!");
             } else {
             user.setPhone(newName);
+             checkChangeInfo = true;
            // System.out.print(user.getName());
             phoneJlabel.setText(newName);}
             }
@@ -688,9 +697,16 @@ public class InFoUserPanel extends javax.swing.JPanel {
 
     private void changPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changPasswordMouseClicked
 
-            String newName = JOptionPane.showInputDialog(this,"Đổi mật khẩu người dùng.", "Nhập mật khẩu bạn muốn đổi", JOptionPane.INFORMATION_MESSAGE,null, null, user.getPassword()).toString();
+         try {
+             String newName = JOptionPane.showInputDialog(this,"Đổi mật khẩu người dùng.", "Nhập mật khẩu bạn muốn đổi", JOptionPane.INFORMATION_MESSAGE,null, null, user.getPassword()).toString();
             user.setPassword(newName);
+            checkChangeInfo = true;
+           // System.out.print(user.getName());
             passwordLabel.setText(newName);
+         } catch (Exception e) {
+             passwordLabel.setText(user.getPassword());
+         }
+           
     }//GEN-LAST:event_changPasswordMouseClicked
 
     private void changeBirthMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeBirthMouseClicked
@@ -705,6 +721,7 @@ public class InFoUserPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(mainPanel, "Ngày sinh không hợp lệ!");
             } else {
             user.setBirthday(newName);
+            checkChangeInfo = true;
            // System.out.print(user.getName());
             birthdayJlabel.setText(newName); }
          } catch (Exception e) {
@@ -714,7 +731,8 @@ public class InFoUserPanel extends javax.swing.JPanel {
 
     private void UpdateInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateInfoActionPerformed
         // TODO add your handling code here:
-        int result = JOptionPane.showConfirmDialog(
+        if (checkChangeInfo == true) {
+            int result = JOptionPane.showConfirmDialog(
                 this, // Component cha
                 "Bạn có chắc chắn muốn chỉnh sửa không?", // Nội dung thông báo
                 "Xác nhận", // Tiêu đề của hộp thoại
@@ -735,6 +753,11 @@ public class InFoUserPanel extends javax.swing.JPanel {
                   passwordLabel.setText(beforeUpdateUser.getPassword());
               } else passwordLabel.setText("********");
         }
+        } else {
+            JOptionPane.showMessageDialog(this,"Vui lòng chọn phần muốn sửa đổi",
+                    "Thông báo", JOptionPane.ERROR_MESSAGE);
+        }
+        
     }//GEN-LAST:event_UpdateInfoActionPerformed
 
     private void borrowedDocumentTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_borrowedDocumentTableMouseClicked
@@ -772,6 +795,19 @@ public class InFoUserPanel extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_borrowedDocumentTableMouseClicked
+
+    private void changeAddressMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeAddressMouseClicked
+        // TODO add your handling code here:
+        try {
+            String setAddress = JOptionPane.showInputDialog(this, "Nhập địa chỉ bạn muốn thay đổi", 
+                "Đổi địa chỉ", JOptionPane.INFORMATION_MESSAGE,null, null, user.getAddress()).toString();
+            user.setAddress(setAddress);
+            addressJlabel.setText(user.getAddress());
+        } catch (Exception e) {
+            addressJlabel.setText(user.getAddress());
+        }
+        
+    }//GEN-LAST:event_changeAddressMouseClicked
 
     public static void setDefaultInfo() {
         user = LoginPanel.userOverAll;
