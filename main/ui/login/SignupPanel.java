@@ -48,26 +48,12 @@ public final class SignupPanel extends JPanel {
             if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER
                     && !nameTextField.getText().trim().isEmpty() // Ô tài khoản không trống
                     && !userAccountTextField.getText().trim().isEmpty()
-                    && !msvTextField.getText().trim().isEmpty()
                     && passwordTextField.getPassword().length > 0) { // ô mk k trống
                 //loginButton.doClick();  // Giả lập hành động nhấn nút
             }
         }
         });
         
-        // Thêm KeyListener để bắt sự kiện nhấn phím Enter trên jTextField1
-        msvTextField.addKeyListener(new java.awt.event.KeyAdapter() {
-        @Override
-        public void keyPressed(java.awt.event.KeyEvent evt) {
-            if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER
-                    && !nameTextField.getText().trim().isEmpty() // Ô tài khoản không trống
-                    && !userAccountTextField.getText().trim().isEmpty()
-                    && !msvTextField.getText().trim().isEmpty()
-                    && passwordTextField.getPassword().length > 0) { // ô mk k trống
-                //loginButton.doClick();  // Giả lập hành động nhấn nút
-            }
-        }
-        });
         
         // Thêm KeyListener để bắt sự kiện nhấn phím Enter trên jPasswordField1
         passwordTextField.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -103,12 +89,10 @@ public final class SignupPanel extends JPanel {
         signupLabel = new javax.swing.JLabel();
         hovatenLabel = new javax.swing.JLabel();
         nameTextField = new javax.swing.JTextField();
-        msvLabel = new javax.swing.JLabel();
         passwordLabel = new javax.swing.JLabel();
         passwordTextField = new javax.swing.JPasswordField();
         userAccountTextField = new javax.swing.JTextField();
         accountLabel = new javax.swing.JLabel();
-        msvTextField = new javax.swing.JTextField();
         signupButton = new javax.swing.JButton();
         signupButtonPanel = new javax.swing.JPanel();
         questionSignupLabel = new javax.swing.JLabel();
@@ -150,13 +134,10 @@ public final class SignupPanel extends JPanel {
         windowSigupPane.add(hovatenLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 86, 60, -1));
 
         nameTextField.setToolTipText("Tên đăng nhập");
-        windowSigupPane.add(nameTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 108, 290, -1));
-
-        msvLabel.setText("Mã sinh viên");
-        windowSigupPane.add(msvLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 142, 84, -1));
+        windowSigupPane.add(nameTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 290, -1));
 
         passwordLabel.setText("Mật khẩu");
-        windowSigupPane.add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 273, 70, -1));
+        windowSigupPane.add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 70, -1));
 
         passwordTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,13 +147,10 @@ public final class SignupPanel extends JPanel {
         windowSigupPane.add(passwordTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 295, 290, -1));
 
         userAccountTextField.setToolTipText("Tên đăng nhập");
-        windowSigupPane.add(userAccountTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 233, 290, -1));
+        windowSigupPane.add(userAccountTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 290, -1));
 
         accountLabel.setText("Tài khoản");
-        windowSigupPane.add(accountLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 211, -1, -1));
-
-        msvTextField.setToolTipText("Tên đăng nhập");
-        windowSigupPane.add(msvTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 164, 290, -1));
+        windowSigupPane.add(accountLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, -1, -1));
 
         signupButton.setBackground(new java.awt.Color(102, 255, 102));
         signupButton.setText("SIGN UP");
@@ -181,9 +159,22 @@ public final class SignupPanel extends JPanel {
                 signupButtonActionPerformed(evt);
             }
         });
-        windowSigupPane.add(signupButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 362, -1, -1));
+        windowSigupPane.add(signupButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 360, -1, -1));
 
         signupButtonPanel.setBackground(new java.awt.Color(239, 246, 246));
+
+        javax.swing.GroupLayout signupButtonPanelLayout = new javax.swing.GroupLayout(signupButtonPanel);
+        signupButtonPanel.setLayout(signupButtonPanelLayout);
+        signupButtonPanelLayout.setHorizontalGroup(
+            signupButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 140, Short.MAX_VALUE)
+        );
+        signupButtonPanelLayout.setVerticalGroup(
+            signupButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 26, Short.MAX_VALUE)
+        );
+
+        windowSigupPane.add(signupButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 441, -1, -1));
 
         questionSignupLabel.setFont(new java.awt.Font("Segoe UI", 2, 10)); // NOI18N
         questionSignupLabel.setText("Bạn đã có tài khoản?");
@@ -192,24 +183,7 @@ public final class SignupPanel extends JPanel {
                 questionSignupLabelMouseClicked(evt);
             }
         });
-
-        javax.swing.GroupLayout signupButtonPanelLayout = new javax.swing.GroupLayout(signupButtonPanel);
-        signupButtonPanel.setLayout(signupButtonPanelLayout);
-        signupButtonPanelLayout.setHorizontalGroup(
-            signupButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(signupButtonPanelLayout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
-                .addComponent(questionSignupLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        signupButtonPanelLayout.setVerticalGroup(
-            signupButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, signupButtonPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(questionSignupLabel)
-                .addContainerGap())
-        );
-
-        windowSigupPane.add(signupButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 441, -1, -1));
+        windowSigupPane.add(questionSignupLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 410, 119, -1));
 
         javax.swing.GroupLayout sigupPaneCardLayout = new javax.swing.GroupLayout(sigupPaneCard);
         sigupPaneCard.setLayout(sigupPaneCardLayout);
@@ -218,21 +192,21 @@ public final class SignupPanel extends JPanel {
             .addGroup(sigupPaneCardLayout.createSequentialGroup()
                 .addGroup(sigupPaneCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(sigupPaneCardLayout.createSequentialGroup()
-                        .addGap(180, 180, 180)
+                        .addGap(170, 170, 170)
                         .addComponent(windowSigupPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(sigupPaneCardLayout.createSequentialGroup()
-                        .addGap(209, 209, 209)
+                        .addGap(183, 183, 183)
                         .addComponent(libraryNameLabel)))
-                .addContainerGap(196, Short.MAX_VALUE))
+                .addContainerGap(206, Short.MAX_VALUE))
         );
         sigupPaneCardLayout.setVerticalGroup(
             sigupPaneCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sigupPaneCardLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(36, 36, 36)
                 .addComponent(libraryNameLabel)
-                .addGap(18, 18, 18)
-                .addComponent(windowSigupPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(119, 119, 119))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addComponent(windowSigupPane, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59))
         );
 
         add(sigupPaneCard, java.awt.BorderLayout.CENTER);
@@ -257,13 +231,7 @@ public final class SignupPanel extends JPanel {
             return;
         }
         int check = 0;
-        // check MSV -> true -> check +1;
-        if (!CheckInput.checkINT(msvTextField.getText())) {
-            JOptionPane.showMessageDialog(mainPanel, "Mã sinh viên không hợp lệ!");
-            return;
-        }
         
-        int ID = Integer.parseInt(msvTextField.getText());
 
         // check tên đã đúng chưa -> true -> check +1;
         String name = nameTextField.getText();
@@ -282,14 +250,8 @@ public final class SignupPanel extends JPanel {
             return;
         }
         String pass = new String(arr);
-        User user = new User(ID, name, username, pass);
+        User user = new User( name, username, pass);
 
-        if (AuthenticationService.checkID(ID, con)) {
-            check ++;
-        } else {
-            msvTextField.setText("Nhập sai");
-            resetOfSignUp();
-        }
 
         if (AuthenticationService.checkName(name).equals("true")) {
             check ++;
@@ -305,7 +267,7 @@ public final class SignupPanel extends JPanel {
             resetOfSignUp();
         }
 
-        if (check == 3) {
+        if (check == 2) {
             JOptionPane.showMessageDialog(null, "Bạn đã đăng ký thành công?", "Thông báo", JOptionPane.PLAIN_MESSAGE);
 
             // thêm vào danh sách người dung
@@ -322,8 +284,6 @@ public final class SignupPanel extends JPanel {
     private javax.swing.JLabel accountLabel;
     private javax.swing.JLabel hovatenLabel;
     private javax.swing.JLabel libraryNameLabel;
-    private javax.swing.JLabel msvLabel;
-    private javax.swing.JTextField msvTextField;
     private javax.swing.JTextField nameTextField;
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JPasswordField passwordTextField;

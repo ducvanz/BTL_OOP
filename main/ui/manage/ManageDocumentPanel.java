@@ -7,6 +7,7 @@ package BTL_OOP.main.ui.manage;
 import BTL_OOP.main.ui.login.LoginPanel;
 import BTL_OOP.main.models.user.User;
 import BTL_OOP.main.dao.DocumentDAO;
+import BTL_OOP.main.services.CheckInput;
 import BTL_OOP.main.models.document.Book;
 import BTL_OOP.main.models.document.Document;
 import java.awt.CardLayout;
@@ -915,10 +916,32 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
     private void confirmEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmEditActionPerformed
             Book Abook = new Book();
             Abook.setID((Integer) infoDocument.getValueAt(rowNow, 0));
+            if (!CheckInput.checkUserName(nameDialog1.getText())) {
+                JOptionPane.showMessageDialog(mainPanel, "Lỗi tên người dùng!");
+                return;
+            }
+            
             Abook.setTitle(nameDialog1.getText());
+            
+            if (!CheckInput.checkFullName(authorDialog1.getText())) {
+                JOptionPane.showMessageDialog(mainPanel, "Lỗi nhập tên tác giả!");
+                return;
+            }
             Abook.setAuthor(authorDialog1.getText());
+            
             Abook.setPublisher(publisherDialog1.getText());
+            
+            if (!CheckInput.checkBirthday(publishedDateDialog1.getText())) {
+                JOptionPane.showMessageDialog(mainPanel, "Lỗi ngày xuất bản!");
+                return;
+            }
             Abook.setPublishedDate(publishedDateDialog1.getText());
+            
+            if (!CheckInput.checkINT(quantityDialog1.getText())) {
+                JOptionPane.showMessageDialog(mainPanel, "Số lượng tài liệu không hợp lệ!");
+                return;
+            }
+            
             Abook.setQuantity(Integer.parseInt(quantityDialog1.getText()));
             Abook.setCategory(categoryDialog1.getText());
             Abook.setDescription(infoDocument.getValueAt(rowNow, 8).toString());

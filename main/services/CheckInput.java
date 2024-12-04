@@ -170,8 +170,11 @@ public class CheckInput {
      * @return 
      */
     public static boolean checkFullName(String fullName) {
-        // Regular Expression cho fullName hợp lệ
-        String fullNameRegex = "^[A-Z][a-z]*(?:\\s[A-Z][a-z]*)*$";
+        // Regular Expression cho fullName hợp lệ (hỗ trợ tiếng Việt)
+        String fullNameRegex = "^[A-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠƯỲÝỴỶỸẰẮẲẴẶẦẤẨẪẬÈÉÊỀẾỂỄỆÙÚỦỤỲÝỴỶỸ]"
+                             + "[a-zàáâãèéêìíòóôõùúăđĩũơưỳýỵỷỹầấẩẫậèéêềếểễệùúủụỳýỵỷỹ]*"
+                             + "(\\s[A-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠƯỲÝỴỶỸẰẮẲẴẶẦẤẨẪẬÈÉÊỀẾỂỄỆÙÚỦỤỲÝỴỶỸ]"
+                             + "[a-zàáâãèéêìíòóôõùúăđĩũơưỳýỵỷỹầấẩẫậèéêềếểễệùúủụỳýỵỷỹ]*)*$";
 
         // Kiểm tra nếu fullName là null hoặc rỗng
         if (fullName == null || fullName.trim().isEmpty()) {

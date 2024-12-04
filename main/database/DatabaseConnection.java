@@ -17,7 +17,7 @@ public class DatabaseConnection {
 
     private static final String URL = "jdbc:mysql://localhost:3306/libraryoop";
     private static final String USER = "root"; 
-    private static final String PASSWORD = "";
+    private static final String PASSWORD = "maiducvan112@##";
     public Connection con;
     private static DatabaseConnection database;
     private DatabaseConnection() {}

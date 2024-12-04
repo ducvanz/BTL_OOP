@@ -7,7 +7,7 @@ package BTL_OOP.main.ui.manage;
 import BTL_OOP.main.dao.ManageDAO;
 import BTL_OOP.main.ui.login.LoginPanel;
 import BTL_OOP.main.models.user.User;
-import BTL_OOP.users.UserPanel;
+import BTL_OOP.main.ui.users.UserPanel;
 import java.awt.CardLayout;
 import java.sql.Connection;
 import java.util.ArrayList;
