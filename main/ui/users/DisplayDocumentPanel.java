@@ -4,6 +4,7 @@
  */
 package BTL_OOP.main.ui.users;
 
+import BTL_OOP.main.Main;
 import BTL_OOP.main.ui.login.LoginPanel;
 import BTL_OOP.main.models.user.User;
 import BTL_OOP.main.dao.DocumentDAO;
@@ -27,27 +28,20 @@ import javax.swing.*;
  */
 public class DisplayDocumentPanel extends javax.swing.JPanel {
 
-    /**
-     * Creates new form displayDocumentPanel
-     */
-    
-    private Connection con;
-    private JFrame mainFrame;
-    private JPanel mainPanel;
+    private final JFrame mainFrame;
+    private final JPanel mainPanel;
     private static Document document;
     private static User user;
     public static boolean isFromHome;
-    /**
-     * Creates new form managePanel
-     */
-    public DisplayDocumentPanel(Connection con, JFrame mainFrame, JPanel mainPanel) {
+    
+    public DisplayDocumentPanel() {
         initComponents();
-        this.con = con;
-        this.mainFrame = mainFrame;
-        this.mainPanel = mainPanel;
+        this.mainFrame = Main.mainFrame;
+        this.mainPanel = Main.mainPanel;
         this.document = null;
         isFromHome = false;
     }
+
 
     public static Document getDocument() {
         return document;

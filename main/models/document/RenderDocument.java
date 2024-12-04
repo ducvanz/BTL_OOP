@@ -17,9 +17,9 @@ import javax.swing.JLabel;
  */
 public class RenderDocument {
     
-    public RenderDocument(){
+    public RenderDocument() {
+        
     }
-    
     // Hiển thị tài liệu lên các trang cần thiết
     public void renderDocument(ArrayList<Document> documents, Map<JLabel, JLabel> labelMap) {
         int count = 0;

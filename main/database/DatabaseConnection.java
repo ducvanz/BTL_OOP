@@ -15,10 +15,10 @@ import java.sql.SQLException;
 public class DatabaseConnection {
 
 
-    private static final String URL = "jdbc:mysql://localhost:3306/libraryoop";
-    private static final String USER = "root"; 
-    private static final String PASSWORD = "";
-    public Connection con;
+    private final String URL = "jdbc:mysql://localhost:3306/libraryoop";
+    private final String USER = "root"; 
+    private final String PASSWORD = "";
+    public Connection connection;
     private static DatabaseConnection database;
     private DatabaseConnection() {}
 
@@ -39,15 +39,15 @@ public class DatabaseConnection {
      * @return biến Connection
      */
     public Connection getConnection() {
-        Connection connection = null;
+        Connection con = null;
         try {
-            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            con = DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException e) {
             System.out.println("Kết nối csdl thất bại!");
             e.printStackTrace();
         }
-        con = connection;
-        return connection;
+        connection = con;
+        return con;
     }
 
 }

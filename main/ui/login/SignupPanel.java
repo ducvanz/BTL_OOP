@@ -12,16 +12,16 @@ import javax.swing.JPanel;
 
 
 public final class SignupPanel extends JPanel {
-    private final Connection con;
+    private final Connection connection;
     private final JPanel mainPanel ;
-    private final CardLayout cl ;
+    private final CardLayout cardLayout ;
     Manage manage = LoginPanel.manage;
 
     public SignupPanel() {
         initComponents();
-        this.con = Main.con;
+        this.connection = Main.connection;
         this.mainPanel = Main.mainPanel;
-        cl = (CardLayout) mainPanel.getLayout();
+        cardLayout = (CardLayout) mainPanel.getLayout();
         enterSignUp();
         LoginPanel.addToggleIcon(passwordTextField, LoginPanel.link + "show.png", LoginPanel.link + "unShow.png");
 
@@ -247,7 +247,7 @@ public final class SignupPanel extends JPanel {
 
     
     private void questionSignupLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_questionSignupLabelMouseClicked
-       cl.show( mainPanel, "loginPanel");
+       cardLayout.show( mainPanel, "loginPanel");
     }//GEN-LAST:event_questionSignupLabelMouseClicked
     
     private void signupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupButtonActionPerformed
@@ -284,7 +284,7 @@ public final class SignupPanel extends JPanel {
         String pass = new String(arr);
         User user = new User(ID, name, username, pass);
 
-        if (AuthenticationService.checkID(ID, con)) {
+        if (AuthenticationService.checkID(ID, connection)) {
             check ++;
         } else {
             msvTextField.setText("Nhập sai");
@@ -298,7 +298,7 @@ public final class SignupPanel extends JPanel {
             resetOfSignUp();
         }
 
-        if (!AuthenticationService.checkAccount(username, con)) {
+        if (!AuthenticationService.checkAccount(username, connection)) {
             check++;
         } else {
             userAccountTextField.setText("Tai khoan da ton tai!");

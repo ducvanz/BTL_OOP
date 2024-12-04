@@ -11,10 +11,14 @@ import java.util.ArrayList;
 public class Manage extends User {
     private ArrayList<User> users;
     private ArrayList<Document> documents; 
-    ManageDAO manageDAO = ManageDAO.getManageDAO();
-    DocumentDAO documentDAO = new DocumentDAO();
+    private ManageDAO manageDAO;
+    private DocumentDAO documentDAO;
     
     public Manage(){
+        users = new ArrayList<>();
+        documents = new ArrayList<>();
+        manageDAO = ManageDAO.getManageDAO();
+        documentDAO = new DocumentDAO();
         
     }
     

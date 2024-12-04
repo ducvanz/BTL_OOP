@@ -4,6 +4,7 @@
  */
 package BTL_OOP.main.ui.users;
 
+import BTL_OOP.main.Main;
 import BTL_OOP.main.ui.login.LoginPanel;
 import BTL_OOP.main.models.user.User;
 import BTL_OOP.main.ui.manage.FindBookManage;
@@ -35,25 +36,16 @@ import javax.swing.table.DefaultTableModel;
  * @author ngothuyet
  */
 public class InFoUserPanel extends javax.swing.JPanel {
-
-    /**
-     * Creates new form InFoManage
-     */
     
-    
-    private Connection con;
-    private JFrame frame;
-    private JPanel mainPanel;
-    static User beforeUpdateUser;
-    private static ManageDAO manageDAO = ManageDAO.getManageDAO();
-    
+    private final JPanel mainPanel;
+    public static User beforeUpdateUser;
+    private static final ManageDAO manageDAO = ManageDAO.getManageDAO();
     public static boolean isFromInfoUser = false;
     
-    public InFoUserPanel(Connection con, JFrame frame, JPanel mainPanel) {
+    public InFoUserPanel() {
         initComponents();
-        this.con = con;
-        this.frame = frame;
-        this.mainPanel = mainPanel;
+        this.mainPanel = Main.mainPanel;
+        isFromInfoUser = false;
         setAvata();
     }
     

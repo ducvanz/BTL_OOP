@@ -4,6 +4,7 @@
  */
 package BTL_OOP.main.ui.manage;
 
+import BTL_OOP.main.Main;
 import BTL_OOP.main.ui.login.LoginPanel;
 import BTL_OOP.main.models.user.User;
 import BTL_OOP.main.dao.DocumentDAO;
@@ -11,7 +12,6 @@ import BTL_OOP.main.models.document.Book;
 import BTL_OOP.main.models.document.Document;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.sql.Connection;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JFrame;
@@ -26,31 +26,24 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ManageDocumentPanel extends javax.swing.JPanel {
 
-    
-    private Connection con;
-    JFrame frame;
+    private final JFrame mainFrame;
     JPanel mainPanel;
-    static User user;
+    public static User user;
     private static int rowNow ;
     
-    public static List<Document> arrDocument = DocumentDAO.getAllDocuments();
+    public static List<Document> arrDocument;
     
     public ManageDocumentPanel() {
         initComponents();
-        setTable();
-    }
-    
-    public ManageDocumentPanel(Connection con, JFrame frame, JPanel mainPanel) {
-        initComponents();
-        this.con = con;
-        this.frame = frame;
-        this.mainPanel = mainPanel;
+        this.mainFrame = Main.mainFrame;
+        this.mainPanel = Main.mainPanel;
         if(user == null) {
             user = new User();
         }
+        arrDocument = DocumentDAO.getAllDocuments();
         setTable();
-        
     }
+
     /**
      * Thêm menu.
      */
@@ -832,12 +825,12 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
             quantityDialog.setText(quantity != null ? quantity.toString() : "");
             categoryDialog.setText(category != null ? category.toString() : "");
         } else {
-            JOptionPane.showMessageDialog(frame, "Vui lòng chọn một hàng trước khi xóa!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(mainFrame, "Vui lòng chọn một hàng trước khi xóa!", "Thông báo", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         // Hiển thị dialog
-        removeDialog.setLocationRelativeTo(frame);
+        removeDialog.setLocationRelativeTo(mainFrame);
         removeDialog.setVisible(true);
     }//GEN-LAST:event_removeActionPerformed
 
@@ -899,12 +892,12 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
             quantityDialog1.setText(quantity != null ? quantity.toString() : "");
             categoryDialog1.setText(category != null ? category.toString() : "");
         } else {
-            JOptionPane.showMessageDialog(frame, "Vui lòng chọn một hàng trước khi sửa!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(mainFrame, "Vui lòng chọn một hàng trước khi sửa!", "Thông báo", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         // Hiển thị dialog
-        editDialog.setLocationRelativeTo(frame);
+        editDialog.setLocationRelativeTo(mainFrame);
         editDialog.setVisible(true);
     }//GEN-LAST:event_editActionPerformed
 

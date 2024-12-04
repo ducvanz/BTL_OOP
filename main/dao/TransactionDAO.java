@@ -19,9 +19,9 @@ import java.util.Random;
 import java.util.Set;
 
 public class TransactionDAO {
-    private final Connection connection = DatabaseConnection.getDatabaseConnection().con;
-    ManageDAO manageDAO = ManageDAO.getManageDAO();
-    DocumentDAO documentDAO;
+    private final Connection connection = DatabaseConnection.getDatabaseConnection().connection;
+    private ManageDAO manageDAO = ManageDAO.getManageDAO();
+    private DocumentDAO documentDAO;
     public static User user = LoginPanel.userOverAll;
 
     public TransactionDAO() {

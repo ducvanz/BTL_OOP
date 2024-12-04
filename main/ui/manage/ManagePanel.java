@@ -28,12 +28,12 @@ import javax.swing.JPanel;
  */
 public class ManagePanel extends javax.swing.JPanel {
     private final JPanel mainPanel;
-//    private static User user;
-    public static RenderDocument render = new RenderDocument();
+    public static RenderDocument render;
     
     public ManagePanel() {
         initComponents();
         this.mainPanel = Main.mainPanel;
+        render = new RenderDocument();
     }
 
 

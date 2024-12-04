@@ -4,6 +4,7 @@
  */
 package BTL_OOP.main.ui.manage;
 
+import BTL_OOP.main.Main;
 import BTL_OOP.main.dao.ManageDAO;
 import BTL_OOP.main.ui.login.LoginPanel;
 import BTL_OOP.main.models.user.User;
@@ -11,7 +12,6 @@ import BTL_OOP.users.UserPanel;
 import java.awt.CardLayout;
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,9 +25,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class UserManagementPanel extends javax.swing.JPanel {
     
-    
-    private Connection con;
-    JFrame frame;
+    private final JFrame mainFrame;
     JPanel mainPanel;
     static User user;
     private static int rowNow ;
@@ -37,21 +35,14 @@ public class UserManagementPanel extends javax.swing.JPanel {
      */
     public UserManagementPanel() {
         initComponents();  
-        loadUserTable();
-    }
-    
-    public UserManagementPanel(Connection con, JFrame frame, JPanel mainPanel) {
-        initComponents();
-        this.con = con;
-        this.frame = frame;
-        this.mainPanel = mainPanel;
-        System.out.println(mainPanel);
+        this.mainPanel = Main.mainPanel;
+        this.mainFrame = Main.mainFrame;
         if(user == null) {
             user = new User();
         }
         loadUserTable();
-        
     }
+    
     
     /**
      * Tải thông tin người dùng lên bảng.
@@ -1005,12 +996,12 @@ public class UserManagementPanel extends javax.swing.JPanel {
             adressDialog.setText(address != null ? address.toString() : "");
             totalDialog.setText(total != null ? total.toString() : "");
         } else {
-            JOptionPane.showMessageDialog(frame, "Vui lòng chọn một hàng trước khi xóa!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(mainFrame, "Vui lòng chọn một hàng trước khi xóa!", "Thông báo", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         // Hiển thị dialog
-        removeDialog.setLocationRelativeTo(frame);
+        removeDialog.setLocationRelativeTo(mainFrame);
         removeDialog.setVisible(true);
     }//GEN-LAST:event_removeUserButtonActionPerformed
 
@@ -1043,12 +1034,12 @@ public class UserManagementPanel extends javax.swing.JPanel {
             totalDialog1.setText(total != null ? total.toString() : "");
             passDialog1.setText(pass != null ? pass.toString() : "");
         } else {
-            JOptionPane.showMessageDialog(frame, "Vui lòng chọn một hàng trước khi xóa!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(mainFrame, "Vui lòng chọn một hàng trước khi xóa!", "Thông báo", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         // Hiển thị dialog
-        editDialog.setLocationRelativeTo(frame);
+        editDialog.setLocationRelativeTo(mainFrame);
         editDialog.setVisible(true);
     }//GEN-LAST:event_editUserButtonActionPerformed
 

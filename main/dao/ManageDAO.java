@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class ManageDAO {
-    private final Connection connection = DatabaseConnection.getDatabaseConnection().con;
+    private final Connection connection = DatabaseConnection.getDatabaseConnection().connection;
 
     private static final ManageDAO manageDao = new ManageDAO();
     private ManageDAO() {}

@@ -28,10 +28,11 @@ import javax.swing.SwingUtilities;
  */
 public final class Main extends JFrame {
 
+    public static Connection connection = DatabaseConnection.getDatabaseConnection().connection;;
+
     public CardLayout cardLayout;
     public static JPanel mainPanel;
     public static JFrame mainFrame;
-    public static Connection con = DatabaseConnection.getDatabaseConnection().con;
 
     public Main() {
         init();
@@ -51,14 +52,14 @@ public final class Main extends JFrame {
         LoginPanel loginPanel = new LoginPanel();
         UserPanel userPanel = new UserPanel();
         ManagePanel managePanel = new ManagePanel();
-        FindDocumentPanel findDocumentPanel = new FindDocumentPanel(con, mainFrame, mainPanel);
-        FindBookManage FindBookManage = new FindBookManage(con, mainFrame, mainPanel);
-        ManageDocumentPanel manageDocumentPanel = new ManageDocumentPanel(con, mainFrame, mainPanel);
+        FindDocumentPanel findDocumentPanel = new FindDocumentPanel();
+        FindBookManage FindBookManage = new FindBookManage();
+        ManageDocumentPanel manageDocumentPanel = new ManageDocumentPanel();
 
-        DisplayDocumentPanel displayDocumentPanel = new DisplayDocumentPanel(con, mainFrame, mainPanel);
-        InFoUserPanel inFoUserPanel = new InFoUserPanel(con, mainFrame, mainPanel);
+        DisplayDocumentPanel displayDocumentPanel = new DisplayDocumentPanel();
+        InFoUserPanel inFoUserPanel = new InFoUserPanel();
 
-        UserManagementPanel userManagementPanel = new UserManagementPanel(con, mainFrame, mainPanel);
+        UserManagementPanel userManagementPanel = new UserManagementPanel();
 
         mainPanel.add(signupPanel, "signupPanel");
         mainPanel.add(loginPanel, "loginPanel");

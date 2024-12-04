@@ -7,7 +7,6 @@ package BTL_OOP.main.ui.login;
 import BTL_OOP.main.Main;
 import BTL_OOP.main.ui.users.DisplayDocumentPanel;
 import BTL_OOP.main.dao.TransactionDAO;
-import BTL_OOP.main.database.DatabaseConnection;
 import BTL_OOP.main.ui.users.FindDocumentPanel;
 import BTL_OOP.main.ui.users.InFoUserPanel;
 import BTL_OOP.main.models.user.User;
@@ -24,7 +23,6 @@ import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -32,25 +30,25 @@ import javax.swing.JTextField;
 
 
 public class LoginPanel extends JPanel {
-    private final Connection con;
-    private JPanel mainPanel;
+    private final Connection connection;
+    private final JPanel mainPanel;
     public static User userOverAll;
     public static boolean isManage;
     private TransactionDAO transactionDAO;
-    private CardLayout cl;
+    private CardLayout cardLayout;
     public static Manage manage = new Manage();
     public static final String link = "C:\\Users\\Admin\\NetBean\\BTL2\\src\\BTL_OOP\\image\\";
 
     
     public LoginPanel() {
         initComponents();
-        this.con = Main.con;
+        this.connection = Main.connection;
         this.mainPanel = Main.mainPanel;
         isManage = false; 
         if (userOverAll == null) {
             userOverAll = new User();
         }
-        cl = (CardLayout) mainPanel.getLayout();
+        cardLayout = (CardLayout) mainPanel.getLayout();
         allSetup();
     }
 
@@ -277,7 +275,7 @@ public class LoginPanel extends JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void signupInLoginLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signupInLoginLabelMouseClicked
-        cl.show( mainPanel, "signupPanel");
+        cardLayout.show( mainPanel, "signupPanel");
         
     }//GEN-LAST:event_signupInLoginLabelMouseClicked
 
@@ -298,10 +296,10 @@ public class LoginPanel extends JPanel {
         int check = 0;
         if (manageRadioButton.isSelected()) {
             // check mk manage
-            check = AuthenticationService.accountLogin(accountUser, pass, 2, con);
+            check = AuthenticationService.accountLogin(accountUser, pass, 2, connection);
         } else {
             // check mk user
-            check = AuthenticationService.accountLogin(accountUser, pass, 1, con);
+            check = AuthenticationService.accountLogin(accountUser, pass, 1, connection);
         }
         
         userOverAll.setUsername(accountUser);
@@ -314,7 +312,7 @@ public class LoginPanel extends JPanel {
             
             LoginPanel.userOverAll = manage.getUserByUsername(accountUser);
             UserPanel.setUsername(userOverAll.getName());
-            cl.show(mainPanel, "userPanel");
+            cardLayout.show(mainPanel, "userPanel");
             updateAccount();
             resetLogin();
 
@@ -326,7 +324,7 @@ public class LoginPanel extends JPanel {
             FindBookManage.setDefaultInfo();
             InFoUserPanel.setDefaultInfo();
             isManage = true;
-            cl.show(mainPanel, "managePanel");
+            cardLayout.show(mainPanel, "managePanel");
             updateAccount();
             resetLogin();
 

@@ -4,6 +4,7 @@
  */
 package BTL_OOP.main.ui.manage;
 
+import BTL_OOP.main.Main;
 import BTL_OOP.main.services.CheckInput;
 import BTL_OOP.main.ui.login.LoginPanel;
 import BTL_OOP.main.models.user.User;
@@ -14,7 +15,6 @@ import BTL_OOP.main.services.API;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.sql.Connection;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
@@ -23,6 +23,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
 import java.util.Base64;
 import java.util.List;
 import java.util.Map;
@@ -43,32 +44,20 @@ import javax.swing.table.TableCellRenderer;
  * @author Admin
  */
 public class FindBookManage extends javax.swing.JPanel {
-
-    /**
-     * Creates new form FindBookManage
-     */
+    private final Connection connection;
+    private final JPanel mainPanel;
+    public static User user;
+    
     public FindBookManage() {
         initComponents();
-        allSetUp();
-    }
-
-        private Connection con;
-        JFrame frame;
-        JPanel mainPanel;
-        public static User user;
-    /**
-     * Creates new form managePanel
-     */
-    public FindBookManage(Connection con, JFrame frame, JPanel mainPanel) {
-        initComponents();
-        this.con = con;
-        this.frame = frame;
-        this.mainPanel = mainPanel;
+        this.connection = Main.connection;
+        this.mainPanel = Main.mainPanel;
         if(user == null) {
             user = new User();
         }
         allSetUp();
     }
+
     
     public void allSetUp() {
         resizeButtonIcon(logOutButton, 12, 12);
@@ -958,7 +947,7 @@ public class FindBookManage extends javax.swing.JPanel {
                     JOptionPane.QUESTION_MESSAGE);
                     
                     if (results == JOptionPane.YES_OPTION) {
-                        List<Book> list = Abook.searchBooks(con, Abook.getTitle(),
+                        List<Book> list = Abook.searchBooks(connection, Abook.getTitle(),
                                 Abook.getAuthor(), Abook.getISBN(), Abook.getPublisher(), 
                                 Abook.getPublishedDate(), Abook.getCategory(), Abook.getLanguage());
                         

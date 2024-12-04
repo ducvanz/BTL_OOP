@@ -23,7 +23,7 @@ import javax.swing.JLabel;
 
 public class DocumentDAO {
 
-    private static final Connection connection = DatabaseConnection.getDatabaseConnection().con;
+    private static final Connection connection = DatabaseConnection.getDatabaseConnection().connection;
     
     public DocumentDAO() {
     }

@@ -4,15 +4,15 @@
  */
 package BTL_OOP.main.ui.users;
 
+import BTL_OOP.main.Main;
+import BTL_OOP.main.dao.DocumentDAO;
 import BTL_OOP.main.ui.login.LoginPanel;
 import BTL_OOP.main.services.MultiThreaded;
 import BTL_OOP.main.models.document.RenderDocument;
 import BTL_OOP.main.ui.manage.FindBookManage;
-import BTL_OOP.main.dao.DocumentDAO;
 import BTL_OOP.main.models.document.Document;
 import BTL_OOP.main.models.document.RecommentDocument;
 import java.awt.*;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -25,11 +25,9 @@ import javax.swing.*;
  * @author thinh
  */
 public class FindDocumentPanel extends JPanel{
-    DocumentDAO documentDAO = new DocumentDAO();
-    private Connection con;
-    private JFrame mainFrame;
-    private JPanel mainPanel;
-    DefaultListModel<Document> listModel = new DefaultListModel<>();
+    private final JPanel mainPanel;
+    private final DefaultListModel<Document> listModel;
+    private static RenderDocument render;
     String title = "";
     String author = "";
     String ISBN = "";
@@ -37,23 +35,14 @@ public class FindDocumentPanel extends JPanel{
     String language = "All";
     String oldTitle = "";
     String oldAuthor = "";
-    static RenderDocument render;
     
-
-    /**
-     * Creates new form managePanel
-     */
-    public FindDocumentPanel(Connection con, JFrame mainFframe, JPanel mainPanel) {
+    public FindDocumentPanel() {
         initComponents();
-        this.con = con;
-        this.mainFrame = mainFframe;
-        this.mainPanel = mainPanel;
-        resultFindDocumentJList.setVisible(false);
-        jScrollPane1.setVisible(false);
+        this.mainPanel = Main.mainPanel;
         render = new RenderDocument();
-        setAvata();
-        
+        listModel = new DefaultListModel<>();
     }
+
     
     public void setAvata() {
         FindBookManage.resizeLabelIcon(avata, 56, 56);
@@ -588,7 +577,7 @@ public class FindDocumentPanel extends JPanel{
         if (evt.getClickCount() == 2) {
         // Lấy chỉ số của dòng được nhấp đúp
         
-        ArrayList<Document> arrDocument = documentDAO.getAllDocuments();
+        ArrayList<Document> arrDocument = DocumentDAO.getAllDocuments();
         int index = resultFindDocumentJList.locationToIndex(evt.getPoint());
         if (index != -1) {
             Object item = resultFindDocumentJList.getModel().getElementAt(index);
