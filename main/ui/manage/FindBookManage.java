@@ -142,9 +142,10 @@ public class FindBookManage extends javax.swing.JPanel {
     public void desDefault(String ima, JLabel label) {
         try {
             // Địa chỉ ảnh mặc định
-            //String imagePath = "C:\\Users\\Admin\\NetBean\\DEMO_BTL\\src\\BTL_OOP\\image\\" + ima;  // Thay đổi đường dẫn ảnh mặc định của bạn
+//            String imagePath = "C:\\Users\\Admin\\NetBean\\DEMO_BTL\\src\\BTL_OOP\\image\\" + ima; 
+              String imagePath = "C:\\Users\\Admin\\NetBean\\BTL2\\src\\BTL_OOP\\image\\" + ima;
             //Sua dong nay di 
-            String imagePath = "D:\\OOP\\BTL_OOP\\src\\BTL_OOP\\image\\" + ima;  // Thay đổi đường dẫn ảnh mặc định của bạn
+//            String imagePath = "D:\\OOP\\BTL_OOP\\src\\BTL_OOP\\image\\" + ima;  // Thay đổi đường dẫn ảnh mặc định của bạn
 
 
 

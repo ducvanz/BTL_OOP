@@ -65,7 +65,14 @@ public class CheckInput {
      * @return 
      */
     public static boolean checkBirthday(String birthday) {
-            String[] arr = birthday.split("/");
+            String[] arr = null;
+            if (birthday.contains("-")) {
+                arr = birthday.split("-");
+            } else if (birthday.contains("/")) {
+                arr = birthday.split("/");
+            } else {
+                return false;
+            }
             if (arr.length != 3) {
                 return false;
             }
@@ -79,7 +86,7 @@ public class CheckInput {
             } catch(Exception e) {
                 return false;
             }
-        return isValidDate(day, month, year);
+        return isValidDate(day, month, year) || isValidDate(year, month, day);
 
     }
 

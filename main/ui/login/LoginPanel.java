@@ -85,7 +85,6 @@ public class LoginPanel extends JPanel {
         loginButton = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(800, 650));
-        setLayout(new java.awt.GridLayout());
 
         loginPane.setBackground(new java.awt.Color(255, 255, 255));
         loginPane.setMaximumSize(new java.awt.Dimension(400, 350));
@@ -97,7 +96,6 @@ public class LoginPanel extends JPanel {
         librarynameInLoginLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         windowLoginPanel.setBackground(new java.awt.Color(239, 246, 246));
-        windowLoginPanel.setLayout(new java.awt.GridBagLayout());
 
         loginLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         loginLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -109,7 +107,7 @@ public class LoginPanel extends JPanel {
             loginLabelPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, loginLabelPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(loginLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(loginLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
                 .addContainerGap())
         );
         loginLabelPanelLayout.setVerticalGroup(
@@ -117,83 +115,19 @@ public class LoginPanel extends JPanel {
             .addComponent(loginLabel, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 14;
-        gridBagConstraints.ipadx = 313;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        windowLoginPanel.add(loginLabelPanel, gridBagConstraints);
-
         accountInLoginLabel.setText("Tài khoản");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.ipadx = 35;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(94, 44, 0, 0);
-        windowLoginPanel.add(accountInLoginLabel, gridBagConstraints);
 
         accountInLoginTextField.setToolTipText("Tên đăng nhập");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.ipadx = 293;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 44, 0, 0);
-        windowLoginPanel.add(accountInLoginTextField, gridBagConstraints);
 
         passwordInLoginLabel.setText("Mật khẩu");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.ipadx = 21;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(16, 44, 0, 0);
-        windowLoginPanel.add(passwordInLoginLabel, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 6;
-        gridBagConstraints.ipadx = 293;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 44, 0, 0);
-        windowLoginPanel.add(passwordInLoginPasswordField, gridBagConstraints);
 
         forgotPasswordLabel.setForeground(new java.awt.Color(0, 153, 255));
-        forgotPasswordLabel.setText("Bạn quên mật khẩu?                                         Sign up");
+        forgotPasswordLabel.setText("Bạn quên mật khẩu?  ");
         forgotPasswordLabel.setToolTipText("");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.ipadx = -167;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(20, 48, 21, 0);
-        windowLoginPanel.add(forgotPasswordLabel, gridBagConstraints);
 
         manageRadioButton.setText("Tài khoản quản lý");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.ipadx = 21;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(12, 44, 0, 0);
-        windowLoginPanel.add(manageRadioButton, gridBagConstraints);
 
         thongbaodangnhapsai.setFont(new java.awt.Font("Segoe UI", 2, 10)); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.ipadx = 284;
-        gridBagConstraints.ipady = 10;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 64, 0, 0);
-        windowLoginPanel.add(thongbaodangnhapsai, gridBagConstraints);
 
         signupInLoginLabel.setForeground(new java.awt.Color(0, 153, 255));
         signupInLoginLabel.setText("Đăng ký");
@@ -203,13 +137,6 @@ public class LoginPanel extends JPanel {
                 signupInLoginLabelMouseClicked(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 5;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 7;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(20, 22, 21, 0);
-        windowLoginPanel.add(signupInLoginLabel, gridBagConstraints);
 
         loginButtonPanel.setBackground(new java.awt.Color(239, 246, 246));
 
@@ -236,14 +163,59 @@ public class LoginPanel extends JPanel {
                 .addComponent(loginButton))
         );
 
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 13;
-        gridBagConstraints.ipadx = 152;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(52, 0, 0, 0);
-        windowLoginPanel.add(loginButtonPanel, gridBagConstraints);
+        javax.swing.GroupLayout windowLoginPanelLayout = new javax.swing.GroupLayout(windowLoginPanel);
+        windowLoginPanel.setLayout(windowLoginPanelLayout);
+        windowLoginPanelLayout.setHorizontalGroup(
+            windowLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(loginLabelPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(windowLoginPanelLayout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(accountInLoginLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(windowLoginPanelLayout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(accountInLoginTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(windowLoginPanelLayout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(passwordInLoginLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(windowLoginPanelLayout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(passwordInLoginPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(windowLoginPanelLayout.createSequentialGroup()
+                .addGap(64, 64, 64)
+                .addComponent(thongbaodangnhapsai, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(windowLoginPanelLayout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addComponent(manageRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(loginButtonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(windowLoginPanelLayout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addComponent(forgotPasswordLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(176, 176, 176)
+                .addComponent(signupInLoginLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        windowLoginPanelLayout.setVerticalGroup(
+            windowLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(windowLoginPanelLayout.createSequentialGroup()
+                .addComponent(loginLabelPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(94, 94, 94)
+                .addComponent(accountInLoginLabel)
+                .addGap(18, 18, 18)
+                .addComponent(accountInLoginTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addComponent(passwordInLoginLabel)
+                .addGap(18, 18, 18)
+                .addComponent(passwordInLoginPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(thongbaodangnhapsai, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(manageRadioButton)
+                .addGap(52, 52, 52)
+                .addComponent(loginButtonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addGroup(windowLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(forgotPasswordLabel)
+                    .addComponent(signupInLoginLabel)))
+        );
 
         javax.swing.GroupLayout loginPaneLayout = new javax.swing.GroupLayout(loginPane);
         loginPane.setLayout(loginPaneLayout);
@@ -265,10 +237,20 @@ public class LoginPanel extends JPanel {
                 .addComponent(librarynameInLoginLabel)
                 .addGap(32, 32, 32)
                 .addComponent(windowLoginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
 
-        add(loginPane);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(loginPane, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(loginPane, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
         loginPane.getAccessibleContext().setAccessibleName("loginPanel");
 
         getAccessibleContext().setAccessibleName("loginPanel");

@@ -65,6 +65,8 @@ public class UserManagementPanel extends javax.swing.JPanel {
         // Lấy danh sách người dùng từ lớp quản lý
         ArrayList<User> users = manageDao.getAllUsers();
 
+        System.out.println(users.size());
+        
         for (User x: users) {
             System.out.println(x.getID());
         }
@@ -763,6 +765,7 @@ public class UserManagementPanel extends javax.swing.JPanel {
                 "ID", "Họ và tên", "Tài khoản", "Mật khẩu", "Email", "SĐT", "Ngày Sinh", "Địa chỉ", "Số sách mượn"
             }
         ));
+        infoUser.setCellSelectionEnabled(true);
         infoUser.setRowHeight(30);
         jScrollPane2.setViewportView(infoUser);
         if (infoUser.getColumnModel().getColumnCount() > 0) {
@@ -814,6 +817,11 @@ public class UserManagementPanel extends javax.swing.JPanel {
 
         refreshUserButton.setBackground(new java.awt.Color(234, 234, 234));
         refreshUserButton.setText("cập nhật");
+        refreshUserButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refreshUserButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -960,7 +968,7 @@ public class UserManagementPanel extends javax.swing.JPanel {
         user.setAddress(addressDialog1.getText());
         
         if (!CheckInput.checkBirthday(birtDialog1.getText())) {
-            if (birtDialog1.getText() == null) {}
+            if (birtDialog1.getText().equals("")) {}
             else {
                 JOptionPane.showMessageDialog(mainPanel, "Ngày sinh hợp lệ là: năm-tháng-ngày");
                 return;
@@ -975,9 +983,12 @@ public class UserManagementPanel extends javax.swing.JPanel {
         }
 
         user.setPassword(passDialog1.getText());
-        user.setUsername(infoUser.getValueAt(rowNow, 1).toString());
-        if (!CheckInput.checkNumberPhone(phone.getText())) {
-            JOptionPane.showMessageDialog(mainPanel, "Số điện thoại không hợp lệ!");
+        user.setUsername(infoUser.getValueAt(rowNow, 2).toString());
+        if (phone.getText().equals("")) {
+            if (!CheckInput.checkNumberPhone(phone.getText())) {
+                JOptionPane.showMessageDialog(mainPanel, "Số điện thoại không hợp lệ!");
+                return;
+            }
         }
         user.setPhone(phone.getText());
         
@@ -1177,6 +1188,10 @@ public class UserManagementPanel extends javax.swing.JPanel {
         addDialog1.setLocationRelativeTo(this);
         addDialog1.setVisible(true);
     }//GEN-LAST:event_addUserbuttonActionPerformed
+
+    private void refreshUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshUserButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_refreshUserButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
