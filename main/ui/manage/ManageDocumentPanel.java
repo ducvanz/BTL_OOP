@@ -73,7 +73,10 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
          * Load thông tin từ api lên bảng bảng.
          */
     public void setTable() {
-        arrDocument = DocumentDAO.getAllDocuments();
+        arrDocument = null;
+        DocumentDAO docu = new DocumentDAO();
+        arrDocument = docu.getAllDocuments();
+        System.out.println(arrDocument.size());
         String[] colums = {"ID", "Tên tài liệu", "Tác giả", "Nhà xuất bản", 
             "Ngày xuất bản", "Số lượng", "Ngôn ngữ", "Thể loại", "Mô tả" };
         DefaultTableModel tableModel = new DefaultTableModel(colums, 0);
@@ -435,8 +438,6 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
                 .addContainerGap(52, Short.MAX_VALUE))
         );
 
-        setLayout(new java.awt.BorderLayout());
-
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 45));
 
@@ -483,8 +484,6 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
                     .addComponent(jButton14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
         jPanel14.setBackground(new java.awt.Color(244, 244, 244));
         jPanel14.setLayout(new java.awt.GridBagLayout());
@@ -622,6 +621,7 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        infoDocument.setCellSelectionEnabled(true);
         infoDocument.setRowHeight(30);
         infoDocument.setShowGrid(false);
         jScrollPane1.setViewportView(infoDocument);
@@ -707,7 +707,21 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(55, 214, 0, 6);
         jPanel14.add(refresh, gridBagConstraints);
 
-        add(jPanel14, java.awt.BorderLayout.CENTER);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, 605, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
         jPanel14.getAccessibleContext().setAccessibleName("manageDocumentPanel");
 
         getAccessibleContext().setAccessibleName("manageDocumentPanel");
@@ -885,41 +899,34 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
      * @param evt mouseClick
      */
     private void confirmEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmEditActionPerformed
-            Book Abook = new Book();
-            Abook.setID((Integer) infoDocument.getValueAt(rowNow, 0));
-            if (!CheckInput.checkUserName(nameDialog1.getText())) {
-                JOptionPane.showMessageDialog(mainPanel, "Lỗi tên người dùng!");
-                return;
-            }
+
+            DocumentDAO dc = new DocumentDAO();
+            Document document = dc.getDocumentByID(Integer.parseInt(infoDocument.getValueAt(rowNow, 0).toString()));
+            document.setID((Integer) infoDocument.getValueAt(rowNow, 0));
+            document.setTitle(nameDialog1.getText());
             
-            Abook.setTitle(nameDialog1.getText());
+            document.setAuthor(authorDialog1.getText());
             
-            if (!CheckInput.checkFullName(authorDialog1.getText())) {
-                JOptionPane.showMessageDialog(mainPanel, "Lỗi nhập tên tác giả!");
-                return;
-            }
-            Abook.setAuthor(authorDialog1.getText());
-            
-            Abook.setPublisher(publisherDialog1.getText());
+            document.setPublisher(publisherDialog1.getText());
             
             if (!CheckInput.checkBirthday(publishedDateDialog1.getText())) {
                 JOptionPane.showMessageDialog(mainPanel, "Lỗi ngày xuất bản!");
                 return;
             }
-            Abook.setPublishedDate(publishedDateDialog1.getText());
+            document.setPublishedDate(publishedDateDialog1.getText());
             
             if (!CheckInput.checkINT(quantityDialog1.getText())) {
                 JOptionPane.showMessageDialog(mainPanel, "Số lượng tài liệu không hợp lệ!");
                 return;
             }
             
-            Abook.setQuantity(Integer.parseInt(quantityDialog1.getText()));
-            Abook.setCategory(categoryDialog1.getText());
-            Abook.setDescription(infoDocument.getValueAt(rowNow, 8).toString());
-            Abook.setLanguage(infoDocument.getValueAt(rowNow, 6).toString());
+            document.setQuantity(Integer.parseInt(quantityDialog1.getText()));
+            document.setCategory(categoryDialog1.getText());
+            document.setDescription(infoDocument.getValueAt(rowNow, 8).toString());
+            document.setLanguage(infoDocument.getValueAt(rowNow, 6).toString());
             
-            DocumentDAO dc = new DocumentDAO();
-            dc.updateDocument(Abook);
+            
+            dc.updateDocument(document);
             setTable();
             editDialog.setVisible(false);
             

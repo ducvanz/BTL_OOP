@@ -142,9 +142,12 @@ public class FindBookManage extends javax.swing.JPanel {
     public void desDefault(String ima, JLabel label) {
         try {
             // Địa chỉ ảnh mặc định
-            //String imagePath = "C:\\Users\\Admin\\NetBean\\DEMO_BTL\\src\\BTL_OOP\\image\\" + ima;  // Thay đổi đường dẫn ảnh mặc định của bạn
+//            String imagePath = "C:\\Users\\Admin\\NetBean\\DEMO_BTL\\src\\BTL_OOP\\image\\" + ima; 
+ //             String imagePath = "C:\\Users\\Admin\\NetBean\\BTL2\\src\\BTL_OOP\\image\\" + ima;
             //Sua dong nay di 
+
             String imagePath = "C:\\Users\\thinh\\JAVA\\SWING\\src\\BTL_OOP\\image\\" + ima;  // Thay đổi đường dẫn ảnh mặc định của bạn
+
 
 
 
@@ -194,6 +197,7 @@ public class FindBookManage extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         manageMenu = new javax.swing.JPopupMenu();
         trangchu = new javax.swing.JMenuItem();
@@ -266,6 +270,7 @@ public class FindBookManage extends javax.swing.JPanel {
         });
 
         setBackground(new java.awt.Color(204, 204, 204));
+        setLayout(new java.awt.GridBagLayout());
 
         jPanel1.setBackground(new java.awt.Color(122, 255, 255));
 
@@ -571,7 +576,12 @@ public class FindBookManage extends javax.swing.JPanel {
                 .addGap(19, 19, 19))
         );
 
-        add(jPanel1);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(5, 5, 18, 6);
+        add(jPanel1, gridBagConstraints);
 
         getAccessibleContext().setAccessibleName("findBookManage");
     }// </editor-fold>//GEN-END:initComponents

@@ -34,6 +34,7 @@ public class ManagePanel extends javax.swing.JPanel {
         initComponents();
         this.mainPanel = Main.mainPanel;
         setAvata();
+        render = new RenderDocument();
     }
 
     /*

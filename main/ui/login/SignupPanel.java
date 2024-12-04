@@ -98,9 +98,10 @@ public final class SignupPanel extends JPanel {
         questionSignupLabel = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(800, 650));
-        setLayout(new java.awt.BorderLayout());
 
         sigupPaneCard.setBackground(new java.awt.Color(255, 255, 255));
+        sigupPaneCard.setMinimumSize(new java.awt.Dimension(800, 650));
+        sigupPaneCard.setPreferredSize(new java.awt.Dimension(800, 650));
 
         libraryNameLabel.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         libraryNameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -108,6 +109,8 @@ public final class SignupPanel extends JPanel {
         libraryNameLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         windowSigupPane.setBackground(new java.awt.Color(239, 246, 246));
+        windowSigupPane.setMinimumSize(new java.awt.Dimension(420, 440));
+        windowSigupPane.setPreferredSize(new java.awt.Dimension(420, 440));
         windowSigupPane.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         signupLabel.setBackground(new java.awt.Color(51, 51, 255));
@@ -119,7 +122,7 @@ public final class SignupPanel extends JPanel {
         signupLabelPanel.setLayout(signupLabelPanelLayout);
         signupLabelPanelLayout.setHorizontalGroup(
             signupLabelPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(signupLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(signupLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
         );
         signupLabelPanelLayout.setVerticalGroup(
             signupLabelPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,41 +192,43 @@ public final class SignupPanel extends JPanel {
         sigupPaneCard.setLayout(sigupPaneCardLayout);
         sigupPaneCardLayout.setHorizontalGroup(
             sigupPaneCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(sigupPaneCardLayout.createSequentialGroup()
-                .addGroup(sigupPaneCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(sigupPaneCardLayout.createSequentialGroup()
-                        .addGap(170, 170, 170)
-                        .addComponent(windowSigupPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(sigupPaneCardLayout.createSequentialGroup()
-                        .addGap(183, 183, 183)
-                        .addComponent(libraryNameLabel)))
-                .addContainerGap(206, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sigupPaneCardLayout.createSequentialGroup()
+                .addContainerGap(190, Short.MAX_VALUE)
+                .addGroup(sigupPaneCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(windowSigupPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(libraryNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(190, 190, 190))
         );
         sigupPaneCardLayout.setVerticalGroup(
             sigupPaneCardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sigupPaneCardLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(16, 16, 16)
                 .addComponent(libraryNameLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addGap(43, 43, 43)
                 .addComponent(windowSigupPane, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
 
-        add(sigupPaneCard, java.awt.BorderLayout.CENTER);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(sigupPaneCard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(sigupPaneCard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
         sigupPaneCard.getAccessibleContext().setAccessibleName("signupPanel");
 
         getAccessibleContext().setAccessibleName("signupPanel");
     }// </editor-fold>//GEN-END:initComponents
 
-    private void passwordTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_passwordTextFieldActionPerformed
-
-    
     private void questionSignupLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_questionSignupLabelMouseClicked
-       cardLayout.show( mainPanel, "loginPanel");
+        cardLayout.show( mainPanel, "loginPanel");
     }//GEN-LAST:event_questionSignupLabelMouseClicked
-    
+
     private void signupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupButtonActionPerformed
 
         if (!CheckInput.checkFullName(nameTextField.getText())) {
@@ -231,7 +236,6 @@ public final class SignupPanel extends JPanel {
             return;
         }
         int check = 0;
-        
 
         // check tên đã đúng chưa -> true -> check +1;
         String name = nameTextField.getText();
@@ -244,14 +248,13 @@ public final class SignupPanel extends JPanel {
         String username = userAccountTextField.getText();
 
         char[] arr = passwordTextField.getPassword();
-        
+
         if (arr.length > 30) {
             JOptionPane.showMessageDialog(mainPanel, "Mật khẩu quá dài!");
             return;
         }
         String pass = new String(arr);
         User user = new User( name, username, pass);
-
 
         if (AuthenticationService.checkName(name).equals("true")) {
             check ++;
@@ -278,7 +281,12 @@ public final class SignupPanel extends JPanel {
             cl.show(mainPanel, "loginPanel");
         }
     }//GEN-LAST:event_signupButtonActionPerformed
-    
+
+    private void passwordTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passwordTextFieldActionPerformed
+
+            
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel accountLabel;
