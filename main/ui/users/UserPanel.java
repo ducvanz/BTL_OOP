@@ -34,6 +34,7 @@ public class UserPanel extends JPanel {
         this.mainPanel = Main.mainPanel;
         render = new RenderDocument();
         enterLogin();
+        setAvata();
     }
 
     
