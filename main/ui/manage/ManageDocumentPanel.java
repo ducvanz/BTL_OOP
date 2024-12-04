@@ -60,8 +60,6 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
 
         trangchu.setBackground(new Color(255, 255, 255));       // Màu nền cho item
         trangchu.setForeground(Color.BLACK);                 // Màu chữ cho item
-        quanLySach.setBackground(new Color(255, 255, 255));
-        quanLySach.setForeground(Color.BLACK);
         themSach.setBackground(new Color(255, 255, 255));       // Màu nền cho item
         themSach.setForeground(Color.BLACK);                 // Màu chữ cho item
         timsach.setBackground(new Color(255, 255, 255));
@@ -72,10 +70,8 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
         nguoidung.setForeground(Color.BLACK);
         
         manageMenu.add(trangchu);
-        manageMenu.add(quanLySach);
         manageMenu.add(themSach);
         manageMenu.add(timsach);
-        manageMenu.add(quanLySach);
         manageMenu.add(nguoidung);
     }
 
@@ -118,7 +114,6 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
         manageMenu = new javax.swing.JPopupMenu();
         trangchu = new javax.swing.JMenuItem();
         themSach = new javax.swing.JMenuItem();
-        quanLySach = new javax.swing.JMenuItem();
         timsach = new javax.swing.JMenuItem();
         thongtin = new javax.swing.JMenuItem();
         nguoidung = new javax.swing.JMenuItem();
@@ -183,14 +178,6 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
             }
         });
         manageMenu.add(themSach);
-
-        quanLySach.setText("Quản lý tài liệu");
-        quanLySach.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                quanLySachActionPerformed(evt);
-            }
-        });
-        manageMenu.add(quanLySach);
 
         timsach.setText("Tìm sách");
         timsach.addActionListener(new java.awt.event.ActionListener() {
@@ -773,15 +760,6 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_trangchuActionPerformed
     
     /**
-     * Chuyển sang trang quản lý tài liệu.
-     * @param evt mouseclick
-     */
-    private void quanLySachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quanLySachActionPerformed
-        CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
-        cl.show(mainPanel, "manageDocumentPanel");
-    }//GEN-LAST:event_quanLySachActionPerformed
-
-    /**
      * Chuyển sang trang tìm kiếm.
      * @param evt mouseclick
      */
@@ -971,7 +949,6 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
     private javax.swing.JTextField publishedDateDialog1;
     private javax.swing.JLabel publisherDialog;
     private javax.swing.JTextField publisherDialog1;
-    private javax.swing.JMenuItem quanLySach;
     private javax.swing.JLabel quantityDialog;
     private javax.swing.JTextField quantityDialog1;
     private javax.swing.JLabel questionDiaLog;

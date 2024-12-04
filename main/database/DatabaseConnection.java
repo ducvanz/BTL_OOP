@@ -15,9 +15,9 @@ import java.sql.SQLException;
 public class DatabaseConnection {
 
 
-    private static final String URL = "jdbc:mysql://localhost:3306/libraryoop";
+    private static final String URL = "jdbc:mysql://127.0.0.1:3306/libraryoop";
     private static final String USER = "root"; 
-    private static final String PASSWORD = "";
+    private static final String PASSWORD = "Thuyet@30042005";
     public Connection con;
     private static DatabaseConnection database;
     private DatabaseConnection() {}
