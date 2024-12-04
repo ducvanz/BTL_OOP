@@ -38,7 +38,7 @@ public class RenderDocument {
                 // Cập nhật hình ảnh tài liệu vào JLabel
                 if (doc.getImage() != null) {
                     DocumentDAO.displayImageFromBytes(doc.getImage(), imageLabel);
-//                    System.out.println("Ảnh từ csdl image");
+                   System.out.println("Ảnh từ csdl image");
                 } else {
 //                    System.out.println("Ảnh mặc định");
                     DisplayDocumentPanel.loadImageFromFilePath(imageLabel, "C:\\Users\\Admin\\NetBean\\BTL2\\src\\BTL_OOP\\image\\Screenshot_63.png");

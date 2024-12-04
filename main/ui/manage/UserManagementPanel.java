@@ -66,6 +66,7 @@ public class UserManagementPanel extends javax.swing.JPanel {
         ArrayList<User> users = manageDao.getAllUsers();
 
         System.out.println(users.size());
+        System.out.println(users.size());
         
         for (User x: users) {
             System.out.println(x.getID());
@@ -1190,7 +1191,7 @@ public class UserManagementPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_addUserbuttonActionPerformed
 
     private void refreshUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshUserButtonActionPerformed
-        // TODO add your handling code here:
+        loadUserTable();
     }//GEN-LAST:event_refreshUserButtonActionPerformed
 
 

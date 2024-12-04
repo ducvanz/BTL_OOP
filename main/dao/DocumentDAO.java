@@ -250,10 +250,10 @@ public class DocumentDAO {
             if (bufferedImage != null) {
                 // Chuyển đổi BufferedImage thành ImageIcon
                 ImageIcon imageIcon = new ImageIcon(bufferedImage);
-                
+
                 // Thay đổi kích thước của hình ảnh để vừa với JLabel
                 Image scaledImage = imageIcon.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
-                label.setIcon(new ImageIcon(scaledImage));
+                label.setIcon(new ImageIcon(scaledImage));  // Cập nhật icon mới
                 System.out.println("Hiển thị ảnh thành công");
             } else {
                 label.setText("Không thể tạo hình ảnh từ dữ liệu.");
@@ -262,8 +262,8 @@ public class DocumentDAO {
             e.printStackTrace();
             label.setText("Lỗi khi hiển thị hình ảnh.");
         }
-//         System.out.println("Hiển thị ảnh từ CSDL thành công");
     }
+
 
     /**
      * Hàm thực hiện chức năng thêm sách.
