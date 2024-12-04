@@ -11,12 +11,11 @@ import BTL_OOP.main.models.document.RenderDocument;
 import BTL_OOP.main.ui.manage.FindBookManage;
 import BTL_OOP.main.dao.DocumentDAO;
 import BTL_OOP.main.models.document.Document;
+import BTL_OOP.main.models.user.User;
 import java.awt.CardLayout;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,25 +26,17 @@ import javax.swing.JPanel;
  */
 public class UserPanel extends JPanel {
 
-
-    private Connection con;
-    private JFrame mainFrame;
-    private JPanel mainPanel;
+    private final JPanel mainPanel;
     public static RenderDocument render;
     
-    /**
-     * Creates new form userPanel
-     */
-
-    public UserPanel(Connection con, JFrame mainFrame, JPanel mainPanel) {
+    
+    public UserPanel() {
         initComponents();
-        this.con = con;
-        this.mainFrame = mainFrame;
-        this.mainPanel = mainPanel;
+        this.mainPanel = Main.mainPanel;
         render = new RenderDocument();
         enterLogin();
-        
     }
+
     
     public static void enterLogin() {
         // Thêm KeyListener để bắt sự kiện nhấn phím Enter trên accountInLoginTextField

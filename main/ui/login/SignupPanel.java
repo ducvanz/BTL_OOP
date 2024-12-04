@@ -1,33 +1,30 @@
 
 package BTL_OOP.main.ui.login;
 
-import BTL_OOP.main.database.DatabaseConnection;
+import BTL_OOP.main.Main;
 import BTL_OOP.main.models.user.User;
 import BTL_OOP.main.models.user.Manage;
 import BTL_OOP.main.services.CheckInput;
 import java.awt.CardLayout;
 import java.sql.Connection;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
 public final class SignupPanel extends JPanel {
-    private final Connection con = DatabaseConnection.getDatabaseConnection().con;
-    private final JFrame mainFrame;
+    private final Connection con;
     private final JPanel mainPanel ;
     private final CardLayout cl ;
     Manage manage = LoginPanel.manage;
 
-    public SignupPanel(JFrame mainFrame, JPanel mainPanel) {
+    public SignupPanel() {
         initComponents();
-        this.mainFrame = mainFrame;
-        this.mainPanel = mainPanel;
+        this.con = Main.con;
+        this.mainPanel = Main.mainPanel;
         cl = (CardLayout) mainPanel.getLayout();
         enterSignUp();
         LoginPanel.addToggleIcon(passwordTextField, LoginPanel.link + "show.png", LoginPanel.link + "unShow.png");
-        
-        
+
     }
 
     public void enterSignUp() {

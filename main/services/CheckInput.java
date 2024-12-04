@@ -12,6 +12,11 @@ package BTL_OOP.main.services;
 // class này chỉ check biểu thức và kiểu dữ liệu không liên quan đến db
 public class CheckInput {
     
+    /**
+     * Kiểm tra số nguyên.
+     * @param id số nhận vào
+     * @return kết quả
+     */
     public static boolean checkINT(String id) {
         char[] arr = id.toCharArray();
         for (char x : arr) {
@@ -22,6 +27,14 @@ public class CheckInput {
         return true;
     }
     
+    /**
+     * Kiểm tra số điện thoại.
+     * số bắt đầu từ0
+     * 10 số
+     * không quá 5 số 0
+     * @param phone sdt kiểm tra
+     * @return 
+     */
     public static boolean checkNumberPhone(String phone) {
         char[] arr = phone.toCharArray();
         if (arr.length != 10 || arr[0] != '0') {
@@ -46,6 +59,11 @@ public class CheckInput {
         return true;
     }
     
+    /**
+     * Kiểm tra from của birthday.
+     * @param birthday
+     * @return 
+     */
     public static boolean checkBirthday(String birthday) {
             String[] arr = birthday.split("/");
             if (arr.length != 3) {
@@ -65,7 +83,13 @@ public class CheckInput {
 
     }
 
-
+    /**
+     * Tính hợp lý của ngày.
+     * @param day ngày
+     * @param month tháng
+     * @param year năm
+     * @return 
+     */
     public static boolean isValidDate(int day, int month, int year) {
         if (year < 1) {
             return false;
@@ -84,10 +108,21 @@ public class CheckInput {
         return day >= 1 && day <= daysInMonth[month - 1];
     }
 
+    /**
+     * Kiểm tra năm nhuận.
+     * @param year biến kiểm tra
+     * @return 
+     */
     private static boolean isLeapYear(int year) {
         return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
     }
     
+    /**
+     * Kiểm tra tên tài khoản.
+     * chữ thường và sau đó là số
+     * @param name
+     * @return 
+     */
     public static boolean checkAccount(String name) {
         if (name == null || name.isEmpty()) {
             return false;
@@ -96,6 +131,12 @@ public class CheckInput {
         return name.matches("[a-z0-9]+");
     }
     
+    /**
+     * Kiểm tra email.
+     * chữ thường, chữ hoa và số + "@" + đuối chuẩn
+     * @param email
+     * @return 
+     */
     public static boolean checkEmail(String email) {
             String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
     
@@ -106,6 +147,12 @@ public class CheckInput {
             return email.matches(emailRegex);
     }
     
+    /**
+     * Check username.
+     * bắt đầu bằng chữ rồi mới cho phép số
+     * @param userName
+     * @return 
+     */
     public static boolean checkUserName(String userName) {
             String userNameRegex = "^[a-zA-Z](?:[a-zA-Z0-9_]{1,10}[a-zA-Z0-9])?$";
 
@@ -116,6 +163,12 @@ public class CheckInput {
             return userName.matches(userNameRegex);
     }
     
+    /**
+     * Kiểm tra tên người dùng có dấu.
+     * Kí tự đầu không dấu.
+     * @param fullName
+     * @return 
+     */
     public static boolean checkFullName(String fullName) {
         // Regular Expression cho fullName hợp lệ
         String fullNameRegex = "^[A-Z][a-z]*(?:\\s[A-Z][a-z]*)*$";

@@ -53,6 +53,10 @@ public class UserManagementPanel extends javax.swing.JPanel {
         
     }
     
+    /**
+     * Tải thông tin người dùng lên bảng.
+     * Lấy thông tin từ cơ sở dữ liệu và sửa.
+     */
     public void loadUserTable() {
     // Định nghĩa các cột hiển thị
         String[] columns = {"ID", "Họ và tên", "Tài khoản", "Mật khẩu" ,"Email", "SĐT", "Ngày sinh", "Địa chỉ", "Số sách mượn"};
@@ -858,10 +862,18 @@ public class UserManagementPanel extends javax.swing.JPanel {
         add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Hiển thị menu.
+     * @param evt 
+     */
     private void jLabel27MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel27MouseEntered
         manageMenu.show(jLabel27, evt.getX(), evt.getY());
     }//GEN-LAST:event_jLabel27MouseEntered
 
+    /**
+     * Hiển thị thông báo confirm logout.
+     * @param evt 
+     */
     private void jButton14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton14MouseClicked
         int result = JOptionPane.showConfirmDialog(
                 null,
@@ -888,6 +900,10 @@ public class UserManagementPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton14MouseClicked
 
+    /**
+     * Chuyển trang.
+     * @param evt 
+     */
     private void trangchuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trangchuActionPerformed
         System.out.println(mainPanel);
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
@@ -913,6 +929,7 @@ public class UserManagementPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_thongtinActionPerformed
 
+    
     private void confirmRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmRemoveActionPerformed
 
         Object b = infoUser.getValueAt(rowNow, 0);
@@ -926,6 +943,10 @@ public class UserManagementPanel extends javax.swing.JPanel {
         removeDialog.setVisible(false);
     }//GEN-LAST:event_cancelRemoveMouseClicked
 
+    /**
+     * Nhấn nút xác nhận thay đổi thông tin.
+     * @param evt mouseclick
+     */
     private void confirmEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmEditActionPerformed
         User user = new User();
         user.setID(Integer.parseInt(infoUser.getValueAt(rowNow, 0).toString()));
@@ -955,6 +976,10 @@ public class UserManagementPanel extends javax.swing.JPanel {
         editDialog.setVisible(false);
     }//GEN-LAST:event_cancelEditMouseClicked
 
+    /**
+     * Xoá thông tin người dùng.
+     * @param evt 
+     */
     private void removeUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeUserButtonActionPerformed
 
         int selectedRow = infoUser.getSelectedRow();
@@ -989,6 +1014,10 @@ public class UserManagementPanel extends javax.swing.JPanel {
         removeDialog.setVisible(true);
     }//GEN-LAST:event_removeUserButtonActionPerformed
 
+    /**
+     * Hiển thị thông lên trên dialog.
+     * @param evt mouseclick
+     */
     private void editUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editUserButtonActionPerformed
         int selectedRow = infoUser.getSelectedRow();
 
@@ -1031,6 +1060,10 @@ public class UserManagementPanel extends javax.swing.JPanel {
         editDialog.setVisible(false);
     }//GEN-LAST:event_cancelEditActionPerformed
 
+    /**
+     * Xác nhận edit thì kiểm tra thông tin và sửa.
+     * @param evt mouse click
+     */
     private void confirmEdit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmEdit1ActionPerformed
         User user = new User();
         user.setName(nameDialog2.getText());

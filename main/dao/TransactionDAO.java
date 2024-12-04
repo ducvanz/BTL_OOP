@@ -29,12 +29,20 @@ public class TransactionDAO {
         documentDAO = new DocumentDAO();
     }
     
+    /**
+     * Sau khi đăng xuất .
+     */
     public void reset(){
         user.setBorrowedList(getReturnedDocumentByUser(user.getID()));
         user.setLoanList(getBorrowedDocumentByUser(user.getID()));
     }
 
     // Hàm để lấy tài liệu đã mượn theo tên người dùng
+    /**
+     * Lấy tài liệu trả theo id.
+     * @param userID id người dùng
+     * @return danh sách tài liệu người đó đang mượn
+     */
     public ArrayList<Transaction> getReturnedDocumentByUser(int userID) {
         ArrayList<Transaction> returnedTransactions = new ArrayList<>();
         String sql = "SELECT transactionID, documentID, borrowedDate, returnedDate, status FROM TRANSACTION WHERE userID = ? AND status = 'returned'";
@@ -58,6 +66,11 @@ public class TransactionDAO {
     
 
     // Hàm để lấy danh sách tài liệu đang mượn theo tên người dùng
+    /**
+     * Lấy tài liệu trả theo id.
+     * @param userID id người dùng
+     * @return danh sách tài liệu người đó đang mượn
+     */
     public ArrayList<Transaction> getBorrowedDocumentByUser(int userID) {
         ArrayList<Transaction> borrowedTransactions = new ArrayList<>();
         String sql = "SELECT transactionID, documentID, borrowedDate, returnedDate, status FROM TRANSACTION WHERE userID = ? AND status = 'borrowed'";
@@ -79,7 +92,11 @@ public class TransactionDAO {
         return borrowedTransactions;
     }
     
-
+    /**
+     * Thêm tài liệu mượn.
+     * @param transaction thao tác mượn
+     * @return 
+     */
     public boolean addTransaction(Transaction transaction) {
         String sql = "INSERT INTO TRANSACTION (userID, documentID, borrowedDate, returnedDate, status) VALUES (?, ?, ?, ?, ?)";
         String updateUserSql = "UPDATE user SET numberBorrowed = numberBorrowed + 1 WHERE userID = ?";
@@ -115,6 +132,13 @@ public class TransactionDAO {
     
 
     // Hàm để cập nhật trạng thái của transaction thành 'returned' theo name và title
+    /**
+     * Hàm để cập nhật trạng thái của transaction thành 'returned' theo name và title
+     * @param transactionID id 
+     * @param userID
+     * @param documentID
+     * @return 
+     */
     public boolean returnTransaction(int transactionID, int userID, int documentID) {
         String sql = "UPDATE TRANSACTION SET status = 'returned', returnedDate = CURRENT_DATE WHERE transactionID = ?";
         String updateUserSql = "UPDATE user SET numberBorrowed = numberBorrowed - 1 WHERE userID = ?";
@@ -142,11 +166,12 @@ public class TransactionDAO {
             return false;
         }
     }
-    
-    
-    
-    
-    
+
+    /**
+     * Lấy danh sách tài liệu.
+     * @param user người dùng đang dùng ứng dụng
+     * @return danh sách tài liêu top
+     */
     public ArrayList<Document> topDocument(User user) {
         Map<Document, Integer> count = new HashMap<>();
         
@@ -179,6 +204,11 @@ public class TransactionDAO {
         return topDocuments;
     }
     
+    /**
+     * Lấy danh sách tài liệu được mượn nhiều nhất.
+     * @param user
+     * @return 
+     */
     public ArrayList<Document> getTopDocumentForUser(User user) {
         ArrayList<Integer> documentIds = new ArrayList<>();
         String sql = "SELECT documentID FROM TRANSACTION " +

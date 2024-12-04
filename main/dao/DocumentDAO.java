@@ -28,6 +28,11 @@ public class DocumentDAO {
     public DocumentDAO() {
     }
 
+    /**
+     * trả về sách từ ID.
+     * @param ID sách cần tìm
+     * @return sách từ ID
+     */
     public Document getDocumentByID(int ID) {
         ArrayList<Document> allDocuments = getAllDocuments();
         for (Document doc : allDocuments) {
@@ -38,6 +43,11 @@ public class DocumentDAO {
         return null;
     }
 
+    /**
+     * Trả lại sách từ title.
+     * @param title tên scahs
+     * @return  sách cần tìm
+     */
     public Document getDocumentByTitle(String title) {
         ArrayList<Document> allDocuments = getAllDocuments();
         for (Document doc : allDocuments) {
@@ -48,7 +58,15 @@ public class DocumentDAO {
         return null;
     }
     
-    // Lấy tài liệu từ CSDL
+    /**
+     * Lấy danh sách tài liệu từ cơ sở dữ liệu.
+     * @param title tên sach
+     * @param author tên tác giả
+     * @param ISBN mã isbn
+     * @param category thể loại
+     * @param language ngôn ngữ
+     * @return 
+     */
     public static ArrayList<Document> getAllDocumentInDB(String title, String author, String ISBN, String category, String language) {
         ArrayList<Document> documents = new ArrayList<>();
         
@@ -183,6 +201,11 @@ public class DocumentDAO {
     }
 
     // Chuyển filePath xang mảng byte
+    /**
+     * Chuyển ảnh sang link.
+     * @param filePath link ảnh
+     * @return trả về file
+     */
     public byte[] getImageBytesFromUrl(String filePath) {
         if(filePath == null) return null;
         try {
@@ -208,6 +231,11 @@ public class DocumentDAO {
         }
     }
     
+    /**
+     * Lấy ảnh ra từ link trên cơ sở dữ liệu.
+     * @param imageData ảnh
+     * @param label loà ảnh lên label này
+     */
     public static void displayImageFromBytes(byte[] imageData, JLabel label) {
         if (imageData == null || imageData.length == 0) {
             label.setText("Không có dữ liệu hình ảnh.");
@@ -237,6 +265,11 @@ public class DocumentDAO {
 //         System.out.println("Hiển thị ảnh từ CSDL thành công");
     }
 
+    /**
+     * Hàm thực hiện chức năng thêm sách.
+     * @param doc loại tài liệu
+     * @param imageUrl link ảnh
+     */
     public void addDocument(Document doc, String imageUrl) {
         String insertDocumentQuery = "INSERT INTO Document (title, author, publisher, publishedDate, quantity, category, language, description, imageLink) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -305,6 +338,10 @@ public class DocumentDAO {
         }
     }
 
+    /**
+     * Cập nhật sửa sách.
+     * @param doc sách đã thay đổi
+     */
     public void updateDocument(Document doc) {
         String updateDocumentQuery = "UPDATE Document SET title = ?, author = ?, publisher = ?, " +
                 "publishedDate = ?, quantity = ?, category = ?, language = ?, description = ?, imageLink = ?, image = ? " +
@@ -363,6 +400,10 @@ public class DocumentDAO {
         }
     }
 
+    /**
+     * Xoá tài liệu.
+     * @param documentID id tài liệu cần xoá 
+     */
     public void removeDocument(int documentID) {
         String deleteDocumentQuery = "DELETE FROM Document WHERE documentID = ?";
         String deleteBookQuery = "DELETE FROM Book WHERE ID = ?";
@@ -396,6 +437,10 @@ public class DocumentDAO {
         }
     }
 
+    /**
+     * Trả lại danh sách document từ cơ sở dữ liệu.
+     * @return danh sách
+     */
     public static ArrayList<Document> getAllDocuments() {
         ArrayList<Document> documents = new ArrayList<>();
         String query = "SELECT d.documentID, d.title, d.author, d.publisher, d.publishedDate, d.quantity, d.category, d.language, d.description, d.imageLink, d.image, " +

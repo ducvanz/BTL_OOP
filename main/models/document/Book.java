@@ -6,9 +6,6 @@ package BTL_OOP.main.models.document;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.*;
 
 /**
@@ -60,16 +57,16 @@ public class Book extends Document {
     }
     
     /**
-     *
-     * @param con
-     * @param title
-     * @param author
-     * @param isbn
+     * Tìm kiếm tài liệu từ cơ sở dữ liệu dùng id.
+     * @param con biến kết nối db
+     * @param title tên sách
+     * @param author tác giả
+     * @param isbn mã
      * @param publisher
      * @param yearPublished
      * @param category
      * @param language
-     * @return
+     * @return danh sách tài liệu phù hợp
      */
     public List<Book> searchBooks(Connection con, String title, String author, String isbn, 
             String publisher, String yearPublished, String category, String language) {
@@ -153,6 +150,11 @@ public class Book extends Document {
         return books;
     }
     
+    /**
+     * Thêm tài liệu vào cơ sở dữ liệu.
+     * @param con biến kết nối
+     * @param book sách cần thêm
+     */
     public void addBook(Connection con, Book book) {
         String insertBookQuery = "INSERT INTO document (documentID, title, author, publisher, publishedDate, quantity, language, category, description) " +
                                  "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";

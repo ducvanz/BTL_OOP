@@ -5,21 +5,19 @@
 package BTL_OOP.main.ui.manage;
 
 
+import BTL_OOP.main.Main;
 import BTL_OOP.main.ui.users.DisplayDocumentPanel;
 import BTL_OOP.main.ui.users.FindDocumentPanel;
 import BTL_OOP.main.ui.users.InFoUserPanel;
 import BTL_OOP.main.ui.login.LoginPanel;
 import BTL_OOP.main.dao.TransactionDAO;
-import BTL_OOP.main.models.user.User;
 import BTL_OOP.main.dao.DocumentDAO;
 import BTL_OOP.main.models.document.Document;
 import BTL_OOP.main.models.document.RenderDocument;
 import java.awt.CardLayout;
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -29,20 +27,16 @@ import javax.swing.JPanel;
  * @author thinh
  */
 public class ManagePanel extends javax.swing.JPanel {
-    private Connection con;
-    private JFrame mainFframe;
-    private JPanel mainPanel;
-    public static User user;
+    private final JPanel mainPanel;
+//    private static User user;
     public static RenderDocument render = new RenderDocument();
-    /**
-     * Creates new form managePanel
-     */
-    public ManagePanel(Connection con, JFrame mainFframe, JPanel mainPanel) {
+    
+    public ManagePanel() {
         initComponents();
-        this.con = con;
-        this.mainFframe = mainFframe;
-        this.mainPanel = mainPanel;
+        this.mainPanel = Main.mainPanel;
     }
+
+
     /*
         *
      * This method is called from within the constructor to initialize the form.
@@ -417,6 +411,17 @@ public class ManagePanel extends javax.swing.JPanel {
         getAccessibleContext().setAccessibleName("managePanel");
     }// </editor-fold>//GEN-END:initComponents
 
+       /**
+     * Set size cho avata phù hợp với lích thước của label.
+     */
+    private void setAvata() {
+        FindBookManage.resizeLabelIcon(inFoManageLabel, 60, 60);
+    }
+    
+    /**
+     * Nhấn nút đăng xuất.
+     * @param evt mouseClick
+     */
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         int result = JOptionPane.showConfirmDialog(
                 null,
@@ -443,6 +448,10 @@ public class ManagePanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton2MouseClicked
 
+    /**
+     * Chuyển sang trang tìm sách.
+     * @param evt 
+     */
     private void findDocumentJLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_findDocumentJLabelMouseClicked
 
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
@@ -451,6 +460,10 @@ public class ManagePanel extends javax.swing.JPanel {
         FindDocumentPanel.setUsername(getUsername());
     }//GEN-LAST:event_findDocumentJLabelMouseClicked
 
+    /**
+     * Chuyển snag trang thông tin người dùng.
+     * @param evt mouseClick
+     */
     private void jlabel26MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlabel26MouseClicked
 
         InFoUserPanel.setDefaultInfo();
@@ -459,17 +472,29 @@ public class ManagePanel extends javax.swing.JPanel {
         cl.show(mainPanel, "inFoUserPanel");
     }//GEN-LAST:event_jlabel26MouseClicked
 
+    /**
+     * Chuyển snag trang thêm sách.
+     * @param evt mouseclick
+     */
     private void jLabel22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel22MouseClicked
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
         cl.show(mainPanel, "findBookManage");
     }//GEN-LAST:event_jLabel22MouseClicked
 
+    /**
+     * Chuyển về trang chủ quản lý.
+     * @param evt mouseClick
+     */
     private void jLabel17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel17MouseClicked
 
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
         cl.show(mainPanel, "manageDocumentPanel");
     }//GEN-LAST:event_jLabel17MouseClicked
 
+    /**
+     * Chuyển sang trang quản lý người dùng.
+     * @param evt 
+     */
     private void jLabel29MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel29MouseClicked
 
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
@@ -477,6 +502,10 @@ public class ManagePanel extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jLabel29MouseClicked
 
+    /**
+     * Chuyển sang trang để hiển thị thông tin sách đó.
+     * @param evt 
+     */
     private void imageJLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageJLabel5MouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {  // Kiểm tra nếu người dùng nhấp đúp
@@ -488,6 +517,10 @@ public class ManagePanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_imageJLabel5MouseClicked
 
+    /**
+    * Nhấn vào ảnh 2 lần thì đến thông tin sách.
+    * @param evt 
+    */
     private void imageJLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageJLabel1MouseClicked
         if (evt.getClickCount() == 2) {  // Kiểm tra nếu người dùng nhấp đúp
             if (imageJLabel1.getIcon() != null) {
@@ -498,6 +531,10 @@ public class ManagePanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_imageJLabel1MouseClicked
 
+    /**
+    * Nhấn vào ảnh 2 lần thì đến thông tin sách.
+    * @param evt 
+    */
     private void imageJLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageJLabel2MouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {  // Kiểm tra nếu người dùng nhấp đúp
@@ -509,6 +546,10 @@ public class ManagePanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_imageJLabel2MouseClicked
 
+    /**
+    * Nhấn vào ảnh 2 lần thì đến thông tin sách.
+    * @param evt 
+    */
     private void imageJLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageJLabel3MouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {  // Kiểm tra nếu người dùng nhấp đúp
@@ -520,6 +561,10 @@ public class ManagePanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_imageJLabel3MouseClicked
 
+    /**
+    * Nhấn vào ảnh 2 lần thì đến thông tin sách.
+    * @param evt 
+    */
     private void imageJLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageJLabel6MouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {  // Kiểm tra nếu người dùng nhấp đúp
@@ -531,6 +576,10 @@ public class ManagePanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_imageJLabel6MouseClicked
 
+    /**
+    * Nhấn vào ảnh 2 lần thì đến thông tin sách.
+    * @param evt 
+    */
     private void imageJLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imageJLabel4MouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {  // Kiểm tra nếu người dùng nhấp đúp
@@ -543,7 +592,10 @@ public class ManagePanel extends javax.swing.JPanel {
         
     }//GEN-LAST:event_imageJLabel4MouseClicked
     
-    
+    /**
+     * Load ảnh lên trên label.
+     * @return 
+     */
     public static Map<JLabel, JLabel> getListRecomentDocumentJLabel() {
         Map<JLabel, JLabel> result = new LinkedHashMap<>();
         result.put(titleJLabel1, imageJLabel1);
@@ -556,6 +608,9 @@ public class ManagePanel extends javax.swing.JPanel {
     }
     
     //Hiển thị sách gơij ý 
+    /**
+     * Hiển thị các sách được gợi ý lên trên giao diện.
+     */
     public static void displayRecommentDocument() {
         // Lấy tất cả tài liệu từ cơ sở dữ liệu và lịch sử mượn trả
         ArrayList<Document> allDocument = DocumentDAO.getAllDocuments();
@@ -568,10 +623,18 @@ public class ManagePanel extends javax.swing.JPanel {
         render.renderDocument(suggest, labelMap);
     }
     
+    /**
+     * Load username lên trang chủ.
+     * @param username tên người dùng
+     */
     public static void setUsername(String username){
         ManagePanel.userNameManage.setText(username);
     }
 
+    /**
+     * Lấy username từ người dùng vêff.
+     * @return 
+     */
     public static String getUsername() {
         return userNameManage.getText();
     }

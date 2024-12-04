@@ -15,6 +15,10 @@ public class ManageDAO {
     private static final ManageDAO manageDao = new ManageDAO();
     private ManageDAO() {}
 
+    /**
+     * Thêm nguòi dùng mới.
+     * @param user  người dùng cần thêm
+     */
     public void addUser (User user) {
         String sql = "INSERT INTO User (name, email, phone, birthday, address, loanTerm, numberBorrowed, username, password, role) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -37,6 +41,11 @@ public class ManageDAO {
         return manageDao;
     }
 
+    /**
+     * Lấy người dùng bằng tên.
+     * @param username tên người dùng cần lấy thông tin
+     * @return 
+     */
     public User getUserByUsername(String username) {
         String sql = "SELECT userID FROM User WHERE username = ?";
         int userID = -1; // Nếu không tìm thấy user, trả về -1
@@ -55,6 +64,11 @@ public class ManageDAO {
         return getUserByID(userID);
     }
 
+    /**
+     * Lấy người dùng thông qua id.
+     * @param userID id
+     * @return người dùng
+     */
     public User getUserByID(int userID) {
         String sql = "SELECT * FROM User WHERE userID = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -80,6 +94,10 @@ public class ManageDAO {
         return null;
     }
 
+    /**
+     * Cập nhật thong tin người dung.
+     * @param user người dùng mới
+     */
     public void updateUser (User user) {
         String sql = "UPDATE User SET name = ?, email = ?, phone = ?, birthday = ?, address = ?, loanTerm = ?, numberBorrowed = ?, username = ?, password = ? WHERE userID = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -99,6 +117,10 @@ public class ManageDAO {
         }
     }
 
+    /**
+     * Xoá người dùng.
+     * @param userID  id cần xoá
+     */
     public void removeUser (int userID) {
         String sql = "DELETE FROM User WHERE userID = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
@@ -109,6 +131,10 @@ public class ManageDAO {
         }
     }
 
+    /**
+     * Lấy toàn bộ danh sách người dùng.
+     * @return danh sách
+     */
     public ArrayList<User> getAllUsers() {
         ArrayList<User> users = new ArrayList<>();
         String sql = "SELECT * FROM User";
@@ -134,6 +160,12 @@ public class ManageDAO {
         return users;
     }
 
+    /**
+     * Cập nhật thông tin.
+     * @param user user mới
+     * @param fieldName 
+     * @param newValue 
+     */
     public void updateField(User user, String fieldName, String newValue) {
         String sql = "UPDATE User SET " + fieldName + " = ? WHERE username = ?";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {

@@ -51,7 +51,9 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
         setTable();
         
     }
-    
+    /**
+     * Thêm menu.
+     */
         public void addMenuItem() {
         manageMenu.setBackground(new Color(50, 50, 50));  // Màu nền cho menu
         manageMenu.setForeground(Color.WHITE);            // Màu chữ cho menu
@@ -77,6 +79,9 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
         manageMenu.add(nguoidung);
     }
 
+        /**
+         * Load thông tin từ api lên bảng bảng.
+         */
     public void setTable() {
         arrDocument = DocumentDAO.getAllDocuments();
         String[] colums = {"ID", "Tên tài liệu", "Tác giả", "Nhà xuất bản", 
@@ -726,7 +731,10 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
 
         getAccessibleContext().setAccessibleName("manageDocumentPanel");
     }// </editor-fold>//GEN-END:initComponents
-
+    /** 
+     * Confirm đằn xuất là reset dữ liệu.
+     * @param evt 
+     */
     private void jButton14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton14MouseClicked
         int choose = JOptionPane.showConfirmDialog(
             mainPanel, 
@@ -754,30 +762,52 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_jButton14MouseClicked
-
+    
+    /**
+     * Chuyển sang trang chủ quản lý.
+     * @param evt mouseclick
+     */
     private void trangchuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_trangchuActionPerformed
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
         cl.show(mainPanel, "managePanel");
     }//GEN-LAST:event_trangchuActionPerformed
-
+    
+    /**
+     * Chuyển sang trang quản lý tài liệu.
+     * @param evt mouseclick
+     */
     private void quanLySachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quanLySachActionPerformed
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
         cl.show(mainPanel, "manageDocumentPanel");
     }//GEN-LAST:event_quanLySachActionPerformed
 
+    /**
+     * Chuyển sang trang tìm kiếm.
+     * @param evt mouseclick
+     */
     private void timsachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timsachActionPerformed
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
         cl.show(mainPanel, "findDocumentPanel");
     }//GEN-LAST:event_timsachActionPerformed
 
+    
     private void thongtinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thongtinActionPerformed
 
     }//GEN-LAST:event_thongtinActionPerformed
 
+    /**
+     * Load lại dữ liệu trên bảng.
+     * @param evt 
+     */
     private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
         setTable();
     }//GEN-LAST:event_refreshActionPerformed
 
+    /**
+     * Nhấn nút xác nhận xoá.
+     * thực hiện xoá
+     * @param evt 
+     */
     private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
         int selectedRow = infoDocument.getSelectedRow();
 
@@ -824,15 +854,27 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
         manageMenu.show(jLabel27, evt.getX(), evt.getY());
     }//GEN-LAST:event_jLabel27MouseEntered
 
+    /**
+     * Nhấn nút huỷ thì đóng dialog.
+     * @param evt mouseclick
+     */
     private void cancelRemoveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelRemoveMouseClicked
         removeDialog.setVisible(false);
     }//GEN-LAST:event_cancelRemoveMouseClicked
 
+    /**
+     * Đi đến trang tìm kiếm khi cần thêm sách.
+     * @param evt 
+     */
     private void themSachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_themSachActionPerformed
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
         cl.show(mainPanel, "findBookManage");
     }//GEN-LAST:event_themSachActionPerformed
 
+    /**
+     * Load thông tin lên dialog.
+     * @param evt mouseClick
+     */
     private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
         int selectedRow = infoDocument.getSelectedRow();
 
@@ -866,6 +908,10 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
         editDialog.setVisible(true);
     }//GEN-LAST:event_editActionPerformed
 
+    /**
+     * Nhấn nút xác nhận sửa thì thực hiện kiểm tra thông tin và sửa.
+     * @param evt mouseClick
+     */
     private void confirmEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmEditActionPerformed
             Book Abook = new Book();
             Abook.setID((Integer) infoDocument.getValueAt(rowNow, 0));
@@ -886,6 +932,10 @@ public class ManageDocumentPanel extends javax.swing.JPanel {
             
     }//GEN-LAST:event_confirmEditActionPerformed
 
+    /**
+     * Huỷ thì đóng dialog.
+     * @param evt 
+     */
     private void cancelEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelEditMouseClicked
         editDialog.setVisible(false);
     }//GEN-LAST:event_cancelEditMouseClicked

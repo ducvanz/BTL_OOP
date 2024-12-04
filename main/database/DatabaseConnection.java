@@ -22,6 +22,10 @@ public class DatabaseConnection {
     private static DatabaseConnection database;
     private DatabaseConnection() {}
 
+    /**
+     * Hàm thực hiện tạo đối tượng.
+     * @return 
+     */
     public static DatabaseConnection getDatabaseConnection() {
         if (database == null) {
             database = new DatabaseConnection();
@@ -30,6 +34,10 @@ public class DatabaseConnection {
         return database;
     }
     
+    /**
+     * Kết nối database.
+     * @return biến Connection
+     */
     public Connection getConnection() {
         Connection connection = null;
         try {

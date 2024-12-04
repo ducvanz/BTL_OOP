@@ -4,6 +4,7 @@
  */
 package BTL_OOP.main.ui.login;
 
+import BTL_OOP.main.Main;
 import BTL_OOP.main.ui.users.DisplayDocumentPanel;
 import BTL_OOP.main.dao.TransactionDAO;
 import BTL_OOP.main.database.DatabaseConnection;
@@ -31,24 +32,20 @@ import javax.swing.JTextField;
 
 
 public class LoginPanel extends JPanel {
-    private final Connection con = DatabaseConnection.getDatabaseConnection().con;
-
-    JFrame mainFrame;
-    JPanel mainPanel;
+    private final Connection con;
+    private JPanel mainPanel;
     public static User userOverAll;
     public static boolean isManage;
-    TransactionDAO transactionDAO;
+    private TransactionDAO transactionDAO;
     private CardLayout cl;
     public static Manage manage = new Manage();
     public static final String link = "C:\\Users\\Admin\\NetBean\\BTL2\\src\\BTL_OOP\\image\\";
 
-    /**
-     * Creates new form loginPanel
-     */
-    public LoginPanel(JFrame mainFrame, JPanel mainPanel) {
+    
+    public LoginPanel() {
         initComponents();
-        this.mainFrame = mainFrame;
-        this.mainPanel = mainPanel;
+        this.con = Main.con;
+        this.mainPanel = Main.mainPanel;
         isManage = false; 
         if (userOverAll == null) {
             userOverAll = new User();
@@ -56,6 +53,8 @@ public class LoginPanel extends JPanel {
         cl = (CardLayout) mainPanel.getLayout();
         allSetup();
     }
+
+
     
     public void allSetup() {
         addToggleIcon(passwordInLoginPasswordField, link + "show.png" , link + "unShow.png");
@@ -346,7 +345,7 @@ public class LoginPanel extends JPanel {
     }
     public static void updateAccount() {
         FindBookManage.user = userOverAll;
-        ManagePanel.user = userOverAll;
+//        ManagePanel.user = userOverAll;
         TransactionDAO.user = userOverAll;
         FindDocumentPanel.displayRecommentDocument();
         DisplayDocumentPanel.isFromHome = true;

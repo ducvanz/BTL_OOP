@@ -30,7 +30,7 @@ public final class Main extends JFrame {
 
     public CardLayout cardLayout;
     public static JPanel mainPanel;
-    public static JFrame frame;
+    public static JFrame mainFrame;
     public static Connection con = DatabaseConnection.getDatabaseConnection().con;
 
     public Main() {
@@ -38,7 +38,7 @@ public final class Main extends JFrame {
     }
 
     public void init() {
-        frame = new JFrame();
+        mainFrame = new JFrame();
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
 
@@ -47,18 +47,18 @@ public final class Main extends JFrame {
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        SignupPanel signupPanel = new SignupPanel(frame, mainPanel);
-        LoginPanel loginPanel = new LoginPanel(frame, mainPanel);
-        UserPanel userPanel = new UserPanel(con, frame, mainPanel);
-        ManagePanel managePanel = new ManagePanel(con, frame, mainPanel);
-        FindDocumentPanel findDocumentPanel = new FindDocumentPanel(con, frame, mainPanel);
-        FindBookManage FindBookManage = new FindBookManage(con, frame, mainPanel);
-        ManageDocumentPanel manageDocumentPanel = new ManageDocumentPanel(con, frame, mainPanel);
+        SignupPanel signupPanel = new SignupPanel();
+        LoginPanel loginPanel = new LoginPanel();
+        UserPanel userPanel = new UserPanel();
+        ManagePanel managePanel = new ManagePanel();
+        FindDocumentPanel findDocumentPanel = new FindDocumentPanel(con, mainFrame, mainPanel);
+        FindBookManage FindBookManage = new FindBookManage(con, mainFrame, mainPanel);
+        ManageDocumentPanel manageDocumentPanel = new ManageDocumentPanel(con, mainFrame, mainPanel);
 
-        DisplayDocumentPanel displayDocumentPanel = new DisplayDocumentPanel(con, frame, mainPanel);
-        InFoUserPanel inFoUserPanel = new InFoUserPanel(con, frame, mainPanel);
+        DisplayDocumentPanel displayDocumentPanel = new DisplayDocumentPanel(con, mainFrame, mainPanel);
+        InFoUserPanel inFoUserPanel = new InFoUserPanel(con, mainFrame, mainPanel);
 
-        UserManagementPanel userManagementPanel = new UserManagementPanel(con, frame, mainPanel);
+        UserManagementPanel userManagementPanel = new UserManagementPanel(con, mainFrame, mainPanel);
 
         mainPanel.add(signupPanel, "signupPanel");
         mainPanel.add(loginPanel, "loginPanel");
@@ -79,7 +79,7 @@ public final class Main extends JFrame {
 
         setVisible(true);
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public static void main(String[] args) {
