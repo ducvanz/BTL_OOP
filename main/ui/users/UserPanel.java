@@ -72,7 +72,6 @@ public class UserPanel extends JPanel {
 
         UserPanel_ = new javax.swing.JPanel();
         home = new javax.swing.JPanel();
-        homeUser = new javax.swing.JLabel();
         thongtin = new javax.swing.JLabel();
         username = new javax.swing.JLabel();
         timtailieu = new javax.swing.JLabel();
@@ -103,12 +102,6 @@ public class UserPanel extends JPanel {
 
         home.setBackground(new java.awt.Color(153, 204, 255));
         home.setPreferredSize(new java.awt.Dimension(270, 650));
-
-        homeUser.setBackground(new java.awt.Color(255, 255, 255));
-        homeUser.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        homeUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        homeUser.setText("TRANG CHỦ");
-        homeUser.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         thongtin.setBackground(new java.awt.Color(204, 204, 204));
         thongtin.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -152,8 +145,7 @@ public class UserPanel extends JPanel {
                 .addGroup(homeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(thongtin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(username, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(timtailieu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(homeUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(timtailieu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homeLayout.createSequentialGroup()
                 .addContainerGap(76, Short.MAX_VALUE)
@@ -167,13 +159,11 @@ public class UserPanel extends JPanel {
                 .addComponent(avata, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
-                .addComponent(homeUser, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
+                .addGap(28, 28, 28)
                 .addComponent(timtailieu, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53)
+                .addGap(43, 43, 43)
                 .addComponent(thongtin, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(240, Short.MAX_VALUE))
+                .addContainerGap(350, Short.MAX_VALUE))
         );
 
         thongtin.getAccessibleContext().setAccessibleName("");
@@ -516,7 +506,6 @@ public class UserPanel extends JPanel {
     private javax.swing.JPanel UserPanel_;
     private javax.swing.JLabel avata;
     private javax.swing.JPanel home;
-    private javax.swing.JLabel homeUser;
     private static javax.swing.JLabel imageJLabel1;
     private static javax.swing.JLabel imageJLabel2;
     private static javax.swing.JLabel imageJLabel3;

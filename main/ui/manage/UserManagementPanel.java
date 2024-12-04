@@ -7,6 +7,11 @@ package BTL_OOP.main.ui.manage;
 import BTL_OOP.main.dao.ManageDAO;
 import BTL_OOP.main.ui.login.LoginPanel;
 import BTL_OOP.main.models.user.User;
+import BTL_OOP.main.ui.users.UserPanel;
+import java.awt.CardLayout;
+import java.util.Map;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import BTL_OOP.main.services.CheckInput;
 import BTL_OOP.main.ui.users.UserPanel;
 import java.awt.CardLayout;
@@ -115,7 +120,6 @@ public class UserManagementPanel extends javax.swing.JPanel {
         quanLySach = new javax.swing.JMenuItem();
         timsach = new javax.swing.JMenuItem();
         thongtin = new javax.swing.JMenuItem();
-        nguoidung = new javax.swing.JMenuItem();
         removeDialog = new javax.swing.JDialog();
         questionDiaLog = new javax.swing.JLabel();
         title = new javax.swing.JLabel();
@@ -224,9 +228,6 @@ public class UserManagementPanel extends javax.swing.JPanel {
             }
         });
         manageMenu.add(thongtin);
-
-        nguoidung.setText("Quản lý người dùng");
-        manageMenu.add(nguoidung);
 
         removeDialog.setSize(new java.awt.Dimension(500, 350));
 
@@ -1226,7 +1227,6 @@ public class UserManagementPanel extends javax.swing.JPanel {
     private javax.swing.JLabel nameDialog;
     private javax.swing.JTextField nameDialog1;
     private javax.swing.JTextField nameDialog2;
-    private javax.swing.JMenuItem nguoidung;
     private javax.swing.JLabel pass;
     private javax.swing.JLabel pass1;
     private javax.swing.JTextField passDialog1;
