@@ -23,10 +23,14 @@ public final class SignupPanel extends JPanel {
         this.mainPanel = Main.mainPanel;
         cardLayout = (CardLayout) mainPanel.getLayout();
         enterSignUp();
-        LoginPanel.addToggleIcon(passwordTextField, LoginPanel.link + "show.png", LoginPanel.link + "unShow.png");
+        LoginPanel.addToggleIcon(passwordTextField, LoginPanel.link 
+                + "show.png", LoginPanel.link + "unShow.png");
 
     }
 
+    /**
+     * Nhấn enter thực hiện kiểm tra tài khoản đăng ký.
+     */
     public void enterSignUp() {
         // Thêm KeyListener để bắt sự kiện nhấn phím Enter trên jTextField1
         nameTextField.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -69,6 +73,9 @@ public final class SignupPanel extends JPanel {
         });
     }
     
+    /**
+     * Nếu tài khoản hoặc mật khẩu sai thì reset.
+     */
     public void resetOfSignUp() {
         passwordTextField.setText("");
     }
@@ -141,12 +148,6 @@ public final class SignupPanel extends JPanel {
 
         passwordLabel.setText("Mật khẩu");
         windowSigupPane.add(passwordLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 70, -1));
-
-        passwordTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passwordTextFieldActionPerformed(evt);
-            }
-        });
         windowSigupPane.add(passwordTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 295, 290, -1));
 
         userAccountTextField.setToolTipText("Tên đăng nhập");
@@ -225,14 +226,29 @@ public final class SignupPanel extends JPanel {
         getAccessibleContext().setAccessibleName("signupPanel");
     }// </editor-fold>//GEN-END:initComponents
 
+    private void passwordTextFieldActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+        // TODO add your handling code here:
+    }                                                 
+
+    /**
+     * Chuyển pane login.
+     * @param evt 
+     */
+    
     private void questionSignupLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_questionSignupLabelMouseClicked
         cardLayout.show( mainPanel, "loginPanel");
     }//GEN-LAST:event_questionSignupLabelMouseClicked
 
+    
+    /**
+     * Khi nhấn nút đăng ký thì xác nhận avf kiểm tra.
+     * @param evt 
+     */
     private void signupButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signupButtonActionPerformed
 
         if (!CheckInput.checkFullName(nameTextField.getText())) {
-            JOptionPane.showMessageDialog(mainPanel, "Họ và tên cần viết hoa chữ cái đầu, không chứa các kí tự đặc biệt!");
+            JOptionPane.showMessageDialog(mainPanel, "Họ và tên cần viết hoa "
+                    + "chữ cái đầu, không chứa các kí tự đặc biệt!");
             return;
         }
         int check = 0;
@@ -271,7 +287,8 @@ public final class SignupPanel extends JPanel {
         }
 
         if (check == 2) {
-            JOptionPane.showMessageDialog(null, "Bạn đã đăng ký thành công?", "Thông báo", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Bạn đã đăng ký thành công?", 
+                    "Thông báo", JOptionPane.PLAIN_MESSAGE);
 
             // thêm vào danh sách người dung
             Manage manage = new Manage();
@@ -279,14 +296,20 @@ public final class SignupPanel extends JPanel {
             // chuyen sang trang dang nhap
             CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
             cl.show(mainPanel, "loginPanel");
+            resetPane();
         }
     }//GEN-LAST:event_signupButtonActionPerformed
 
-    private void passwordTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_passwordTextFieldActionPerformed
 
-            
+    
+    /**
+     * Đăng ký thành công thì reset trang.
+     */
+    private void resetPane() {
+        nameTextField.setText("");
+        userAccountTextField.setText("");
+        passwordTextField.setText("");
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel accountLabel;

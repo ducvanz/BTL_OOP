@@ -16,11 +16,16 @@ import javax.swing.JLabel;
  * @author thinh
  */
 public class RenderDocument {
-    
+
     public RenderDocument() {
         
     }
-    // Hiển thị tài liệu lên các trang cần thiết
+    
+    /**
+     * Hiển thị ảnh và tên tài liệu lên các trang cần thiết.
+     * @param documents danh sách tài liệu phù hợp
+     * @param labelMap Map của ảnh và tên sách tương ứng
+     */
     public void renderDocument(ArrayList<Document> documents, Map<JLabel, JLabel> labelMap) {
         int count = 0;
         if (documents != null) {
@@ -61,7 +66,11 @@ public class RenderDocument {
         
     }
     
-    //Hiển thị tài liệu sau khi bấm vào sách
+    
+    /**
+     * Thực hiện chuyển sang trang thông tin tài liệu khi nhấn vào bìa sách.
+     * @param label chứa bìa sách
+     */
     public void renderDocumentToInfoDocument(JLabel label) {
         ArrayList<Document> arrDocument = DocumentDAO.getAllDocuments();
         for(Document d: arrDocument) {

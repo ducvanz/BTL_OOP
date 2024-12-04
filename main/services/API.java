@@ -21,7 +21,11 @@ public class API {
     public API() {
     }
 
-    // Tải ảnh trong một luồng nền
+    /**
+     * Tài ảnh từ một luồng lên.
+     * @param imageUrl
+     * @param label 
+     */
     public static void loadImageInBackground(String imageUrl, JLabel label) {
         SwingWorker<ImageIcon, Void> worker = new SwingWorker<ImageIcon, Void>() {
             @Override
@@ -55,7 +59,11 @@ public class API {
         worker.execute();
     }
 
-    // Phân tích JSON để lấy URL ảnh
+    /**
+     * Phân tích Json trả về để lấy danh sách ảnh.
+     * @param jsonResponse
+     * @return 
+     */
     private static String parseDocumentGetImage(String jsonResponse) {
         if (jsonResponse == null || jsonResponse.isEmpty()) {
             System.out.println("Phản hồi JSON rỗng hoặc null, không thể phân tích.");
@@ -89,7 +97,15 @@ public class API {
         return null;
     }
 
-    // Lấy URL của ảnh từ API
+    /**
+     * Lấy URL từ API.
+     * @param title tên sách
+     * @param author 
+     * @param ISBN
+     * @param category
+     * @param language
+     * @return 
+     */
     public static String getImageUrl(String title, String author, String ISBN, String category, String language) {
         String jsonResponse = searchDocument(title, author, ISBN, category, language);
         if (jsonResponse == null) {

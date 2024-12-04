@@ -938,7 +938,8 @@ public class UserManagementPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_timsachActionPerformed
 
     private void thongtinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_thongtinActionPerformed
-
+        CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
+        cl.show(mainPanel, "inFoUserPanel");
     }//GEN-LAST:event_thongtinActionPerformed
 
     
@@ -1195,11 +1196,19 @@ public class UserManagementPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_nameDialog2ActionPerformed
 
+    /**
+     * Nhấn xác nhận và mở dialog.
+     * @param evt 
+     */
     private void addUserbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserbuttonActionPerformed
         addDialog1.setLocationRelativeTo(this);
         addDialog1.setVisible(true);
     }//GEN-LAST:event_addUserbuttonActionPerformed
 
+    /**
+     * Nhấn nút refresh thì thưcj hiện loà lại bảng.
+     * @param evt 
+     */
     private void refreshUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshUserButtonActionPerformed
         loadUserTable();
     }//GEN-LAST:event_refreshUserButtonActionPerformed

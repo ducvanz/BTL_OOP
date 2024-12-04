@@ -317,16 +317,25 @@ public class LoginPanel extends JPanel {
         passwordInLoginPasswordField.setText("");
     }//GEN-LAST:event_loginButtonActionPerformed
 
+
     private void manageRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageRadioButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_manageRadioButtonActionPerformed
 
+
+    /**
+     * Reset lại trang về mặc định.
+     */
     public void resetLogin(){
         accountInLoginTextField.setText("");
         passwordInLoginPasswordField.setText("");
         thongbaodangnhapsai.setText("");
         loginButton.setText("ĐĂNG NHẬP");
     }
+    
+    /**
+     * Cập nhật thông tin tài khoản chung lên các trang khác.
+     */
     public static void updateAccount() {
         FindBookManage.user = userOverAll;
 //        ManagePanel.user = userOverAll;
@@ -343,6 +352,9 @@ public class LoginPanel extends JPanel {
 
     }
     
+    /**
+     * Sau khi nhấn đăng xuất thì user chung về null.
+     */
     public static void resetLoginAfter() {
         userOverAll = null;
         updateAccount();

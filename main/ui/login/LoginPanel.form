@@ -70,7 +70,7 @@
                   <Component id="librarynameInLoginLabel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                   <Component id="windowLoginPanel" min="-2" pref="382" max="-2" attributes="0"/>
-                  <EmptySpace pref="160" max="32767" attributes="0"/>
+                  <EmptySpace pref="161" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -118,21 +118,17 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="loginLabelPanel" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="44" pref="44" max="-2" attributes="0"/>
-                              <Component id="accountInLoginLabel" min="-2" pref="86" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="44" pref="44" max="-2" attributes="0"/>
-                              <Component id="passwordInLoginLabel" min="-2" pref="70" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                              <Component id="accountInLoginTextField" min="-2" pref="333" max="-2" attributes="0"/>
-                          </Group>
                           <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                               <Component id="loginButton" min="-2" max="-2" attributes="0"/>
                               <Component id="loginButtonPanel" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="44" pref="44" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="accountInLoginLabel" min="-2" pref="86" max="-2" attributes="0"/>
+                                  <Component id="passwordInLoginLabel" min="-2" pref="70" max="-2" attributes="0"/>
+                                  <Component id="accountInLoginTextField" alignment="0" min="-2" pref="333" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>

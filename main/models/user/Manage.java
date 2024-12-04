@@ -22,6 +22,11 @@ public class Manage extends User {
         
     }
     
+    /**
+     * Gán thuộc tính cho quản lý.
+     * Quản lý cũng được xem là một người dùng
+     * @param user 
+     */
     public Manage(User user){
         this.setID(user.getID());
         this.setName(user.getName());
@@ -36,6 +41,7 @@ public class Manage extends User {
         this.setLoanTerm(user.isLoanTerm());
         this.setNumberBorrowed(user.getNumberBorrowed());      
     }
+    
     public ArrayList<User> getArrayUsers() {
         setArrayUsers();
         return users;
