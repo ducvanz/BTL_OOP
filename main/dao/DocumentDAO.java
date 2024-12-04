@@ -67,7 +67,7 @@ public class DocumentDAO {
                 "WHERE 1=1 "
             );
         
-            if (title != "" && !title.isEmpty()) {
+            if (title != null && !title.isEmpty()) {
                 query.append("AND d.title LIKE ? ");
             }
             if (author != null && !author.isEmpty()) {

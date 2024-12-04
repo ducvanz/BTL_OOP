@@ -10,7 +10,7 @@ import BTL_OOP.main.database.DatabaseConnection;
 import BTL_OOP.main.ui.users.FindDocumentPanel;
 import BTL_OOP.main.ui.users.InFoUserPanel;
 import BTL_OOP.main.models.user.User;
-import BTL_OOP.users.UserPanel;
+import BTL_OOP.main.ui.users.UserPanel;
 import BTL_OOP.main.ui.manage.ManagePanel;
 import BTL_OOP.main.ui.manage.FindBookManage;
 import BTL_OOP.main.models.user.Manage;

@@ -28,11 +28,11 @@ import javax.swing.SwingUtilities;
  */
 public final class Main extends JFrame {
 
-
     public CardLayout cardLayout;
-    public JPanel mainPanel;
-    public JFrame frame;
-    public Connection con = DatabaseConnection.getDatabaseConnection().con;
+    public static JPanel mainPanel;
+    public static JFrame frame;
+    public static Connection con = DatabaseConnection.getDatabaseConnection().con;
+
     public Main() {
         init();
     }
@@ -41,12 +41,11 @@ public final class Main extends JFrame {
         frame = new JFrame();
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
-        
+
         setTitle("A+ OOP nè!");
         setSize(800, 650);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
-
 
         SignupPanel signupPanel = new SignupPanel(frame, mainPanel);
         LoginPanel loginPanel = new LoginPanel(frame, mainPanel);

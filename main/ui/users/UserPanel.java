@@ -4,6 +4,7 @@
  */
 package BTL_OOP.main.ui.users;
 
+import BTL_OOP.main.Main;
 import BTL_OOP.main.ui.login.LoginPanel;
 import BTL_OOP.main.dao.TransactionDAO;
 import BTL_OOP.main.models.document.RenderDocument;
@@ -35,8 +36,7 @@ public class UserPanel extends JPanel {
     /**
      * Creates new form userPanel
      */
-    public UserPanel(){
-    }
+
     public UserPanel(Connection con, JFrame mainFrame, JPanel mainPanel) {
         initComponents();
         this.con = con;
@@ -46,6 +46,7 @@ public class UserPanel extends JPanel {
         enterLogin();
         
     }
+    
     public static void enterLogin() {
         // Thêm KeyListener để bắt sự kiện nhấn phím Enter trên accountInLoginTextField
         LoginPanel.getAccountInLoginTextField().addKeyListener(new java.awt.event.KeyAdapter() {

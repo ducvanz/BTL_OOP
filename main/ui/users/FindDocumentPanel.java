@@ -60,7 +60,7 @@ public class FindDocumentPanel extends JPanel{
     }
 
     // Dùng đa luồng để hiển thị danh sách trả về từ API và 
-    public void displayResultFindDocument(boolean check, String title, String author, String ISBN, String category, String language) {
+    public void displayResultFindDocument(String title, String author, String ISBN, String category, String language) {
         // Tạo một SwingWorker để thực hiện tìm kiếm trong nền
         SwingWorker<ArrayList<Document>, Void> worker;
         worker = new SwingWorker<ArrayList<Document>, Void>() {
@@ -117,10 +117,6 @@ public class FindDocumentPanel extends JPanel{
                     e.printStackTrace();
                     // Xử lý lỗi nếu có
                     JOptionPane.showMessageDialog(null, "Lỗi khi nhập để tìm kiếm tài liệu: " + e.getMessage());
-                }
-                if (checkDisplayResult()){
-                    jScrollPane1.setVisible(true);
-                    resultFindDocumentJList.setVisible(true);
                 }
             }
         };
@@ -548,6 +544,8 @@ public class FindDocumentPanel extends JPanel{
         titleJTextField.setText("");
         authorJTextField.setText("");
         ISBNJTextField.setText("");
+        categoryComboBox.setSelectedIndex(0);
+        languageComboBox.setSelectedIndex(0);
         jScrollPane1.setVisible(false);
         resultFindDocumentJList.setVisible(false);
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout
@@ -562,11 +560,7 @@ public class FindDocumentPanel extends JPanel{
         author = authorJTextField.getText().trim();
         if (!author.equals(oldAuthor) && !author.equals("")){
             oldAuthor = author;
-            if (checkDocument()) {
-                displayResultFindDocument(checkDocument(), title, author, ISBN, "", "");
-            } else {
-                displayResultFindDocument(checkDocument(), title, author, ISBN, category, language);
-            }
+            findDocument();
         }
 
     }//GEN-LAST:event_authorJTextFieldKeyTyped
@@ -574,11 +568,7 @@ public class FindDocumentPanel extends JPanel{
     private void ISBNJTextFieldKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_ISBNJTextFieldKeyReleased
         ISBN = ISBNJTextField.getText().trim();
         if (ISBN.length()==13){
-            if (checkDocument()) {
-                displayResultFindDocument(checkDocument(), title, author, ISBN, "", "");
-            } else {
-                displayResultFindDocument(checkDocument(), title, author, ISBN, category, language);
-            }
+            findDocument();
         }
         
 
@@ -602,8 +592,7 @@ public class FindDocumentPanel extends JPanel{
         int index = resultFindDocumentJList.locationToIndex(evt.getPoint());
         if (index != -1) {
             Object item = resultFindDocumentJList.getModel().getElementAt(index);
-            Document doc = (Document) item;
-                       
+            Document doc = (Document) item;                       
 
             for(Document d: arrDocument) {
                 if (d.getTitle().equals(doc.getTitle())){
@@ -717,14 +706,7 @@ public class FindDocumentPanel extends JPanel{
     //Hiển thị sách gơij ý 
     
     
-    // true: tìm cả API và CSDL, false: tìm CSDL
-    private boolean checkDocument(){
-        if ((category.equals("All") || category.equals("Fiction")) && (language.equals("All") || language.equals("English"))) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    // true tìm theo all, false theo thể loại.
     
     private boolean checkDisplayResult(){
         if(title.equals("") && author.equals("") && ISBN.length()!=13) {
@@ -738,15 +720,22 @@ public class FindDocumentPanel extends JPanel{
         if (!title.equals(oldTitle) && !title.equals("")){
             System.out.println(title);
             oldTitle = title;
-            if (checkDocument()) {
-                System.out.println("*****1");
-                displayResultFindDocument(checkDocument(), title, author, ISBN, "", "");
-            } else {
-                System.out.println("*****2");
-                displayResultFindDocument(checkDocument(), title, author, ISBN, category, language);
-            }
+            findDocument();
         }
     }
+    
+    private void findDocument() {
+        if (category.equals("All") && language.equals("All")) {
+            displayResultFindDocument(title, author, ISBN, "", "");
+        } else if (category.equals("All")) {
+            displayResultFindDocument(title, author, ISBN, "", language);
+        } else if (language.equals("All")) {
+            displayResultFindDocument(title, author, ISBN, category, "");
+        } else {
+                displayResultFindDocument(title, author, ISBN, category, language);
+        }
+    }
+    
 
     public static void setUsername(String username_) {
         username.setText(username_);
