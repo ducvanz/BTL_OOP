@@ -4,7 +4,7 @@
  */
 package BTL_OOP.test.publicc;
 
-import BTL_OOP.publicc.CheckInput;
+import BTL_OOP.main.services.CheckInput;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

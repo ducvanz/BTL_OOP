@@ -4,7 +4,7 @@
  */
 package BTL_OOP.test.users;
 
-import BTL_OOP.users.DisplayDocumentPanel;
+import BTL_OOP.main.ui.users.DisplayDocumentPanel;
 import java.io.File;
 import javax.swing.JLabel;
 import org.junit.Test;

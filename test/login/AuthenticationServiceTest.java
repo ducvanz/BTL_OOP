@@ -4,7 +4,7 @@
  */
 package BTL_OOP.test.login;
 
-import BTL_OOP.login.AuthenticationService;
+import BTL_OOP.main.ui.login.AuthenticationService;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;

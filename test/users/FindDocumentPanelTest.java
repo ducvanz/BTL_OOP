@@ -5,7 +5,6 @@
 package BTL_OOP.test.users;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *

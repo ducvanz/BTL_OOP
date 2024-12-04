@@ -4,7 +4,7 @@
  */
 package BTL_OOP.test.connectionDB;
 
-import BTL_OOP.connectionDB.DatabaseConnection;
+import BTL_OOP.main.database.DatabaseConnection;
 import java.sql.Connection;
 import org.junit.Test;
 import static org.junit.Assert.*;
