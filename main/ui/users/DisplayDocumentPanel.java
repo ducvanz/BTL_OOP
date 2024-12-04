@@ -455,7 +455,7 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
 
 //            System.out.println("Ảnh mặc định");
             //Sua dong dnay 
-            loadImageFromFilePath(imageDocumentJLabel, "C:\\Users\\Admin\\NetBean\\BTL2\\src\\BTL_OOP\\image\\Screenshot_63.png");
+            loadImageFromFilePath(imageDocumentJLabel, "C:\\Users\\thinh\\JAVA\\SWING\\src\\BTL_OOP\\image\\Screenshot_63.png");
 
         }
         

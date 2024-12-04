@@ -41,7 +41,7 @@ public class RenderDocument {
 //                    System.out.println("Ảnh từ csdl image");
                 } else {
 //                    System.out.println("Ảnh mặc định");
-                    DisplayDocumentPanel.loadImageFromFilePath(imageLabel, "C:\\Users\\Admin\\NetBean\\BTL2\\src\\BTL_OOP\\image\\Screenshot_63.png");
+                    DisplayDocumentPanel.loadImageFromFilePath(imageLabel, "C:\\Users\\thinh\\JAVA\\SWING\\src\\BTL_OOP\\image\\Screenshot_63.png");
                 }
 
                 count++;  // Tiến tới tài liệu tiếp theo
