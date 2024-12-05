@@ -4,6 +4,7 @@
    + Ngọ Viết Thuyết
    + Mai Đức Văn
    + Nguyễn Văn Thịnh
+     - Github: https://github.com/TNoLisme
    + Kiều Đức Thắng
 # Mục lục
 1. [Giới thiệu](#giới-thiệu)
@@ -18,8 +19,11 @@
 7. [Liên hệ](#liên-hệ)
 
 # I. GIỚI THIỆU
-- Dư án THƯ VIỆN SỐ ANTEXT là một dự án bài của môn học OOP do cô Nguyễn Thu Trang trực tiếp giảng dạy.
+- Dư án app THƯ VIỆN SỐ ANTEXT là một dự án bài của môn học OOP do cô Nguyễn Thu Trang trực tiếp giảng dạy.
 - Dự án là một ứng dụng quản lý thư viện được thiết kế để giúp quản lý các tài liệu về sách, báo, tài khoản quản lý, người dùng và các thông tin liên quan một cách dễ dàng hơn.
+- Biểu đồ lớp (Class Diagram):
+
+   ![image](classDiagram.png).
 
 # II. CÁC TÍNH NĂNG
 ✅ Đăng ký, Đăng nhập
@@ -40,7 +44,7 @@
   +  IDE: Netbean
 ## Hướng dẫn cài đặt
   1. Clone dự án
-  https://github.com/ducvanz/BTL_OOP.git
+  git clone https://github.com/ducvanz/BTL_OOP.git
 
   3. Cài đặt một số thư viện hỗ trợ
  
@@ -65,12 +69,13 @@
 Trang chủ -> Các trang giao diện khác.
 
 # V. CÔNG NGHỆ SỬ DỤNG
-  - Ngôn ngữ lập trình Java
-  - Cơ sở dữ liệu MySQL
-  - Thư viện GUI (Graphical User Interface): Java Swing
+  - Ngôn ngữ lập trình Java.
+  - Cơ sở dữ liệu MySQL.
+  - Thư viện GUI (Graphical User Interface): Java Swing.
+  - Google Books API. 
  ## Tài liệu tham khảo
-   + ChatGPT 3.5
    + Kênh YouTube JMaster IO: https://www.youtube.com/watch?v=QmHBWBA_w-I&list=PLsfLgp1K1xQ7dDUcjtlRQhZJxl0orbEsd
+   + Lập trình hướng đối tượng do cô Trang dạy (uy tín).
      
 # VI. ĐÓNG GÓP
 - File báo cáo đóng góp của mỗi thành viên nhóm 11 trong dự án: https://docs.google.com/document/d/1deQDBUQGQr3qMPy7O7aZpskxVafcZPo1GDZXmYtsFzw/edit?tab=t.0
