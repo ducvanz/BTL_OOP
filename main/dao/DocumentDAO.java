@@ -92,7 +92,7 @@ public class DocumentDAO {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     // Thực hiện truy vấn và lấy tài liệu
-                    Document document = DocumentFactory.createDocument(resultSet);
+                    Document document = DocumentAdapter.createDocument(resultSet);
                     if (document != null) {
                         documents.add(document);
                     }

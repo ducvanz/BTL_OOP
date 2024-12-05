@@ -12,7 +12,7 @@ import BTL_OOP.main.ui.users.FindDocumentPanel;
 import BTL_OOP.main.ui.users.InFoUserPanel;
 import BTL_OOP.main.ui.users.UserPanel;
 import BTL_OOP.main.ui.manage.ManagePanel;
-import BTL_OOP.main.ui.manage.FindBookManage;
+import BTL_OOP.main.ui.manage.AddBookManage;
 import BTL_OOP.main.ui.manage.ManageDocumentPanel;
 import BTL_OOP.main.ui.manage.UserManagementPanel;
 import java.awt.CardLayout;
@@ -54,7 +54,7 @@ public final class Main extends JFrame {
         UserPanel userPanel = new UserPanel();
         ManagePanel managePanel = new ManagePanel();
         FindDocumentPanel findDocumentPanel = new FindDocumentPanel();
-        FindBookManage FindBookManage = new FindBookManage();
+        AddBookManage FindBookManage = new AddBookManage();
         ManageDocumentPanel manageDocumentPanel = new ManageDocumentPanel();
 
         DisplayDocumentPanel displayDocumentPanel = new DisplayDocumentPanel();

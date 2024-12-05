@@ -12,7 +12,7 @@ import BTL_OOP.main.ui.users.InFoUserPanel;
 import BTL_OOP.main.models.user.User;
 import BTL_OOP.main.ui.users.UserPanel;
 import BTL_OOP.main.ui.manage.ManagePanel;
-import BTL_OOP.main.ui.manage.FindBookManage;
+import BTL_OOP.main.ui.manage.AddBookManage;
 import BTL_OOP.main.models.user.Manage;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -294,7 +294,7 @@ public class LoginPanel extends JPanel {
         } else {
             LoginPanel.userOverAll = manage.getUserByUsername(accountUser);
             ManagePanel.setUsername(userOverAll.getName());
-            FindBookManage.setDefaultInfo();
+            AddBookManage.setDefaultInfo();
             InFoUserPanel.setDefaultInfo();
             isManage = true;
             cardLayout.show(mainPanel, "managePanel");
@@ -325,7 +325,7 @@ public class LoginPanel extends JPanel {
      * Cập nhật thông tin tài khoản chung lên các trang khác.
      */
     public static void updateAccount() {
-        FindBookManage.user = userOverAll;
+        AddBookManage.user = userOverAll;
 //        ManagePanel.user = userOverAll;
         TransactionDAO.user = userOverAll;
         FindDocumentPanel.displayRecommentDocument();

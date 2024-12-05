@@ -12,7 +12,7 @@ import BTL_OOP.main.database.Transaction;
 import BTL_OOP.main.models.document.Document;
 import BTL_OOP.main.services.CheckInput;
 import BTL_OOP.main.ui.manage.EditImage;
-import static BTL_OOP.main.ui.manage.FindBookManage.user;
+import static BTL_OOP.main.ui.manage.AddBookManage.user;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Image;

@@ -8,7 +8,7 @@ import BTL_OOP.main.Main;
 import BTL_OOP.main.ui.login.LoginPanel;
 import BTL_OOP.main.dao.TransactionDAO;
 import BTL_OOP.main.models.document.RenderDocument;
-import BTL_OOP.main.ui.manage.FindBookManage;
+import BTL_OOP.main.ui.manage.AddBookManage;
 import BTL_OOP.main.dao.DocumentDAO;
 import BTL_OOP.main.models.document.Document;
 import BTL_OOP.main.ui.manage.EditImage;

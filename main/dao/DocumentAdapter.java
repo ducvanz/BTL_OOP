@@ -7,7 +7,7 @@ import BTL_OOP.main.models.document.Thesis;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DocumentFactory {
+public class DocumentAdapter {
     // Tạo tài liệu từ kết quả trả về từ CSDL
     public static Document createDocument(ResultSet resultSet) throws SQLException {
         int documentID = resultSet.getInt("documentID");

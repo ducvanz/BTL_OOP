@@ -43,12 +43,12 @@ import javax.swing.table.TableCellRenderer;
  *
  * @author Admin
  */
-public class FindBookManage extends javax.swing.JPanel implements EditImage {
+public class AddBookManage extends javax.swing.JPanel implements EditImage {
     private final Connection connection;
     private final JPanel mainPanel;
     public static User user;
     
-    public FindBookManage() {
+    public AddBookManage() {
         initComponents();
         this.connection = Main.connection;
         this.mainPanel = Main.mainPanel;
@@ -113,7 +113,7 @@ public class FindBookManage extends javax.swing.JPanel implements EditImage {
         try {
             // Địa chỉ ảnh mặc định
             //String imagePath = "C:\\Users\\Admin\\NetBean\\DEMO_BTL\\src\\BTL_OOP\\image\\" + ima; 
-            String imagePath = "C:\\Users\\Admin\\NetBean\\BTL2\\src\\BTL_OOP\\image\\";
+            String imagePath = "C:\\Users\\Admin\\NetBean\\BTL2\\src\\BTL_OOP\\image\\" + ima;
            // String imagePath = "C:\\Users\\thinh\\JAVA\\SWING\\src\\BTL_OOP\\image\\" + ima;  // Thay đổi đường dẫn ảnh mặc định của bạn
 
             // Đọc ảnh từ file
