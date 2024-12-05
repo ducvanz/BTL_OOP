@@ -47,7 +47,11 @@
   ![image](https://github.com/user-attachments/assets/e1b9f74d-cb72-4d6f-bbd1-30e59f8d55e1)
 
   4. Cài đặt cơ sở dữ liệu
-  
+   + Sơ đồ thiết kế cơ sở dữ liệu
+       ![Sơ đồ thiết kế cơ sở dữ liệu](https://raw.githubusercontent.com/NgoVietThuyet/BigProject/master/z6095725055332_e5292ff43c26e3bacb34af3807381093.jpg)
+   + Code cơ sở dữ liệu:
+     https://github.com/NgoVietThuyet/BigProject/commit/813613339daa1574630e965132e46fe0de4fd23b#diff-525673b172f082a4c38228fee5b07a98de7141f5153c6564a3ee929838e81056
+     
   5. Chạy dự án
   - ![image](https://github.com/user-attachments/assets/eaf38827-c2a5-478a-8f41-511359727ae3)
 # IV. SỬ DỤNG
@@ -69,7 +73,7 @@ Trang chủ -> Các trang giao diện khác.
    + Kênh YouTube JMaster IO: https://www.youtube.com/watch?v=QmHBWBA_w-I&list=PLsfLgp1K1xQ7dDUcjtlRQhZJxl0orbEsd
      
 # VI. ĐÓNG GÓP
-- File báo cáo đóng góp của mỗi thành viên nhóm 11 trong dự án:
+- File báo cáo đóng góp của mỗi thành viên nhóm 11 trong dự án: https://docs.google.com/document/d/1deQDBUQGQr3qMPy7O7aZpskxVafcZPo1GDZXmYtsFzw/edit?tab=t.0
 
 # VII. LIÊN HỆ
 - Ngọ Viết Thuyết : 23021730@vnu.edu.vn
