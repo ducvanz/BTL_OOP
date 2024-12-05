@@ -37,6 +37,7 @@
   +  Ngôn ngữ lập trình Java.
   +  MySQL.
   +  Các thư viện hỗ trợ khác.
+  +  IDE: Netbean
 ## Hướng dẫn cài đặt
   1. Clone dự án
   https://github.com/ducvanz/BTL_OOP.git
