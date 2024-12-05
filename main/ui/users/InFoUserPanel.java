@@ -7,11 +7,11 @@ package BTL_OOP.main.ui.users;
 import BTL_OOP.main.Main;
 import BTL_OOP.main.ui.login.LoginPanel;
 import BTL_OOP.main.models.user.User;
-import BTL_OOP.main.ui.manage.FindBookManage;
 import BTL_OOP.main.dao.ManageDAO;
 import BTL_OOP.main.database.Transaction;
 import BTL_OOP.main.models.document.Document;
 import BTL_OOP.main.services.CheckInput;
+import BTL_OOP.main.ui.manage.EditImage;
 import static BTL_OOP.main.ui.manage.FindBookManage.user;
 import java.awt.CardLayout;
 import java.awt.Dimension;
@@ -33,7 +33,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author ngothuyet
  */
-public class InFoUserPanel extends javax.swing.JPanel {
+public class InFoUserPanel extends javax.swing.JPanel implements EditImage {
     
     private final JPanel mainPanel;
     public static User beforeUpdateUser;
@@ -44,7 +44,7 @@ public class InFoUserPanel extends javax.swing.JPanel {
         initComponents();
         this.mainPanel = Main.mainPanel;
         isFromInfoUser = false;
-        setAvata();
+        resizeLabelIcon(avataJlabel, 60, 60);
     }
     
     public static void displayBorrowedDocument() {
@@ -558,10 +558,6 @@ public class InFoUserPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    public void setAvata() {
-        FindBookManage.resizeLabelIcon(avataJlabel, 60, 60);
-    }
-    
     /**
      * Nhấn nút back kiểm tra trạng thái và quay lại.
      * @param evt 

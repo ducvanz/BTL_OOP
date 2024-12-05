@@ -11,6 +11,7 @@ import BTL_OOP.main.models.document.RenderDocument;
 import BTL_OOP.main.ui.manage.FindBookManage;
 import BTL_OOP.main.dao.DocumentDAO;
 import BTL_OOP.main.models.document.Document;
+import BTL_OOP.main.ui.manage.EditImage;
 import java.awt.CardLayout;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -23,7 +24,7 @@ import javax.swing.JPanel;
  *
  * @author thinh
  */
-public class UserPanel extends JPanel {
+public class UserPanel extends JPanel implements EditImage {
 
     private final JPanel mainPanel;
     public static RenderDocument render;
@@ -34,7 +35,7 @@ public class UserPanel extends JPanel {
         this.mainPanel = Main.mainPanel;
         render = new RenderDocument();
         enterLogin();
-        setAvata();
+        resizeLabelIcon(avata, 60, 60);
     }
 
     
@@ -359,9 +360,6 @@ public class UserPanel extends JPanel {
         UserPanel_.getAccessibleContext().setAccessibleName("userPanel");
     }// </editor-fold>//GEN-END:initComponents
 
-    private void setAvata() {
-        FindBookManage.resizeLabelIcon(avata, 60, 60);
-    }
     private void mouseClickedFindDoucument(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mouseClickedFindDoucument
 
         CardLayout cl = (CardLayout) mainPanel.getLayout(); // Lấy CardLayout

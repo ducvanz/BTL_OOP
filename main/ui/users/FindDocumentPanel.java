@@ -12,6 +12,7 @@ import BTL_OOP.main.models.document.RenderDocument;
 import BTL_OOP.main.ui.manage.FindBookManage;
 import BTL_OOP.main.models.document.Document;
 import BTL_OOP.main.models.document.RecommentDocument;
+import BTL_OOP.main.ui.manage.EditImage;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -24,7 +25,7 @@ import javax.swing.*;
  *
  * @author thinh
  */
-public class FindDocumentPanel extends JPanel{
+public class FindDocumentPanel extends JPanel implements EditImage {
     private final JPanel mainPanel;
     private final DefaultListModel<Document> listModel;
     private static RenderDocument render;
@@ -45,7 +46,7 @@ public class FindDocumentPanel extends JPanel{
 
     
     public void setAvata() {
-        FindBookManage.resizeLabelIcon(avata, 56, 56);
+        resizeLabelIcon(avata, 56, 56);
     }
 
     /**

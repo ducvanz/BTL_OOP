@@ -26,7 +26,7 @@ import javax.swing.JPanel;
  *
  * @author thinh
  */
-public class ManagePanel extends javax.swing.JPanel {
+public class ManagePanel extends javax.swing.JPanel implements EditImage {
     private final JPanel mainPanel;
     public static RenderDocument render;
     
@@ -410,7 +410,7 @@ public class ManagePanel extends javax.swing.JPanel {
      * Set size cho avata phù hợp với lích thước của label.
      */
     private void setAvata() {
-        FindBookManage.resizeLabelIcon(inFoManageLabel, 60, 60);
+        resizeLabelIcon(inFoManageLabel, 60, 60);
     }
     
     /**

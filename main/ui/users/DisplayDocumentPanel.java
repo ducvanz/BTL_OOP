@@ -448,21 +448,17 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
 
         if (document.getImage()!= null) {
             DocumentDAO.displayImageFromBytes(document.getImage(), imageDocumentJLabel);
-//            System.out.println("Ảnh từ csdl image");
-
         } else if (!document.getImageLink().equals("N/A")){
             API.displayImage(document, imageDocumentJLabel);
         } else {
 
-//            System.out.println("Ảnh mặc định");
-            //Sua dong dnay 
-            loadImageFromFilePath(imageDocumentJLabel, "C:\\Users\\thinh\\JAVA\\SWING\\src\\BTL_OOP\\image\\Screenshot_63.png");
+            loadImageFromFilePath(imageDocumentJLabel,
+                    "C:\\Users\\thinh\\JAVA\\SWING\\src\\BTL_OOP\\image\\Screenshot_63.png");
 
 
         }
         
         if (document instanceof Book) {
-//            System.out.println("OK");
             Book book = (Book) document;
             ISBN.setText("ISBN");
             ISBNJLabel.setText(book.getISBN());
@@ -485,8 +481,6 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
         
         user.reset();
         for (Transaction transaction : user.getLoanList()) {
-//            transaction.toString();
-//                    System.out.println("docID: " + document.getID() + " ** " + transaction.getDocumentID());
                     if (document.getID() == transaction.getDocumentID()) {
                         borrowButton.setText("Đang mượn");
                         return;
@@ -585,7 +579,8 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String returnedDate= returned.format(formatter);
 
-        Transaction transaction = new Transaction(0,user.getID(), document.getID(), borrowedDateString, returnedDateString, "borrowed");
+        Transaction transaction = new Transaction(0,user.getID(), document.getID(),
+                borrowedDateString, returnedDateString, "borrowed");
 
         user.returnDocument(transaction, returnedDate);
         returnDialog.setVisible(false);

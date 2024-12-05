@@ -43,7 +43,7 @@ import javax.swing.table.TableCellRenderer;
  *
  * @author Admin
  */
-public class FindBookManage extends javax.swing.JPanel {
+public class FindBookManage extends javax.swing.JPanel implements EditImage {
     private final Connection connection;
     private final JPanel mainPanel;
     public static User user;
@@ -69,37 +69,6 @@ public class FindBookManage extends javax.swing.JPanel {
     }
     
     
-    /**
-     * Set kích thước cho icon ở trong nút.
-     * @param button nút
-     * @param width rộng ảnh
-     * @param height image
-     */
-    public static void resizeButtonIcon(JButton button, int width, int height) {
-        ImageIcon icon = (ImageIcon) button.getIcon(); // Lấy icon đã đặt qua phần Design
-        if (icon != null) {
-            Image scaledImage = icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
-            button.setIcon(new ImageIcon(scaledImage)); 
-            
-            button.setHorizontalTextPosition(SwingConstants.LEFT);
-        }
-    }
-    
-    /**
-     * set kích thước cho icon trong jlabel
-     * @param label 
-     * @param width
-     * @param height 
-     */
-    public static void resizeLabelIcon(JLabel label, int width, int height) {
-        ImageIcon icon = (ImageIcon) label.getIcon(); // Lấy icon đã đặt qua phần Design
-        if (icon != null) {
-            Image scaledImage = icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
-            label.setIcon(new ImageIcon(scaledImage)); 
-            
-            label.setHorizontalTextPosition(SwingConstants.LEFT);
-        }
-    }
     
     /**
      * Set backgroud cho menu
@@ -143,9 +112,9 @@ public class FindBookManage extends javax.swing.JPanel {
     public void desDefault(String ima, JLabel label) {
         try {
             // Địa chỉ ảnh mặc định
-//            String imagePath = "C:\\Users\\Admin\\NetBean\\DEMO_BTL\\src\\BTL_OOP\\image\\" + ima; 
-
-            String imagePath = "C:\\Users\\thinh\\JAVA\\SWING\\src\\BTL_OOP\\image\\" + ima;  // Thay đổi đường dẫn ảnh mặc định của bạn
+            //String imagePath = "C:\\Users\\Admin\\NetBean\\DEMO_BTL\\src\\BTL_OOP\\image\\" + ima; 
+            String imagePath = "C:\\Users\\Admin\\NetBean\\BTL2\\src\\BTL_OOP\\image\\";
+           // String imagePath = "C:\\Users\\thinh\\JAVA\\SWING\\src\\BTL_OOP\\image\\" + ima;  // Thay đổi đường dẫn ảnh mặc định của bạn
 
             // Đọc ảnh từ file
             Image image = ImageIO.read(new File(imagePath));
@@ -734,10 +703,6 @@ public class FindBookManage extends javax.swing.JPanel {
                     JOptionPane.QUESTION_MESSAGE);
                     
                     if (results == JOptionPane.YES_OPTION) {
-//                        List<Book> list = Abook.searchBooks(con, Abook.getTitle(),
-//                                Abook.getAuthor(), Abook.getISBN(), Abook.getPublisher(), 
-//                                Abook.getPublishedDate(), Abook.getCategory(), Abook.getLanguage());
-                        
                         List<Document> list = API.getArrayDocument(Abook.getTitle(), Abook.getAuthor(), Abook.getISBN(), Abook.getCategory(), Abook.getLanguage());
                         if (!list.isEmpty()) {
                             JOptionPane.showMessageDialog(null, "Thông tin tài liệu đã tồn lại trong cơ sở dữ liệu");

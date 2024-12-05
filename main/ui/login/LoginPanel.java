@@ -37,7 +37,8 @@ public class LoginPanel extends JPanel {
     private TransactionDAO transactionDAO;
     private CardLayout cardLayout;
     public static Manage manage = new Manage();
-    public static final String link = "C:\\Users\\thinh\\JAVA\\SWING\\src\\BTL_OOP\\image\\";
+    //public static final String link = "C:\\Users\\thinh\\JAVA\\SWING\\src\\BTL_OOP\\image\\";
+    public static final String link = "C:\\Users\\Admin\\NetBean\\BTL2\\src\\BTL_OOP\\image\\";
 
     
     public LoginPanel() {
@@ -130,7 +131,7 @@ public class LoginPanel extends JPanel {
 
         thongbaodangnhapsai.setFont(new java.awt.Font("Segoe UI", 2, 10)); // NOI18N
 
-        signupInLoginLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        signupInLoginLabel.setFont(new java.awt.Font("Corbel Light", 1, 12)); // NOI18N
         signupInLoginLabel.setForeground(new java.awt.Color(0, 153, 255));
         signupInLoginLabel.setText("Đăng ký");
         signupInLoginLabel.setToolTipText("");
@@ -176,18 +177,15 @@ public class LoginPanel extends JPanel {
             .addGroup(windowLoginPanelLayout.createSequentialGroup()
                 .addGroup(windowLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(loginLabelPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(windowLoginPanelLayout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(accountInLoginLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(windowLoginPanelLayout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(passwordInLoginLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(windowLoginPanelLayout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(accountInLoginTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(windowLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(loginButton)
-                        .addComponent(loginButtonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(loginButtonPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(windowLoginPanelLayout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addGroup(windowLoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(accountInLoginLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(passwordInLoginLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(accountInLoginTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, windowLoginPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -237,7 +235,7 @@ public class LoginPanel extends JPanel {
                 .addComponent(librarynameInLoginLabel)
                 .addGap(43, 43, 43)
                 .addComponent(windowLoginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(160, Short.MAX_VALUE))
+                .addContainerGap(161, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
