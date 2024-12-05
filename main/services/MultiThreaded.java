@@ -38,10 +38,10 @@ public class MultiThreaded {
      * @param language
      * @return 
      */
-    public static ArrayList<Document> getArrayDocumentFromDB(String title, String author, 
+    public static ArrayList<Document> getArrayDocumentFromDatabase(String title, String author, 
             String ISBN, String category, String language) {
         // Logic lấy dữ liệu từ CSDL
-        ArrayList<Document> result = DocumentDAO.getAllDocumentInDB(title, author, ISBN, category, language);
+        ArrayList<Document> result = DocumentDAO.getAllDocumentInDatabase(title, author, ISBN, category, language);
         System.out.println("Fetching from Database...");
         try {
             Thread.sleep(1000); // Giả lập thời gian lấy dữ liệu
@@ -66,7 +66,7 @@ public class MultiThreaded {
         // Kết hợp kết quả
         ArrayList<Document> allResults = new ArrayList<>();
             System.out.println("false");
-            ArrayList<Document> dbResults = getArrayDocumentFromDB(title, author, ISBN, category, language);
+            ArrayList<Document> dbResults = getArrayDocumentFromDatabase(title, author, ISBN, category, language);
             dbResults = dbResults != null ? dbResults : new ArrayList<>();
             allResults.addAll(dbResults);
 

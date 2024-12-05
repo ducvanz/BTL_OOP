@@ -90,6 +90,7 @@ public class Transaction {
         return Objects.hash(transactionID, userID, documentID, borrowedDate, returnedDate, status);
     }
 
+    // So sánh các transaction
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;

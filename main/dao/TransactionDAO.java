@@ -200,7 +200,7 @@ public class TransactionDAO {
         for (int i = 0; i < Math.min(6, sortedList.size()); i++) {
             topDocuments.add(sortedList.get(i).getKey());
         }
-        System.out.println("Đã lọc ra 6 tài liệu top");
+//        System.out.println("Đã lọc ra 6 tài liệu top");
         return topDocuments;
     }
     
@@ -232,7 +232,6 @@ public class TransactionDAO {
 
         ArrayList<Document> allDocuments = documentDAO.getAllDocuments();
         ArrayList<Document> resultDocuments = new ArrayList<>();
-
         // Sử dụng HashSet để kiểm tra nhanh sự tồn tại của documentID
         Set<Integer> documentIdSet = new HashSet<>(documentIds);
 
@@ -242,7 +241,6 @@ public class TransactionDAO {
                 resultDocuments.add(document);
             }
         }
-
         // Nếu số lượng tài liệu ít hơn 6, thêm các tài liệu chưa mượn
         if (resultDocuments.size() < 6) {
             Set<Integer> alreadyBorrowedDocumentIds = new HashSet<>();
@@ -256,7 +254,6 @@ public class TransactionDAO {
                 if (resultDocuments.size() >= 6) break; // Nếu đủ 6 tài liệu, thoát vòng lặp
             }
         }
-
         // Nếu số lượng tài liệu vẫn chưa đủ 6, thêm tài liệu ngẫu nhiên từ thư viện
         if (resultDocuments.size() < 6) {
             Random random = new Random();
@@ -268,7 +265,6 @@ public class TransactionDAO {
                 }
             }
         }
-
         // Trả về 6 tài liệu
         return new ArrayList<>(resultDocuments.subList(0, 6));
     }    

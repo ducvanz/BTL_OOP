@@ -69,86 +69,98 @@ public class Book extends Document {
      * @return danh sách tài liệu phù hợp
      */
     public List<Book> searchBooks(Connection con, String title, String author, String isbn, 
-            String publisher, String yearPublished, String category, String language) {
+        String publisher, String yearPublished, String category, String language) {
         List<Book> books = new ArrayList<>();
-        try {
-            // Xây dựng câu truy vấn SQL với các điều kiện động
-            StringBuilder query = new StringBuilder("SELECT * FROM document join book on document.documentID = book.ID WHERE 1=1");
 
-            // Thêm điều kiện nếu tham số không rỗng
-            if (!title.isEmpty()) {
-                query.append(" AND title LIKE ?");
-            }
-            if (!author.isEmpty()) {
-                query.append(" AND author LIKE ?");
-            }
-            if (!isbn.isEmpty()) {
-                query.append(" AND isbn = ?");
-            }
-            if (!publisher.isEmpty()) {
-                query.append(" AND publisher LIKE ?");
-            }
-            if (!yearPublished.isEmpty()) {
-                query.append(" AND publishedDate = ?");
-            }
-            if (!category.isEmpty()) {
-                query.append(" AND category LIKE ?");
-            }
-            if (!language.isEmpty()) {
-                query.append(" AND language = ?");
-            }
-
-            PreparedStatement stmt = con.prepareStatement(query.toString());
-
-            // Đặt giá trị tham số vào PreparedStatement
-            int paramIndex = 1;
-            if (!title.isEmpty()) {
-                stmt.setString(paramIndex++, "%" + title + "%");
-            }
-            if (!author.isEmpty()) {
-                stmt.setString(paramIndex++, "%" + author + "%");
-            }
-            if (!isbn.isEmpty()) {
-                stmt.setString(paramIndex++, isbn);
-            }
-            if (!publisher.isEmpty()) {
-                stmt.setString(paramIndex++, "%" + publisher + "%");
-            }
-            if (!yearPublished.isEmpty()) {
-                stmt.setString(paramIndex++, yearPublished);
-            }
-            if (!category.isEmpty()) {
-                stmt.setString(paramIndex++, "%" + category + "%");
-            }
-            if (!language.isEmpty()) {
-                stmt.setString(paramIndex++, language);
-            }
-
-            // Thực thi truy vấn
-            ResultSet rs = stmt.executeQuery();
-
-            // Duyệt qua kết quả và thêm vào danh sách sách
-            while (rs.next()) {
-                Book book = new Book();
-                book.setTitle(rs.getString("title"));
-                book.setAuthor(rs.getString("author"));
-                book.setISBN(rs.getString("isbn"));
-                book.setPublisher(rs.getString("publisher"));
-                book.setPublishedDate(rs.getString("publishedDate"));
-                book.setCategory(rs.getString("category"));
-                book.setLanguage(rs.getString("language"));
-                books.add(book);
-            }
-
-            rs.close();
-            stmt.close();
+        try (PreparedStatement stmt = buildPreparedStatement(con, title, author, isbn, publisher, yearPublished, category, language);
+            ResultSet rs = stmt.executeQuery()) {
+            books = mapResultSetToBooks(rs);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        // Trả về danh sách sách, nếu không có sách nào thì trả về danh sách rỗng
+        return books; // Trả về danh sách sách (rỗng nếu không có kết quả)
+    }
+
+    // Hàm xây dựng câu truy vấn SQL động
+    private String buildDynamicQuery(String title, String author, String isbn, 
+                                     String publisher, String yearPublished, String category, String language) {
+        StringBuilder query = new StringBuilder("SELECT * FROM document JOIN book ON document.documentID = book.ID WHERE 1=1");
+
+        if (title != null && !title.isEmpty()) {
+            query.append(" AND title LIKE ?");
+        }
+        if (author != null && !author.isEmpty()) {
+            query.append(" AND author LIKE ?");
+        }
+        if (isbn != null && !isbn.isEmpty()) {
+            query.append(" AND isbn = ?");
+        }
+        if (publisher != null && !publisher.isEmpty()) {
+            query.append(" AND publisher LIKE ?");
+        }
+        if (yearPublished != null && !yearPublished.isEmpty()) {
+            query.append(" AND publishedDate = ?");
+        }
+        if (category != null && !category.isEmpty()) {
+            query.append(" AND category LIKE ?");
+        }
+        if (language != null && !language.isEmpty()) {
+            query.append(" AND language = ?");
+        }
+
+        return query.toString();
+    }
+
+    // Hàm chuẩn bị PreparedStatement
+    private PreparedStatement buildPreparedStatement(Connection con, String title, String author, String isbn, 
+                                                     String publisher, String yearPublished, String category, String language) throws SQLException {
+        String query = buildDynamicQuery(title, author, isbn, publisher, yearPublished, category, language);
+        PreparedStatement stmt = con.prepareStatement(query);
+
+        int paramIndex = 1;
+        if (title != null && !title.isEmpty()) {
+            stmt.setString(paramIndex++, "%" + title + "%");
+        }
+        if (author != null && !author.isEmpty()) {
+            stmt.setString(paramIndex++, "%" + author + "%");
+        }
+        if (isbn != null && !isbn.isEmpty()) {
+            stmt.setString(paramIndex++, isbn);
+        }
+        if (publisher != null && !publisher.isEmpty()) {
+            stmt.setString(paramIndex++, "%" + publisher + "%");
+        }
+        if (yearPublished != null && !yearPublished.isEmpty()) {
+            stmt.setString(paramIndex++, yearPublished);
+        }
+        if (category != null && !category.isEmpty()) {
+            stmt.setString(paramIndex++, "%" + category + "%");
+        }
+        if (language != null && !language.isEmpty()) {
+            stmt.setString(paramIndex++, language);
+        }
+
+        return stmt;
+    }
+
+    // Hàm ánh xạ ResultSet sang danh sách Book
+    private List<Book> mapResultSetToBooks(ResultSet rs) throws SQLException {
+        List<Book> books = new ArrayList<>();
+        while (rs.next()) {
+            Book book = new Book();
+            book.setTitle(rs.getString("title"));
+            book.setAuthor(rs.getString("author"));
+            book.setISBN(rs.getString("isbn"));
+            book.setPublisher(rs.getString("publisher"));
+            book.setPublishedDate(rs.getString("publishedDate"));
+            book.setCategory(rs.getString("category"));
+            book.setLanguage(rs.getString("language"));
+            books.add(book);
+        }
         return books;
     }
+
     
     /**
      * Thêm tài liệu vào cơ sở dữ liệu.
@@ -158,17 +170,13 @@ public class Book extends Document {
     public void addBook(Connection con, Book book) {
         String insertBookQuery = "INSERT INTO document (documentID, title, author, publisher, publishedDate, quantity, language, category, description) " +
                                  "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        System.out.println(book.getImageLink());
-
+//        System.out.println(book.getImageLink());
         String insertDocumentQuery = "INSERT INTO book (ID, ISBN) VALUES (?, ?)";
         String getMaxDocumentIDQuery = "SELECT MAX(documentID) FROM document";
-
         try {
             // Bắt đầu giao dịch
             con.setAutoCommit(false);
-
             int newDocumentID = 1; // Mặc định là 1 nếu bảng trống
-
             // Lấy giá trị documentID lớn nhất
             try (PreparedStatement stmt = con.prepareStatement(getMaxDocumentIDQuery);
                  ResultSet rs = stmt.executeQuery()) {
@@ -178,7 +186,6 @@ public class Book extends Document {
                     newDocumentID = rs.getInt(1) + 1;
                 }
             }
-
             // Thêm sách vào bảng `document`
             try (PreparedStatement bookStmt = con.prepareStatement(insertBookQuery)) {
                 bookStmt.setInt(1, newDocumentID);
@@ -194,14 +201,12 @@ public class Book extends Document {
 
                 bookStmt.executeUpdate();
             }
-
             // Thêm dữ liệu vào bảng `book`
             try (PreparedStatement docStmt = con.prepareStatement(insertDocumentQuery)) {
                 docStmt.setInt(1, newDocumentID);
                 docStmt.setString(2, book.getISBN());
                 docStmt.executeUpdate();
             }
-
             // Commit giao dịch
             con.commit();
             System.out.println("Book and document added successfully!");
@@ -224,7 +229,5 @@ public class Book extends Document {
         }
 
     }
-
-
-    
+   
 }

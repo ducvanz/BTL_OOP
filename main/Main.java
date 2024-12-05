@@ -38,6 +38,7 @@ public final class Main extends JFrame {
         init();
     }
 
+    // Khởi tạo và thêm các panel vào mainPanel
     public void init() {
         mainFrame = new JFrame();
         cardLayout = new CardLayout();

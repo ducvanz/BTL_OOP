@@ -264,11 +264,9 @@ public class LoginPanel extends JPanel {
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
 
         loginButton.setText("Đợi...");
-
         String accountUser = accountInLoginTextField.getText();
         char[] passWordUser = passwordInLoginPasswordField.getPassword();
-        String pass = new String(passWordUser);
-        
+        String pass = new String(passWordUser);    
         /**
          * Check account.
          * 0: invalid
@@ -282,25 +280,20 @@ public class LoginPanel extends JPanel {
         } else {
             // check mk user
             check = AuthenticationService.accountLogin(accountUser, pass, 1, connection);
-        }
-        
+        }        
         userOverAll.setUsername(accountUser);
         // kiem tra tai khoan
         if (check == 0) {
             thongbaodangnhapsai.setText("Tài khoản hoặc mật khẩu chưa chính xác");
             loginButton.setText("ĐĂNG NHẬP");
             passwordInLoginPasswordField.setText("");
-        } else if (check == 1) {
-            
+        } else if (check == 1) {           
             LoginPanel.userOverAll = manage.getUserByUsername(accountUser);
             UserPanel.setUsername(userOverAll.getName());
             cardLayout.show(mainPanel, "userPanel");
             updateAccount();
-            resetLogin();
-
-            
+            resetLogin();        
         } else {
-
             LoginPanel.userOverAll = manage.getUserByUsername(accountUser);
             ManagePanel.setUsername(userOverAll.getName());
             FindBookManage.setDefaultInfo();
@@ -309,7 +302,6 @@ public class LoginPanel extends JPanel {
             cardLayout.show(mainPanel, "managePanel");
             updateAccount();
             resetLogin();
-
         }
         // set pane logi
         loginButton.setText("ĐĂNG NHẬP");
@@ -317,11 +309,9 @@ public class LoginPanel extends JPanel {
         passwordInLoginPasswordField.setText("");
     }//GEN-LAST:event_loginButtonActionPerformed
 
-
     private void manageRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_manageRadioButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_manageRadioButtonActionPerformed
-
 
     /**
      * Reset lại trang về mặc định.
