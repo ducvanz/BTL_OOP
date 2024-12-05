@@ -18,7 +18,7 @@ import java.util.Random;
  *
  * @author thinh
  */
-public class RecommentDocument {
+public class RecommendDocument {
     public ArrayList<Document> getRecommendations(ArrayList<Document> history,
         ArrayList<Document> allDocument, int total) {
         Map<String, Integer> keyword = Collections.synchronizedMap(new HashMap<>());

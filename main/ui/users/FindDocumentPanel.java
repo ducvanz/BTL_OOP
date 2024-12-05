@@ -10,7 +10,7 @@ import BTL_OOP.main.ui.login.LoginPanel;
 import BTL_OOP.main.models.document.RenderDocument;
 import BTL_OOP.main.ui.manage.AddBookManage;
 import BTL_OOP.main.models.document.Document;
-import BTL_OOP.main.models.document.RecommentDocument;
+import BTL_OOP.main.models.document.RecommendDocument;
 import BTL_OOP.main.ui.manage.EditImage;
 import java.awt.*;
 import java.util.ArrayList;
@@ -62,7 +62,7 @@ public class FindDocumentPanel extends JPanel implements EditImage {
         worker = new SwingWorker<ArrayList<Document>, Void>() {
             @Override
             protected ArrayList<Document> doInBackground() throws Exception {
-                ArrayList<Document> result = RecommentDocument.searchDocument(title, author, ISBN, category, language);
+                ArrayList<Document> result = RecommendDocument.searchDocument(title, author, ISBN, category, language);
                 if (result == null){
                     return null;
                 }
@@ -153,7 +153,7 @@ public class FindDocumentPanel extends JPanel implements EditImage {
         ArrayList<Document> history = new ArrayList<>(mergedDocuments);
         
         // Lấy danh sách các tài liệu gợi ý
-        RecommentDocument rcm = new RecommentDocument();
+        RecommendDocument rcm = new RecommendDocument();
         ArrayList<Document> rcmDocument = rcm.getRecommendations(history, allDocument, 8);
         // Lấy Map chứa các JLabel cho tiêu đề và ảnh
         Map<JLabel, JLabel> labelMap = getListRecomentDocumentJLabel();
