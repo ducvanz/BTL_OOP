@@ -7,7 +7,6 @@ package BTL_OOP.main.ui.users;
 import BTL_OOP.main.Main;
 import BTL_OOP.main.dao.DocumentDAO;
 import BTL_OOP.main.ui.login.LoginPanel;
-import BTL_OOP.main.services.MultiThreaded;
 import BTL_OOP.main.models.document.RenderDocument;
 import BTL_OOP.main.ui.manage.AddBookManage;
 import BTL_OOP.main.models.document.Document;
@@ -63,7 +62,7 @@ public class FindDocumentPanel extends JPanel implements EditImage {
         worker = new SwingWorker<ArrayList<Document>, Void>() {
             @Override
             protected ArrayList<Document> doInBackground() throws Exception {
-                ArrayList<Document> result =MultiThreaded.searchDocument(title, author, ISBN, category, language);
+                ArrayList<Document> result = RecommentDocument.searchDocument(title, author, ISBN, category, language);
                 if (result == null){
                     return null;
                 }
@@ -79,7 +78,6 @@ public class FindDocumentPanel extends JPanel implements EditImage {
                         for (Document doc : arrDocument) {
                             listModel.addElement(doc);
                         }
-                        System.out.println("SĨE" + listModel.getSize());
                         if (arrDocument.size() > 0) {
                             // Cập nhật giao diện trong SwingUtilities.invokeLater
                             SwingUtilities.invokeLater(() -> {

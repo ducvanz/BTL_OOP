@@ -92,7 +92,7 @@ public class DocumentDAO {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     // Thực hiện truy vấn và lấy tài liệu
-                    Document document = DocumentAdapter.createDocument(resultSet);
+                    Document document = DocumentQueryBuilder.createDocument(resultSet);
                     if (document != null) {
                         documents.add(document);
                     }
@@ -175,8 +175,9 @@ public class DocumentDAO {
      * @param imageUrl link ảnh
      */
     public void addDocument(Document doc, String imageUrl) {
-        String insertDocumentQuery = "INSERT INTO Document (title, author, publisher, publishedDate, quantity, category, language, description, imageLink) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String insertDocumentQuery = "INSERT INTO Document (title, author, publisher, publishedDate, quantity, category, language, description, imageLink, image) " +
+                             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
 
         String insertBookQuery = "INSERT INTO Book (ID, ISBN) VALUES (?, ?)";
         String insertThesisQuery = "INSERT INTO Thesis (ID, degree, university) VALUES (?, ?, ?)";

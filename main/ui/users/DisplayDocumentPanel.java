@@ -455,7 +455,6 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
             loadImageFromFilePath(imageDocumentJLabel,
                     "C:\\Users\\thinh\\JAVA\\SWING\\src\\BTL_OOP\\image\\Screenshot_63.png");
 
-
         }
         
         if (document instanceof Book) {
@@ -627,7 +626,7 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
 
                 } else {
                     // Muon sasch
-                    System.out.println("OK3");
+//                    System.out.println("OK3");
                     borrowDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
                     borrowDialog.pack();
                     borrowDialog.setLocationRelativeTo(mainFrame);
@@ -644,14 +643,14 @@ public class DisplayDocumentPanel extends javax.swing.JPanel {
                 }
             } else {
                 //Tra sach
-                System.out.println("OK4");
+//                System.out.println("OK4");
                 returnDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
                 returnDialog.pack();
                 returnDialog.setLocationRelativeTo(mainFrame);
                 returnDialog.setVisible(true);
             }
         } else {
-            System.out.println("OK5");
+//            System.out.println("OK5");
             JOptionPane.showMessageDialog(mainFrame, "Sách không có trong thư viện!", "Thông báo", JOptionPane.WARNING_MESSAGE);
         }
     }

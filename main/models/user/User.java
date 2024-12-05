@@ -116,7 +116,7 @@ public class User {
     }
 
     public boolean isLoanTerm() {
-        if (numberBorrowed < 10) {
+        if (numberBorrowed <= 10) {
             return true;
         }
         return false;

@@ -61,48 +61,50 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
-                          <Component id="questionDiaLog" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="title" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="title1" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="title2" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="title4" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="title3" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="title5" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="adressDialog" alignment="0" min="-2" pref="232" max="-2" attributes="0"/>
-                              <Component id="birthdayDialog" alignment="0" min="-2" pref="232" max="-2" attributes="0"/>
-                              <Component id="phoneDialog" alignment="0" min="-2" pref="232" max="-2" attributes="0"/>
-                              <Component id="emailDialog" alignment="0" min="-2" pref="232" max="-2" attributes="0"/>
-                              <Component id="nameDialog" alignment="0" min="-2" pref="232" max="-2" attributes="0"/>
-                              <Component id="totalDialog" alignment="0" min="-2" pref="232" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="title" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="title1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="title2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="title4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="title3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="title5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="adressDialog" alignment="0" min="-2" pref="232" max="-2" attributes="0"/>
+                                      <Component id="birthdayDialog" alignment="0" min="-2" pref="232" max="-2" attributes="0"/>
+                                      <Component id="phoneDialog" alignment="0" min="-2" pref="232" max="-2" attributes="0"/>
+                                      <Component id="emailDialog" alignment="0" min="-2" pref="232" max="-2" attributes="0"/>
+                                      <Component id="nameDialog" alignment="0" min="-2" pref="232" max="-2" attributes="0"/>
+                                      <Component id="totalDialog" alignment="0" min="-2" pref="232" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
+                                  <Component id="confirmRemove" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="cancelRemove" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
-                          <Component id="confirmRemove" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="cancelRemove" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="questionDiaLog" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="45" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   <Component id="questionDiaLog" min="-2" pref="37" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="title" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="nameDialog" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -137,7 +139,7 @@
                       <Component id="confirmRemove" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cancelRemove" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="47" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -148,7 +150,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="28" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="B&#x1ea1;n mu&#x1ed1;n xo&#xe1; t&#xe0;i li&#x1ec7;u ?"/>
+            <Property name="text" type="java.lang.String" value="B&#x1ea1;n mu&#x1ed1;n x&#xf3;a ng&#x1b0;&#x1edd;i d&#xf9;ng ?"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="title">
@@ -251,14 +253,14 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                           <Component id="questionDiaLog1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="phone" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="title10" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -279,23 +281,24 @@
                               <Component id="totalDialog1" min="-2" pref="232" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
-                          <Component id="confirmEdit" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="cancelEdit" min="-2" max="-2" attributes="0"/>
-                      </Group>
                   </Group>
-                  <EmptySpace pref="69" max="32767" attributes="0"/>
+                  <EmptySpace pref="77" max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Component id="confirmEdit" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="cancelEdit" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="129" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="questionDiaLog1" min="-2" pref="37" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="name" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="nameDialog1" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
@@ -330,12 +333,12 @@
                       <Component id="title12" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="totalDialog1" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="23" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="confirmEdit" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cancelEdit" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                  <EmptySpace pref="69" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -457,10 +460,14 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                          <Component id="questionDiaLog2" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="phone1" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="title11" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -479,28 +486,28 @@
                               <Component id="addressDialog2" alignment="0" min="-2" pref="232" max="-2" attributes="0"/>
                               <Component id="phoneDialog2" alignment="0" min="-2" pref="232" max="-2" attributes="0"/>
                               <Component id="totalDialog2" alignment="0" min="-2" pref="232" max="-2" attributes="0"/>
-                              <Component id="questionDiaLog2" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="accountDialog2" min="-2" pref="232" max="-2" attributes="0"/>
                               <Component id="nameDialog2" min="-2" pref="232" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
-                          <Component id="confirmEdit1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="cancelEdit1" min="-2" max="-2" attributes="0"/>
-                      </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="20" max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Component id="confirmEdit1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="cancelEdit1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                   <Component id="questionDiaLog2" min="-2" pref="37" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="name1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="nameDialog2" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
@@ -545,7 +552,7 @@
                       <Component id="confirmEdit1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cancelEdit1" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
